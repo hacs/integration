@@ -196,6 +196,21 @@ class RepositoryData:
 
     def update_data(self, data: dict, action: bool = False) -> None:
         """Update data of the repository."""
+        # Check for ID changes early - if ID changed, ignore entire dataset
+        if "id" in data and self.hacs.system.generator:
+            new_id = str(data["id"])
+            if (current_id := str(getattr(self, "id", "0"))) != "0" and current_id != new_id:
+                LOGGER.error(
+                    "Repository %s ID changed from %s to %s, skipping data update",
+                    getattr(self, "full_name", "unknown"),
+                    current_id,
+                    new_id,
+                )
+                raise HacsRepositoryIdChangedException(
+                    f"Repository {getattr(self, 'full_name', 'unknown')} "
+                    f"ID changed from {current_id} to {new_id}"
+                )
+
         for key, value in data.items():
             if key not in self.__dict__:
                 continue
@@ -203,19 +218,7 @@ class RepositoryData:
             if key == "last_fetched" and isinstance(value, float):
                 setattr(self, key, datetime.fromtimestamp(value, UTC))
             elif key == "id":
-                new_id = str(value)
-                if self.hacs.system.generator and (current_id := str(getattr(self, "id", "0"))) != "0" and current_id != new_id:
-                    LOGGER.error(
-                        "Repository %s ID changed from %s to %s, skipping data update",
-                        getattr(self, "full_name", "unknown"),
-                        current_id,
-                        new_id,
-                    )
-                    raise HacsRepositoryIdChangedException(
-                        f"Repository {getattr(self, 'full_name', 'unknown')} "
-                        f"ID changed from {current_id} to {new_id}"
-                    )
-                setattr(self, key, new_id)
+                setattr(self, key, str(value))
             elif key == "country":
                 if isinstance(value, str):
                     setattr(self, key, [value])

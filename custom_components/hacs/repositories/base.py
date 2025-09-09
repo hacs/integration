@@ -203,8 +203,7 @@ class RepositoryData:
                 setattr(self, key, datetime.fromtimestamp(value, UTC))
             elif key == "id":
                 new_id = str(value)
-                current_id = str(getattr(self, "id", "0"))
-                if current_id != "0" and current_id != new_id and self.hacs.system.generator:
+                if self.hacs.system.generator and (current_id := str(getattr(self, "id", "0"))) != "0" and current_id != new_id:
                     LOGGER.error(
                         "Repository %s ID changed from %s to %s, skipping data update",
                         getattr(self, "full_name", "unknown"),

@@ -315,7 +315,6 @@ class AdjustedHacs(HacsBase):
                 repository.string,
                 exception,
             )
-            # Mark repository as having ID change to skip data storage
             repository.data._id_changed = True
             return  # Skip this repository
 

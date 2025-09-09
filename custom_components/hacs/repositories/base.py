@@ -196,8 +196,8 @@ class RepositoryData:
     def update_data(self, data: dict, action: bool = False) -> None:
         """Update data of the repository."""
         # Check for ID changes early - if ID changed, ignore entire dataset
-        if "id" in data and self.hacs.system.generator:
-            new_id = str(data["id"])
+        if self.hacs.system.generator and (new_raw_id := data.get("id")) is not None:
+            new_id = str(new_raw_id)
             if (current_id := str(getattr(self, "id", "0"))) != "0" and current_id != new_id:
                 LOGGER.error(
                     "Repository %s ID changed from %s to %s, skipping data update",

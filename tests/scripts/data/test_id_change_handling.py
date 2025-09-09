@@ -53,23 +53,30 @@ async def test_concurrent_update_repository_handles_id_change():
 
 
 @pytest.mark.asyncio
-async def test_store_repository_data_skips_id_changed():
-    """Test that async_store_repository_data skips repositories with ID changes."""
+async def test_store_repository_data_stores_id_changed():
+    """Test that async_store_repository_data stores repositories with ID changes (preserving old data)."""
     # Create mock repository with ID change flag
     repository = MockRepository()
     repository.data._id_changed = True
+    repository.repository_manifest = Mock()
+    repository.data.last_fetched = None
     
-    # Create AdjustedHacsData instance
-    with patch("aiohttp.ClientSession"):
-        hacs = AdjustedHacs(session=Mock(), token="test_token")
-    
-    hacs_data = AdjustedHacsData(hacs=hacs)
-    
-    # Store repository data
-    hacs_data.async_store_repository_data(repository)
-    
-    # Check that no data was stored
-    assert len(hacs_data.content) == 0
+    # Mock the required attributes
+    with patch("scripts.data.generate_category_data.repository_has_missing_keys", return_value=False):
+        with patch("scripts.data.generate_category_data.HACS_MANIFEST_KEYS_TO_EXPORT", []):
+            with patch("scripts.data.generate_category_data.REPOSITORY_KEYS_TO_EXPORT", []):
+                # Create AdjustedHacsData instance
+                with patch("aiohttp.ClientSession"):
+                    hacs = AdjustedHacs(session=Mock(), token="test_token")
+                
+                hacs_data = AdjustedHacsData(hacs=hacs)
+                
+                # Store repository data
+                hacs_data.async_store_repository_data(repository)
+                
+                # Check that old data was still stored despite ID change
+                assert len(hacs_data.content) == 1
+                assert "12345" in hacs_data.content
 
 
 @pytest.mark.asyncio  

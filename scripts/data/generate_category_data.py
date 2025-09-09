@@ -132,9 +132,6 @@ class AdjustedHacsData(HacsData):
     @callback
     def async_store_repository_data(self, repository: HacsRepository) -> dict:
         """Store the repository data."""
-        # Skip repositories that had ID changes
-        if getattr(repository.data, "_id_changed", False):
-            return
             
         data = {"manifest": {}}
         for key, default in HACS_MANIFEST_KEYS_TO_EXPORT:

@@ -27,6 +27,7 @@ from ..exceptions import (
     HacsNotModifiedException,
     HacsRepositoryArchivedException,
     HacsRepositoryExistException,
+    HacsRepositoryIdChangedException,
 )
 from ..types import DownloadableContent
 from ..utils.backup import Backup
@@ -201,7 +202,23 @@ class RepositoryData:
             if key == "last_fetched" and isinstance(value, float):
                 setattr(self, key, datetime.fromtimestamp(value, UTC))
             elif key == "id":
-                setattr(self, key, str(value))
+                new_id = str(value)
+                current_id = str(getattr(self, "id", "0"))
+                if current_id != "0" and current_id != new_id:
+                    # Repository ID has changed, log error and raise exception
+                    from ..exceptions import HacsRepositoryIdChangedException
+                    from ..utils.logger import LOGGER
+                    LOGGER.error(
+                        "Repository %s ID changed from %s to %s, skipping data update",
+                        getattr(self, "full_name", "unknown"),
+                        current_id,
+                        new_id,
+                    )
+                    raise HacsRepositoryIdChangedException(
+                        f"Repository {getattr(self, 'full_name', 'unknown')} "
+                        f"ID changed from {current_id} to {new_id}"
+                    )
+                setattr(self, key, new_id)
             elif key == "country":
                 if isinstance(value, str):
                     setattr(self, key, [value])
@@ -1077,6 +1094,9 @@ class HacsRepository:
             return
         except HacsRepositoryExistException:
             raise HacsRepositoryExistException from None
+        except HacsRepositoryIdChangedException:
+            # Repository ID changed, skip this repository by raising exception
+            raise HacsRepositoryIdChangedException from None
         except (AIOGitHubAPIException, HacsException) as exception:
             if not self.hacs.status.startup or self.hacs.system.generator:
                 self.logger.error("%s %s", self.string, exception)

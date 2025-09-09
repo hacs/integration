@@ -21,6 +21,10 @@ class HacsRepositoryExistException(HacsException):
     """For repositories that are already exist."""
 
 
+class HacsRepositoryIdChangedException(HacsException):
+    """For repositories that have changed their ID."""
+
+
 class HacsExecutionStillInProgress(HacsException):
     """Exception to raise if execution is still in progress."""
 

@@ -27,7 +27,10 @@ from custom_components.hacs.base import HacsBase, HacsRepositories
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.data_client import HacsDataClient
 from custom_components.hacs.enums import HacsGitHubRepo
-from custom_components.hacs.exceptions import HacsExecutionStillInProgress
+from custom_components.hacs.exceptions import (
+    HacsExecutionStillInProgress,
+    HacsRepositoryIdChangedException,
+)
 from custom_components.hacs.repositories.base import (
     HACS_MANIFEST_KEYS_TO_EXPORT,
     REPOSITORY_KEYS_TO_EXPORT,
@@ -129,6 +132,14 @@ class AdjustedHacsData(HacsData):
     @callback
     def async_store_repository_data(self, repository: HacsRepository) -> dict:
         """Store the repository data."""
+        # Skip repositories that had ID changes
+        if getattr(repository.data, "_id_changed", False):
+            self.hacs.log.debug(
+                "%s Skipping data storage due to ID change",
+                repository.string,
+            )
+            return
+            
         data = {"manifest": {}}
         for key, default in HACS_MANIFEST_KEYS_TO_EXPORT:
             if (
@@ -293,10 +304,20 @@ class AdjustedHacs(HacsBase):
                 repository.data.releases = False
                 repository.logger.error("%s %s", repository.string, exception)
 
-        await repository.common_update(
-            force=repository.data.etag_repository is None,
-            skip_releases=repository.data.releases,
-        )
+        try:
+            await repository.common_update(
+                force=repository.data.etag_repository is None,
+                skip_releases=repository.data.releases,
+            )
+        except HacsRepositoryIdChangedException as exception:
+            repository.logger.error(
+                "%s Repository ID has changed, skipping data update: %s",
+                repository.string,
+                exception,
+            )
+            # Mark repository as having ID change to skip data storage
+            repository.data._id_changed = True
+            return  # Skip this repository
 
     async def generate_data_for_category(
         self,

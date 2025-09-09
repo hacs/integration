@@ -204,10 +204,7 @@ class RepositoryData:
             elif key == "id":
                 new_id = str(value)
                 current_id = str(getattr(self, "id", "0"))
-                if current_id != "0" and current_id != new_id:
-                    # Repository ID has changed, log error and raise exception
-                    from ..exceptions import HacsRepositoryIdChangedException
-                    from ..utils.logger import LOGGER
+                if current_id != "0" and current_id != new_id and self.hacs.system.generator:
                     LOGGER.error(
                         "Repository %s ID changed from %s to %s, skipping data update",
                         getattr(self, "full_name", "unknown"),
@@ -1095,7 +1092,6 @@ class HacsRepository:
         except HacsRepositoryExistException:
             raise HacsRepositoryExistException from None
         except HacsRepositoryIdChangedException:
-            # Repository ID changed, skip this repository by raising exception
             raise HacsRepositoryIdChangedException from None
         except (AIOGitHubAPIException, HacsException) as exception:
             if not self.hacs.status.startup or self.hacs.system.generator:

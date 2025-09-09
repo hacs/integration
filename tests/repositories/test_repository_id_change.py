@@ -3,15 +3,14 @@
 import pytest
 
 from custom_components.hacs.exceptions import HacsRepositoryIdChangedException
-from custom_components.hacs.repositories.base import RepositoryData
 
 
-async def test_repository_id_change_detection():
+async def test_repository_id_change_detection(repository):
     """Test that repository ID changes are detected and handled properly."""
-    # Create a repository data object with an existing ID
-    repo_data = RepositoryData()
-    repo_data.id = "12345"
-    repo_data.full_name = "test/repository"
+    # Set up the repository with an existing ID and enable generator mode
+    repository.data.id = "12345"
+    repository.data.full_name = "test/repository"
+    repository.hacs.system.generator = True
     
     # Try to update with a different ID - should raise exception
     github_data = {
@@ -21,7 +20,7 @@ async def test_repository_id_change_detection():
     }
     
     with pytest.raises(HacsRepositoryIdChangedException) as exc_info:
-        repo_data.update_data(github_data)
+        repository.data.update_data(github_data)
     
     # Check the exception message contains the correct information
     assert "test/repository" in str(exc_info.value)
@@ -29,15 +28,15 @@ async def test_repository_id_change_detection():
     assert "67890" in str(exc_info.value)
     
     # Ensure the ID wasn't changed
-    assert repo_data.id == "12345"
+    assert repository.data.id == "12345"
 
 
-async def test_repository_id_same_no_exception():
+async def test_repository_id_same_no_exception(repository):
     """Test that updating with the same ID doesn't raise exception."""
-    # Create a repository data object with an existing ID
-    repo_data = RepositoryData()
-    repo_data.id = "12345"
-    repo_data.full_name = "test/repository"
+    # Set up the repository with an existing ID and enable generator mode
+    repository.data.id = "12345"
+    repository.data.full_name = "test/repository"
+    repository.hacs.system.generator = True
     
     # Try to update with the same ID - should not raise exception
     github_data = {
@@ -47,17 +46,17 @@ async def test_repository_id_same_no_exception():
     }
     
     # Should not raise exception
-    repo_data.update_data(github_data)
+    repository.data.update_data(github_data)
     
     # ID should remain the same
-    assert repo_data.id == "12345"
+    assert repository.data.id == "12345"
 
 
-async def test_repository_id_new_no_exception():
+async def test_repository_id_new_no_exception(repository):
     """Test that setting ID for the first time doesn't raise exception."""
-    # Create a repository data object with default ID (0)
-    repo_data = RepositoryData()
-    assert repo_data.id == 0
+    # Set up the repository with default ID (0) and enable generator mode
+    repository.data.id = 0
+    repository.hacs.system.generator = True
     
     # Set ID for the first time - should not raise exception
     github_data = {
@@ -67,7 +66,28 @@ async def test_repository_id_new_no_exception():
     }
     
     # Should not raise exception
-    repo_data.update_data(github_data)
+    repository.data.update_data(github_data)
     
     # ID should be set
-    assert repo_data.id == "12345"
+    assert repository.data.id == "12345"
+
+
+async def test_repository_id_change_no_generator(repository):
+    """Test that ID changes are ignored when not in generator mode."""
+    # Set up the repository with an existing ID but disable generator mode
+    repository.data.id = "12345"
+    repository.data.full_name = "test/repository"
+    repository.hacs.system.generator = False
+    
+    # Try to update with a different ID - should NOT raise exception when not in generator mode
+    github_data = {
+        "id": 67890,  # Different ID
+        "name": "repository",
+        "full_name": "test/repository"
+    }
+    
+    # Should not raise exception since generator is False
+    repository.data.update_data(github_data)
+    
+    # ID should be updated since generator mode is disabled
+    assert repository.data.id == "67890"

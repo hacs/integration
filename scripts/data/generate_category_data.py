@@ -134,10 +134,6 @@ class AdjustedHacsData(HacsData):
         """Store the repository data."""
         # Skip repositories that had ID changes
         if getattr(repository.data, "_id_changed", False):
-            self.hacs.log.debug(
-                "%s Skipping data storage due to ID change",
-                repository.string,
-            )
             return
             
         data = {"manifest": {}}
@@ -316,7 +312,6 @@ class AdjustedHacs(HacsBase):
                 exception,
             )
             repository.data._id_changed = True
-            return  # Skip this repository
 
     async def generate_data_for_category(
         self,

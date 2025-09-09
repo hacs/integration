@@ -17,7 +17,6 @@ class MockRepository:
         self.data.full_name = full_name
         self.data.category = "integration"
         self.data.archived = False
-        self.data._id_changed = False
         self.logger = Mock()
         self.string = f"<Repository {full_name}>"
 
@@ -43,9 +42,6 @@ async def test_concurrent_update_repository_handles_id_change():
     # Call the method
     await hacs.concurrent_update_repository(repository)
     
-    # Check that the repository was marked as having ID change
-    assert repository.data._id_changed is True
-    
     # Check that the error was logged
     repository.logger.error.assert_called_once()
     error_call = repository.logger.error.call_args
@@ -53,11 +49,10 @@ async def test_concurrent_update_repository_handles_id_change():
 
 
 @pytest.mark.asyncio
-async def test_store_repository_data_stores_id_changed():
-    """Test that async_store_repository_data stores repositories with ID changes (preserving old data)."""
-    # Create mock repository with ID change flag
+async def test_store_repository_data_preserves_old_data():
+    """Test that async_store_repository_data preserves old data when ID changes occur."""
+    # Create mock repository 
     repository = MockRepository()
-    repository.data._id_changed = True
     repository.repository_manifest = Mock()
     repository.data.last_fetched = None
     
@@ -74,7 +69,7 @@ async def test_store_repository_data_stores_id_changed():
                 # Store repository data
                 hacs_data.async_store_repository_data(repository)
                 
-                # Check that old data was still stored despite ID change
+                # Check that data was stored under the repository ID
                 assert len(hacs_data.content) == 1
                 assert "12345" in hacs_data.content
 

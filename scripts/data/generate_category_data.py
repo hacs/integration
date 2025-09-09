@@ -308,7 +308,6 @@ class AdjustedHacs(HacsBase):
                 repository.string,
                 exception,
             )
-            repository.data._id_changed = True
 
     async def generate_data_for_category(
         self,

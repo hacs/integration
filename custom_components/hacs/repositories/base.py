@@ -174,7 +174,6 @@ class RepositoryData:
     show_beta: bool = False
     stargazers_count: int = 0
     topics: list[str] = []
-    _id_changed: bool = False
 
     @property
     def name(self):

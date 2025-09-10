@@ -32,7 +32,7 @@ jobs:
       - name: 🔢 Get version
         if: ${{ github.event_name == 'release' }}
         id: version
-        uses: home-assistant/actions/helpers/version@a19f5f4e08ef2786e4604a948f62addd937a6bc9 # master
+        uses: home-assistant/actions/helpers/version@72e1db9d29431ebc9439e48504e687b53e90d366 # master
 
       - name: 🔢 Set version number
         if: ${{ github.event_name == 'release' }}
@@ -59,7 +59,7 @@ jobs:
           zip hacs.zip -r ./
 
       - name: 📤 Upload zip to release
-        uses: softprops/action-gh-release@72f2c25fcb47643c292f7107632f7a47c1df5cd8 # v2.3.2
+        uses: softprops/action-gh-release@6cbd405e2c4e67a21c47fa9e383d020e4e28b836 # v2.3.3
         if: ${{ github.event_name == 'release' }}
         with:
           files: ${{ github.workspace }}/custom_components/hacs/hacs.zip

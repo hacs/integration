@@ -51,7 +51,7 @@ jobs:
         run: rm -rf tests
 
       - name: Hassfest validation
-        uses: home-assistant/actions/hassfest@a19f5f4e08ef2786e4604a948f62addd937a6bc9 # master
+        uses: home-assistant/actions/hassfest@72e1db9d29431ebc9439e48504e687b53e90d366 # master
 
   validate-hacs:
     needs:
@@ -138,7 +138,7 @@ jobs:
           cat outputdata/diff/${{ matrix.entry.category }}.diff
 
       - name: Upload diff
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           CATEGORY: ${{ matrix.entry.category }}
         with:

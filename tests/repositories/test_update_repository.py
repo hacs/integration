@@ -48,7 +48,8 @@ async def test_update_repository_entity(
     await hass.services.async_call(
         "update",
         "install",
-        service_data={"entity_id": entity_id, "version": category_test_data["version_update"]},
+        service_data={"entity_id": entity_id,
+                      "version": category_test_data["version_update"]},
         blocking=True,
     )
     repo = hacs.repositories.get_by_full_name(category_test_data["repository"])
@@ -79,7 +80,8 @@ async def test_update_repository_websocket(
 
     response = await ws_client.send_and_receive_json(
         "hacs/repository/download",
-        {"repository": repo.data.id, "version": category_test_data["version_update"]},
+        {"repository": repo.data.id,
+            "version": category_test_data["version_update"]},
     )
     assert response["success"] == True
     assert repo.data.installed_version == category_test_data["version_update"]
@@ -98,7 +100,8 @@ async def test_update_repository_entity_no_manifest(
     response_mocker: ResponseMocker,
 ):
     hacs = get_hacs(hass)
-    repo = hacs.repositories.get_by_full_name("hacs-test-org/integration-basic")
+    repo = hacs.repositories.get_by_full_name(
+        "hacs-test-org/integration-basic")
 
     assert repo is not None
 
@@ -122,7 +125,8 @@ async def test_update_repository_entity_no_manifest(
 
     with pytest.raises(
         HomeAssistantError,
-        match="The version 3.0.0 for this integration can not be used with HACS.",
+        match=re.escape(
+            "The version 3.0.0 for this integration can not be used with HACS."),
     ):
         await hass.services.async_call(
             "update",
@@ -139,7 +143,8 @@ async def test_update_repository_entity_old_core_version(
     response_mocker: ResponseMocker,
 ):
     hacs = get_hacs(hass)
-    repo = hacs.repositories.get_by_full_name("hacs-test-org/integration-basic")
+    repo = hacs.repositories.get_by_full_name(
+        "hacs-test-org/integration-basic")
 
     assert repo is not None
 
@@ -163,7 +168,8 @@ async def test_update_repository_entity_old_core_version(
 
     with pytest.raises(
         HomeAssistantError,
-        match="This version requires Home Assistant 9999.99.99 or newer.",
+        match=re.escape(
+            "This version requires Home Assistant 9999.99.99 or newer."),
     ):
         await hass.services.async_call(
             "update",
@@ -180,7 +186,8 @@ async def test_update_repository_entity_old_hacs_version(
     response_mocker: ResponseMocker,
 ):
     hacs = get_hacs(hass)
-    repo = hacs.repositories.get_by_full_name("hacs-test-org/integration-basic")
+    repo = hacs.repositories.get_by_full_name(
+        "hacs-test-org/integration-basic")
 
     assert repo is not None
 
@@ -202,7 +209,7 @@ async def test_update_repository_entity_old_hacs_version(
 
     entity_id = er.async_get_entity_id("update", DOMAIN, repo.data.id)
 
-    with pytest.raises(HomeAssistantError, match="This version requires HACS 9999.99.99 or newer."):
+    with pytest.raises(HomeAssistantError, match=re.escape("This version requires HACS 9999.99.99 or newer.")):
         await hass.services.async_call(
             "update",
             "install",
@@ -218,7 +225,8 @@ async def test_update_repository_entity_download_failure(
     response_mocker: ResponseMocker,
 ):
     hacs = get_hacs(hass)
-    repo = hacs.repositories.get_by_full_name("hacs-test-org/integration-basic")
+    repo = hacs.repositories.get_by_full_name(
+        "hacs-test-org/integration-basic")
 
     assert repo is not None
 
@@ -262,7 +270,8 @@ async def test_update_repository_entity_same_provided_version(
     hass: HomeAssistant, setup_integration: Generator
 ):
     hacs = get_hacs(hass)
-    repo = hacs.repositories.get_by_full_name("hacs-test-org/integration-basic")
+    repo = hacs.repositories.get_by_full_name(
+        "hacs-test-org/integration-basic")
 
     assert repo is not None
 
@@ -298,7 +307,8 @@ async def test_update_repository_entity_no_update(
     setup_integration: Generator,
 ):
     hacs = get_hacs(hass)
-    repo = hacs.repositories.get_by_full_name("hacs-test-org/integration-basic")
+    repo = hacs.repositories.get_by_full_name(
+        "hacs-test-org/integration-basic")
 
     assert repo is not None
 

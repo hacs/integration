@@ -1,4 +1,5 @@
 from contextlib import nullcontext as does_not_raise
+import re
 
 from awesomeversion import AwesomeVersion
 import pytest
@@ -84,7 +85,7 @@ def test_hacs_manifest_json_schema():
     with pytest.raises(Invalid, match="Value 'NOT_VALID' is not in"):
         hacs_json_schema({"name": "My awesome thing", "country": "not_valid"})
 
-    with pytest.raises(Invalid, match="Value 'False' is not a string or list."):
+    with pytest.raises(Invalid, match=re.escape("Value 'False' is not a string or list.")):
         hacs_json_schema({"name": "My awesome thing", "country": False})
 
 
@@ -162,7 +163,8 @@ def test_critical_repo_data_json_schema():
         ),
         # Extra key
         (
-            {"repository": "test", "reason": "blah", "link": "https://blah", "extra": "key"},
+            {"repository": "test", "reason": "blah",
+                "link": "https://blah", "extra": "key"},
             does_not_raise(),
             pytest.raises(Invalid),
         ),
@@ -406,7 +408,8 @@ def without(d: dict, key: str) -> dict:
         # Test we allow at least one of last_commit or last_version
         (
             ["integration"],
-            without(GOOD_INTEGRATION_DATA, "last_commit") | {"last_version": "123"},
+            without(GOOD_INTEGRATION_DATA, "last_commit") | {
+                "last_version": "123"},
             does_not_raise(),
             does_not_raise(),
         ),
@@ -418,7 +421,8 @@ def without(d: dict, key: str) -> dict:
         ),
         (
             ["integration"],
-            GOOD_INTEGRATION_DATA | {"last_version": "123", "prerelease": "1.2.3"},
+            GOOD_INTEGRATION_DATA | {
+                "last_version": "123", "prerelease": "1.2.3"},
             does_not_raise(),
             does_not_raise(),
         ),
@@ -642,7 +646,8 @@ def test_repo_data_json_schema_multiple_bad_data(categories: list[str], data):
     expected_errors_2 = {
         ("expected str", ("test_repo", "full_name")),
         ("required key not provided", ("test_repo", "description")),
-        ("Expected at least one of [`last_commit`, `last_version`], got none", ("test_repo",)),
+        ("Expected at least one of [`last_commit`, `last_version`], got none", (
+            "test_repo",)),
     }
     for category in categories:
         with pytest.raises(MultipleInvalid) as exc_info:
@@ -670,14 +675,17 @@ def test_removed_repo_data_json_schema():
     ("data", "expectation_1", "expectation_2"),
     [
         # Good data
-        ({"removal_type": "critical", "repository": "test"}, does_not_raise(), does_not_raise()),
+        ({"removal_type": "critical", "repository": "test"},
+         does_not_raise(), does_not_raise()),
         # Missing required key
         ({}, pytest.raises(Invalid), pytest.raises(Invalid)),
         ({"repository": "test"}, pytest.raises(Invalid), pytest.raises(Invalid)),
-        ({"removal_type": "critical"}, pytest.raises(Invalid), pytest.raises(Invalid)),
+        ({"removal_type": "critical"}, pytest.raises(
+            Invalid), pytest.raises(Invalid)),
         # Wrong data type
         (
-            {"link": 123, "reason": "blah", "removal_type": "critical", "repository": "test"},
+            {"link": 123, "reason": "blah",
+                "removal_type": "critical", "repository": "test"},
             pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
@@ -692,12 +700,14 @@ def test_removed_repo_data_json_schema():
             pytest.raises(Invalid),
         ),
         (
-            {"link": "https://blah", "reason": "blah", "removal_type": 123, "repository": "test"},
+            {"link": "https://blah", "reason": "blah",
+                "removal_type": 123, "repository": "test"},
             pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),
         (
-            {"link": "https://blah", "reason": "blah", "removal_type": "bad", "repository": "test"},
+            {"link": "https://blah", "reason": "blah",
+                "removal_type": "bad", "repository": "test"},
             pytest.raises(Invalid),
             pytest.raises(Invalid),
         ),

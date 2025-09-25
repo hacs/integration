@@ -25,6 +25,7 @@ async def test_hacs_action_integration(
     caplog: pytest.LogCaptureFixture,
     response_mocker: ResponseMocker,
     snapshots: SnapshotFixture,
+    capsys: pytest.CaptureFixture[str],
 ):
     """Test the action."""
     basemanifest = {
@@ -65,7 +66,10 @@ async def test_hacs_action_integration(
         "\n") if " <" in line]
 
     snapshots.assert_match(
-        "\n".join(splitlines[0:2] +
-                  sorted(splitlines[2:-2]) + splitlines[-2:]),
+        "\n".join(
+            splitlines[0:2] +
+            sorted(splitlines[2:-2]) + splitlines[-2:]
+            + [capsys.readouterr().out]
+        ),
         f"action/{current_function_name()}/{key}.log",
     )

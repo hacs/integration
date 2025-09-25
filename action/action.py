@@ -187,12 +187,14 @@ async def validate_repository(hacs: HacsBase, repository: str, category: str, re
             {
                 "data": repo.data.to_json(),
                 "manifest": repo.repository_manifest.to_dict(),
-                "release": {
-                    "tag": repo.releases.objects[0].tag_name,
-                    "assets": [asset.name for asset in repo.releases.objects[0].assets],
-                }
-                if repo.releases.objects
-                else None,
+                "release": (
+                    {
+                        "tag": repo.releases.objects[0].tag_name,
+                        "assets": [asset.name for asset in repo.releases.objects[0].assets],
+                    }
+                    if repo.releases.objects and len(repo.releases.objects) > 0
+                    else None
+                ),
                 "category": category,
                 "ref": ref,
             },

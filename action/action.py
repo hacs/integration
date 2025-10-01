@@ -187,6 +187,25 @@ async def validate_repository(hacs: HacsBase, repository: str, category: str, re
             {
                 "data": repo.data.to_json(),
                 "manifest": repo.repository_manifest.to_dict(),
+                "release": (
+                    {
+                        "tag": matching_release.tag_name,
+                        "assets": [asset.name for asset in matching_release.assets],
+                    }
+                    if repo.releases.objects
+                    and len(repo.releases.objects) > 0
+                    and (
+                        matching_release := next(
+                            (
+                                release
+                                for release in repo.releases.objects
+                                if release.tag_name == repo.data.last_version
+                            ),
+                            repo.releases.objects[0],
+                        )
+                    )
+                    else None
+                ),
                 "category": category,
                 "ref": ref,
             },

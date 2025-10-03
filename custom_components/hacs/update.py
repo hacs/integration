@@ -38,6 +38,13 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
         | UpdateEntityFeature.RELEASE_NOTES
     )
 
+    def _get_translation(self, key: str) -> str:
+        """Get translation for a key."""
+        if self.platform and hasattr(self.platform, "platform_translations"):
+            translations = self.platform.platform_translations.get("alerts", {})
+            return translations.get(key, "")
+        return ""
+
     @property
     def name(self) -> str | None:
         """Return the name."""
@@ -64,7 +71,8 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
     def release_summary(self) -> str | None:
         """Return the release summary."""
         if self.repository.pending_restart:
-            return "<ha-alert alert-type='error'>Restart of Home Assistant required</ha-alert>"
+            msg = self._get_translation("restart_required_summary") or "Restart of Home Assistant required"
+            return f"<ha-alert alert-type='error'>{msg}</ha-alert>"
         return None
 
     @property
@@ -122,15 +130,11 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
 
         if self.repository.pending_update:
             if self.repository.data.category == HacsCategory.INTEGRATION:
-                release_notes += (
-                    "\n\n<ha-alert alert-type='warning'>You need to restart"
-                    " Home Assistant manually after updating.</ha-alert>\n\n"
-                )
+                msg = self._get_translation("restart_required_notes") or "You need to restart Home Assistant manually after updating."
+                release_notes += f"\n\n<ha-alert alert-type='warning'>{msg}</ha-alert>\n\n"
             if self.repository.data.category == HacsCategory.PLUGIN:
-                release_notes += (
-                    "\n\n<ha-alert alert-type='warning'>You need to manually"
-                    " clear the frontend cache after updating.</ha-alert>\n\n"
-                )
+                msg = self._get_translation("clear_cache_notes") or "You need to manually clear the frontend cache after updating."
+                release_notes += f"\n\n<ha-alert alert-type='warning'>{msg}</ha-alert>\n\n"
 
         return release_notes.replace("\n#", "\n\n#")
 

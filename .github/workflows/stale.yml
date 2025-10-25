@@ -1,0 +1,23 @@
+name: 'Close stale issues'
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 10 * * *'
+
+permissions: {}
+
+jobs:
+  issues_missing_required_information:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/stale@5f858e3efba33a5ca4407a664cc011ad407f2008  # v10.1.0
+        with:
+          days-before-stale: -1
+          days-before-close: 7
+          only-labels: 'Missing required issue information'
+          stale-issue-label: 'Missing required issue information'

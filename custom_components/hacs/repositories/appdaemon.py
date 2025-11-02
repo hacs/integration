@@ -37,13 +37,7 @@ class HacsAppdaemonRepository(HacsRepository):
 
         # Custom step 1: Validate content.
         # Find the first directory under apps/
-        if not (app_dir := get_first_directory_in_directory(self.tree, "apps")):
-            raise HacsException(
-                f"{self.string} Repository structure for {self.ref.replace('tags/', '')} is not compliant. "
-                "Expected to find at least one directory under '<root>/apps/'"
-            )
-
-        self.content.path.remote = f"apps/{app_dir}"
+        self.content.path.remote = f"apps/{self._get_apps_directory_from_tree()}"
 
         # Handle potential errors
         if self.validate.errors:
@@ -64,8 +58,7 @@ class HacsAppdaemonRepository(HacsRepository):
                 self.content.path.remote = ""
 
         if self.content.path.remote == "apps":
-            app_dir = get_first_directory_in_directory(self.tree, "apps")
-            self.content.path.remote = f"apps/{app_dir}"
+            self.content.path.remote = f"apps/{self._get_apps_directory_from_tree()}"
 
         # Set local path
         self.content.path.local = self.localpath
@@ -81,3 +74,12 @@ class HacsAppdaemonRepository(HacsRepository):
                     "repository_id": self.data.id,
                 },
             )
+
+    def _get_apps_directory_from_tree(self) -> str:
+        """Get the first apps directory from the repository tree."""
+        if not (app_dir := get_first_directory_in_directory(self.tree, "apps")):
+            raise HacsException(
+                f"{self.string} Repository structure for {self.ref.replace('tags/', '')} is not compliant. "
+                "Expected to find at least one directory under '<root>/apps/'"
+            )
+        return app_dir

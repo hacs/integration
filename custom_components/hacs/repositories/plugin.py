@@ -106,7 +106,7 @@ class HacsPluginRepository(HacsRepository):
                 nolog=True,
             )
             if result is not None and (package := json_loads(result)):
-                self.data.authors = package["author"]
+                self.data.authors = package.get("author")
 
     def update_filenames(self) -> None:
         """Get the filename to target."""

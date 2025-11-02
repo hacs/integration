@@ -13,7 +13,7 @@ import zipfile
 
 from aiogithubapi import (
     AIOGitHubAPIException,
-    AIOGitHubAPINotModifiedException,
+    GitHubNotModifiedException,
     GitHubReleaseModel,
 )
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
@@ -1010,11 +1010,17 @@ class HacsRepository:
     ) -> tuple[AIOGitHubAPIRepository, Any | None]:
         """Return a repository object."""
         try:
-            repository = await self.hacs.github.get_repo(self.data.full_name, etag)
-            return repository, self.hacs.github.client.last_response.etag
-        except AIOGitHubAPINotModifiedException as exception:
+            response = await self.hacs.githubapi.repos.get(
+                repository=self.data.full_name,
+                etag=etag,
+            )
+            return AIOGitHubAPIRepository(
+                client=self.hacs.github.client,
+                attributes=response.data._raw_data,
+            ), response.etag
+        except GitHubNotModifiedException as exception:
             raise HacsNotModifiedException(exception) from exception
-        except (ValueError, AIOGitHubAPIException, Exception) as exception:
+        except Exception as exception:
             raise HacsException(exception) from exception
 
     def update_filenames(self) -> None:

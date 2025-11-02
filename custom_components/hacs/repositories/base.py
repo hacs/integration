@@ -14,6 +14,7 @@ import zipfile
 from aiogithubapi import (
     AIOGitHubAPIException,
     AIOGitHubAPINotModifiedException,
+    GitHubException,
     GitHubReleaseModel,
 )
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
@@ -46,7 +47,7 @@ from ..utils.version import (
     version_left_higher_or_equal_then_right,
     version_left_higher_then_right,
 )
-from ..utils.workarounds import DOMAIN_OVERRIDES
+from ..utils.workarounds import DOMAIN_OVERRIDES, LegacyTreeFile
 
 if TYPE_CHECKING:
     from ..base import HacsBase
@@ -1020,14 +1021,17 @@ class HacsRepository:
     def update_filenames(self) -> None:
         """Get the filename to target."""
 
-    async def get_tree(self, ref: str):
+    async def get_tree(self, ref: str) -> list[LegacyTreeFile] | None:
         """Return the repository tree."""
-        if self.repository_object is None:
-            raise HacsException("No repository_object")
         try:
-            tree = await self.repository_object.get_tree(ref)
-            return tree
-        except (ValueError, AIOGitHubAPIException) as exception:
+            response = await self.hacs.async_github_api_method(
+                method=self.hacs.githubapi.repos.git.get_tree,
+                repository=self.data.full_name,
+                tree_sha=ref,
+                kwargs={"recursive": True},
+            )
+            return response.data.tree
+        except GitHubException as exception:
             raise HacsException(exception) from exception
 
     async def get_releases(self, prerelease=False, returnlimit=5) -> list[GitHubReleaseModel]:
@@ -1144,13 +1148,18 @@ class HacsRepository:
         )
 
         try:
-            self.tree = await self.get_tree(self.ref)
-            if not self.tree:
+            tree = await self.get_tree(self.ref)
+            if not tree:
                 raise HacsException("No files in tree")
+            self.tree = [
+                LegacyTreeFile(entry, repository=self.data.full_name, ref=self.ref)
+                for entry in tree
+            ]
+
             self.treefiles = []
             for treefile in self.tree:
                 self.treefiles.append(treefile.full_path)
-        except (AIOGitHubAPIException, HacsException) as exception:
+        except HacsException as exception:
             if (
                 not retry
                 and self.ref is not None

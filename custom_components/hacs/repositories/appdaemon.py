@@ -4,11 +4,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from aiogithubapi import AIOGitHubAPIException
-
 from ..enums import HacsCategory, HacsDispatchEvent
 from ..exceptions import HacsException
 from ..utils.decorator import concurrent
+from ..utils.filters import get_first_directory_in_directory
 from .base import HacsRepository
 
 if TYPE_CHECKING:
@@ -32,25 +31,19 @@ class HacsAppdaemonRepository(HacsRepository):
         """Return localpath."""
         return f"{self.hacs.core.config_path}/appdaemon/apps/{self.data.name}"
 
-    async def validate_repository(self):
+    async def validate_repository(self) -> bool:
         """Validate."""
         await self.common_validate()
 
         # Custom step 1: Validate content.
-        try:
-            addir = await self.repository_object.get_contents("apps", self.ref)
-        except AIOGitHubAPIException:
+        # Find the first directory under apps/
+        if not (app_dir := get_first_directory_in_directory(self.tree, "apps")):
             raise HacsException(
-                f"{self.string} Repository structure for {self.ref.replace('tags/', '')} is not compliant"
-            ) from None
+                f"{self.string} Repository structure for {self.ref.replace('tags/', '')} is not compliant. "
+                "Expected to find at least one directory under '<root>/apps/'"
+            )
 
-        if not isinstance(addir, list):
-            self.validate.errors.append(f"{self.string} Repository structure not compliant")
-
-        self.content.path.remote = addir[0].path
-        self.content.objects = await self.repository_object.get_contents(
-            self.content.path.remote, self.ref
-        )
+        self.content.path.remote = f"apps/{app_dir}"
 
         # Handle potential errors
         if self.validate.errors:
@@ -60,7 +53,7 @@ class HacsAppdaemonRepository(HacsRepository):
         return self.validate.success
 
     @concurrent(concurrenttasks=10, backoff_time=5)
-    async def update_repository(self, ignore_issues=False, force=False):
+    async def update_repository(self, ignore_issues: bool = False, force: bool = False) -> None:
         """Update."""
         if not await self.common_update(ignore_issues, force) and not force:
             return
@@ -71,11 +64,8 @@ class HacsAppdaemonRepository(HacsRepository):
                 self.content.path.remote = ""
 
         if self.content.path.remote == "apps":
-            addir = await self.repository_object.get_contents(self.content.path.remote, self.ref)
-            self.content.path.remote = addir[0].path
-        self.content.objects = await self.repository_object.get_contents(
-            self.content.path.remote, self.ref
-        )
+            app_dir = get_first_directory_in_directory(self.tree, "apps")
+            self.content.path.remote = f"apps/{app_dir}"
 
         # Set local path
         self.content.path.local = self.localpath

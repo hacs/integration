@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from contextlib import suppress
 import re
 from typing import TYPE_CHECKING
 
@@ -99,14 +100,13 @@ class HacsPluginRepository(HacsRepository):
 
     async def get_package_content(self):
         """Get package content."""
-        try:
-            package = await self.repository_object.get_contents("package.json", self.ref)
-            package = json_loads(package.content)
-
-            if package:
+        with suppress(Exception):
+            result = await self.hacs.async_download_file(
+                f"https://raw.githubusercontent.com/{self.data.full_name}/{self.ref}/package.json",
+                nolog=True,
+            )
+            if result is not None and (package := json_loads(result)):
                 self.data.authors = package["author"]
-        except BaseException:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-            pass
 
     def update_filenames(self) -> None:
         """Get the filename to target."""

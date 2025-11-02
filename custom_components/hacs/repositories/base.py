@@ -1030,7 +1030,7 @@ class HacsRepository:
                 method=self.hacs.githubapi.repos.git.get_tree,
                 repository=self.data.full_name,
                 tree_sha=ref,
-                kwargs={"recursive": True},
+                params={"recursive": "true"},
             )
             return response.data.tree
         except GitHubException as exception:

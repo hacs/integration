@@ -39,7 +39,7 @@ except ImportError:
 
 
 class LegacyTreeFile:
-    """Legacy TreeFile representation
+    """Legacy TreeFile representation.
 
     This serves as a compatibility layer for code expecting
     the older TreeFile structure.

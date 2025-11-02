@@ -51,13 +51,24 @@ class LegacyTreeFile:
         self.repository = repository
         self.ref = ref
 
-        # Calculated attributes
-        split_path = self.model.path.rsplit("/", 1)
+        # Simple calculated attributes
         self.full_path = self.model.path
         self.is_directory = self.model.type == "tree"
-        self.path = split_path[0] if "/" in self.model.path else ""
-        self.filename = split_path[-1] if "/" in self.model.path else self.model.path
         self.url = self.model.url
         self.download_url = (
-            f"https://raw.githubusercontent.com/{self.repository}/{self.ref}/{self.model.path}"
+            f"https://raw.githubusercontent.com/{self.repository}/{self.ref}/{self.full_path}"
         )
+
+    @property
+    def path(self):
+        path = ""
+        if "/" in self.full_path:
+            path = self.full_path.split(f"/{self.full_path.split('/')[-1]}")[0]
+        return path
+
+    @property
+    def filename(self):
+        filename = self.full_path
+        if "/" in self.full_path:
+            filename = self.full_path.split("/")[-1]
+        return filename

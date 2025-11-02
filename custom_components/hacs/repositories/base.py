@@ -15,9 +15,7 @@ from aiogithubapi import (
     AIOGitHubAPIException,
     AIOGitHubAPINotModifiedException,
     GitHubException,
-    GitHubReleaseModel,
 )
-from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 import attr
 from homeassistant.helpers import device_registry as dr, issue_registry as ir
 
@@ -50,6 +48,10 @@ from ..utils.version import (
 from ..utils.workarounds import DOMAIN_OVERRIDES, LegacyTreeFile
 
 if TYPE_CHECKING:
+    from aiogithubapi.models.git_tree import GitHubGitTreeEntryModel
+    from aiogithubapi.models.release import GitHubReleaseModel
+    from aiogithubapi.objects.repository import AIOGitHubAPIRepository
+
     from ..base import HacsBase
 
 
@@ -1021,7 +1023,7 @@ class HacsRepository:
     def update_filenames(self) -> None:
         """Get the filename to target."""
 
-    async def get_tree(self, ref: str) -> list[LegacyTreeFile] | None:
+    async def get_tree(self, ref: str) -> list[GitHubGitTreeEntryModel] | None:
         """Return the repository tree."""
         try:
             response = await self.hacs.async_github_api_method(

@@ -235,6 +235,7 @@ def test_gather_plugin_different_card_name(repository_plugin):
 def test_gather_theme_files_from_release_only_yaml(repository_theme):
     """Test that only .yaml files are downloaded from theme release assets."""
     repository = repository_theme
+        repository.ref = "1.0.0"
     repository.data.releases = True
     repository.releases.objects = [
         GitHubReleaseModel({

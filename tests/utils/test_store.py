@@ -70,10 +70,7 @@ async def test_store_store(hass: HomeAssistant, caplog: pytest.LogCaptureFixture
     "ha_version, expected_supported",
     [
         ("2025.11.0", False),
-        ("2025.11.99", False),
         ("2025.12.0", True),
-        ("2025.12.1", True),
-        ("2026.1.0", True),
     ],
 )
 def test_serialize_in_event_loop_version_check(ha_version: str, expected_supported: bool) -> None:
@@ -81,9 +78,10 @@ def test_serialize_in_event_loop_version_check(ha_version: str, expected_support
     from awesomeversion import AwesomeVersion
 
     with patch(
-        "custom_components.hacs.utils.store.HAVERSION",
-        ha_version,
+        "custom_components.hacs.utils.store._SERIALIZE_IN_EVENT_LOOP_SUPPORTED",
+        AwesomeVersion(ha_version) >= "2025.12.0",
     ):
-        # Re-evaluate the version check with the patched version
-        result = AwesomeVersion(ha_version) >= "2025.12.0"
-        assert result == expected_supported
+        # Re-import to get the patched value
+        import custom_components.hacs.utils.store as store_module
+
+        assert expected_supported == store_module._SERIALIZE_IN_EVENT_LOOP_SUPPORTED

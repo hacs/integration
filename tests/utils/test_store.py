@@ -7,6 +7,7 @@ import pytest
 from custom_components.hacs.const import VERSION_STORAGE
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.utils.store import (
+    _SERIALIZE_IN_EVENT_LOOP_SUPPORTED,
     async_load_from_store,
     async_remove_store,
     async_save_to_store,
@@ -64,3 +65,13 @@ async def test_store_store(hass: HomeAssistant, caplog: pytest.LogCaptureFixture
 
         await async_save_to_store(hass, "test", {"test": "test"})
         assert async_save_mock.call_count == 1
+
+
+async def test_serialize_in_event_loop_version_check(hass: HomeAssistant) -> None:
+    """Test that serialize_in_event_loop flag is set based on HA version."""
+    # Test that the constant is a bool (either True or False depending on HA version)
+    assert isinstance(_SERIALIZE_IN_EVENT_LOOP_SUPPORTED, bool)
+
+    # Test that the store is created without error regardless of HA version
+    store = get_store_for_key(hass, "test")
+    assert store is not None

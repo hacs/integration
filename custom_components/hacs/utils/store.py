@@ -1,5 +1,7 @@
 """Storage handers."""
 
+from awesomeversion import AwesomeVersion
+from homeassistant.const import __version__ as HAVERSION
 from homeassistant.helpers.json import JSONEncoder
 from homeassistant.helpers.storage import Store
 from homeassistant.util import json as json_util
@@ -7,6 +9,10 @@ from homeassistant.util import json as json_util
 from ..const import VERSION_STORAGE
 from ..exceptions import HacsException
 from .logger import LOGGER
+
+# serialize_in_event_loop=False is only available in HA 2025.12.0+
+# See: https://developers.home-assistant.io/blog/2025/11/25/storage-helper-opt-in-serialize-in-executor/
+_SERIALIZE_IN_EVENT_LOOP_SUPPORTED = AwesomeVersion(HAVERSION) >= "2025.12.0"
 
 _LOGGER = LOGGER
 
@@ -39,7 +45,10 @@ def get_store_key(key):
 
 def _get_store_for_key(hass, key, encoder):
     """Create a Store object for the key."""
-    return HACSStore(hass, VERSION_STORAGE, get_store_key(key), encoder=encoder, atomic_writes=True)
+    kwargs = {"encoder": encoder, "atomic_writes": True}
+    if _SERIALIZE_IN_EVENT_LOOP_SUPPORTED:
+        kwargs["serialize_in_event_loop"] = False
+    return HACSStore(hass, VERSION_STORAGE, get_store_key(key), **kwargs)
 
 
 def get_store_for_key(hass, key):

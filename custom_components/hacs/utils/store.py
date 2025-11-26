@@ -1,4 +1,4 @@
-"""Storage handers."""
+"""Storage handlers."""
 
 from awesomeversion import AwesomeVersion
 from homeassistant.const import __version__ as HAVERSION

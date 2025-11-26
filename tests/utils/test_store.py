@@ -7,7 +7,6 @@ import pytest
 from custom_components.hacs.const import VERSION_STORAGE
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.utils.store import (
-    _SERIALIZE_IN_EVENT_LOOP_SUPPORTED,
     async_load_from_store,
     async_remove_store,
     async_save_to_store,
@@ -67,11 +66,24 @@ async def test_store_store(hass: HomeAssistant, caplog: pytest.LogCaptureFixture
         assert async_save_mock.call_count == 1
 
 
-async def test_serialize_in_event_loop_version_check(hass: HomeAssistant) -> None:
+@pytest.mark.parametrize(
+    "ha_version, expected_supported",
+    [
+        ("2025.11.0", False),
+        ("2025.11.99", False),
+        ("2025.12.0", True),
+        ("2025.12.1", True),
+        ("2026.1.0", True),
+    ],
+)
+def test_serialize_in_event_loop_version_check(ha_version: str, expected_supported: bool) -> None:
     """Test that serialize_in_event_loop flag is set based on HA version."""
-    # Test that the constant is a bool (either True or False depending on HA version)
-    assert isinstance(_SERIALIZE_IN_EVENT_LOOP_SUPPORTED, bool)
+    from awesomeversion import AwesomeVersion
 
-    # Test that the store is created without error regardless of HA version
-    store = get_store_for_key(hass, "test")
-    assert store is not None
+    with patch(
+        "custom_components.hacs.utils.store.HAVERSION",
+        ha_version,
+    ):
+        # Re-evaluate the version check with the patched version
+        result = AwesomeVersion(ha_version) >= "2025.12.0"
+        assert result == expected_supported

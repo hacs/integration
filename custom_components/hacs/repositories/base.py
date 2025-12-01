@@ -228,6 +228,7 @@ class HacsManifest:
     name: str = None
     persistent_directory: str = None
     render_readme: bool = False
+    supported_languages: list[str] = []  # Supported README languages (e.g., ["de", "fr", "es"])
     zip_release: bool = False
 
     def to_dict(self):
@@ -250,6 +251,8 @@ class HacsManifest:
         for key, value in manifest_data.manifest.items():
             if key == "country" and isinstance(value, str):
                 setattr(manifest_data, key, [value])
+            elif key == "supported_languages" and isinstance(value, str):
+                setattr(manifest_data, key, [value])
             elif key in manifest_data.__dict__:
                 setattr(manifest_data, key, value)
         return manifest_data
@@ -261,6 +264,11 @@ class HacsManifest:
                 continue
 
             if key == "country":
+                if isinstance(value, str):
+                    setattr(self, key, [value])
+                else:
+                    setattr(self, key, value)
+            elif key == "supported_languages":
                 if isinstance(value, str):
                     setattr(self, key, [value])
                 else:
@@ -771,6 +779,19 @@ class HacsRepository:
                 language = None
             else:
                 language = language.lower()
+                
+                # Check if language is declared in supported_languages
+                if (
+                    self.repository_manifest.supported_languages
+                    and language not in self.repository_manifest.supported_languages
+                ):
+                    self.logger.debug(
+                        "%s Language '%s' not in supported_languages %s, using README.md",
+                        self.string,
+                        language,
+                        self.repository_manifest.supported_languages,
+                    )
+                    language = None
 
         # If no language or English, use standard README
         if not language or language == "en":

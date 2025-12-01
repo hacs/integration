@@ -748,6 +748,75 @@ class HacsRepository:
 
         return await self.get_documentation(filename=info_files[0], version=version) or ""
 
+    async def async_get_info_file_contents_with_language(
+        self, *, language: str | None = None, version: str | None = None, **kwargs
+    ) -> str:
+        """Get the content of the info.md file with language support.
+        
+        Args:
+            language: Optional language code (e.g., "de", "en", "fr")
+            version: Optional version/ref to get the file from
+            
+        Returns:
+            README content as string
+        """
+        # Validate and normalize language code
+        if language:
+            if not language.isalpha() or len(language) != 2:
+                self.logger.warning(
+                    "%s Invalid language code: %s, using README.md",
+                    self.string,
+                    language,
+                )
+                language = None
+            else:
+                language = language.lower()
+
+        # If no language or English, use standard README
+        if not language or language == "en":
+            return await self.async_get_info_file_contents(version=version)
+
+        # Try to load language-specific README
+        readme_path = f"README.{language}.md"
+        
+        # Check if the language-specific README exists in treefiles
+        # We need to check various case combinations
+        possible_paths = [
+            f"README.{language}.md",
+            f"README.{language.upper()}.md",
+            f"readme.{language}.md",
+            f"readme.{language.upper()}.md",
+            f"README.{language}.MD",
+            f"README.{language.upper()}.MD",
+        ]
+        
+        found_path = None
+        for path in possible_paths:
+            if path in self.treefiles:
+                found_path = path
+                break
+        
+        if found_path:
+            try:
+                content = await self.get_documentation(filename=found_path, version=version)
+                if content:
+                    return content
+            except Exception as e:
+                self.logger.warning(
+                    "%s Error loading %s: %s, falling back to README.md",
+                    self.string,
+                    found_path,
+                    e,
+                )
+        
+        # Fallback to standard README.md
+        self.logger.debug(
+            "%s Language-specific README %s not found, using README.md",
+            self.string,
+            readme_path,
+        )
+        return await self.async_get_info_file_contents(version=version)
+
     def remove(self) -> None:
         """Run remove tasks."""
         if self.hacs.repositories.is_registered(repository_id=str(self.data.id)):

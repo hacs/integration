@@ -8,10 +8,11 @@ ENV \
     UV_EXTRA_INDEX_URL="https://wheels.home-assistant.io/musllinux-index/"
 
 RUN \
-    --mount=from=ghcr.io/astral-sh/uv:0.2.27,source=/uv,target=/bin/uv \
-    \
     apk add --no-cache --virtual .build-deps \
         bash \
+    \
+    && bash /hacs/scripts/install/pip_packages \
+        uv==0.9.6 \
     \
     && bash /hacs/scripts/install/uv_packages \
         -r requirements_action.txt \

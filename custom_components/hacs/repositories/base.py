@@ -768,7 +768,9 @@ class HacsRepository:
         Returns:
             README content as string
         """
-        # Validate and normalize language code
+        if language:
+            language = language.split("-")[0].lower() if "-" in language else language.lower()
+
         if language:
             if not language.isalpha() or len(language) != 2:
                 self.logger.warning(
@@ -778,8 +780,6 @@ class HacsRepository:
                 )
                 language = None
             else:
-                language = language.lower()
-                
                 # Check if language is declared in supported_languages
                 if (
                     self.repository_manifest.supported_languages

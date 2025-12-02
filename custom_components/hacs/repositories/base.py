@@ -251,8 +251,13 @@ class HacsManifest:
         for key, value in manifest_data.manifest.items():
             if key == "country" and isinstance(value, str):
                 setattr(manifest_data, key, [value])
-            elif key == "supported_languages" and isinstance(value, str):
-                setattr(manifest_data, key, [value])
+            elif key == "supported_languages":
+                if isinstance(value, str):
+                    setattr(manifest_data, key, [value.lower()])
+                elif isinstance(value, list):
+                    setattr(manifest_data, key, [lang.lower() if isinstance(lang, str) else lang for lang in value])
+                else:
+                    setattr(manifest_data, key, value)
             elif key in manifest_data.__dict__:
                 setattr(manifest_data, key, value)
         return manifest_data
@@ -270,7 +275,9 @@ class HacsManifest:
                     setattr(self, key, value)
             elif key == "supported_languages":
                 if isinstance(value, str):
-                    setattr(self, key, [value])
+                    setattr(self, key, [value.lower()])
+                elif isinstance(value, list):
+                    setattr(self, key, [lang.lower() if isinstance(lang, str) else lang for lang in value])
                 else:
                     setattr(self, key, value)
             else:
@@ -780,7 +787,6 @@ class HacsRepository:
                 )
                 language = None
             else:
-                # Check if language is declared in supported_languages
                 if (
                     self.repository_manifest.supported_languages
                     and language not in self.repository_manifest.supported_languages
@@ -793,15 +799,11 @@ class HacsRepository:
                     )
                     language = None
 
-        # If no language or English, use standard README
         if not language or language == "en":
             return await self.async_get_info_file_contents(version=version)
 
-        # Try to load language-specific README
         readme_path = f"README.{language}.md"
         
-        # Check if the language-specific README exists in treefiles
-        # We need to check various case combinations
         possible_paths = [
             f"README.{language}.md",
             f"README.{language.upper()}.md",

@@ -50,6 +50,11 @@ def _supported_languages_validator(values) -> list[str]:
     
     languages = []
     if isinstance(values, str):
+        if not values.isalpha() or len(values) != 2:
+            raise vol.Invalid(
+                f"Language code '{values}' must be a 2-letter alphabetic code (e.g., 'de', 'fr', 'es').",
+                path=["supported_languages"],
+            )
         languages.append(values.lower())
     elif isinstance(values, list):
         for value in values:

@@ -44,7 +44,7 @@ class Validator(ActionValidationBase):
                 raise ValidationException("zip_release is True, but filename is not set")
 
         if hacsjson.supported_languages:
-            tree_files = [x.full_path for x in self.repository.tree]
+            tree_files = [x.filename for x in self.repository.tree]
             missing_readmes = []
             invalid_languages = []
             for lang in hacsjson.supported_languages:

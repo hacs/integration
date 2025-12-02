@@ -58,12 +58,8 @@ async def hacs_repository_info(
         await hacs.data.async_write()
 
     additional_info = repository.additional_info
-    description = repository.data.description
     if language:
         additional_info = await repository.async_get_info_file_contents_with_language(
-            language=language
-        )
-        description = await repository.async_get_description_with_language(
             language=language
         )
 
@@ -81,7 +77,7 @@ async def hacs_repository_info(
                 "country": repository.repository_manifest.country,
                 "custom": not hacs.repositories.is_default(str(repository.data.id)),
                 "default_branch": repository.data.default_branch,
-                "description": description,
+                "description": repository.data.description,
                 "domain": repository.data.domain,
                 "downloads": repository.data.downloads,
                 "file_name": repository.data.file_name,

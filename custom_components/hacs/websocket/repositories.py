@@ -24,7 +24,6 @@ if TYPE_CHECKING:
     {
         vol.Required("type"): "hacs/repositories/list",
         vol.Optional("categories"): [str],
-        vol.Optional("language"): str,
     }
 )
 @websocket_api.require_admin
@@ -36,13 +35,6 @@ async def hacs_repositories_list(
 ) -> None:
     """List repositories."""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    language = msg.get("language")
-
-    async def get_description(repo):
-        """Get description with language support if language is provided."""
-        if language:
-            return await repo.async_get_description_with_language(language=language)
-        return repo.data.description
     
     repositories_data = []
     for repo in hacs.repositories.list_all:
@@ -51,7 +43,6 @@ async def hacs_repositories_list(
             and not repo.ignored_by_country_configuration
             and repo.data.last_fetched
         ):
-            description = await get_description(repo)
             repositories_data.append(
                 {
                     "authors": repo.data.authors,
@@ -62,7 +53,7 @@ async def hacs_repositories_list(
                     "category": repo.data.category,
                     "country": repo.repository_manifest.country,
                     "custom": not hacs.repositories.is_default(str(repo.data.id)),
-                    "description": description,
+                    "description": repo.data.description,
                     "domain": repo.data.domain,
                     "downloads": repo.data.downloads,
                     "file_name": repo.data.file_name,

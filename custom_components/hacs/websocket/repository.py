@@ -57,7 +57,6 @@ async def hacs_repository_info(
         repository.data.new = False
         await hacs.data.async_write()
 
-    # Load README with language support if language parameter is provided
     additional_info = repository.additional_info
     if language:
         additional_info = await repository.async_get_info_file_contents_with_language(

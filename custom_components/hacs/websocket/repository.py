@@ -23,6 +23,7 @@ if TYPE_CHECKING:
     {
         vol.Required("type"): "hacs/repository/info",
         vol.Required("repository_id"): str,
+        vol.Optional("language"): str,
     }
 )
 @websocket_api.require_admin
@@ -35,6 +36,7 @@ async def hacs_repository_info(
     """Return information about a repository."""
     hacs: HacsBase = hass.data.get(DOMAIN)
     repository_id = msg["repository_id"]
+    language = msg.get("language")
     repository = hacs.repositories.get_by_id(repository_id)
     if repository is None:
         connection.send_error(
@@ -55,11 +57,17 @@ async def hacs_repository_info(
         repository.data.new = False
         await hacs.data.async_write()
 
+    additional_info = repository.additional_info
+    if language:
+        additional_info = await repository.async_get_info_file_contents_with_language(
+            language=language
+        )
+
     connection.send_message(
         websocket_api.result_message(
             msg["id"],
             {
-                "additional_info": repository.additional_info,
+                "additional_info": additional_info,
                 "authors": repository.data.authors,
                 "available_version": repository.display_available_version,
                 "beta": repository.data.show_beta,

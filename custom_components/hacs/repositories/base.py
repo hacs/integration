@@ -228,7 +228,7 @@ class HacsManifest:
     name: str = None
     persistent_directory: str = None
     render_readme: bool = False
-    supported_languages: list[str] = []  # Supported README languages (e.g., ["de", "fr", "es"])
+    content_languages: list[str] = []
     zip_release: bool = False
 
     def to_dict(self):
@@ -251,7 +251,7 @@ class HacsManifest:
         for key, value in manifest_data.manifest.items():
             if key == "country" and isinstance(value, str):
                 setattr(manifest_data, key, [value])
-            elif key == "supported_languages":
+            elif key == "content_languages":
                 if isinstance(value, str):
                     setattr(manifest_data, key, [value.lower()])
                 elif isinstance(value, list):
@@ -273,7 +273,7 @@ class HacsManifest:
                     setattr(self, key, [value])
                 else:
                     setattr(self, key, value)
-            elif key == "supported_languages":
+            elif key == "content_languages":
                 if isinstance(value, str):
                     setattr(self, key, [value.lower()])
                 elif isinstance(value, list):
@@ -788,14 +788,14 @@ class HacsRepository:
                 language = None
             else:
                 if (
-                    self.repository_manifest.supported_languages
-                    and language not in self.repository_manifest.supported_languages
+                    self.repository_manifest.content_languages
+                    and language not in self.repository_manifest.content_languages
                 ):
                     self.logger.debug(
-                        "%s Language '%s' not in supported_languages %s, using README.md",
+                        "%s Language '%s' not in content_languages %s, using README.md",
                         self.string,
                         language,
-                        self.repository_manifest.supported_languages,
+                        self.repository_manifest.content_languages,
                     )
                     language = None
 
@@ -803,7 +803,7 @@ class HacsRepository:
             return await self.async_get_info_file_contents(version=version)
 
         readme_path = f"README.{language}.md"
-        
+
         possible_paths = [
             f"README.{language}.md",
             f"README.{language.upper()}.md",
@@ -812,7 +812,7 @@ class HacsRepository:
             f"README.{language}.MD",
             f"README.{language.upper()}.MD",
         ]
-        
+
         found_path = None
         for path in possible_paths:
             if path in self.treefiles:
@@ -831,14 +831,87 @@ class HacsRepository:
                     found_path,
                     e,
                 )
-        
-        # Fallback to standard README.md
+
         self.logger.debug(
             "%s Language-specific README %s not found, using README.md",
             self.string,
             readme_path,
         )
         return await self.async_get_info_file_contents(version=version)
+
+    async def async_get_description_with_language(
+        self, *, language: str | None = None, version: str | None = None, **kwargs
+    ) -> str:
+        """Get the repository description with language support.
+        
+        Args:
+            language: Optional language code (e.g., "de", "en", "fr")
+            version: Optional version/ref to get the file from
+            
+        Returns:
+            Description as string, falls back to default GitHub description if not found
+        """
+        if not language or language == "en":
+            return self.data.description
+
+        language = language.split("-")[0].lower() if "-" in language else language.lower()
+
+        if not language.isalpha() or len(language) != 2:
+            self.logger.debug(
+                "%s Invalid language code: %s, using default description",
+                self.string,
+                language,
+            )
+            return self.data.description
+
+        if (
+            self.repository_manifest.content_languages
+            and language not in self.repository_manifest.content_languages
+        ):
+            self.logger.debug(
+                "%s Language '%s' not in content_languages %s, using default description",
+                self.string,
+                language,
+                self.repository_manifest.content_languages,
+            )
+            return self.data.description
+
+        description_path = f"DESCRIPTION.{language}.txt"
+
+        possible_paths = [
+            f"DESCRIPTION.{language}.txt",
+            f"DESCRIPTION.{language.upper()}.txt",
+            f"description.{language}.txt",
+            f"description.{language.upper()}.txt",
+            f"DESCRIPTION.{language}.TXT",
+            f"DESCRIPTION.{language.upper()}.TXT",
+        ]
+
+        found_path = None
+        for path in possible_paths:
+            if path in self.treefiles:
+                found_path = path
+                break
+        
+        if found_path:
+            try:
+                content = await self.get_documentation(filename=found_path, version=version)
+                if content:
+                    return content.strip()
+            except Exception as e:
+                self.logger.debug(
+                    "%s Error loading description file %s: %s, using default description",
+                    self.string,
+                    found_path,
+                    e,
+                )
+
+        self.logger.debug(
+            "%s Language-specific description %s not found, using default description",
+            self.string,
+            description_path,
+        )
+        return self.data.description
 
     def remove(self) -> None:
         """Run remove tasks."""

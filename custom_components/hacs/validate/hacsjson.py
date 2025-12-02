@@ -43,17 +43,17 @@ class Validator(ActionValidationBase):
             if hacsjson.zip_release and not hacsjson.filename:
                 raise ValidationException("zip_release is True, but filename is not set")
 
-        if hacsjson.supported_languages:
+        if hacsjson.content_languages:
             tree_files = [x.filename for x in self.repository.tree]
             missing_readmes = []
             invalid_languages = []
-            for lang in hacsjson.supported_languages:
+            for lang in hacsjson.content_languages:
                 if not lang.isalpha() or len(lang) != 2:
                     invalid_languages.append(lang)
                     continue
-                
+
                 readme_path = f"README.{lang}.md"
-                found = False
+                readme_found = False
                 for possible_path in [
                     readme_path,
                     f"README.{lang.upper()}.md",
@@ -63,18 +63,18 @@ class Validator(ActionValidationBase):
                     f"README.{lang.upper()}.MD",
                 ]:
                     if possible_path in tree_files:
-                        found = True
+                        readme_found = True
                         break
-                if not found:
+                if not readme_found:
                     missing_readmes.append(lang)
 
             if invalid_languages:
                 raise ValidationException(
-                    f"supported_languages contains invalid language codes {invalid_languages}. "
+                    f"content_languages contains invalid language codes {invalid_languages}. "
                     f"Language codes must be 2-letter alphabetic codes (e.g., 'de', 'fr', 'es')."
                 )
             if missing_readmes:
                 raise ValidationException(
-                    f"supported_languages declares languages {missing_readmes}, "
+                    f"content_languages declares languages {missing_readmes}, "
                     f"but corresponding README files (README.{{lang}}.md) were not found in the repository."
                 )

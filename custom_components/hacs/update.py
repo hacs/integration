@@ -129,7 +129,7 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
             if self.repository.data.category == HacsCategory.PLUGIN:
                 release_notes += (
                     "\n\n<ha-alert alert-type='warning'>You need to manually"
-                    " clear the browser or app cache after updating.</ha-alert>\n\n"
+                    " clear the browser cache or app client cache after updating.</ha-alert>\n\n"
                 )
 
         return release_notes.replace("\n#", "\n\n#")

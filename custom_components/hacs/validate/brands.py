@@ -25,11 +25,27 @@ class Validator(ActionValidationBase):
 
     async def async_validate(self) -> None:
         """Validate the repository."""
+        
+        # Check for local brand icons first (HA 2026.3.0+)
+        domain = self.repository.data.domain
+        local_icon_path = f"custom_components/{domain}/brand/icon.png"
+        
+        # Check if local brand icon exists in repository tree
+        has_local_icon = any(
+            file.filename == local_icon_path 
+            for file in self.repository.tree
+        )
+        
+        if has_local_icon:
+            # Local brand icons found, validation passes
+            return
 
+        # No local icons, check brands repo as fallback
         response = await self.hacs.session.get(URL)
         content = await response.json()
 
         if self.repository.data.domain not in content["custom"]:
             raise ValidationException(
-                "The repository has not been added as a custom domain to the brands repo"
+                f"The repository must either have local brand icons "
+                f"(custom_components/{domain}/brand/icon.png) or be added to the brands repo"
             )

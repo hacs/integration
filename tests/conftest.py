@@ -317,7 +317,16 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
                                 {
                                     "entity_id": entity.entity_id,
                                     **_entity_state(entity),
-                                    **recursive_remove_key(entity.as_partial_dict, ("id", "created_at", "modified_at")),
+                                    **recursive_remove_key(
+                                        entity.as_partial_dict,
+                                        (
+                                            "id",
+                                            "created_at",
+                                            "modified_at",
+                                            # This can be re-enabled again when min version is > 2026.2
+                                            "original_name",
+                                        ),
+                                    ),
                                 }
                                 for entity in er.async_entries_for_config_entry(
                                     er.async_get(hacs.hass),

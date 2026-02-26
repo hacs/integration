@@ -57,7 +57,6 @@ jobs:
         homeassistant-version:
           - "dev"
         python-version:
-          - "3.13"
           - "3.14"
     steps:
       - name: 📥 Checkout the repository
@@ -90,7 +89,7 @@ jobs:
         run: scripts/test
 
       - name: 📤 Upload coverage to Codecov
-        if: ${{ matrix.python-version == '3.13' }}
+        if: ${{ matrix.python-version == '3.14' }}
         run: |
           scripts/coverage
           curl -sfSL https://codecov.io/bash | bash -

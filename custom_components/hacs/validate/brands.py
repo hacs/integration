@@ -36,13 +36,12 @@ class Validator(ActionValidationBase):
 
         # Check if the integraiton provides local brand assets
         if asset_path in treefiles:
-            self.repository.logger.debug(
-                "The repository contains the required asset: %s", asset_path
-            )
+            self.repository.logger.debug("The repository contains brands assets at %s", asset_path)
             return
 
         self.repository.logger.warning(
-            "The repository does not contain: %s. Falling back to checking the brands repository.",
+            "The repository does not contain brands assets at %s. "
+            "Falling back to checking the brands repository.",
             asset_path,
         )
 

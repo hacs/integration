@@ -22,17 +22,17 @@ jobs:
       contents: write
     steps:
       - name: 📥 Checkout the repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: 🛠️ Set up Python
-        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: "3.13"
 
       - name: 🔢 Get version
         if: ${{ github.event_name == 'release' }}
         id: version
-        uses: home-assistant/actions/helpers/version@342664e951e2fd5f00bc990fc968342388252475 # master
+        uses: home-assistant/actions/helpers/version@dce0e860c68256ef2902ece06afa5401eb4674e1 # master
 
       - name: 🔢 Set version number
         if: ${{ github.event_name == 'release' }}
@@ -44,7 +44,7 @@ jobs:
         run: ${{ github.workspace }}/scripts/install/frontend
 
       - name: 📤 Upload zip to action
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         if: ${{ github.event_name == 'push' }}
         with:
           name: hacs
@@ -59,7 +59,7 @@ jobs:
           zip hacs.zip -r ./
 
       - name: 📤 Upload zip to release
-        uses: softprops/action-gh-release@6cbd405e2c4e67a21c47fa9e383d020e4e28b836 # v2.3.3
+        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
         if: ${{ github.event_name == 'release' }}
         with:
           files: ${{ github.workspace }}/custom_components/hacs/hacs.zip

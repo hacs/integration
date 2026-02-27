@@ -30,11 +30,11 @@ class Validator(ActionValidationBase):
         treefiles = self.repository.treefiles
 
         if self.repository.repository_manifest.content_in_root:
-            asset_path = f"brands/{ASSET_FILENAME}"
+            asset_path = f"brand/{ASSET_FILENAME}"
         else:
-            asset_path = f"{self.repository.content.path.remote}/brands/{ASSET_FILENAME}"
+            asset_path = f"{self.repository.content.path.remote}/brand/{ASSET_FILENAME}"
 
-        # Check if the integraiton provides local brands assets
+        # Check if the integraiton provides local brand assets
         if asset_path in treefiles:
             self.repository.logger.debug(
                 "The repository contains the required asset: %s", asset_path
@@ -52,6 +52,6 @@ class Validator(ActionValidationBase):
 
         if self.repository.data.domain not in content["custom"]:
             raise ValidationException(
-                "The repository does not provide brands assets "
+                "The repository does not provide brand assets "
                 "and is not listed in the Home Assistant brands repository."
             )

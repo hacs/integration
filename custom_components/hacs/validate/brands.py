@@ -41,11 +41,17 @@ class Validator(ActionValidationBase):
             )
             return
 
+        self.repository.logger.warning(
+            "The repository does not contain: %s. Falling back to checking the brands repository.",
+            asset_path,
+        )
+
         # Fallback the checking the Home Assistant brands repository for the domain
         response = await self.hacs.session.get(URL)
         content = await response.json()
 
         if self.repository.data.domain not in content["custom"]:
             raise ValidationException(
-                "The repository has not been added as a custom domain to the brands repo"
+                "The repository does not provide brands assets "
+                "and is not listed in the Home Assistant brands repository."
             )

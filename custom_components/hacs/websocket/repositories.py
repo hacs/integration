@@ -34,7 +34,11 @@ async def hacs_repositories_list(
     msg: dict[str, Any],
 ) -> None:
     """List repositories."""
-    hacs: HacsBase = hass.data.get(DOMAIN)
+    if (hacs := hass.data.get(DOMAIN)) is None:
+        # HACS is not properly initialized
+        connection.send_error(msg["id"], "hacs_not_initialized", "HACS is not properly initialized")
+        return
+
     connection.send_message(
         websocket_api.result_message(
             msg["id"],
@@ -91,7 +95,10 @@ async def hacs_repositories_clear_new(
     msg: dict[str, Any],
 ) -> None:
     """Clear new repositories for specific categories."""
-    hacs: HacsBase = hass.data.get(DOMAIN)
+    if (hacs := hass.data.get(DOMAIN)) is None:
+        # HACS is not properly initialized
+        connection.send_error(msg["id"], "hacs_not_initialized", "HACS is not properly initialized")
+        return
 
     if repo := msg.get("repository"):
         repository = hacs.repositories.get_by_id(repo)
@@ -123,7 +130,11 @@ async def hacs_repositories_removed(
     msg: dict[str, Any],
 ) -> None:
     """Get information about removed repositories."""
-    hacs: HacsBase = hass.data.get(DOMAIN)
+    if (hacs := hass.data.get(DOMAIN)) is None:
+        # HACS is not properly initialized
+        connection.send_error(msg["id"], "hacs_not_initialized", "HACS is not properly initialized")
+        return
+
     content = []
     for repo in hacs.repositories.list_removed:
         if repo.repository not in hacs.common.ignored_repositories:
@@ -146,7 +157,11 @@ async def hacs_repositories_add(
     msg: dict[str, Any],
 ) -> None:
     """Add custom repositoriy."""
-    hacs: HacsBase = hass.data.get(DOMAIN)
+    if (hacs := hass.data.get(DOMAIN)) is None:
+        # HACS is not properly initialized
+        connection.send_error(msg["id"], "hacs_not_initialized", "HACS is not properly initialized")
+        return
+
     repository = regex.extract_repository_from_url(msg["repository"])
     category = msg["category"]
 
@@ -207,7 +222,11 @@ async def hacs_repositories_remove(
     msg: dict[str, Any],
 ) -> None:
     """Remove custom repositoriy."""
-    hacs: HacsBase = hass.data.get(DOMAIN)
+    if (hacs := hass.data.get(DOMAIN)) is None:
+        # HACS is not properly initialized
+        connection.send_error(msg["id"], "hacs_not_initialized", "HACS is not properly initialized")
+        return
+
     repository = hacs.repositories.get_by_id(msg["repository"])
 
     repository.remove()

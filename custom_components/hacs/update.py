@@ -21,7 +21,10 @@ async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
     """Setup update platform."""
-    hacs: HacsBase = hass.data[DOMAIN]
+    if (hacs := hass.data.get(DOMAIN)) is None:
+        # HACS is not properly initialized
+        return
+
     async_add_entities(
         HacsRepositoryUpdateEntity(hacs=hacs, repository=repository)
         for repository in hacs.repositories.list_downloaded

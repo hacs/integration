@@ -14,6 +14,7 @@ import zipfile
 from aiogithubapi import (
     AIOGitHubAPIException,
     AIOGitHubAPINotModifiedException,
+    GitHubReleaseAssetModel,
     GitHubReleaseModel,
 )
 from aiogithubapi.objects.repository import AIOGitHubAPIRepository
@@ -1133,8 +1134,8 @@ class HacsRepository:
             for release in self.releases.objects or []:
                 if release.tag_name == self.ref:
                     if assets := release.assets:
-                        downloads = next(iter(assets)).download_count
-                        self.data.downloads = downloads
+                        if target_asset := self._find_target_asset(assets):
+                            self.data.downloads = target_asset.download_count
         elif self.hacs.system.generator and self.repository_object:
             await self.repository_object.set_last_commit()
             self.data.last_commit = self.repository_object.last_commit
@@ -1385,6 +1386,36 @@ class HacsRepository:
             handle_rate_limit=True,
         )
         return json_loads(result) if result else None
+
+    def _find_target_asset(
+        self,
+        assets: list[GitHubReleaseAssetModel] | None,
+    ) -> GitHubReleaseAssetModel | None:
+        """Find the correct asset for download."""
+        if not assets:
+            return None
+
+        if self.data.file_name:
+            for asset in assets:
+                if asset.name == self.data.file_name:
+                    return asset
+
+        if self.data.category == "plugin":
+            valid_filenames = (
+                f"{self.data.name}.js",
+                f"{self.data.name}-bundle.js",
+                f"{self.data.name}.umd.js",
+            )
+            for asset in assets:
+                if asset.name in valid_filenames:
+                    return asset
+
+        if target_filename := self.repository_manifest.filename:
+            for asset in assets:
+                if asset.name == target_filename:
+                    return asset
+
+        return assets[0] if assets else None
 
     async def _ensure_download_capabilities(self, ref: str | None, **kwargs: Any) -> None:
         """Ensure that the download can be handled."""

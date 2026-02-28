@@ -43,6 +43,39 @@ def _country_validator(values) -> list[str]:
     return countries
 
 
+def _content_languages_validator(values) -> list[str]:
+    """Custom content_languages validator."""
+    if values is None:
+        return []
+
+    languages = []
+    if isinstance(values, str):
+        if not values.isalpha() or len(values) != 2:
+            raise vol.Invalid(
+                f"Language code '{values}' must be a 2-letter alphabetic code (e.g., 'de', 'fr', 'es').",
+                path=["content_languages"],
+            )
+        languages.append(values.lower())
+    elif isinstance(values, list):
+        for value in values:
+            if not isinstance(value, str):
+                raise vol.Invalid(
+                    f"Language code '{value}' is not a string.", path=["content_languages"]
+                )
+            if not value.isalpha() or len(value) != 2:
+                raise vol.Invalid(
+                    f"Language code '{value}' must be a 2-letter alphabetic code (e.g., 'de', 'fr', 'es').",
+                    path=["content_languages"],
+                )
+            languages.append(value.lower())
+    else:
+        raise vol.Invalid(
+            f"Value '{values}' is not a string or list.", path=["content_languages"]
+        )
+
+    return languages
+
+
 HACS_MANIFEST_JSON_SCHEMA = vol.Schema(
     {
         vol.Optional("content_in_root"): bool,
@@ -53,6 +86,7 @@ HACS_MANIFEST_JSON_SCHEMA = vol.Schema(
         vol.Optional("homeassistant"): str,
         vol.Optional("persistent_directory"): str,
         vol.Optional("render_readme"): bool,
+        vol.Optional("content_languages"): _content_languages_validator,
         vol.Optional("zip_release"): bool,
         vol.Required("name"): str,
     },

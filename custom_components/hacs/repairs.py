@@ -36,12 +36,13 @@ class RestartRequiredFixFlow(RepairsFlow):
             return self.async_create_entry(title="", data={})
 
         hacs: HacsBase = self.hass.data[DOMAIN]
-        integration = hacs.repositories.get_by_id(self.issue_id.split("_")[2])
+        integration_id = (self.issue_id.split("_")[2]
+        integration = hacs.repositories.get_by_id(integration_id)
 
         return self.async_show_form(
             step_id="confirm_restart",
             data_schema=vol.Schema({}),
-            description_placeholders={"name": integration.display_name},
+            description_placeholders={"name": integration.display_name if integration is not None else integration_id},
         )
 
 

@@ -1183,6 +1183,9 @@ class HacsRepository:
             for release in releaseobjects or []:
                 if ref == release.tag_name:
                     for asset in release.assets or []:
+                                                # For themes, only download .yaml files from release assets
+                        if category == "theme" and not asset.name.endswith(".yaml"):
+                            continue
                         files.append(
                             FileInformation(asset.browser_download_url, asset.name, asset.name)
                         )

@@ -707,7 +707,10 @@ class HacsBase:
 
                 # Handle rate-limits
                 if handle_rate_limit and request.status == 429:
-                    header = int(request.headers.get("retry-after") or 10)
+                    try:
+                        header = int(request.headers.get("retry-after") or 10)
+                    except (ValueError, TypeError):
+                        header = 10
                     retry_after = min(header, 60)  # Limit to 60 seconds
 
                     self.log.warning(

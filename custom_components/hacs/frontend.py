@@ -12,7 +12,7 @@ from homeassistant.components.frontend import (
 
 from .const import DOMAIN, URL_BASE
 from .hacs_frontend import VERSION as FE_VERSION, locate_dir
-from .icon_view import HacsRepositoryIconView
+from .icon_view import HacsRepositoryIconByDomainView, HacsRepositoryIconView
 from .utils.workarounds import async_register_static_path
 
 if TYPE_CHECKING:
@@ -44,7 +44,17 @@ async def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
         hass, f"{URL_BASE}/iconset.js", str(hacs.integration_dir / "iconset.js")
     )
     add_extra_js_url(hass, f"{URL_BASE}/iconset.js")
+
+    # Icon fallback handler
+    await async_register_static_path(
+        hass,
+        f"{URL_BASE}/icon_fallback.js",
+        str(hacs.integration_dir / "icon_fallback.js"),
+    )
+    add_extra_js_url(hass, f"{URL_BASE}/icon_fallback.js")
+
     hass.http.register_view(HacsRepositoryIconView(hass))
+    hass.http.register_view(HacsRepositoryIconByDomainView(hass))
 
     # Add to sidepanel if needed
     if DOMAIN not in hass.data.get("frontend_panels", {}):

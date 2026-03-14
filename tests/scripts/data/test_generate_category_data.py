@@ -66,8 +66,10 @@ async def test_generate_category_data_single_repository(
         snapshots.assert_match(
             safe_json_dumps(recursive_remove_key(
                 json.loads(file.read()), ("last_fetched",))),
-            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{
-                category_test_data['repository']}/data.json",
+            (
+                "scripts/data/generate_category_data/single/"
+                f"{category_test_data['category']}/{category_test_data['repository']}/data.json"
+            ),
         )
 
     with open(
@@ -76,8 +78,10 @@ async def test_generate_category_data_single_repository(
     ) as file:
         snapshots.assert_match(
             safe_json_dumps(json.loads(file.read())),
-            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{
-                category_test_data['repository']}/repositories.json",
+            (
+                "scripts/data/generate_category_data/single/"
+                f"{category_test_data['category']}/{category_test_data['repository']}/repositories.json"
+            ),
         )
 
     with open(
@@ -86,8 +90,10 @@ async def test_generate_category_data_single_repository(
     ) as file:
         snapshots.assert_match(
             safe_json_dumps(json.loads(file.read())),
-            f"scripts/data/generate_category_data/single/{category_test_data['category']}/{
-                category_test_data['repository']}/summary.json",
+            (
+                "scripts/data/generate_category_data/single/"
+                f"{category_test_data['category']}/{category_test_data['repository']}/summary.json"
+            ),
         )
 
 
@@ -109,8 +115,7 @@ async def test_generate_category_data(
         snapshots.assert_match(
             safe_json_dumps(recursive_remove_key(
                 json.loads(file.read()), ("last_fetched",))),
-            f"scripts/data/generate_category_data/{
-                category_test_data['category']}//data.json",
+            f"scripts/data/generate_category_data/{category_test_data['category']}//data.json",
         )
 
     with open(
@@ -119,8 +124,7 @@ async def test_generate_category_data(
     ) as file:
         snapshots.assert_match(
             safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
-            f"scripts/data/generate_category_data/{
-                category_test_data['category']}/repositories.json",
+            f"scripts/data/generate_category_data/{category_test_data['category']}/repositories.json",
         )
 
     with open(
@@ -129,8 +133,7 @@ async def test_generate_category_data(
     ) as file:
         snapshots.assert_match(
             safe_json_dumps(recursive_remove_key(json.loads(file.read()), ())),
-            f"scripts/data/generate_category_data/{
-                category_test_data['category']}/summary.json",
+            f"scripts/data/generate_category_data/{category_test_data['category']}/summary.json",
         )
 
 
@@ -174,8 +177,7 @@ async def test_generate_category_data_with_prior_content(
     snapshots.assert_match(
         safe_json_dumps(get_generated_category_data(
             category_test_data["category"])),
-        f"scripts/data/test_generate_category_data_with_prior_content/{
-            category_test_data['category']}.json",
+        f"scripts/data/test_generate_category_data_with_prior_content/{category_test_data['category']}.json",
     )
 
 
@@ -194,8 +196,7 @@ async def test_generate_category_data_errors_release(
 ):
     """Test behaviour if single repository."""
     response_mocker.add(
-        f"https://api.github.com/repos/{
-            category_test_data['repository']}/releases",
+        f"https://api.github.com/repos/{category_test_data['repository']}/releases",
         MockedResponse(exception=error),
     )
     await generate_category_data(category_test_data["category"])
@@ -203,8 +204,10 @@ async def test_generate_category_data_errors_release(
     snapshots.assert_match(
         safe_json_dumps(get_generated_category_data(
             category_test_data["category"])),
-        f"scripts/data/test_generate_category_data_errors_release/{
-            category_test_data['category']}/{request.node.callspec.id.split("-")[0]}.json",
+        (
+            "scripts/data/test_generate_category_data_errors_release/"
+            f"{category_test_data['category']}/{request.node.callspec.id.split('-')[0]}.json"
+        ),
     )
 
 
@@ -243,8 +246,7 @@ async def test_generate_category_data_error_status_release(
     )
 
     response_mocker.add(
-        f"https://api.github.com/repos/{
-            category_test_data['repository']}/releases",
+        f"https://api.github.com/repos/{category_test_data['repository']}/releases",
         MockedResponse(status=status, content=[]),
     )
     await generate_category_data(category_test_data["category"])
@@ -252,8 +254,10 @@ async def test_generate_category_data_error_status_release(
     snapshots.assert_match(
         safe_json_dumps(get_generated_category_data(
             category_test_data["category"])),
-        f"scripts/data/test_generate_category_data_error_status_release/{
-            category_test_data['category']}/{status}.json",
+        (
+            "scripts/data/test_generate_category_data_error_status_release/"
+            f"{category_test_data['category']}/{status}.json"
+        ),
     )
 
 
@@ -298,8 +302,7 @@ async def test_generate_category_data_with_30plus_prereleases(
         release_fixture = json.loads(file.read())[0]
 
     response_mocker.add(
-        f"https://api.github.com/repos/{
-            category_test_data['repository']}/releases",
+        f"https://api.github.com/repos/{category_test_data['repository']}/releases",
         MockedResponse(content=[release_fixture for _ in range(30)]),
     )
 
@@ -308,6 +311,5 @@ async def test_generate_category_data_with_30plus_prereleases(
     snapshots.assert_match(
         safe_json_dumps(get_generated_category_data(
             category_test_data["category"])),
-        f"scripts/data/test_generate_category_data_with_30plus_prereleases/{
-            category_test_data['category']}.json",
+        f"scripts/data/test_generate_category_data_with_30plus_prereleases/{category_test_data['category']}.json",
     )

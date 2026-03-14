@@ -30,8 +30,7 @@ async def test_get_reposiotry_releases(
     assert repo is not None
 
     response_mocker.add(
-        f"https://api.github.com/repos/{
-            category_test_data['repository']}/releases",
+        f"https://api.github.com/repos/{category_test_data['repository']}/releases",
         response=MockedResponse(
             content=[
                 {
@@ -52,6 +51,5 @@ async def test_get_reposiotry_releases(
 
     snapshots.assert_match(
         safe_json_dumps(response),
-        f"{category_test_data['repository']
-           }/test_get_reposiotry_releases.json",
+        f"{category_test_data['repository']}/test_get_reposiotry_releases.json",
     )

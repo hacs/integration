@@ -140,7 +140,7 @@ async def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
             exceptions.append(
                 Exception(
                     "Received exception handler without exception, "
-                    f"but with message: {context["message"]}",
+                    f"but with message: {context['message']}",
                 ),
             )
         orig_exception_handler(loop, context)
@@ -423,8 +423,7 @@ async def check_report_issue() -> None:
     yield
     if times := len(_async_suggest_report_issue_mock_call_tracker):
         raise AssertionError(
-            f"homeassistant.loader.async_suggest_report_issue has been called {
-                times} times",
+            f"homeassistant.loader.async_suggest_report_issue has been called {times} times",
         )
 
 
@@ -465,8 +464,10 @@ def track_api_usage(snapshots: SnapshotFixture):
         if v
     }
 
-    snapshotfile = f"api-usage/{request.node.location[0].replace(".py", "")}{
-        slugify(f"::{request.node.name}")}.json"
+    snapshotfile = (
+        f"api-usage/{request.node.location[0].replace('.py', '')}"
+        f"{slugify(f'::{request.node.name}')}.json"
+    )
 
     if not filtered_calls:
         assert not os.path.exists(f"tests/snapshots/{snapshotfile}")

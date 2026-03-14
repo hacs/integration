@@ -11,9 +11,38 @@ if TYPE_CHECKING:
     from ..repositories.base import HacsRepository
 
 BRANDS_BASE_URL = "https://brands.home-assistant.io/_"
+BRANDS_DOMAINS_URL = "https://brands.home-assistant.io/domains.json"
 RAW_CONTENT_BASE_URL = "https://raw.githubusercontent.com"
 ICON_FILENAME = "icon.png"
 DARK_ICON_FILENAME = "dark_icon.png"
+
+# Module-level cache for known brand domains (populated once per session).
+_known_brand_domains: set[str] | None = None
+
+
+async def _async_get_known_brand_domains(session: ClientSession) -> set[str]:
+    """Fetch and cache the set of domains that have real brand assets."""
+    global _known_brand_domains  # noqa: PLW0603
+    if _known_brand_domains is not None:
+        return _known_brand_domains
+
+    try:
+        response = await session.get(BRANDS_DOMAINS_URL, allow_redirects=True)
+        if response.status == 200:
+            data = await response.json(content_type=None)
+            domains: set[str] = set()
+            # domains.json has keys like "core", "custom" with lists of domains
+            if isinstance(data, dict):
+                for value in data.values():
+                    if isinstance(value, list):
+                        domains.update(str(d) for d in value)
+            _known_brand_domains = domains
+            return domains
+    except Exception:  # pylint: disable=broad-except
+        pass
+
+    # On failure, return empty set so we skip brands and try repo fallback.
+    return set()
 
 
 def repository_icon_api_path(repository_id: str, *, dark: bool = False) -> str:
@@ -63,11 +92,16 @@ async def async_resolve_repository_icon_url(
     if cache is not None and cache_key in cache:
         return cache[cache_key]
 
+    known_domains = await _async_get_known_brand_domains(session)
+
     candidates: list[str] = []
-    if repository.data.domain:
+    # Only use brands CDN if the domain is actually registered there.
+    if repository.data.domain and repository.data.domain in known_domains:
         candidates.append(hosted_brand_icon_url(repository.data.domain, dark=dark))
+    # Always try repo-local brand/ directory as fallback.
     candidates.extend(local_brand_icon_urls(repository, dark=dark))
-    if dark and repository.data.domain:
+    # For dark mode, also fall back to the non-dark brand icon.
+    if dark and repository.data.domain and repository.data.domain in known_domains:
         candidates.append(hosted_brand_icon_url(repository.data.domain))
 
     resolved = None

@@ -45,14 +45,6 @@ async def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
     )
     add_extra_js_url(hass, f"{URL_BASE}/iconset.js")
 
-    # Icon fallback handler
-    await async_register_static_path(
-        hass,
-        f"{URL_BASE}/icon_fallback.js",
-        str(hacs.integration_dir / "icon_fallback.js"),
-    )
-    add_extra_js_url(hass, f"{URL_BASE}/icon_fallback.js")
-
     hass.http.register_view(HacsRepositoryIconView(hass))
     hass.http.register_view(HacsRepositoryIconByDomainView(hass))
 

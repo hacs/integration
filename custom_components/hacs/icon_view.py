@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import re
-
 from aiohttp import web
 from homeassistant.components.http import HomeAssistantView
 from homeassistant.core import HomeAssistant
@@ -11,12 +9,7 @@ from homeassistant.core import HomeAssistant
 from .base import HacsBase
 from .const import DOMAIN
 from .enums import HacsCategory
-from .utils.repository_icon import (
-    async_resolve_repository_icon_url,
-    hosted_brand_icon_url,
-)
-
-_DOMAIN_RE = re.compile(r"^[a-z][a-z0-9_]*$")
+from .utils.repository_icon import async_resolve_repository_icon_url
 
 
 class HacsRepositoryIconView(HomeAssistantView):
@@ -41,53 +34,6 @@ class HacsRepositoryIconView(HomeAssistantView):
             raise web.HTTPNotFound()
 
         dark = request.query.get("dark") == "1"
-        icon_url = await async_resolve_repository_icon_url(
-            repository,
-            hacs.session,
-            dark=dark,
-            cache=hacs.common.repository_icon_urls,
-        )
-        if icon_url is None:
-            raise web.HTTPNotFound()
-
-        raise web.HTTPFound(location=icon_url)
-
-
-class HacsRepositoryIconByDomainView(HomeAssistantView):
-    """Resolve repository icons by integration domain name."""
-
-    url = "/api/hacs/icon/domain/{domain}"
-    name = "api:hacs:repository_icon_domain"
-    requires_auth = False
-
-    def __init__(self, hass: HomeAssistant) -> None:
-        """Initialize the view."""
-        self.hass = hass
-
-    async def get(self, request: web.Request, domain: str) -> web.Response:
-        """Handle icon requests by domain."""
-        if not _DOMAIN_RE.match(domain):
-            raise web.HTTPBadRequest()
-
-        hacs: HacsBase | None = self.hass.data.get(DOMAIN)
-        if hacs is None:
-            raise web.HTTPServiceUnavailable()
-
-        dark = request.query.get("dark") == "1"
-
-        repository = None
-        for repo in hacs.repositories.list_all:
-            if (
-                repo.data.category == HacsCategory.INTEGRATION
-                and repo.data.domain == domain
-            ):
-                repository = repo
-                break
-
-        if repository is None:
-            # Not a HACS integration — redirect to brands CDN directly
-            raise web.HTTPFound(location=hosted_brand_icon_url(domain, dark=dark))
-
         icon_url = await async_resolve_repository_icon_url(
             repository,
             hacs.session,

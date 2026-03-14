@@ -67,15 +67,28 @@ def local_brand_icon_urls(repository: HacsRepository, *, dark: bool = False) -> 
     if ref.startswith("tags/"):
         ref = ref.replace("tags/", "", 1)
 
-    base_path = PurePosixPath(repository.content.path.remote or "")
-    brand_path = base_path / "brand"
-
+    base = f"{RAW_CONTENT_BASE_URL}/{repository.data.full_name}/{ref}"
     filenames = [DARK_ICON_FILENAME, ICON_FILENAME] if dark else [ICON_FILENAME]
-    urls: list[str] = []
 
+    # Build candidate paths from content.path.remote if available.
+    remote = repository.content.path.remote or ""
+    brand_path = PurePosixPath(remote) / "brand"
+
+    # If the remote path might not include the domain yet (e.g. just
+    # "custom_components" before validation), also try with the domain appended.
+    alt_brand_path = None
+    domain = repository.data.domain
+    if domain and not remote.endswith(domain):
+        alt_brand_path = PurePosixPath(f"custom_components/{domain}/brand")
+
+    urls: list[str] = []
     for filename in filenames:
-        asset_path = (brand_path / filename).as_posix().lstrip("/")
-        urls.append(f"{RAW_CONTENT_BASE_URL}/{repository.data.full_name}/{ref}/{asset_path}")
+        asset = (brand_path / filename).as_posix().lstrip("/")
+        urls.append(f"{base}/{asset}")
+    if alt_brand_path:
+        for filename in filenames:
+            asset = (alt_brand_path / filename).as_posix().lstrip("/")
+            urls.append(f"{base}/{asset}")
 
     return urls
 

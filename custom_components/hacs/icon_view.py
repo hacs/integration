@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import re
 
 from aiohttp import web
@@ -20,13 +21,27 @@ from .utils.repository_icon import (
 
 _DOMAIN_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 
+# 1x1 transparent PNG — renders invisibly when no icon exists.
+_TRANSPARENT_PIXEL = base64.b64decode(
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQI12NgAAIABQAB"
+    "Nl7BcQAAAABJRU5ErkJggg=="
+)
+
+
+def _empty_png() -> web.Response:
+    return web.Response(
+        body=_TRANSPARENT_PIXEL,
+        content_type="image/png",
+        headers={"Cache-Control": "public, max-age=86400"},
+    )
+
 
 class HacsRepositoryIconView(HomeAssistantView):
     """Resolve repository icons to hosted or repository-local assets."""
 
     url = "/api/hacs/icon/{repository_id}"
     name = "api:hacs:repository_icon"
-    requires_auth = True
+    requires_auth = False
 
     def __init__(self, hass: HomeAssistant) -> None:
         """Initialize the view."""
@@ -50,7 +65,7 @@ class HacsRepositoryIconView(HomeAssistantView):
             cache=hacs.common.repository_icon_urls,
         )
         if icon_url is None:
-            raise web.HTTPNotFound()
+            return _empty_png()
 
         raise web.HTTPFound(location=icon_url)
 
@@ -60,7 +75,7 @@ class HacsRepositoryIconByDomainView(HomeAssistantView):
 
     url = "/api/hacs/icon/domain/{domain}"
     name = "api:hacs:repository_icon_domain"
-    requires_auth = True
+    requires_auth = False
 
     def __init__(self, hass: HomeAssistant) -> None:
         """Initialize the view."""
@@ -98,6 +113,6 @@ class HacsRepositoryIconByDomainView(HomeAssistantView):
             cache=hacs.common.repository_icon_urls,
         )
         if icon_url is None:
-            raise web.HTTPNotFound()
+            return _empty_png()
 
         raise web.HTTPFound(location=icon_url)

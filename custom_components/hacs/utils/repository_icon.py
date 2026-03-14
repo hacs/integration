@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 import logging
-from pathlib import PurePosixPath
+from pathlib import Path
 from tempfile import SpooledTemporaryFile
-from typing import TYPE_CHECKING
-from urllib.parse import urlparse
+from typing import TYPE_CHECKING, Any
 
 from aiohttp.web_request import FileField
 from homeassistant.components.image_upload.const import DOMAIN as IMAGE_UPLOAD_DOMAIN
@@ -26,11 +25,9 @@ _LOGGER = logging.getLogger(__name__)
 
 BRANDS_BASE_URL = "https://brands.home-assistant.io"
 BRANDS_FALLBACK_BASE_URL = f"{BRANDS_BASE_URL}/_"
-RAW_CONTENT_BASE_URL = "https://raw.githubusercontent.com"
 REPOSITORY_ICONS_STORE_KEY = "repository_icons"
 ICON_FILENAME = "icon.png"
 DARK_ICON_FILENAME = "dark_icon.png"
-ALLOWED_CONTENT_TYPES = {"image/gif", "image/jpeg", "image/png"}
 
 
 def repository_icon_api_path(repository_id: str, *, dark: bool = False) -> str:
@@ -56,37 +53,33 @@ def hosted_brand_icon_url(domain: str, *, dark: bool = False) -> str:
     return f"{BRANDS_FALLBACK_BASE_URL}/{domain}/{filename}"
 
 
-def local_brand_icon_urls(repository: HacsRepository, *, dark: bool = False) -> list[str]:
-    """Return candidate raw GitHub brand icon URLs for a repository."""
-    if not repository.data.full_name:
-        return []
-
-    ref = repository.ref or repository.data.selected_tag or repository.data.last_version
-    ref = ref or repository.data.default_branch or "main"
-    if ref.startswith("tags/"):
-        ref = ref.replace("tags/", "", 1)
-
-    base = f"{RAW_CONTENT_BASE_URL}/{repository.data.full_name}/{ref}"
+def local_brand_icon_paths(repository: HacsRepository, *, dark: bool = False) -> list[Path]:
+    """Return candidate local brand icon paths for a repository."""
     filenames = [DARK_ICON_FILENAME, ICON_FILENAME] if dark else [ICON_FILENAME]
+    candidate_directories: list[Path] = []
 
-    remote = repository.content.path.remote or ""
-    brand_path = PurePosixPath(remote) / "brand"
+    if repository.content.path.local:
+        candidate_directories.append(Path(repository.content.path.local) / "brand")
 
-    alt_brand_path = None
-    domain = repository.data.domain
-    if domain and not remote.endswith(domain):
-        alt_brand_path = PurePosixPath(f"custom_components/{domain}/brand")
+    if repository.data.domain and repository.hacs.core.config_path:
+        candidate_directories.append(
+            Path(repository.hacs.core.config_path)
+            / "custom_components"
+            / repository.data.domain
+            / "brand"
+        )
 
-    urls: list[str] = []
-    for filename in filenames:
-        asset = (brand_path / filename).as_posix().lstrip("/")
-        urls.append(f"{base}/{asset}")
-    if alt_brand_path:
+    paths: list[Path] = []
+    seen_directories: set[str] = set()
+    for directory in candidate_directories:
+        directory_key = directory.as_posix()
+        if directory_key in seen_directories:
+            continue
+        seen_directories.add(directory_key)
         for filename in filenames:
-            asset = (alt_brand_path / filename).as_posix().lstrip("/")
-            urls.append(f"{base}/{asset}")
+            paths.append(directory / filename)
 
-    return urls
+    return paths
 
 
 async def async_initialize_repository_icon_cache(hacs: HacsBase) -> None:
@@ -98,7 +91,7 @@ async def async_initialize_repository_icon_cache(hacs: HacsBase) -> None:
     image_collection = _get_image_upload_collection(hacs)
     valid_repository_ids = {str(repository.data.id) for repository in hacs.repositories.list_all}
     changed = False
-    retained: dict[str, dict[str, str]] = {}
+    retained: dict[str, dict[str, Any]] = {}
 
     for key, entry in stored_icons.items():
         if not isinstance(entry, dict):
@@ -107,9 +100,9 @@ async def async_initialize_repository_icon_cache(hacs: HacsBase) -> None:
 
         repo_id = _repository_icon_store_repo_id(key)
         image_id = entry.get("image_id")
-        source_url = entry.get("source_url")
+        source = _stored_repository_icon_source(entry)
 
-        if repo_id not in valid_repository_ids or not image_id or not source_url:
+        if repo_id not in valid_repository_ids or not image_id or source is None:
             changed = True
             if image_collection is not None and image_id:
                 await _async_delete_uploaded_icon(image_collection, image_id)
@@ -119,7 +112,17 @@ async def async_initialize_repository_icon_cache(hacs: HacsBase) -> None:
             changed = True
             continue
 
-        retained[key] = {"image_id": image_id, "source_url": source_url}
+        current_source = await hacs.hass.async_add_executor_job(
+            _local_repository_icon_source,
+            Path(source["source_path"]),
+        )
+        if current_source is None or not _repository_icon_source_matches(entry, current_source):
+            changed = True
+            if image_collection is not None:
+                await _async_delete_uploaded_icon(image_collection, image_id)
+            continue
+
+        retained[key] = _repository_icon_store_entry(image_id, current_source)
 
     hacs.common.repository_icon_urls.clear()
     hacs.common.repository_uploaded_icons = retained
@@ -143,15 +146,13 @@ async def async_resolve_repository_icon_url(
         await _async_clear_uploaded_repository_icon(repository, dark=dark)
         resolved = official_brand_icon_url(domain, dark=dark)
     else:
-        for candidate in local_brand_icon_urls(repository, dark=dark):
-            if cached_icon := await _async_cache_local_repository_icon(
+        local_source = await _async_get_local_repository_icon_source(repository, dark=dark)
+        if local_source is not None:
+            resolved = await _async_cache_local_repository_icon(
                 repository,
-                session,
-                candidate,
+                local_source,
                 dark=dark,
-            ):
-                resolved = cached_icon
-                break
+            )
 
         if resolved is None and dark and domain:
             light_brand_url = official_brand_icon_url(domain)
@@ -185,10 +186,25 @@ def _get_image_upload_collection(hacs: HacsBase) -> ImageStorageCollection | Non
     return hacs.hass.data.get(IMAGE_UPLOAD_DOMAIN)
 
 
+async def _async_get_local_repository_icon_source(
+    repository: HacsRepository,
+    *,
+    dark: bool,
+) -> dict[str, Any] | None:
+    """Return metadata for the first local repository icon on disk."""
+    for candidate in local_brand_icon_paths(repository, dark=dark):
+        source = await repository.hacs.hass.async_add_executor_job(
+            _local_repository_icon_source,
+            candidate,
+        )
+        if source is not None:
+            return source
+    return None
+
+
 async def _async_cache_local_repository_icon(
     repository: HacsRepository,
-    session: ClientSession,
-    source_url: str,
+    source: dict[str, Any],
     *,
     dark: bool,
 ) -> str | None:
@@ -201,30 +217,32 @@ async def _async_cache_local_repository_icon(
     current = repository.hacs.common.repository_uploaded_icons.get(store_key)
     if (
         current is not None
-        and current.get("source_url") == source_url
+        and _repository_icon_source_matches(current, source)
         and (image_id := current.get("image_id")) in image_collection.data
     ):
         return repository_uploaded_icon_path(image_id)
 
-    downloaded = await _async_download_image(session, source_url)
-    if downloaded is None:
+    content = await repository.hacs.hass.async_add_executor_job(
+        _read_local_repository_icon_content,
+        Path(source["source_path"]),
+    )
+    if not content:
         return None
 
-    content, content_type = downloaded
     created = await _async_create_uploaded_icon(
         image_collection,
-        source_url,
+        source["filename"],
         content,
-        content_type,
+        source["content_type"],
     )
 
     image_id = created[CONF_ID]
     previous_image_id = current.get("image_id") if current is not None else None
 
-    repository.hacs.common.repository_uploaded_icons[store_key] = {
-        "image_id": image_id,
-        "source_url": source_url,
-    }
+    repository.hacs.common.repository_uploaded_icons[store_key] = _repository_icon_store_entry(
+        image_id,
+        source,
+    )
     await async_save_to_store(
         repository.hacs.hass,
         REPOSITORY_ICONS_STORE_KEY,
@@ -259,35 +277,79 @@ async def _async_clear_uploaded_repository_icon(
         await _async_delete_uploaded_icon(image_collection, image_id)
 
 
-async def _async_download_image(
-    session: ClientSession,
-    url: str,
-) -> tuple[bytes, str] | None:
-    """Fetch image bytes and a supported content type."""
+def _local_repository_icon_source(path: Path) -> dict[str, Any] | None:
+    """Return source metadata for a local repository icon."""
     try:
-        response = await session.get(url, allow_redirects=True)
-    except Exception:  # pylint: disable=broad-except
+        if not path.is_file():
+            return None
+        stat = path.stat()
+    except OSError:
         return None
 
-    if getattr(response, "status", 0) != 200:
+    return {
+        "source_path": path.as_posix(),
+        "source_mtime_ns": stat.st_mtime_ns,
+        "source_size": stat.st_size,
+        "filename": path.name,
+        "content_type": _path_content_type(path),
+    }
+
+
+def _stored_repository_icon_source(entry: dict[str, Any]) -> dict[str, Any] | None:
+    """Return normalized stored metadata for a cached repository icon."""
+    source_path = entry.get("source_path")
+    source_mtime_ns = entry.get("source_mtime_ns")
+    source_size = entry.get("source_size")
+
+    if not isinstance(source_path, str) or not isinstance(source_mtime_ns, int) or not isinstance(
+        source_size,
+        int,
+    ):
         return None
 
-    content = await response.read()
-    if not content:
+    return {
+        "source_path": source_path,
+        "source_mtime_ns": source_mtime_ns,
+        "source_size": source_size,
+    }
+
+
+def _repository_icon_store_entry(image_id: str, source: dict[str, Any]) -> dict[str, Any]:
+    """Return stored metadata for a cached repository icon."""
+    return {
+        "image_id": image_id,
+        "source_path": source["source_path"],
+        "source_mtime_ns": source["source_mtime_ns"],
+        "source_size": source["source_size"],
+    }
+
+
+def _repository_icon_source_matches(entry: dict[str, Any], source: dict[str, Any]) -> bool:
+    """Return whether stored metadata matches the current local source."""
+    return (
+        entry.get("source_path") == source["source_path"]
+        and entry.get("source_mtime_ns") == source["source_mtime_ns"]
+        and entry.get("source_size") == source["source_size"]
+    )
+
+
+def _read_local_repository_icon_content(path: Path) -> bytes | None:
+    """Read a local repository icon from disk."""
+    try:
+        content = path.read_bytes()
+    except OSError:
         return None
 
-    return content, _response_content_type(response, url)
+    return content or None
 
 
 async def _async_create_uploaded_icon(
     image_collection: ImageStorageCollection,
-    source_url: str,
+    filename: str,
     content: bytes,
     content_type: str,
 ) -> dict[str, str]:
     """Store a fetched icon in Home Assistant image storage."""
-    filename = PurePosixPath(urlparse(source_url).path).name or ICON_FILENAME
-
     with SpooledTemporaryFile(mode="w+b") as file_handle:
         file_handle.write(content)
         file_handle.seek(0)
@@ -323,15 +385,11 @@ async def _async_url_exists(session: ClientSession, url: str) -> bool:
     return getattr(response, "status", 0) == 200
 
 
-def _response_content_type(response, url: str) -> str:
-    """Return a supported image content type for a response."""
-    content_type = response.headers.get("Content-Type", "").split(";", 1)[0].lower()
-    if content_type in ALLOWED_CONTENT_TYPES:
-        return content_type
-
-    path = urlparse(url).path.lower()
-    if path.endswith(".gif"):
+def _path_content_type(path: Path) -> str:
+    """Return a supported image content type for a local file path."""
+    suffix = path.suffix.lower()
+    if suffix == ".gif":
         return "image/gif"
-    if path.endswith((".jpg", ".jpeg")):
+    if suffix in {".jpg", ".jpeg"}:
         return "image/jpeg"
     return "image/png"

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from homeassistant.const import CONF_ID
 
 from custom_components.hacs.const import VERSION_STORAGE
@@ -7,7 +9,7 @@ from custom_components.hacs.utils.repository_icon import (
     async_initialize_repository_icon_cache,
     async_resolve_repository_icon_url,
     hosted_brand_icon_url,
-    local_brand_icon_urls,
+    local_brand_icon_paths,
     official_brand_icon_url,
     repository_icon_api_path,
 )
@@ -52,6 +54,28 @@ def _configure_repository_icon_source(repository_integration) -> None:
     repository_integration.data.full_name = "hacs-test-org/integration-basic"
     repository_integration.ref = "main"
     repository_integration.content.path.remote = "custom_components/test"
+    repository_integration.content.path.local = repository_integration.localpath
+
+
+def _write_local_brand_icon(
+    repository_integration,
+    *,
+    filename: str = "icon.png",
+    content: bytes = b"png-bytes",
+) -> Path:
+    path = Path(repository_integration.localpath) / "brand" / filename
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(content)
+    return path
+
+
+def _stored_local_source(path: Path) -> dict[str, str | int]:
+    stat = path.stat()
+    return {
+        "source_path": path.as_posix(),
+        "source_mtime_ns": stat.st_mtime_ns,
+        "source_size": stat.st_size,
+    }
 
 
 async def test_async_resolve_repository_icon_url_prefers_hosted_icon(
@@ -59,12 +83,10 @@ async def test_async_resolve_repository_icon_url_prefers_hosted_icon(
     response_mocker: ResponseMocker,
 ):
     _configure_repository_icon_source(repository_integration)
+    _write_local_brand_icon(repository_integration)
 
     hosted_url = official_brand_icon_url("test")
-    local_url = local_brand_icon_urls(repository_integration)[0]
-
     response_mocker.add(hosted_url, MockedResponse(status=200))
-    response_mocker.add(local_url, MockedResponse(status=200))
 
     resolved = await async_resolve_repository_icon_url(
         repository_integration,
@@ -82,21 +104,11 @@ async def test_async_resolve_repository_icon_url_caches_local_brand_icon_in_imag
     hass_storage,
 ):
     _configure_repository_icon_source(repository_integration)
+    path = _write_local_brand_icon(repository_integration)
     image_collection = FakeImageCollection()
     repository_integration.hacs.hass.data["image_upload"] = image_collection
 
-    hosted_url = official_brand_icon_url("test")
-    local_url = local_brand_icon_urls(repository_integration)[0]
-
-    response_mocker.add(hosted_url, MockedResponse(status=404))
-    response_mocker.add(
-        local_url,
-        MockedResponse(
-            status=200,
-            content=b"png-bytes",
-            headers={"Content-Type": "image/png"},
-        ),
-    )
+    response_mocker.add(official_brand_icon_url("test"), MockedResponse(status=404))
 
     resolved = await async_resolve_repository_icon_url(
         repository_integration,
@@ -104,7 +116,6 @@ async def test_async_resolve_repository_icon_url_caches_local_brand_icon_in_imag
     )
 
     assert resolved == "/api/image/serve/image_1/original"
-    assert resolved != local_url
     assert image_collection.created == [
         {
             "id": "image_1",
@@ -116,7 +127,7 @@ async def test_async_resolve_repository_icon_url_caches_local_brand_icon_in_imag
     assert await async_load_from_store(repository_integration.hacs.hass, "repository_icons") == {
         "123:false": {
             "image_id": "image_1",
-            "source_url": local_url,
+            **_stored_local_source(path),
         }
     }
 
@@ -126,6 +137,7 @@ async def test_async_resolve_repository_icon_url_reuses_uploaded_icon_when_sourc
     response_mocker: ResponseMocker,
 ):
     _configure_repository_icon_source(repository_integration)
+    path = _write_local_brand_icon(repository_integration)
     image_collection = FakeImageCollection()
     image_collection.data["image_1"] = {
         "content": b"cached",
@@ -133,11 +145,10 @@ async def test_async_resolve_repository_icon_url_reuses_uploaded_icon_when_sourc
         "name": "icon.png",
     }
     repository_integration.hacs.hass.data["image_upload"] = image_collection
-    local_url = local_brand_icon_urls(repository_integration)[0]
     repository_integration.hacs.common.repository_uploaded_icons = {
         "123:false": {
             "image_id": "image_1",
-            "source_url": local_url,
+            **_stored_local_source(path),
         }
     }
 
@@ -158,6 +169,7 @@ async def test_async_resolve_repository_icon_url_replaces_uploaded_icon_when_sou
     hass_storage,
 ):
     _configure_repository_icon_source(repository_integration)
+    path = _write_local_brand_icon(repository_integration, content=b"new-png")
     image_collection = FakeImageCollection()
     image_collection.data["image_1"] = {
         "content": b"old",
@@ -165,27 +177,16 @@ async def test_async_resolve_repository_icon_url_replaces_uploaded_icon_when_sou
         "name": "icon.png",
     }
     repository_integration.hacs.hass.data["image_upload"] = image_collection
-
-    old_local_url = local_brand_icon_urls(repository_integration)[0]
     repository_integration.hacs.common.repository_uploaded_icons = {
         "123:false": {
             "image_id": "image_1",
-            "source_url": old_local_url,
+            "source_path": path.with_name("old_icon.png").as_posix(),
+            "source_mtime_ns": 1,
+            "source_size": 3,
         }
     }
 
-    repository_integration.ref = "new-branch"
-    new_local_url = local_brand_icon_urls(repository_integration)[0]
-
     response_mocker.add(official_brand_icon_url("test"), MockedResponse(status=404))
-    response_mocker.add(
-        new_local_url,
-        MockedResponse(
-            status=200,
-            content=b"new-png",
-            headers={"Content-Type": "image/png"},
-        ),
-    )
 
     resolved = await async_resolve_repository_icon_url(
         repository_integration,
@@ -205,7 +206,7 @@ async def test_async_resolve_repository_icon_url_replaces_uploaded_icon_when_sou
     assert await async_load_from_store(repository_integration.hacs.hass, "repository_icons") == {
         "123:false": {
             "image_id": "image_2",
-            "source_url": new_local_url,
+            **_stored_local_source(path),
         }
     }
 
@@ -223,19 +224,16 @@ async def test_async_resolve_repository_icon_url_clears_uploaded_icon_when_place
         "name": "icon.png",
     }
     repository_integration.hacs.hass.data["image_upload"] = image_collection
-    old_local_url = local_brand_icon_urls(repository_integration)[0]
     repository_integration.hacs.common.repository_uploaded_icons = {
         "123:false": {
             "image_id": "image_1",
-            "source_url": old_local_url,
+            "source_path": "/tmp/icon.png",
+            "source_mtime_ns": 1,
+            "source_size": 3,
         }
     }
 
-    repository_integration.ref = "new-branch"
-    current_local_url = local_brand_icon_urls(repository_integration)[0]
-
     response_mocker.add(official_brand_icon_url("test"), MockedResponse(status=404))
-    response_mocker.add(current_local_url, MockedResponse(status=404))
 
     resolved = await async_resolve_repository_icon_url(
         repository_integration,
@@ -252,6 +250,7 @@ async def test_async_initialize_repository_icon_cache_prunes_removed_repositorie
     hass_storage,
 ):
     _configure_repository_icon_source(repository_integration)
+    path = _write_local_brand_icon(repository_integration, content=b"current")
     image_collection = FakeImageCollection()
     image_collection.data["image_1"] = {
         "content": b"current",
@@ -269,11 +268,13 @@ async def test_async_initialize_repository_icon_cache_prunes_removed_repositorie
         "data": {
             "123:false": {
                 "image_id": "image_1",
-                "source_url": "https://example.com/icon.png",
+                **_stored_local_source(path),
             },
             "999:false": {
                 "image_id": "image_2",
-                "source_url": "https://example.com/stale.png",
+                "source_path": "/tmp/stale.png",
+                "source_mtime_ns": 1,
+                "source_size": 5,
             },
         },
     }
@@ -284,16 +285,46 @@ async def test_async_initialize_repository_icon_cache_prunes_removed_repositorie
     assert repository_integration.hacs.common.repository_uploaded_icons == {
         "123:false": {
             "image_id": "image_1",
-            "source_url": "https://example.com/icon.png",
+            **_stored_local_source(path),
         }
     }
     assert image_collection.deleted == ["image_2"]
     assert await async_load_from_store(repository_integration.hacs.hass, "repository_icons") == {
         "123:false": {
             "image_id": "image_1",
-            "source_url": "https://example.com/icon.png",
+            **_stored_local_source(path),
         }
     }
+
+
+async def test_async_initialize_repository_icon_cache_prunes_legacy_github_entries(
+    repository_integration,
+    hass_storage,
+):
+    _configure_repository_icon_source(repository_integration)
+    image_collection = FakeImageCollection()
+    image_collection.data["image_1"] = {
+        "content": b"legacy",
+        "content_type": "image/png",
+        "name": "icon.png",
+    }
+    repository_integration.hacs.hass.data["image_upload"] = image_collection
+    hass_storage["hacs.repository_icons"] = {
+        "version": VERSION_STORAGE,
+        "data": {
+            "123:false": {
+                "image_id": "image_1",
+                "source_url": "https://raw.githubusercontent.com/example/icon.png",
+            }
+        },
+    }
+
+    repository_integration.hacs.repositories.register(repository_integration)
+    await async_initialize_repository_icon_cache(repository_integration.hacs)
+
+    assert repository_integration.hacs.common.repository_uploaded_icons == {}
+    assert image_collection.deleted == ["image_1"]
+    assert await async_load_from_store(repository_integration.hacs.hass, "repository_icons") == {}
 
 
 async def test_async_resolve_repository_icon_url_falls_back_to_placeholder_image(
@@ -304,12 +335,9 @@ async def test_async_resolve_repository_icon_url_falls_back_to_placeholder_image
 
     hosted_dark_url = official_brand_icon_url("test", dark=True)
     hosted_light_url = official_brand_icon_url("test")
-    local_urls = local_brand_icon_urls(repository_integration, dark=True)
     placeholder_url = hosted_brand_icon_url("test", dark=True)
 
     response_mocker.add(hosted_dark_url, MockedResponse(status=404))
-    for url in local_urls:
-        response_mocker.add(url, MockedResponse(status=404))
     response_mocker.add(hosted_light_url, MockedResponse(status=404))
 
     resolved = await async_resolve_repository_icon_url(
@@ -321,21 +349,14 @@ async def test_async_resolve_repository_icon_url_falls_back_to_placeholder_image
     assert resolved == placeholder_url
 
 
-def test_local_brand_icon_urls_include_domain_specific_fallback_path(repository_integration):
+def test_local_brand_icon_paths_use_installed_custom_component_directory(repository_integration):
     _configure_repository_icon_source(repository_integration)
-    repository_integration.content.path.remote = "custom_components"
 
-    urls = local_brand_icon_urls(repository_integration, dark=True)
+    paths = local_brand_icon_paths(repository_integration, dark=True)
 
-    assert urls == [
-        "https://raw.githubusercontent.com/hacs-test-org/integration-basic/main/"
-        "custom_components/brand/dark_icon.png",
-        "https://raw.githubusercontent.com/hacs-test-org/integration-basic/main/"
-        "custom_components/brand/icon.png",
-        "https://raw.githubusercontent.com/hacs-test-org/integration-basic/main/"
-        "custom_components/test/brand/dark_icon.png",
-        "https://raw.githubusercontent.com/hacs-test-org/integration-basic/main/"
-        "custom_components/test/brand/icon.png",
+    assert paths == [
+        Path(repository_integration.localpath) / "brand" / "dark_icon.png",
+        Path(repository_integration.localpath) / "brand" / "icon.png",
     ]
 
 

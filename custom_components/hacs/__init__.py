@@ -27,6 +27,7 @@ from .enums import HacsDisabledReason, HacsStage, LovelaceMode
 from .frontend import async_register_frontend
 from .utils.data import HacsData
 from .utils.queue_manager import QueueManager
+from .utils.repository_icon import async_initialize_repository_icon_cache
 from .utils.version import version_left_higher_or_equal_then_right
 from .websocket import async_register_websocket_commands
 
@@ -136,6 +137,7 @@ async def _async_initialize_integration(
             hacs.disable_hacs(HacsDisabledReason.RESTORE)
             return False
 
+        await async_initialize_repository_icon_cache(hacs)
         hacs.set_active_categories()
 
         async_register_websocket_commands(hass)

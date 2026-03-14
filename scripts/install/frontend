@@ -4,6 +4,13 @@ set -e
 
 cd "$(dirname "$0")/../.."
 
+PYTHON_BIN="${PYTHON_BIN:-$(command -v python3 || command -v python)}"
+
+if [[ -z "${PYTHON_BIN}" ]]; then
+    echo "Unable to find python3 or python in PATH"
+    exit 1
+fi
+
 FRONTEND_VERSION="20250128065759"
 
 function installFrontendFromGitHub() {
@@ -44,3 +51,5 @@ if [[ "${CURRENT_VERSION}" != "${FRONTEND_VERSION}" ]]; then
 else
     echo "Frontend version is the same (${FRONTEND_VERSION}), skipping download"
 fi
+
+"${PYTHON_BIN}" scripts/patch_frontend_icons.py ./custom_components/hacs/hacs_frontend

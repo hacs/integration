@@ -10,6 +10,7 @@ from homeassistant.helpers.entity_registry import async_get as async_get_entity_
 import pytest
 
 from custom_components.hacs.const import DOMAIN
+from custom_components.hacs.update import HacsRepositoryUpdateEntity
 
 from tests.common import (
     CategoryTestData,
@@ -21,6 +22,30 @@ from tests.common import (
     safe_json_dumps,
 )
 from tests.conftest import SnapshotFixture
+
+
+def test_update_entity_picture_uses_local_icon_resolver(repository_integration):
+    repository_integration.data.id = "123"
+    repository_integration.data.domain = "test"
+
+    entity = HacsRepositoryUpdateEntity(
+        hacs=repository_integration.hacs,
+        repository=repository_integration,
+    )
+
+    assert entity.entity_picture == "/api/hacs/icon/123"
+
+
+def test_update_entity_picture_uses_local_icon_resolver_without_domain(repository_integration):
+    repository_integration.data.id = "123"
+    repository_integration.data.domain = None
+
+    entity = HacsRepositoryUpdateEntity(
+        hacs=repository_integration.hacs,
+        repository=repository_integration,
+    )
+
+    assert entity.entity_picture == "/api/hacs/icon/123"
 
 
 @pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
@@ -58,8 +83,7 @@ async def test_update_entity_state(
     )
 
     # Bump version
-    fixture_file = f"fixtures/proxy/data-v2.hacs.xyz/{
-        category_test_data['category']}/data.json"
+    fixture_file = f"fixtures/proxy/data-v2.hacs.xyz/{category_test_data['category']}/data.json"
     fp = os.path.join(
         os.path.dirname(__file__),
         fixture_file,

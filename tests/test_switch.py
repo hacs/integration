@@ -45,8 +45,7 @@ async def test_switch_entity_state(
     await hass.config_entries.async_reload(hacs.configuration.config_entry.entry_id)
     await hass.async_block_till_done()
 
-    fixture_file = f"fixtures/proxy/data-v2.hacs.xyz/{
-        category_test_data['category']}/data.json"
+    fixture_file = f"fixtures/proxy/data-v2.hacs.xyz/{category_test_data['category']}/data.json"
     fp = os.path.join(
         os.path.dirname(__file__),
         fixture_file,

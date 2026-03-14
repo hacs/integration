@@ -204,8 +204,7 @@ def fixture(filename, asjson=True):
                 return json_func.loads(fptr.read())
             return fptr.read()
     except OSError as err:
-        raise OSError(f"Missing fixture for {
-                      path.split('fixtures/')[1]}") from err
+        raise OSError(f"Missing fixture for {path.split('fixtures/')[1]}") from err
 
 
 def dummy_repository_base(hacs, repository=None):
@@ -432,8 +431,7 @@ class ResponseMocker:
     def get(self, url: str, *args, **kwargs) -> MockedResponse:
         data = {"url": url, "args": list(args), "kwargs": kwargs}
         if (request := REQUEST_CONTEXT.get()) is not None:
-            data["_test_caller"] = f"{
-                request.node.location[0]}::{request.node.name}"
+            data["_test_caller"] = f"{request.node.location[0]}::{request.node.name}"
             data["_uses_setup_integration"] = request.node.name != "test_integration_setup" and (
                 "setup_integration" in request.fixturenames or "hacs" in request.fixturenames
             )
@@ -458,8 +456,10 @@ class ProxyClientSession(ClientSession):
             return resp
 
         url = URL(str_or_url)
-        fixture_file = f"fixtures/proxy/{url.host}{url.path}{'.json' if url.host in (
-            'api.github.com', 'data-v2.hacs.xyz') and not url.path.endswith('.json') else ''}"
+        fixture_file = (
+            f"fixtures/proxy/{url.host}{url.path}"
+            f"{'.json' if url.host in ('api.github.com', 'data-v2.hacs.xyz') and not url.path.endswith('.json') else ''}"
+        )
         fp = os.path.join(
             os.path.dirname(__file__),
             fixture_file,
@@ -512,8 +512,10 @@ async def client_session_proxy(hass: ha.HomeAssistant) -> ClientSession:
             return resp
 
         url = URL(str_or_url)
-        fixture_file = f"fixtures/proxy/{url.host}{url.path}{'.json' if url.host in (
-            'api.github.com', 'data-v2.hacs.xyz') and not url.path.endswith('.json') else ''}"
+        fixture_file = (
+            f"fixtures/proxy/{url.host}{url.path}"
+            f"{'.json' if url.host in ('api.github.com', 'data-v2.hacs.xyz') and not url.path.endswith('.json') else ''}"
+        )
         fp = os.path.join(
             os.path.dirname(__file__),
             fixture_file,

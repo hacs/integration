@@ -162,6 +162,8 @@ class HacsCommon:
     renamed_repositories: dict[str, str] = field(default_factory=dict)
     archived_repositories: set[str] = field(default_factory=set)
     ignored_repositories: set[str] = field(default_factory=set)
+    repository_icon_urls: dict[tuple[str, bool], str | None] = field(default_factory=dict)
+    repository_uploaded_icons: dict[str, dict[str, Any]] = field(default_factory=dict)
     skip: set[str] = field(default_factory=set)
 
 

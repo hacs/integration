@@ -57,8 +57,7 @@ async def test_update_repository_entity(
 
     await snapshots.assert_hacs_data(
         hacs,
-        f"{category_test_data['repository']
-           }/test_update_repository_entity.json",
+        f"{category_test_data['repository']}/test_update_repository_entity.json",
     )
 
 
@@ -88,8 +87,7 @@ async def test_update_repository_websocket(
 
     await snapshots.assert_hacs_data(
         hacs,
-        f"{category_test_data['repository']
-           }/test_update_repository_websocket.json",
+        f"{category_test_data['repository']}/test_update_repository_websocket.json",
     )
 
 

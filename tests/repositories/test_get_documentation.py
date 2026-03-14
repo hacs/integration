@@ -39,5 +39,5 @@ async def test_repository_get_documentation(
     docs = await repository.get_documentation(filename="README.md", version=None)
     snapshots.assert_match(
         docs or "None",
-        f"{repository.data.full_name}/get_documentation/{slugify(json.dumps(data), separator="_")}.md",
+        f"{repository.data.full_name}/get_documentation/{slugify(json.dumps(data), separator='_')}.md",
     )

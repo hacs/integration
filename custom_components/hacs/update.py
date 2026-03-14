@@ -15,6 +15,7 @@ from .const import DOMAIN
 from .entity import HacsRepositoryEntity
 from .enums import HacsCategory, HacsDispatchEvent
 from .exceptions import HacsException
+from .utils.repository_icon import repository_icon_api_path
 
 
 async def async_setup_entry(
@@ -70,13 +71,10 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
     @property
     def entity_picture(self) -> str | None:
         """Return the entity picture to use in the frontend."""
-        if (
-            self.repository.data.category != HacsCategory.INTEGRATION
-            or self.repository.data.domain is None
-        ):
+        if self.repository.data.category != HacsCategory.INTEGRATION:
             return None
 
-        return f"https://brands.home-assistant.io/_/{self.repository.data.domain}/icon.png"
+        return repository_icon_api_path(str(self.repository.data.id))
 
     async def async_install(self, version: str | None, backup: bool, **kwargs: Any) -> None:
         """Install an update."""

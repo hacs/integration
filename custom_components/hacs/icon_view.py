@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import base64
 import re
 
 from aiohttp import web
@@ -13,27 +12,11 @@ from .base import HacsBase
 from .const import DOMAIN
 from .enums import HacsCategory
 from .utils.repository_icon import (
-    BRANDS_BASE_URL,
-    DARK_ICON_FILENAME,
-    ICON_FILENAME,
     async_resolve_repository_icon_url,
+    hosted_brand_icon_url,
 )
 
 _DOMAIN_RE = re.compile(r"^[a-z][a-z0-9_]*$")
-
-# 1x1 transparent PNG — renders invisibly when no icon exists.
-_TRANSPARENT_PIXEL = base64.b64decode(
-    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQI12NgAAIABQAB"
-    "Nl7BcQAAAABJRU5ErkJggg=="
-)
-
-
-def _empty_png() -> web.Response:
-    return web.Response(
-        body=_TRANSPARENT_PIXEL,
-        content_type="image/png",
-        headers={"Cache-Control": "public, max-age=86400"},
-    )
 
 
 class HacsRepositoryIconView(HomeAssistantView):
@@ -65,7 +48,7 @@ class HacsRepositoryIconView(HomeAssistantView):
             cache=hacs.common.repository_icon_urls,
         )
         if icon_url is None:
-            return _empty_png()
+            raise web.HTTPNotFound()
 
         raise web.HTTPFound(location=icon_url)
 
@@ -103,8 +86,7 @@ class HacsRepositoryIconByDomainView(HomeAssistantView):
 
         if repository is None:
             # Not a HACS integration — redirect to brands CDN directly
-            filename = DARK_ICON_FILENAME if dark else ICON_FILENAME
-            raise web.HTTPFound(location=f"{BRANDS_BASE_URL}/{domain}/{filename}")
+            raise web.HTTPFound(location=hosted_brand_icon_url(domain, dark=dark))
 
         icon_url = await async_resolve_repository_icon_url(
             repository,
@@ -113,6 +95,6 @@ class HacsRepositoryIconByDomainView(HomeAssistantView):
             cache=hacs.common.repository_icon_urls,
         )
         if icon_url is None:
-            return _empty_png()
+            raise web.HTTPNotFound()
 
         raise web.HTTPFound(location=icon_url)

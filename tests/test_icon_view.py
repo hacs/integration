@@ -15,7 +15,7 @@ def test_icon_views_are_public():
     assert HacsRepositoryIconByDomainView.requires_auth is False
 
 
-async def test_repository_icon_view_returns_empty_png_when_no_icon(
+async def test_repository_icon_view_raises_not_found_when_no_icon(
     repository_integration,
     monkeypatch,
 ):
@@ -25,14 +25,11 @@ async def test_repository_icon_view_returns_empty_png_when_no_icon(
     resolver = AsyncMock(return_value=None)
     monkeypatch.setattr("custom_components.hacs.icon_view.async_resolve_repository_icon_url", resolver)
 
-    response = await view.get(
-        SimpleNamespace(query={}),
-        str(repository_integration.data.id),
-    )
-
-    assert response.status == 200
-    assert response.content_type == "image/png"
-    assert response.body
+    with pytest.raises(web.HTTPNotFound):
+        await view.get(
+            SimpleNamespace(query={}),
+            str(repository_integration.data.id),
+        )
 
 
 async def test_domain_icon_view_redirects_unknown_domains_to_brands(hacs):

@@ -36,7 +36,7 @@ class RestartRequiredFixFlow(RepairsFlow):
             return self.async_create_entry(title="", data={})
 
         hacs: HacsBase = self.hass.data[DOMAIN]
-        integration_id = (self.issue_id.split("_")[2]
+        integration_id = self.issue_id.split("_")[2]
         integration = hacs.repositories.get_by_id(integration_id)
 
         return self.async_show_form(

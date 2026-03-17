@@ -25,6 +25,8 @@ from .const import DOMAIN, HACS_SYSTEM_ID, MINIMUM_HA_VERSION
 from .data_client import HacsDataClient
 from .enums import HacsDisabledReason, HacsStage, LovelaceMode
 from .frontend import async_register_frontend
+from .icon_view import HacsRepositoryIconView
+from .utils.repository_icon import async_initialize_repository_icon_cache
 from .utils.data import HacsData
 from .utils.queue_manager import QueueManager
 from .utils.version import version_left_higher_or_equal_then_right
@@ -136,9 +138,15 @@ async def _async_initialize_integration(
             hacs.disable_hacs(HacsDisabledReason.RESTORE)
             return False
 
+        await async_initialize_repository_icon_cache(hacs)
+
         hacs.set_active_categories()
 
         async_register_websocket_commands(hass)
+        registered_views = hass.data.setdefault(f"{DOMAIN}_registered_views", set())
+        if HacsRepositoryIconView.name not in registered_views:
+            hass.http.register_view(HacsRepositoryIconView(hass))
+            registered_views.add(HacsRepositoryIconView.name)
         await async_register_frontend(hass, hacs)
 
         await hass.config_entries.async_forward_entry_setups(config_entry, PLATFORMS)

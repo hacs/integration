@@ -66,12 +66,22 @@ def _write_local_brand_icon(
     *,
     filename: str = "icon.png",
     content: bytes = b"png-bytes",
-) -> None:
+) -> Path:
     path = local_brand_icon_paths(repository_integration, dark=filename == "dark_icon.png")[0]
     if path.name != filename:
         path = path.with_name(filename)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(content)
+    return path
+
+
+def _stored_local_source(path: Path) -> dict[str, str | int]:
+    stat = path.stat()
+    return {
+        "source_path": path.as_posix(),
+        "source_mtime_ns": stat.st_mtime_ns,
+        "source_size": stat.st_size,
+    }
 
 
 async def test_update_entity_picture_uses_core_brands_api_path(repository_integration):
@@ -102,12 +112,15 @@ async def test_async_resolve_repository_icon_url_prefers_hosted_icon(
     assert resolved == hosted_url
 
 
-async def test_async_resolve_repository_icon_url_uses_core_brand_handler_for_local_icon(
+async def test_async_resolve_repository_icon_url_caches_local_icon_when_hosted_brand_is_missing(
     repository_integration,
     response_mocker: ResponseMocker,
+    hass_storage,
 ):
     _configure_repository_icon_source(repository_integration)
-    _write_local_brand_icon(repository_integration)
+    path = _write_local_brand_icon(repository_integration)
+    image_collection = FakeImageCollection()
+    repository_integration.hacs.hass.data["image_upload"] = image_collection
     response_mocker.add(official_brand_icon_urls("test")[0], MockedResponse(status=404))
 
     resolved = await async_resolve_repository_icon_url(
@@ -115,7 +128,21 @@ async def test_async_resolve_repository_icon_url_uses_core_brand_handler_for_loc
         repository_integration.hacs.session,
     )
 
-    assert resolved == integration_brand_icon_api_path("test")
+    assert resolved == "/api/image/serve/image_1/original"
+    assert image_collection.created == [
+        {
+            "id": "image_1",
+            "content": b"png-bytes",
+            "content_type": "image/png",
+            "name": "icon.png",
+        }
+    ]
+    assert await async_load_from_store(repository_integration.hacs.hass, "repository_icons") == {
+        "123:false": {
+            "image_id": "image_1",
+            **_stored_local_source(path),
+        }
+    }
 
 
 async def test_async_resolve_repository_icon_url_fetches_remote_brand_icon_when_not_installed(

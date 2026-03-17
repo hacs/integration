@@ -88,6 +88,20 @@ def local_brand_icon_paths(repository: HacsRepository, *, dark: bool = False) ->
     return paths
 
 
+def _stored_local_source(path: Path) -> dict[str, Any] | None:
+    """Return cache metadata for a local icon path."""
+    try:
+        stat = path.stat()
+    except OSError:
+        return None
+
+    return {
+        "source_path": path.as_posix(),
+        "source_mtime_ns": stat.st_mtime_ns,
+        "source_size": stat.st_size,
+    }
+
+
 def remote_brand_icon_urls(repository: HacsRepository, *, dark: bool = False) -> list[str]:
     """Return candidate raw GitHub brand icon URLs for a repository."""
     filenames = [DARK_ICON_FILENAME, ICON_FILENAME] if dark else [ICON_FILENAME]
@@ -141,8 +155,7 @@ async def async_initialize_repository_icon_cache(hacs: HacsBase) -> None:
 
         repository = hacs.repositories.get_by_id(repo_id)
         image_id = entry.get("image_id")
-        source_url = entry.get("source_url")
-        if repository is None or not image_id or not isinstance(source_url, str):
+        if repository is None or not image_id:
             await _async_delete_uploaded_icon(image_collection, image_id)
             continue
 
@@ -150,11 +163,47 @@ async def async_initialize_repository_icon_cache(hacs: HacsBase) -> None:
             continue
 
         dark = _repository_icon_store_dark(key)
-        if source_url not in remote_brand_icon_urls(repository, dark=dark):
+        source_url = entry.get("source_url")
+        if isinstance(source_url, str):
+            if source_url not in remote_brand_icon_urls(repository, dark=dark):
+                await _async_delete_uploaded_icon(image_collection, image_id)
+                continue
+            retained[key] = {"image_id": image_id, "source_url": source_url}
+            continue
+
+        source_path = entry.get("source_path")
+        source_mtime_ns = entry.get("source_mtime_ns")
+        source_size = entry.get("source_size")
+        if not (
+            isinstance(source_path, str)
+            and isinstance(source_mtime_ns, int)
+            and isinstance(source_size, int)
+        ):
             await _async_delete_uploaded_icon(image_collection, image_id)
             continue
 
-        retained[key] = {"image_id": image_id, "source_url": source_url}
+        current_source = await hacs.hass.async_add_executor_job(
+            _stored_local_source,
+            Path(source_path),
+        )
+        if current_source is None:
+            await _async_delete_uploaded_icon(image_collection, image_id)
+            continue
+
+        if (
+            current_source["source_path"] != source_path
+            or current_source["source_mtime_ns"] != source_mtime_ns
+            or current_source["source_size"] != source_size
+        ):
+            await _async_delete_uploaded_icon(image_collection, image_id)
+            continue
+
+        retained[key] = {
+            "image_id": image_id,
+            "source_path": source_path,
+            "source_mtime_ns": source_mtime_ns,
+            "source_size": source_size,
+        }
 
     hacs.common.repository_uploaded_icons = retained
     await async_save_to_store(hacs.hass, REPOSITORY_ICONS_STORE_KEY, retained)
@@ -177,11 +226,13 @@ async def async_resolve_repository_icon_url(
 
         local_icon_path = await _async_get_local_brand_icon_path(repository, dark=dark)
         if local_icon_path is not None:
-            await _async_clear_uploaded_repository_icon(repository, dark=dark)
-            return integration_brand_icon_api_path(
-                domain,
-                dark=local_icon_path.name == DARK_ICON_FILENAME,
+            cached_path = await _async_cache_local_repository_icon(
+                repository,
+                local_icon_path,
+                dark=dark,
             )
+            if cached_path is not None:
+                return cached_path
 
     if not repository.data.installed:
         if cached_path := _cached_remote_repository_icon_path(repository, dark=dark):
@@ -196,6 +247,61 @@ async def async_resolve_repository_icon_url(
     if domain:
         return hosted_brand_icon_url(domain, dark=dark)
     return None
+
+
+async def _async_cache_local_repository_icon(
+    repository: HacsRepository,
+    source_path: Path,
+    *,
+    dark: bool,
+) -> str | None:
+    """Cache a local repository icon via Home Assistant image storage."""
+    image_collection = _get_image_upload_collection(repository.hacs)
+    if image_collection is None:
+        return None
+
+    source = await repository.hacs.hass.async_add_executor_job(_stored_local_source, source_path)
+    if source is None:
+        return None
+
+    store_key = _repository_icon_store_key(str(repository.data.id), dark)
+    current = repository.hacs.common.repository_uploaded_icons.get(store_key)
+    image_id = current.get("image_id") if current is not None else None
+    if (
+        current is not None
+        and current.get("source_path") == source["source_path"]
+        and current.get("source_mtime_ns") == source["source_mtime_ns"]
+        and current.get("source_size") == source["source_size"]
+        and image_id in image_collection.data
+    ):
+        return repository_uploaded_icon_path(image_id)
+
+    content = await repository.hacs.hass.async_add_executor_job(source_path.read_bytes)
+    if not content:
+        return None
+
+    created = await _async_create_uploaded_icon(
+        image_collection,
+        source_path.name,
+        content,
+        _path_content_type(source_path),
+    )
+
+    previous_image_id = image_id
+    repository.hacs.common.repository_uploaded_icons[store_key] = {
+        "image_id": created[CONF_ID],
+        **source,
+    }
+    await async_save_to_store(
+        repository.hacs.hass,
+        REPOSITORY_ICONS_STORE_KEY,
+        repository.hacs.common.repository_uploaded_icons,
+    )
+
+    if previous_image_id and previous_image_id != created[CONF_ID]:
+        await _async_delete_uploaded_icon(image_collection, previous_image_id)
+
+    return repository_uploaded_icon_path(created[CONF_ID])
 
 
 def _repository_icon_store_key(repository_id: str, dark: bool) -> str:

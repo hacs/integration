@@ -15,7 +15,6 @@ from .const import DOMAIN
 from .entity import HacsRepositoryEntity
 from .enums import HacsCategory, HacsDispatchEvent
 from .exceptions import HacsException
-from .utils.repository_icon import integration_brand_icon_api_path
 
 
 async def async_setup_entry(
@@ -77,7 +76,7 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
         ):
             return None
 
-        return integration_brand_icon_api_path(self.repository.data.domain)
+        return f"/api/brands/integration/{self.repository.data.domain}/brand/icon.png"
 
     async def async_install(self, version: str | None, backup: bool, **kwargs: Any) -> None:
         """Install an update."""

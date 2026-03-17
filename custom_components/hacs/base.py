@@ -163,7 +163,6 @@ class HacsCommon:
     archived_repositories: set[str] = field(default_factory=set)
     ignored_repositories: set[str] = field(default_factory=set)
     skip: set[str] = field(default_factory=set)
-    repository_uploaded_icons: dict[str, dict[str, Any]] = field(default_factory=dict)
 
 
 @dataclass

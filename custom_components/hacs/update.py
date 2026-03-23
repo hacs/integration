@@ -76,7 +76,7 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
         ):
             return None
 
-        return f"https://brands.home-assistant.io/_/{self.repository.data.domain}/icon.png"
+        return f"/api/brands/integration/{self.repository.data.domain}/brand/icon.png"
 
     async def async_install(self, version: str | None, backup: bool, **kwargs: Any) -> None:
         """Install an update."""

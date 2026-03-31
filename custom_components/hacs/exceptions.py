@@ -25,7 +25,7 @@ class HacsExecutionStillInProgress(HacsException):
     """Exception to raise if execution is still in progress."""
 
 
-class AddonRepositoryException(HacsException)
+class AddonRepositoryException(HacsException):
     """Exception to raise when user tries to add app repository."""
 
     exception_message = (

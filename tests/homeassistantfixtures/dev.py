@@ -1,7 +1,7 @@
 """Return a Home Assistant object pointing at test config dir.
 
 This should be copied from latest Home Assistant version,
-currently Home Assistant Core 2025.5.0dev0 (2025-04-22).
+currently Home Assistant Core 2026.5.0dev0 (2026-04-13).
 https://github.com/home-assistant/core/blob/dev/tests/common.py
 """
 
@@ -20,6 +20,7 @@ from homeassistant.core import CoreState, HomeAssistant, callback
 from homeassistant.helpers import (
     area_registry as ar,
     category_registry as cr,
+    condition,
     device_registry as dr,
     entity,
     entity_registry as er,
@@ -28,6 +29,7 @@ from homeassistant.helpers import (
     label_registry as lr,
     restore_state as rs,
     translation,
+    trigger,
 )
 from homeassistant.util.async_ import _SHUTDOWN_RUN_CALLBACK_THREADSAFE
 import homeassistant.util.dt as dt_util
@@ -128,12 +130,16 @@ async def async_test_home_assistant(
     # Load the registries
     entity.async_setup(hass)
     loader.async_setup(hass)
+    await condition.async_setup(hass)
+    await trigger.async_setup(hass)
 
     # setup translation cache instead of calling translation.async_setup(hass)
     hass.data[translation.TRANSLATION_FLATTEN_CACHE] = translation._TranslationCache(
         hass
     )
     if load_registries:
+        dr.async_setup(hass)
+
         with (
             patch.object(StoreWithoutWriteLoad,
                          "async_load", return_value=None),

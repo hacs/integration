@@ -21,11 +21,13 @@ class Validator(ActionValidationBase):
 
     async def async_validate(self) -> None:
         """Validate the repository."""
-        license_info = self.repository.repository_object.attributes.get("license")
-        if license_info is None:
+        if (license_info := self.repository.repository_object.attributes.get("license")) is None:
             raise ValidationException("The repository has no license")
         if license_info.get("key") == "other":
-            raise ValidationException("The repository has no recognized license")
+            raise ValidationException(
+                "The repository has no recognized license "
+                f"(license name is '{license_info.get('name', 'unknown')}')"
+            )
         self.repository.logger.debug(
             "The repository has a valid license: %s", license_info.get("name")
         )

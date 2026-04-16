@@ -87,6 +87,10 @@ async def test_hacs_action_integration(
         response=MockedResponse(status=200, content={"custom": ["example"]}),
     )
     response_mocker.add(
+        "https://rc.home-assistant.io/integrations.json",
+        response=MockedResponse(status=200, content={}),
+    )
+    response_mocker.add(
         "https://raw.githubusercontent.com/hacs-test-org/integration-basic/main/custom_components/example/manifest.json",
         response=MockedResponse(
             status=200,
@@ -110,7 +114,7 @@ async def test_hacs_action_integration(
         await preflight()
 
     assert (
-        "All (8) checks passed" if test_case["succeed"] else "1/8 checks failed") in caplog.text
+        "All (9) checks passed" if test_case["succeed"] else "1/9 checks failed") in caplog.text
 
     splitlines = [f"<{line.rsplit(' <')[1]}" for line in caplog.text.split(
         "\n") if " <" in line]

@@ -11,7 +11,7 @@ from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .base import HacsBase
-from .const import DOMAIN
+from .const import BRAND_ICON_URL, DOMAIN
 from .entity import HacsRepositoryEntity
 from .enums import HacsCategory, HacsDispatchEvent
 from .exceptions import HacsException
@@ -76,7 +76,7 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
         ):
             return None
 
-        return f"https://brands.home-assistant.io/_/{self.repository.data.domain}/icon.png"
+        return BRAND_ICON_URL.format(domain=self.repository.data.domain)
 
     async def async_install(self, version: str | None, backup: bool, **kwargs: Any) -> None:
         """Install an update."""

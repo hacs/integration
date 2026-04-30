@@ -10,6 +10,7 @@ from homeassistant.components.frontend import (
     async_register_built_in_panel,
 )
 
+from .brands import HacsBrandIconView
 from .const import DOMAIN, URL_BASE
 from .hacs_frontend import VERSION as FE_VERSION, locate_dir
 from .utils.workarounds import async_register_static_path
@@ -22,6 +23,7 @@ if TYPE_CHECKING:
 
 async def async_register_frontend(hass: HomeAssistant, hacs: HacsBase) -> None:
     """Register the frontend."""
+    hass.http.register_view(HacsBrandIconView(hass, hacs))
 
     # Register frontend
     if hacs.configuration.dev and (frontend_path := os.getenv("HACS_FRONTEND_DIR")):

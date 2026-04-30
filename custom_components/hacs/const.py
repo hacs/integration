@@ -10,6 +10,8 @@ CLIENT_ID = "395a8e669c5de9f7c6e8"
 MINIMUM_HA_VERSION = "0.0.0"
 
 URL_BASE = "/hacsfiles"
+BRAND_ICON_URL = "/api/hacs/brands/{domain}/icon.png"
+BRAND_ICON_CDN_URL = "https://brands.home-assistant.io/_/{domain}/icon.png"
 
 TV = TypeVar("TV")
 

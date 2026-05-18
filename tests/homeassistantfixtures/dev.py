@@ -1,7 +1,7 @@
 """Return a Home Assistant object pointing at test config dir.
 
 This should be copied from latest Home Assistant version,
-currently Home Assistant Core 2026.5.0dev0 (2026-04-13).
+currently Home Assistant Core 2026.6.0dev0 (2026-05-18).
 https://github.com/home-assistant/core/blob/dev/tests/common.py
 """
 
@@ -156,7 +156,8 @@ async def async_test_home_assistant(
                 StoreWithoutWriteLoad,
             ),
             patch(
-                "homeassistant.helpers.storage.Store",  # Floor & label registry are different
+                # Floor & label registry are different
+                "homeassistant.helpers.storage.Store",
                 StoreWithoutWriteLoad,
             ),
             patch(

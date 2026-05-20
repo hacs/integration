@@ -7,6 +7,7 @@ from .base import ActionValidationBase, ValidationException
 if TYPE_CHECKING:
     from ..repositories.base import HacsRepository
 
+# GitHub license keys for commonly recognised open source licenses.
 OPEN_SOURCE_LICENSES = {
     "agpl-3.0",
     "apache-2.0",

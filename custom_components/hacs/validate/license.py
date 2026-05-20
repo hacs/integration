@@ -40,10 +40,10 @@ class Validator(ActionValidationBase):
         """Validate the repository."""
         if (license_info := self.repository.repository_object.attributes.get("license")) is None:
             raise ValidationException("The repository has no license")
-        if license_info.get("key") not in OPEN_SOURCE_LICENSES:
+        if (license_key := license_info.get("key", "unknown")) not in OPEN_SOURCE_LICENSES:
             raise ValidationException(
                 "The repository has no recognized open source license "
-                f"(license key is '{license_info.get('key', 'unknown')}')"
+                f"(license key is '{license_key}')"
             )
         self.repository.logger.debug(
             "The repository has a valid license: %s", license_info.get("name")

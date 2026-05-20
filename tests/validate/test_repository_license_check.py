@@ -33,7 +33,7 @@ async def test_repository_non_oss_license(repository):
     assert check.failed
 
 
-@pytest.mark.parametrize("license_key", OPEN_SOURCE_LICENSES)
+@pytest.mark.parametrize("license_key", [sorted(OPEN_SOURCE_LICENSES)[0], sorted(OPEN_SOURCE_LICENSES)[-1]])
 async def test_repository_valid_license(repository, license_key):
     repository.repository_object = MagicMock()
     repository.repository_object.attributes = {

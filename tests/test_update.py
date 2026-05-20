@@ -52,9 +52,10 @@ async def test_update_entity_state(
 
     # Get initial state
     state = hass.states.get(entity_id)
+    # friendly_name is excluded because HA 2026.6.0dev0 capitalizes the entity class suffix differently than stable
     initial_state = recursive_remove_key(
         state.as_dict(), ("id", "last_changed", "last_reported", "last_updated",
-                          "display_precision", "update_percentage"),
+                          "display_precision", "friendly_name", "update_percentage"),
     )
 
     # Bump version
@@ -84,9 +85,10 @@ async def test_update_entity_state(
 
     # Get updated state
     state = hass.states.get(entity_id)
+    # friendly_name is excluded because HA 2026.6.0dev0 capitalizes the entity class suffix differently than stable
     updated_state = recursive_remove_key(
         state.as_dict(), ("id", "last_changed", "last_reported", "last_updated",
-                          "display_precision", "update_percentage"),
+                          "display_precision", "friendly_name", "update_percentage"),
     )
 
     snapshots.assert_match(

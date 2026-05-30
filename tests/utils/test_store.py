@@ -64,3 +64,13 @@ async def test_store_store(hass: HomeAssistant, caplog: pytest.LogCaptureFixture
 
         await async_save_to_store(hass, "test", {"test": "test"})
         assert async_save_mock.call_count == 1
+
+
+async def test_store_instance_cached_per_key(hass: HomeAssistant) -> None:
+    """Repeated calls for the same key must return the same Store instance.
+
+    Store.async_delay_save() debounces via instance state, so callers that
+    schedule delayed writes need the same Store object each time.
+    """
+    assert get_store_for_key(hass, "test") is get_store_for_key(hass, "test")
+    assert get_store_for_key(hass, "test") is not get_store_for_key(hass, "other")

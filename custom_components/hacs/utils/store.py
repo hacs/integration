@@ -1,16 +1,21 @@
 """Storage handers."""
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from homeassistant.helpers.json import JSONEncoder
 from homeassistant.helpers.storage import Store
 from homeassistant.util import json as json_util
 
-from ..const import VERSION_STORAGE
+from ..const import DOMAIN, VERSION_STORAGE
 from ..exceptions import HacsException
 from .logger import LOGGER
 
-_LOGGER = LOGGER
+if TYPE_CHECKING:
+    from ..runtime_data import HacsConfigEntry
 
-STORE_CACHE_KEY = "hacs_store_cache"
+_LOGGER = LOGGER
 
 
 class HACSStore(Store):
@@ -45,8 +50,16 @@ def _get_store_for_key(hass, key, encoder):
 
 
 def get_store_for_key(hass, key):
-    """Get (or create and cache) the Store object for the key."""
-    cache = hass.data.setdefault(STORE_CACHE_KEY, {})
+    """Get (or create and cache) the Store object for the key.
+
+    The cache lives on the HACS config entry's runtime_data so it is
+    discarded when the entry is unloaded / reloaded.
+    """
+    entries = hass.config_entries.async_entries(DOMAIN)
+    if not entries:
+        return _get_store_for_key(hass, key, JSONEncoder)
+    entry: HacsConfigEntry = entries[0]
+    cache = entry.runtime_data.store_cache
     if key not in cache:
         cache[key] = _get_store_for_key(hass, key, JSONEncoder)
     return cache[key]

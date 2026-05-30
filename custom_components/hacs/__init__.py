@@ -11,7 +11,7 @@ from aiogithubapi.const import ACCEPT_HEADERS
 from awesomeversion import AwesomeVersion
 from homeassistant.components.frontend import async_remove_panel
 from homeassistant.components.lovelace.system_health import system_health_info
-from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
+from homeassistant.config_entries import SOURCE_IMPORT
 from homeassistant.const import Platform, __version__ as HAVERSION
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -25,6 +25,7 @@ from .const import DOMAIN, HACS_SYSTEM_ID, MINIMUM_HA_VERSION
 from .data_client import HacsDataClient
 from .enums import HacsDisabledReason, HacsStage, LovelaceMode
 from .frontend import async_register_frontend
+from .runtime_data import HacsConfigEntry, HacsRuntimeData
 from .utils.data import HacsData
 from .utils.queue_manager import QueueManager
 from .utils.version import version_left_higher_or_equal_then_right
@@ -35,9 +36,10 @@ PLATFORMS = [Platform.SWITCH, Platform.UPDATE]
 
 async def _async_initialize_integration(
     hass: HomeAssistant,
-    config_entry: ConfigEntry,
+    config_entry: HacsConfigEntry,
 ) -> bool:
     """Initialize the integration"""
+    config_entry.runtime_data = HacsRuntimeData()
     hass.data[DOMAIN] = hacs = HacsBase()
     hacs.enable_hacs()
 
@@ -179,7 +181,7 @@ async def _async_initialize_integration(
     return True
 
 
-async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
+async def async_setup_entry(hass: HomeAssistant, config_entry: HacsConfigEntry) -> bool:
     """Set up this integration using UI."""
     config_entry.async_on_unload(config_entry.add_update_listener(async_reload_entry))
     setup_result = await _async_initialize_integration(hass=hass, config_entry=config_entry)
@@ -187,7 +189,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
     return setup_result and not hacs.system.disabled
 
 
-async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
+async def async_unload_entry(hass: HomeAssistant, config_entry: HacsConfigEntry) -> bool:
     """Handle removal of an entry."""
     hacs: HacsBase = hass.data[DOMAIN]
 
@@ -222,7 +224,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     return unload_ok
 
 
-async def async_reload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> None:
+async def async_reload_entry(hass: HomeAssistant, config_entry: HacsConfigEntry) -> None:
     """Reload the HACS config entry."""
     if not await async_unload_entry(hass, config_entry):
         return

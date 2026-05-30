@@ -6,12 +6,15 @@ import pytest
 
 from custom_components.hacs.const import VERSION_STORAGE
 from custom_components.hacs.exceptions import HacsException
+from custom_components.hacs.runtime_data import HacsRuntimeData
 from custom_components.hacs.utils.store import (
     async_load_from_store,
     async_remove_store,
     async_save_to_store,
     get_store_for_key,
 )
+
+from tests.common import create_config_entry
 
 
 async def test_store_load(hass: HomeAssistant) -> None:
@@ -70,7 +73,26 @@ async def test_store_instance_cached_per_key(hass: HomeAssistant) -> None:
     """Repeated calls for the same key must return the same Store instance.
 
     Store.async_delay_save() debounces via instance state, so callers that
-    schedule delayed writes need the same Store object each time.
+    schedule delayed writes need the same Store object each time. The cache
+    is backed by the HACS config entry's runtime_data.
     """
+    entry = create_config_entry()
+    entry.runtime_data = HacsRuntimeData()
+    entry.add_to_hass(hass)
+
     assert get_store_for_key(hass, "test") is get_store_for_key(hass, "test")
     assert get_store_for_key(hass, "test") is not get_store_for_key(hass, "other")
+
+
+async def test_store_cache_tied_to_entry_lifecycle(hass: HomeAssistant) -> None:
+    """A fresh runtime_data (simulating an entry reload) yields a new Store."""
+    entry = create_config_entry()
+    entry.runtime_data = HacsRuntimeData()
+    entry.add_to_hass(hass)
+
+    first = get_store_for_key(hass, "test")
+
+    # Simulate an entry reload — async_setup_entry replaces runtime_data.
+    entry.runtime_data = HacsRuntimeData()
+
+    assert get_store_for_key(hass, "test") is not first

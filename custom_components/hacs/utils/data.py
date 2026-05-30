@@ -103,6 +103,8 @@ class HacsData:
             self._build_repositories_data,
             DELAYED_WRITE_DELAY,
         )
+        for event in (HacsDispatchEvent.REPOSITORY, HacsDispatchEvent.CONFIG):
+            self.hacs.async_dispatch(event, {})
 
     @callback
     def _build_hacs_data(self) -> dict:

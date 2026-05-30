@@ -916,6 +916,11 @@ class HacsRepository:
                 "repository_id": self.data.id,
             },
         )
+        # Some install paths (e.g. the HA Update entity) do not otherwise
+        # call async_write, so without this the new state is only flushed
+        # at EVENT_HOMEASSISTANT_FINAL_WRITE, which never fires when the
+        # process is killed (common on Docker).
+        self.hacs.data.async_schedule_write()
         self.logger.info("%s Post installation steps completed", self.string)
 
     async def async_install_repository(self, *, version: str | None = None, **_) -> None:

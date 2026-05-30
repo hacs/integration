@@ -15,7 +15,9 @@ from ..enums import HacsDisabledReason, HacsDispatchEvent
 from ..repositories.base import TOPIC_FILTER, HacsManifest, HacsRepository
 from .logger import LOGGER
 from .path import is_safe
-from .store import async_load_from_store, async_save_to_store
+from .store import async_delay_save_to_store, async_load_from_store, async_save_to_store
+
+DELAYED_WRITE_DELAY = 30
 
 EXPORTED_BASE_DATA = (
     ("new", False),
@@ -62,7 +64,9 @@ class HacsData:
         """Initialize."""
         self.logger = LOGGER
         self.hacs = hacs
-        self.content = {}
+        # Used by the offline category-data generator subclass in
+        # scripts/data/generate_category_data.py — not by runtime writes.
+        self.content: dict = {}
 
     async def async_force_write(self, _=None):
         """Force write."""
@@ -75,45 +79,78 @@ class HacsData:
 
         self.logger.debug("<HacsData async_write> Saving data")
 
-        # Hacs
+        await async_save_to_store(self.hacs.hass, "hacs", self._build_hacs_data())
         await async_save_to_store(
-            self.hacs.hass,
-            "hacs",
-            {
-                "archived_repositories": self.hacs.common.archived_repositories,
-                "renamed_repositories": self.hacs.common.renamed_repositories,
-                "ignored_repositories": self.hacs.common.ignored_repositories,
-            },
+            self.hacs.hass, "data", self._build_experimental_data()
         )
-        await self._async_store_experimental_content_and_repos()
-        await self._async_store_content_and_repos()
-
-    async def _async_store_content_and_repos(self, _=None):  # bb: ignore
-        """Store the main repos file and each repo that is out of date."""
-        # Repositories
-        self.content = {}
-        for repository in self.hacs.repositories.list_all:
-            if repository.data.category in self.hacs.common.categories:
-                self.async_store_repository_data(repository)
-
-        await async_save_to_store(self.hacs.hass, "repositories", self.content)
+        await async_save_to_store(
+            self.hacs.hass, "repositories", self._build_repositories_data()
+        )
         for event in (HacsDispatchEvent.REPOSITORY, HacsDispatchEvent.CONFIG):
             self.hacs.async_dispatch(event, {})
 
-    async def _async_store_experimental_content_and_repos(self, _=None):
-        """Store the main repos file and each repo that is out of date."""
-        # Repositories
-        self.content = {}
-        for repository in self.hacs.repositories.list_all:
-            if repository.data.category in self.hacs.common.categories:
-                self.async_store_experimental_repository_data(repository)
+    @callback
+    def async_schedule_write(self) -> None:
+        """Schedule a debounced write of all HACS stores.
 
-        await async_save_to_store(self.hacs.hass, "data", {"repositories": self.content})
+        Multiple calls within ``DELAYED_WRITE_DELAY`` seconds collapse into
+        a single disk write per store. Pending writes are flushed by HA on
+        shutdown via ``Store.async_delay_save``'s internal listener.
+        """
+        if self.hacs.system.disabled:
+            return
+
+        self.logger.debug("<HacsData async_schedule_write> Scheduling delayed save")
+
+        async_delay_save_to_store(
+            self.hacs.hass, "hacs", self._build_hacs_data, DELAYED_WRITE_DELAY
+        )
+        async_delay_save_to_store(
+            self.hacs.hass, "data", self._build_experimental_data, DELAYED_WRITE_DELAY
+        )
+        async_delay_save_to_store(
+            self.hacs.hass,
+            "repositories",
+            self._build_repositories_data,
+            DELAYED_WRITE_DELAY,
+        )
 
     @callback
-    def async_store_repository_data(self, repository: HacsRepository) -> dict:
-        """Store the repository data."""
-        data = {"repository_manifest": repository.repository_manifest.manifest}
+    def _build_hacs_data(self) -> dict:
+        """Build the payload for the ``hacs`` store."""
+        return {
+            "archived_repositories": self.hacs.common.archived_repositories,
+            "renamed_repositories": self.hacs.common.renamed_repositories,
+            "ignored_repositories": self.hacs.common.ignored_repositories,
+        }
+
+    @callback
+    def _build_repositories_data(self) -> dict:
+        """Build the payload for the legacy ``repositories`` store."""
+        content: dict[str, dict] = {}
+        for repository in self.hacs.repositories.list_all:
+            if repository.data.category in self.hacs.common.categories:
+                content[str(repository.data.id)] = self._repository_export(repository)
+        return content
+
+    @callback
+    def _build_experimental_data(self) -> dict:
+        """Build the payload for the experimental ``data`` store."""
+        content: dict[str, list] = {}
+        for repository in self.hacs.repositories.list_all:
+            if repository.data.category in self.hacs.common.categories:
+                content.setdefault(repository.data.category, []).append(
+                    {
+                        "id": str(repository.data.id),
+                        **self._experimental_repository_export(repository),
+                    }
+                )
+        return {"repositories": content}
+
+    @callback
+    def _repository_export(self, repository: HacsRepository) -> dict:
+        """Return the per-repository dict for the legacy repositories store."""
+        data: dict[str, Any] = {"repository_manifest": repository.repository_manifest.manifest}
 
         for key, default in (
             EXPORTED_DOWNLOADED_REPOSITORY_DATA
@@ -128,13 +165,12 @@ class HacsData:
         if repository.data.last_fetched:
             data["last_fetched"] = repository.data.last_fetched.timestamp()
 
-        self.content[str(repository.data.id)] = data
+        return data
 
     @callback
-    def async_store_experimental_repository_data(self, repository: HacsRepository) -> None:
-        """Store the experimental repository data for non downloaded repositories."""
-        data = {}
-        self.content.setdefault(repository.data.category, [])
+    def _experimental_repository_export(self, repository: HacsRepository) -> dict:
+        """Return the per-repository dict for the experimental data store."""
+        data: dict[str, Any] = {}
 
         if repository.data.installed:
             data["repository_manifest"] = repository.repository_manifest.manifest
@@ -151,7 +187,7 @@ class HacsData:
                 if (value := getattr(repository.data, key, default)) != default:
                     data[key] = value
 
-        self.content[repository.data.category].append({"id": str(repository.data.id), **data})
+        return data
 
     async def restore(self):
         """Restore saved data."""

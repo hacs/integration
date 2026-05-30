@@ -78,12 +78,8 @@ class HacsData:
         self.logger.debug("<HacsData async_write> Saving data")
 
         await async_save_to_store(self.hacs.hass, "hacs", self._build_hacs_data())
-        await async_save_to_store(
-            self.hacs.hass, "data", self._build_experimental_data()
-        )
-        await async_save_to_store(
-            self.hacs.hass, "repositories", self._build_repositories_data()
-        )
+        await async_save_to_store(self.hacs.hass, "data", self._build_experimental_data())
+        await async_save_to_store(self.hacs.hass, "repositories", self._build_repositories_data())
         for event in (HacsDispatchEvent.REPOSITORY, HacsDispatchEvent.CONFIG):
             self.hacs.async_dispatch(event, {})
 

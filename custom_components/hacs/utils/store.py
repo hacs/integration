@@ -83,13 +83,7 @@ def async_delay_save_to_store(
     data_func: Callable[[], Any],
     delay: float,
 ) -> None:
-    """Schedule a debounced save to the store.
-
-    The data callback is invoked at flush time so it captures the latest
-    in-memory state. Subsequent calls within the delay window reset the
-    timer on the underlying Store, coalescing bursts into a single write.
-    Home Assistant's Store also flushes pending delayed saves on shutdown.
-    """
+    """Schedule a debounced save to the store."""
     get_store_for_key(hass, key).async_delay_save(data_func, delay)
 
 

@@ -64,8 +64,6 @@ class HacsData:
         """Initialize."""
         self.logger = LOGGER
         self.hacs = hacs
-        # Used by the offline category-data generator subclass in
-        # scripts/data/generate_category_data.py — not by runtime writes.
         self.content: dict = {}
 
     async def async_force_write(self, _=None):
@@ -91,12 +89,7 @@ class HacsData:
 
     @callback
     def async_schedule_write(self) -> None:
-        """Schedule a debounced write of all HACS stores.
-
-        Multiple calls within ``DELAYED_WRITE_DELAY`` seconds collapse into
-        a single disk write per store. Pending writes are flushed by HA on
-        shutdown via ``Store.async_delay_save``'s internal listener.
-        """
+        """Schedule a debounced write of all HACS stores."""
         if self.hacs.system.disabled:
             return
 
@@ -117,7 +110,6 @@ class HacsData:
 
     @callback
     def _build_hacs_data(self) -> dict:
-        """Build the payload for the ``hacs`` store."""
         return {
             "archived_repositories": self.hacs.common.archived_repositories,
             "renamed_repositories": self.hacs.common.renamed_repositories,
@@ -126,7 +118,6 @@ class HacsData:
 
     @callback
     def _build_repositories_data(self) -> dict:
-        """Build the payload for the legacy ``repositories`` store."""
         content: dict[str, dict] = {}
         for repository in self.hacs.repositories.list_all:
             if repository.data.category in self.hacs.common.categories:
@@ -135,7 +126,6 @@ class HacsData:
 
     @callback
     def _build_experimental_data(self) -> dict:
-        """Build the payload for the experimental ``data`` store."""
         content: dict[str, list] = {}
         for repository in self.hacs.repositories.list_all:
             if repository.data.category in self.hacs.common.categories:
@@ -149,7 +139,6 @@ class HacsData:
 
     @callback
     def _repository_export(self, repository: HacsRepository) -> dict:
-        """Return the per-repository dict for the legacy repositories store."""
         data: dict[str, Any] = {"repository_manifest": repository.repository_manifest.manifest}
 
         for key, default in (
@@ -169,7 +158,6 @@ class HacsData:
 
     @callback
     def _experimental_repository_export(self, repository: HacsRepository) -> dict:
-        """Return the per-repository dict for the experimental data store."""
         data: dict[str, Any] = {}
 
         if repository.data.installed:

@@ -103,6 +103,16 @@ def connection():
 
 
 @pytest.fixture
+def event_loop(event_loop_policy):
+    """Provide compatibility event loop fixture for pytest-asyncio>=1.0."""
+    loop = event_loop_policy.new_event_loop()
+    try:
+        yield loop
+    finally:
+        loop.close()
+
+
+@pytest.fixture
 def hass_storage():
     """Fixture to mock storage."""
     with mock_storage() as stored_data:

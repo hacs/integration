@@ -35,10 +35,15 @@ async def hacs_repositories_list(
 ) -> None:
     """List repositories."""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    connection.send_message(
-        websocket_api.result_message(
-            msg["id"],
-            [
+    
+    repositories_data = []
+    for repo in hacs.repositories.list_all:
+        if (
+            repo.data.category in msg.get("categories", hacs.common.categories)
+            and not repo.ignored_by_country_configuration
+            and repo.data.last_fetched
+        ):
+            repositories_data.append(
                 {
                     "authors": repo.data.authors,
                     "available_version": repo.display_available_version,
@@ -67,11 +72,12 @@ async def hacs_repositories_list(
                     "status": repo.display_status,
                     "topics": repo.data.topics,
                 }
-                for repo in hacs.repositories.list_all
-                if repo.data.category in msg.get("categories", hacs.common.categories)
-                and not repo.ignored_by_country_configuration
-                and repo.data.last_fetched
-            ],
+            )
+    
+    connection.send_message(
+        websocket_api.result_message(
+            msg["id"],
+            repositories_data,
         )
     )
 

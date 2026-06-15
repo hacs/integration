@@ -42,3 +42,39 @@ class Validator(ActionValidationBase):
         if self.repository.data.category == HacsCategory.INTEGRATION:
             if hacsjson.zip_release and not hacsjson.filename:
                 raise ValidationException("zip_release is True, but filename is not set")
+
+        if hacsjson.content_languages:
+            tree_files = [x.filename for x in self.repository.tree]
+            missing_readmes = []
+            invalid_languages = []
+            for lang in hacsjson.content_languages:
+                if not lang.isalpha() or len(lang) != 2:
+                    invalid_languages.append(lang)
+                    continue
+
+                readme_path = f"README.{lang}.md"
+                readme_found = False
+                for possible_path in [
+                    readme_path,
+                    f"README.{lang.upper()}.md",
+                    f"readme.{lang}.md",
+                    f"readme.{lang.upper()}.md",
+                    f"README.{lang}.MD",
+                    f"README.{lang.upper()}.MD",
+                ]:
+                    if possible_path in tree_files:
+                        readme_found = True
+                        break
+                if not readme_found:
+                    missing_readmes.append(lang)
+
+            if invalid_languages:
+                raise ValidationException(
+                    f"content_languages contains invalid language codes {invalid_languages}. "
+                    f"Language codes must be 2-letter alphabetic codes (e.g., 'de', 'fr', 'es')."
+                )
+            if missing_readmes:
+                raise ValidationException(
+                    f"content_languages declares languages {missing_readmes}, "
+                    f"but corresponding README files (README.{{lang}}.md) were not found in the repository."
+                )

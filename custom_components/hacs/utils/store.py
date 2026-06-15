@@ -1,5 +1,9 @@
 """Storage handers."""
 
+from collections.abc import Callable
+from typing import Any
+
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.json import JSONEncoder
 from homeassistant.helpers.storage import Store
 from homeassistant.util import json as json_util
@@ -70,6 +74,17 @@ async def async_save_to_store(hass, key, data):
         "<HACSStore async_save_to_store> Did not store data for '%s'. Content did not change",
         get_store_key(key),
     )
+
+
+@callback
+def async_delay_save_to_store(
+    hass: HomeAssistant,
+    key: str,
+    data_func: Callable[[], Any],
+    delay: float,
+) -> None:
+    """Schedule a debounced save to the store."""
+    get_store_for_key(hass, key).async_delay_save(data_func, delay)
 
 
 async def async_remove_store(hass, key):

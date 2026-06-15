@@ -29,10 +29,27 @@ jobs:
         with:
           python-version: "3.13"
 
+      - name: 🔢 Validate version
+        if: ${{ github.event_name == 'release' }}
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
+        run: |
+          if [ -z "$VERSION" ]; then
+            echo "::error::Release tag_name is empty"
+            exit 1
+          fi
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+((a|b|rc)[0-9]+)?$ ]]; then
+            echo "::error::Release tag_name '$VERSION' is not a valid version"
+            exit 1
+          fi
+
       - name: 🔢 Get version
         if: ${{ github.event_name == 'release' }}
         id: version
-        uses: home-assistant/actions/helpers/version@e91ad1948e57189485b9c1ad608af0c303946f89 # master
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
+        run: |
+          printf 'version=%s\n' "$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: 🔢 Set version number
         if: ${{ github.event_name == 'release' }}

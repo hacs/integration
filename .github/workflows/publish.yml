@@ -32,13 +32,14 @@ jobs:
       - name: 🔢 Get version
         if: ${{ github.event_name == 'release' }}
         id: version
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
         run: |
-          version="${{ github.event.release.tag_name }}"
-          if [ -z "$version" ]; then
+          if [ -z "$VERSION" ]; then
             echo "::error::Release tag_name is empty"
             exit 1
           fi
-          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: 🔢 Set version number
         if: ${{ github.event_name == 'release' }}

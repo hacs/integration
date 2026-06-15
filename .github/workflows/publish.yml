@@ -32,7 +32,13 @@ jobs:
       - name: 🔢 Get version
         if: ${{ github.event_name == 'release' }}
         id: version
-        uses: home-assistant/actions/helpers/version@868e6cb4607727d764341a158d98872cd63fa658 # master
+        run: |
+          version="${{ github.event.release.tag_name }}"
+          if [ -z "$version" ]; then
+            echo "::error::Release tag_name is empty"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - name: 🔢 Set version number
         if: ${{ github.event_name == 'release' }}

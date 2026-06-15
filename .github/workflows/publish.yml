@@ -29,9 +29,8 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: 🔢 Get version
+      - name: 🔢 Validate version
         if: ${{ github.event_name == 'release' }}
-        id: version
         env:
           VERSION: ${{ github.event.release.tag_name }}
         run: |
@@ -39,7 +38,18 @@ jobs:
             echo "::error::Release tag_name is empty"
             exit 1
           fi
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+((a|b|rc)[0-9]+)?$ ]]; then
+            echo "::error::Release tag_name '$VERSION' is not a valid version"
+            exit 1
+          fi
+
+      - name: 🔢 Get version
+        if: ${{ github.event_name == 'release' }}
+        id: version
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
+        run: |
+          printf 'version=%s\n' "$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: 🔢 Set version number
         if: ${{ github.event_name == 'release' }}

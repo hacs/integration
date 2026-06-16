@@ -14,7 +14,9 @@ from homeassistant.components.lovelace.system_health import system_health_info
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.const import Platform, __version__ as HAVERSION
 from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.device_registry import DeviceEntry
 from homeassistant.helpers.entity_registry import async_get as async_get_entity_registry
 from homeassistant.helpers.event import async_call_later
 from homeassistant.helpers.start import async_at_start
@@ -87,7 +89,7 @@ async def _async_initialize_integration(
     if hacs.core.ha_version is None:
         hacs.core.ha_version = AwesomeVersion(HAVERSION)
 
-    ## Legacy GitHub client
+    # Legacy GitHub client
     hacs.github = GitHub(
         hacs.configuration.token,
         clientsession,
@@ -97,7 +99,7 @@ async def _async_initialize_integration(
         },
     )
 
-    ## New GitHub client
+    # New GitHub client
     hacs.githubapi = GitHubAPI(
         token=hacs.configuration.token,
         session=clientsession,
@@ -227,3 +229,33 @@ async def async_reload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     if not await async_unload_entry(hass, config_entry):
         return
     await async_setup_entry(hass, config_entry)
+
+
+async def async_remove_config_entry_device(
+    hass: HomeAssistant,
+    config_entry: ConfigEntry,
+    device_entry: DeviceEntry,
+) -> bool:
+    """Remove a config entry from a device."""
+    hacs: HacsBase = hass.data[DOMAIN]
+    repository_id = None
+    for identifier in device_entry.identifiers:
+        if isinstance(identifier, tuple) and len(identifier) == 2 and identifier[0] == DOMAIN:
+            repository_id = identifier[1]
+            break
+
+    if repository_id is None:
+        raise HomeAssistantError(
+            f"Cannot remove service {device_entry.id}, no valid HACS repository identifier found."
+        )
+
+    if repository_id == HACS_SYSTEM_ID:
+        raise HomeAssistantError("Cannot remove the service for HACS itself.")
+
+    if hacs.repositories.is_downloaded(repository_id):
+        repository = hacs.repositories.get_by_id(repository_id)
+        raise HomeAssistantError(
+            f"Cannot remove service for {repository.data.full_name}, it is still downloaded in HACS."
+        )
+
+    return True

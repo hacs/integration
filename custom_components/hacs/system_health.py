@@ -16,6 +16,7 @@ CLOUDFLARE_STATUS = "https://www.cloudflarestatus.com/"
 @callback
 def async_register(hass: HomeAssistant, register: system_health.SystemHealthRegistration) -> None:
     """Register system health callbacks."""
+    register.domain = DOMAIN
     register.async_register_info(system_health_info, "/hacs")
 
 

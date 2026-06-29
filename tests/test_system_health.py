@@ -9,11 +9,12 @@ from homeassistant.setup import async_setup_component
 import pytest
 
 from custom_components.hacs.base import HacsBase
+from custom_components.hacs.const import DOMAIN
 
 from tests.common import MockedResponse, ResponseMocker, safe_json_dumps
 from tests.conftest import SnapshotFixture
 
-HACS_SYSTEM_HEALTH_DOMAIN = "Home Assistant Community Store"
+HACS_SYSTEM_HEALTH_DOMAIN = DOMAIN
 
 
 async def get_system_health_info(hass: HomeAssistant, domain: str) -> dict[str, Any]:

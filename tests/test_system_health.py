@@ -9,12 +9,10 @@ from homeassistant.setup import async_setup_component
 import pytest
 
 from custom_components.hacs.base import HacsBase
-from custom_components.hacs.const import DOMAIN
+from custom_components.hacs.const import DOMAIN as HACS_DOMAIN
 
 from tests.common import MockedResponse, ResponseMocker, safe_json_dumps
 from tests.conftest import SnapshotFixture
-
-HACS_SYSTEM_HEALTH_DOMAIN = DOMAIN
 
 
 async def get_system_health_info(hass: HomeAssistant, domain: str) -> dict[str, Any]:
@@ -54,7 +52,7 @@ async def test_system_health(
     assert await async_setup_component(hass, "system_health", {})
     await hass.async_block_till_done()
 
-    info = await get_system_health_info(hass, HACS_SYSTEM_HEALTH_DOMAIN)
+    info = await get_system_health_info(hass, HACS_DOMAIN)
 
     for key, val in info.items():
         if asyncio.iscoroutine(val):
@@ -74,7 +72,7 @@ async def test_system_health_after_unload(
     assert await async_setup_component(hass, "system_health", {})
     await hass.async_block_till_done()
 
-    info = await get_system_health_info(hass, HACS_SYSTEM_HEALTH_DOMAIN)
+    info = await get_system_health_info(hass, HACS_DOMAIN)
 
     snapshots.assert_match(safe_json_dumps(info), "system_health/system_health_after_unload.json")
 
@@ -86,5 +84,5 @@ async def test_system_health_no_hacs(
     assert await async_setup_component(hass, "system_health", {})
     await hass.async_block_till_done()
 
-    with pytest.raises(KeyError, match=HACS_SYSTEM_HEALTH_DOMAIN):
-        await get_system_health_info(hass, HACS_SYSTEM_HEALTH_DOMAIN)
+    with pytest.raises(KeyError, match=HACS_DOMAIN):
+        await get_system_health_info(hass, HACS_DOMAIN)

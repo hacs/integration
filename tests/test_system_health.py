@@ -9,6 +9,7 @@ from homeassistant.setup import async_setup_component
 import pytest
 
 from custom_components.hacs.base import HacsBase
+from custom_components.hacs.const import DOMAIN as HACS_DOMAIN
 
 from tests.common import MockedResponse, ResponseMocker, safe_json_dumps
 from tests.conftest import SnapshotFixture
@@ -16,9 +17,17 @@ from tests.conftest import SnapshotFixture
 HACS_SYSTEM_HEALTH_DOMAIN = "Home Assistant Community Store"
 
 
-async def get_system_health_info(hass: HomeAssistant, domain: str) -> dict[str, Any]:
-    """Get system health info."""
-    return await hass.data["system_health"][domain].info_callback(hass)
+async def get_system_health_info(hass: HomeAssistant) -> dict[str, Any]:
+    """Get HACS system health info."""
+    # Check legacy registration dict first (HA 2025.3.x and earlier)
+    if HACS_SYSTEM_HEALTH_DOMAIN in hass.data.get("system_health", {}):
+        return await hass.data["system_health"][HACS_SYSTEM_HEALTH_DOMAIN].info_callback(hass)
+    # Fall back to new LazyIntegrationPlatforms approach (HA dev)
+    if platforms := hass.data.get("system_health_platforms"):
+        registration = await platforms.async_get_platform(HACS_DOMAIN)
+        if registration is not None:
+            return await registration.info_callback(hass)
+    raise KeyError(HACS_SYSTEM_HEALTH_DOMAIN)
 
 
 async def test_system_health(
@@ -53,7 +62,7 @@ async def test_system_health(
     assert await async_setup_component(hass, "system_health", {})
     await hass.async_block_till_done()
 
-    info = await get_system_health_info(hass, HACS_SYSTEM_HEALTH_DOMAIN)
+    info = await get_system_health_info(hass)
 
     for key, val in info.items():
         if asyncio.iscoroutine(val):
@@ -73,7 +82,7 @@ async def test_system_health_after_unload(
     assert await async_setup_component(hass, "system_health", {})
     await hass.async_block_till_done()
 
-    info = await get_system_health_info(hass, HACS_SYSTEM_HEALTH_DOMAIN)
+    info = await get_system_health_info(hass)
 
     snapshots.assert_match(safe_json_dumps(info), "system_health/system_health_after_unload.json")
 
@@ -86,4 +95,4 @@ async def test_system_health_no_hacs(
     await hass.async_block_till_done()
 
     with pytest.raises(KeyError, match=HACS_SYSTEM_HEALTH_DOMAIN):
-        await get_system_health_info(hass, HACS_SYSTEM_HEALTH_DOMAIN)
+        await get_system_health_info(hass)

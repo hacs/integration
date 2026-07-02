@@ -23,7 +23,7 @@ async def get_system_health_info(hass: HomeAssistant) -> dict[str, Any]:
     if HACS_SYSTEM_HEALTH_DOMAIN in hass.data.get("system_health", {}):
         return await hass.data["system_health"][HACS_SYSTEM_HEALTH_DOMAIN].info_callback(hass)
     # Fall back to new LazyIntegrationPlatforms approach (HA dev)
-    if platforms := hass.data.get("system_health_platforms"):
+    if (platforms := hass.data.get("system_health_platforms")) is not None:
         registration = await platforms.async_get_platform(HACS_DOMAIN)
         if registration is not None:
             return await registration.info_callback(hass)

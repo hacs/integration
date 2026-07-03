@@ -2,6 +2,12 @@
 
 set -e
 
+if command -v uv >/dev/null 2>&1; then
+    exec uv pip install \
+        --constraint constraints.txt \
+        "${@}"
+fi
+
 python3 -m pip \
     install \
     --upgrade \

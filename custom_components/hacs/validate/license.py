@@ -33,6 +33,14 @@ class Validator(ActionValidationBase):
         if (license_info := self.repository.repository_object.attributes.get("license")) is None:
             raise ValidationException("The repository has no license")
 
+        spdx_id = license_info.get("spdx_id")
+        if not spdx_id:
+            raise ValidationException("The repository license is missing an SPDX ID")
+        if spdx_id == "NOASSERTION":
+            raise ValidationException(
+                "The repository license could not be identified (SPDX: NOASSERTION)"
+            )
+
         result = await self.hacs.async_download_file(SPDX_LICENSE_LIST_URL, handle_rate_limit=True)
         if result is None:
             raise ValidationException("Could not fetch the SPDX license list")
@@ -48,13 +56,6 @@ class Validator(ActionValidationBase):
             if entry.get("isOsiApproved") and entry.get("licenseId")
         }
 
-        spdx_id = license_info.get("spdx_id")
-        if not spdx_id:
-            raise ValidationException("The repository license is missing an SPDX ID")
-        if spdx_id == "NOASSERTION":
-            raise ValidationException(
-                "The repository license could not be identified (SPDX: NOASSERTION)"
-            )
         if spdx_id not in osi_approved:
             raise ValidationException(
                 f"The repository does not have an OSI-approved license (detected: '{spdx_id}')"

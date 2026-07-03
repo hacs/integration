@@ -37,14 +37,25 @@ class Validator(ActionValidationBase):
         if result is None:
             raise ValidationException("Could not fetch the SPDX license list")
 
+        try:
+            licenses = json_loads(result).get("licenses", [])
+        except Exception as err:
+            raise ValidationException("Could not parse the SPDX license list") from err
+
         osi_approved = {
-            entry["licenseId"]
-            for entry in json_loads(result)["licenses"]
-            if entry.get("isOsiApproved")
+            entry.get("licenseId")
+            for entry in licenses
+            if entry.get("isOsiApproved") and entry.get("licenseId")
         }
 
         spdx_id = license_info.get("spdx_id")
-        if not spdx_id or spdx_id == "NOASSERTION" or spdx_id not in osi_approved:
+        if not spdx_id:
+            raise ValidationException("The repository license is missing an SPDX ID")
+        if spdx_id == "NOASSERTION":
+            raise ValidationException(
+                "The repository license could not be identified (SPDX: NOASSERTION)"
+            )
+        if spdx_id not in osi_approved:
             raise ValidationException(
                 f"The repository does not have an OSI-approved license (detected: '{spdx_id}')"
             )

@@ -22,17 +22,34 @@ jobs:
       contents: write
     steps:
       - name: 📥 Checkout the repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: 🛠️ Set up Python
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: "3.13"
+
+      - name: 🔢 Validate version
+        if: ${{ github.event_name == 'release' }}
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
+        run: |
+          if [ -z "$VERSION" ]; then
+            echo "::error::Release tag_name is empty"
+            exit 1
+          fi
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+((a|b|rc)[0-9]+)?$ ]]; then
+            echo "::error::Release tag_name '$VERSION' is not a valid version"
+            exit 1
+          fi
 
       - name: 🔢 Get version
         if: ${{ github.event_name == 'release' }}
         id: version
-        uses: home-assistant/actions/helpers/version@dce0e860c68256ef2902ece06afa5401eb4674e1 # master
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
+        run: |
+          printf 'version=%s\n' "$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: 🔢 Set version number
         if: ${{ github.event_name == 'release' }}
@@ -44,7 +61,7 @@ jobs:
         run: ${{ github.workspace }}/scripts/install/frontend
 
       - name: 📤 Upload zip to action
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ github.event_name == 'push' }}
         with:
           name: hacs
@@ -59,7 +76,7 @@ jobs:
           zip hacs.zip -r ./
 
       - name: 📤 Upload zip to release
-        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3.0.0
         if: ${{ github.event_name == 'release' }}
         with:
           files: ${{ github.workspace }}/custom_components/hacs/hacs.zip

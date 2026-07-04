@@ -1,3 +1,7 @@
 # https://github.com/home-assistant/core/blob/2025.3.0/homeassistant/components/frontend/manifest.json
 home-assistant-frontend==20250305.0
 homeassistant==2025.3.0
+# homeassistant==2025.3.0 pins aiohttp==3.11.13, which aiohttp later yanked
+# (regression: https://github.com/aio-libs/aiohttp/issues/10617). uv refuses
+# yanked versions unless they are directly pinned, so request it explicitly.
+aiohttp==3.11.13

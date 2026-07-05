@@ -16,6 +16,27 @@ SPDX_LICENSE_LIST_URL = (
     f"{SPDX_LICENSE_LIST_COMMIT}/json/licenses.json"
 )
 
+# OSI "Popular / Strong Community" licenses.
+# https://opensource.org/licenses?categories=popular-strong-community
+# Cached so the common case avoids fetching the full SPDX license list; only
+# uncommon licenses fall back to the fetch below. SPDX IDs use the forms
+# returned by GitHub's license API.
+POPULAR_OSI_APPROVED_LICENSES = frozenset(
+    {
+        "Apache-2.0",
+        "BSD-2-Clause",
+        "BSD-3-Clause",
+        "CDDL-1.0",
+        "EPL-2.0",
+        "GPL-2.0",
+        "GPL-3.0",
+        "LGPL-2.1",
+        "LGPL-3.0",
+        "MIT",
+        "MPL-2.0",
+    }
+)
+
 
 async def async_setup_validator(repository: HacsRepository) -> Validator:
     """Set up this validator."""
@@ -40,6 +61,13 @@ class Validator(ActionValidationBase):
             raise ValidationException(
                 "The repository license could not be identified (SPDX: NOASSERTION)"
             )
+
+        if spdx_id in POPULAR_OSI_APPROVED_LICENSES:
+            self.repository.logger.debug(
+                "The repository has a popular OSI-approved license: %s",
+                license_info.get("name"),
+            )
+            return
 
         result = await self.hacs.async_download_file(SPDX_LICENSE_LIST_URL, handle_rate_limit=True)
         if result is None:

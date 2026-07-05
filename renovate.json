@@ -14,5 +14,14 @@
       "matchFileNames": ["requirements_core_min.txt"],
       "enabled": false
     }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["custom_components/hacs/validate/license.py"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+\\w+ = \"(?<currentDigest>[a-f0-9]+)\"\\s+# (?<currentValue>\\S+)"
+      ]
+    }
   ]
 }

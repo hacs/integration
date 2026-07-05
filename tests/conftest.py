@@ -109,13 +109,13 @@ def hass_storage():
         yield stored_data
 
 
-@pytest.fixture(autouse=True)
-def mock_zeroconf_resolver(event_loop) -> Generator[_patch]:
+@pytest_asyncio.fixture(autouse=True)
+async def mock_zeroconf_resolver() -> Generator[_patch]:
     """Mock out the zeroconf resolver."""
     if AwesomeVersion(HA_VERSION) < "2025.2.0dev0":
         yield None
     else:
-        resolver = AsyncResolver(event_loop)
+        resolver = AsyncResolver(asyncio.get_running_loop())
         resolver.real_close = resolver.close
         patcher = patch(
             "homeassistant.helpers.aiohttp_client._async_make_resolver",
@@ -129,8 +129,9 @@ def mock_zeroconf_resolver(event_loop) -> Generator[_patch]:
 
 
 @pytest.fixture
-async def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
+async def hass(time_freezer, tmpdir, check_report_issue: None):
     """Fixture to provide a test instance of Home Assistant."""
+    loop = asyncio.get_running_loop()
 
     def exc_handle(loop, context):
         """Handle exceptions by rethrowing them, which will fail the test."""
@@ -148,18 +149,18 @@ async def hass(time_freezer, event_loop, tmpdir, check_report_issue: None):
     exceptions: list[Exception] = []
     if AwesomeVersion(HA_VERSION) > "2025.3.0":
         context_manager = async_test_home_assistant_dev(
-            event_loop, config_dir=tmpdir.strpath)
+            loop, config_dir=tmpdir.strpath)
     else:
         context_manager = async_test_home_assistant_min_version(
-            event_loop, config_dir=tmpdir.strpath,
+            loop, config_dir=tmpdir.strpath,
         )
     async with context_manager as hass:
         await async_setup_component(hass, "homeassistant", {})
         with patch("homeassistant.components.python_script.setup", return_value=True):
             assert await async_setup_component(hass, "python_script", {})
 
-        orig_exception_handler = event_loop.get_exception_handler()
-        event_loop.set_exception_handler(exc_handle)
+        orig_exception_handler = loop.get_exception_handler()
+        loop.set_exception_handler(exc_handle)
 
         yield hass
 

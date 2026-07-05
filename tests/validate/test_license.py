@@ -1,3 +1,4 @@
+import json
 from unittest.mock import MagicMock
 
 import pytest
@@ -53,15 +54,21 @@ async def test_spdx_license_list_fetch_failure(repository, response_mocker: Resp
     response_mocker.add(SPDX_LICENSE_LIST_URL, MockedResponse(status=500))
     repository.repository_object = MagicMock()
     repository.repository_object.attributes = {
-        "license": {"key": "mit", "name": "MIT License", "spdx_id": "MIT"},
+        # An uncommon (non-cached) license so the check falls back to the fetch.
+        "license": {"key": "isc", "name": "ISC License", "spdx_id": "ISC"},
     }
     check = Validator(repository)
     await check.execute_validation()
     assert check.failed
 
 
-@pytest.mark.parametrize("spdx_id", ["MIT", "GPL-3.0"])
-async def test_repository_osi_approved_license(repository, spdx_id):
+@pytest.mark.parametrize("spdx_id", ["MIT", "Apache-2.0", "GPL-3.0"])
+async def test_repository_popular_license_skips_fetch(
+    repository, response_mocker: ResponseMocker, spdx_id
+):
+    # A popular license is cached and must pass without depending on the SPDX
+    # list fetch, so even a broken fetch (500) must not affect the result.
+    response_mocker.add(SPDX_LICENSE_LIST_URL, MockedResponse(status=500))
     repository.repository_object = MagicMock()
     repository.repository_object.attributes = {
         "license": {
@@ -69,6 +76,24 @@ async def test_repository_osi_approved_license(repository, spdx_id):
             "name": f"License {spdx_id}",
             "spdx_id": spdx_id,
         },
+    }
+    check = Validator(repository)
+    await check.execute_validation()
+    assert not check.failed
+
+
+async def test_repository_uncommon_osi_license(repository, response_mocker: ResponseMocker):
+    # An uncommon OSI-approved license is not cached, so it falls back to the
+    # fetched SPDX list to be validated.
+    response_mocker.add(
+        SPDX_LICENSE_LIST_URL,
+        MockedResponse(
+            content=json.dumps({"licenses": [{"licenseId": "ISC", "isOsiApproved": True}]})
+        ),
+    )
+    repository.repository_object = MagicMock()
+    repository.repository_object.attributes = {
+        "license": {"key": "isc", "name": "ISC License", "spdx_id": "ISC"},
     }
     check = Validator(repository)
     await check.execute_validation()

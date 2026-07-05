@@ -176,7 +176,7 @@ async def validate_repository(hacs: HacsBase, repository: str, category: str, re
             ref=ref,
         )
     except HacsException as exception:
-        error(exception)
+        LOGGER.error(exception)
 
     if (repo := hacs.repositories.get_by_full_name(repository)) is None:
         error(f"Repository {repository} not loaded properly in HACS.")

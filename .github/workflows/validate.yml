@@ -92,7 +92,10 @@ jobs:
           tags: hacs/action:local
           load: true
           cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # Only export cache for pushes / same-repo PRs. Fork PRs cannot write to
+          # the Actions cache (read-only token), so exporting would fail there; they
+          # still read from cache via cache-from above.
+          cache-to: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && 'type=gha,mode=max' || '' }}
 
       - name: Run Action
         run: |

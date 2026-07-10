@@ -56,15 +56,15 @@ async def test_register_repository(
         ),
         (
             "home-assistant/addons",
-            "The repository does not seem to be a integration, but an add-on repository. HACS does not manage add-ons.",
+            "The repository does not seem to be an integration, but an app repository. HACS does not manage apps.",
         ),
         (
             "hassio-addons/example",
-            "The repository does not seem to be a integration, but an add-on repository. HACS does not manage add-ons.",
+            "The repository does not seem to be an integration, but an app repository. HACS does not manage apps.",
         ),
         (
             "hacs-test-org/addon-basic",
-            "The repository does not seem to be a integration, but an add-on repository. HACS does not manage add-ons.",
+            "The repository does not seem to be an integration, but an app repository. HACS does not manage apps.",
         ),
         (
             "hacs-test-org/integration-invalid",

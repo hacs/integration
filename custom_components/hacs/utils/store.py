@@ -10,6 +10,8 @@ from .logger import LOGGER
 
 _LOGGER = LOGGER
 
+STORE_CACHE_KEY = "hacs_store_cache"
+
 
 class HACSStore(Store):
     """A subclass of Store that allows multiple loads in the executor."""
@@ -43,8 +45,15 @@ def _get_store_for_key(hass, key, encoder):
 
 
 def get_store_for_key(hass, key):
-    """Create a Store object for the key."""
-    return _get_store_for_key(hass, key, JSONEncoder)
+    """Get (or create and cache) the Store object for the key.
+
+    The cache is cleared in async_unload_entry so Store instances do not
+    survive an integration unload / reload.
+    """
+    cache = hass.data.setdefault(STORE_CACHE_KEY, {})
+    if key not in cache:
+        cache[key] = _get_store_for_key(hass, key, JSONEncoder)
+    return cache[key]
 
 
 async def async_load_from_store(hass, key):

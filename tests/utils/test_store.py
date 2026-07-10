@@ -64,3 +64,24 @@ async def test_store_store(hass: HomeAssistant, caplog: pytest.LogCaptureFixture
 
         await async_save_to_store(hass, "test", {"test": "test"})
         assert async_save_mock.call_count == 1
+
+
+@pytest.mark.parametrize(
+    "ha_version, expected_supported",
+    [
+        ("2025.11.0", False),
+        ("2025.12.0", True),
+    ],
+)
+def test_serialize_in_event_loop_version_check(ha_version: str, expected_supported: bool) -> None:
+    """Test that serialize_in_event_loop flag is set based on HA version."""
+    from awesomeversion import AwesomeVersion
+
+    with patch(
+        "custom_components.hacs.utils.store._SERIALIZE_IN_EVENT_LOOP_SUPPORTED",
+        AwesomeVersion(ha_version) >= "2025.12.0",
+    ):
+        # Re-import to get the patched value
+        import custom_components.hacs.utils.store as store_module
+
+        assert expected_supported == store_module._SERIALIZE_IN_EVENT_LOOP_SUPPORTED

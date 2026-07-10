@@ -23,12 +23,13 @@ from homeassistant.helpers.start import async_at_start
 from homeassistant.loader import async_get_integration
 
 from .base import HacsBase
-from .const import DOMAIN, HACS_SYSTEM_ID, MINIMUM_HA_VERSION, STARTUP
+from .const import DOMAIN, HACS_SYSTEM_ID, MINIMUM_HA_VERSION
 from .data_client import HacsDataClient
 from .enums import HacsDisabledReason, HacsStage, LovelaceMode
 from .frontend import async_register_frontend
 from .utils.data import HacsData
 from .utils.queue_manager import QueueManager
+from .utils.store import STORE_CACHE_KEY
 from .utils.version import version_left_higher_or_equal_then_right
 from .websocket import async_register_websocket_commands
 
@@ -60,7 +61,7 @@ async def _async_initialize_integration(
 
     hacs.set_stage(None)
 
-    hacs.log.info(STARTUP, integration.version)
+    hacs.log.info("Starting HACS[%s]", integration.version)
 
     clientsession = async_get_clientsession(hass)
 
@@ -220,6 +221,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     hacs.disable_hacs(HacsDisabledReason.REMOVED)
 
     hass.data.pop(DOMAIN, None)
+    hass.data.pop(STORE_CACHE_KEY, None)
 
     return unload_ok
 

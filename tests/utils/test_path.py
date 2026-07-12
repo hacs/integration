@@ -23,8 +23,13 @@ def test_is_safe(hacs: HacsBase) -> None:
         ("/etc/passwd", False),
         ("\\windows\\style", False),
         ("sub\\..\\..\\example.js", False),
+        ("C:\\windows\\style", False),
+        ("C:/windows/style", False),
+        ("C:windows\\style", False),
+        ("//server/share", False),
         (None, False),
         (123, False),
+        (False, False),
     ],
 )
 def test_is_safe_relative_path(value, expected: bool) -> None:

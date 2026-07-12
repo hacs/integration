@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from functools import lru_cache
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -47,7 +47,7 @@ def is_safe_relative_path(value: str) -> bool:
         return False
 
     normalized = value.replace("\\", "/")
-    if normalized.startswith("/"):
+    if normalized.startswith("/") or PureWindowsPath(value).drive:
         return False
 
     return ".." not in normalized.split("/")

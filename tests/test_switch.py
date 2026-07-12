@@ -76,10 +76,11 @@ async def test_switch_entity_state(
         entity_id = er.async_get_entity_id(platform, DOMAIN, repo.data.id)
         assert entity_id is not None
 
+        # friendly_name is excluded because HA 2026.6.0dev0 capitalizes the entity class suffix differently than stable
         states[platform]["initial"] = recursive_remove_key(
             hass.states.get(entity_id).as_dict(),
             ("id", "last_changed", "last_reported", "last_updated",
-             "display_precision", "update_percentage"),
+             "display_precision", "friendly_name", "update_percentage"),
         )
 
     await hass.services.async_call(
@@ -93,10 +94,11 @@ async def test_switch_entity_state(
     for platform in PLATFORMS:
         entity_id = er.async_get_entity_id(platform, DOMAIN, repo.data.id)
         assert entity_id is not None
+        # friendly_name is excluded because HA 2026.6.0dev0 capitalizes the entity class suffix differently than stable
         states[platform]["updated"] = recursive_remove_key(
             hass.states.get(entity_id).as_dict(),
             ("id", "last_changed", "last_reported", "last_updated",
-             "display_precision", "update_percentage"),
+             "display_precision", "friendly_name", "update_percentage"),
         )
 
     snapshots.assert_match(

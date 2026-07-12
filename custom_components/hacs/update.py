@@ -90,6 +90,10 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
         except HacsException as exception:
             raise HomeAssistantError(exception) from exception
 
+        # Persist the new installed state, otherwise a restart of
+        # Home Assistant before the next write reverts it.
+        await self.hacs.data.async_write()
+
     async def async_release_notes(self) -> str | None:
         """Return the release notes."""
         if self.repository.pending_restart:

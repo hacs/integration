@@ -13,10 +13,9 @@ import zipfile
 
 from aiogithubapi import (
     AIOGitHubAPIException,
+    GitHubException,
     GitHubNotModifiedException,
-    GitHubReleaseModel,
 )
-from aiogithubapi.objects.repository import AIOGitHubAPIRepository
 import attr
 from homeassistant.helpers import device_registry as dr, issue_registry as ir
 
@@ -46,9 +45,13 @@ from ..utils.version import (
     version_left_higher_or_equal_then_right,
     version_left_higher_then_right,
 )
-from ..utils.workarounds import DOMAIN_OVERRIDES
+from ..utils.workarounds import DOMAIN_OVERRIDES, LegacyTreeFile
 
 if TYPE_CHECKING:
+    from aiogithubapi.models.git_tree import GitHubGitTreeEntryModel
+    from aiogithubapi.models.release import GitHubReleaseAssetModel, GitHubReleaseModel
+    from aiogithubapi.objects.repository import AIOGitHubAPIRepository
+
     from ..base import HacsBase
 
 
@@ -536,8 +539,7 @@ class HacsRepository:
             self.data.last_updated = self.repository_object.attributes.get("pushed_at", 0)
 
             # Update last available commit
-            await self.repository_object.set_last_commit()
-            self.data.last_commit = self.repository_object.last_commit
+            await self.async_set_last_commits()
 
         # Get the content of hacs.json
         if RepositoryFile.HACS_JSON in [x.filename for x in self.tree]:
@@ -1026,14 +1028,17 @@ class HacsRepository:
     def update_filenames(self) -> None:
         """Get the filename to target."""
 
-    async def get_tree(self, ref: str):
+    async def get_tree(self, ref: str) -> list[GitHubGitTreeEntryModel] | None:
         """Return the repository tree."""
-        if self.repository_object is None:
-            raise HacsException("No repository_object")
         try:
-            tree = await self.repository_object.get_tree(ref)
-            return tree
-        except (ValueError, AIOGitHubAPIException) as exception:
+            response = await self.hacs.async_github_api_method(
+                method=self.hacs.githubapi.repos.git.get_tree,
+                repository=self.data.full_name,
+                tree_sha=ref,
+                params={"recursive": "true"},
+            )
+            return response.data.tree
+        except GitHubException as exception:
             raise HacsException(exception) from exception
 
     async def get_releases(self, prerelease=False, returnlimit=5) -> list[GitHubReleaseModel]:
@@ -1139,24 +1144,28 @@ class HacsRepository:
             for release in self.releases.objects or []:
                 if release.tag_name == self.ref:
                     if assets := release.assets:
-                        downloads = next(iter(assets)).download_count
-                        self.data.downloads = downloads
+                        if target_asset := self._find_target_asset(assets):
+                            self.data.downloads = target_asset.download_count
         elif self.hacs.system.generator and self.repository_object:
-            await self.repository_object.set_last_commit()
-            self.data.last_commit = self.repository_object.last_commit
+            await self.async_set_last_commits()
 
         self.hacs.log.debug(
             "%s Running checks against %s", self.string, self.ref.replace("tags/", "")
         )
 
         try:
-            self.tree = await self.get_tree(self.ref)
-            if not self.tree:
+            tree = await self.get_tree(self.ref)
+            if not tree:
                 raise HacsException("No files in tree")
+            self.tree = [
+                LegacyTreeFile(entry, repository=self.data.full_name, ref=self.ref)
+                for entry in tree
+            ]
+
             self.treefiles = []
             for treefile in self.tree:
                 self.treefiles.append(treefile.full_path)
-        except (AIOGitHubAPIException, HacsException) as exception:
+        except HacsException as exception:
             if (
                 not retry
                 and self.ref is not None
@@ -1392,6 +1401,36 @@ class HacsRepository:
         )
         return json_loads(result) if result else None
 
+    def _find_target_asset(
+        self,
+        assets: list[GitHubReleaseAssetModel] | None,
+    ) -> GitHubReleaseAssetModel | None:
+        """Find the correct asset for download."""
+        if not assets:
+            return None
+
+        if self.data.file_name:
+            for asset in assets:
+                if asset.name == self.data.file_name:
+                    return asset
+
+        if self.data.category == "plugin":
+            valid_filenames = (
+                f"{self.data.name}.js",
+                f"{self.data.name}-bundle.js",
+                f"{self.data.name}.umd.js",
+            )
+            for asset in assets:
+                if asset.name in valid_filenames:
+                    return asset
+
+        if target_filename := self.repository_manifest.filename:
+            for asset in assets:
+                if asset.name == target_filename:
+                    return asset
+
+        return assets[0] if assets else None
+
     async def _ensure_download_capabilities(self, ref: str | None, **kwargs: Any) -> None:
         """Ensure that the download can be handled."""
         target_manifest: HacsManifest | None = None
@@ -1464,3 +1503,13 @@ class HacsRepository:
             kwargs={"per_page": 30},
         )
         return response.data
+
+    async def async_set_last_commits(self) -> None:
+        """Set the last commit for the repository."""
+        response = await self.hacs.async_github_api_method(
+            method=self.hacs.githubapi.generic,
+            endpoint=f"/repos/{self.data.full_name}/branches/{self.data.default_branch}",
+        )
+        if response is not None and response.data:
+            last_commit = response.data["commit"]["sha"]
+            self.data.last_commit = last_commit[:7]

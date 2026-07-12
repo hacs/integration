@@ -2,14 +2,12 @@
 
 from __future__ import annotations
 
-from contextlib import suppress
 import re
 from typing import TYPE_CHECKING
 
 from ..enums import HacsCategory, HacsDispatchEvent
 from ..exceptions import HacsException
 from ..utils.decorator import concurrent
-from ..utils.json import json_loads
 from .base import HacsRepository
 
 HACSTAG_REPLACER = re.compile(r"\D+")
@@ -97,16 +95,6 @@ class HacsPluginRepository(HacsRepository):
                     "repository_id": self.data.id,
                 },
             )
-
-    async def get_package_content(self):
-        """Get package content."""
-        with suppress(Exception):
-            result = await self.hacs.async_download_file(
-                f"https://raw.githubusercontent.com/{self.data.full_name}/{self.ref}/package.json",
-                nolog=True,
-            )
-            if result is not None and (package := json_loads(result)):
-                self.data.authors = package.get("author")
 
     def update_filenames(self) -> None:
         """Get the filename to target."""

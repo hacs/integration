@@ -421,13 +421,6 @@ class HacsBase:
             self.common.categories.add(category)
             self.coordinators[category] = HacsUpdateCoordinator()
 
-    def disable_hacs_category(self, category: HacsCategory) -> None:
-        """Disable HACS category."""
-        if category in self.common.categories:
-            self.log.info("Disabling category: %s", category)
-            self.common.categories.pop(category)
-            self.coordinators.pop(category)
-
     async def async_save_file(self, file_path: str, content: Any) -> bool:
         """Save a file."""
 

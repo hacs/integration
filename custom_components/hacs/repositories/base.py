@@ -536,8 +536,7 @@ class HacsRepository:
             self.data.last_updated = self.repository_object.attributes.get("pushed_at", 0)
 
             # Update last available commit
-            await self.repository_object.set_last_commit()
-            self.data.last_commit = self.repository_object.last_commit
+            await self.async_set_last_commits()
 
         # Get the content of hacs.json
         if RepositoryFile.HACS_JSON in [x.filename for x in self.tree]:
@@ -1136,8 +1135,7 @@ class HacsRepository:
                         downloads = next(iter(assets)).download_count
                         self.data.downloads = downloads
         elif self.hacs.system.generator and self.repository_object:
-            await self.repository_object.set_last_commit()
-            self.data.last_commit = self.repository_object.last_commit
+            await self.async_set_last_commits()
 
         self.hacs.log.debug(
             "%s Running checks against %s", self.string, self.ref.replace("tags/", "")
@@ -1458,3 +1456,13 @@ class HacsRepository:
             kwargs={"per_page": 30},
         )
         return response.data
+
+    async def async_set_last_commits(self) -> None:
+        """Set the last commit for the repository."""
+        response = await self.hacs.async_github_api_method(
+            method=self.hacs.githubapi.generic,
+            endpoint=f"/repos/{self.data.full_name}/branches/{self.data.default_branch}",
+        )
+        if response is not None and response.data:
+            last_commit = response.data["commit"]["sha"]
+            self.data.last_commit = last_commit[:7]

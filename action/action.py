@@ -176,7 +176,7 @@ async def validate_repository(hacs: HacsBase, repository: str, category: str, re
             ref=ref,
         )
     except HacsException as exception:
-        error(exception)
+        LOGGER.error(exception)
 
     if (repo := hacs.repositories.get_by_full_name(repository)) is None:
         error(f"Repository {repository} not loaded properly in HACS.")
@@ -187,6 +187,25 @@ async def validate_repository(hacs: HacsBase, repository: str, category: str, re
             {
                 "data": repo.data.to_json(),
                 "manifest": repo.repository_manifest.to_dict(),
+                "release": (
+                    {
+                        "tag": matching_release.tag_name,
+                        "assets": [asset.name for asset in matching_release.assets],
+                    }
+                    if repo.releases.objects
+                    and len(repo.releases.objects) > 0
+                    and (
+                        matching_release := next(
+                            (
+                                release
+                                for release in repo.releases.objects
+                                if release.tag_name == repo.data.last_version
+                            ),
+                            repo.releases.objects[0],
+                        )
+                    )
+                    else None
+                ),
                 "category": category,
                 "ref": ref,
             },

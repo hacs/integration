@@ -7,6 +7,7 @@ import pytest
 from custom_components.hacs.const import VERSION_STORAGE
 from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.utils.store import (
+    STORE_CACHE_KEY,
     async_load_from_store,
     async_remove_store,
     async_save_to_store,
@@ -64,3 +65,20 @@ async def test_store_store(hass: HomeAssistant, caplog: pytest.LogCaptureFixture
 
         await async_save_to_store(hass, "test", {"test": "test"})
         assert async_save_mock.call_count == 1
+
+
+async def test_store_instance_cached_per_key(hass: HomeAssistant) -> None:
+    """Repeated calls for the same key must return the same Store instance.
+
+    Store.async_delay_save() debounces via instance state, so callers that
+    schedule delayed writes need the same Store object each time.
+    """
+    assert get_store_for_key(hass, "test") is get_store_for_key(hass, "test")
+    assert get_store_for_key(hass, "test") is not get_store_for_key(hass, "other")
+
+
+async def test_store_cache_cleared_on_unload(hass: HomeAssistant) -> None:
+    """Clearing STORE_CACHE_KEY (as async_unload_entry does) drops cached Stores."""
+    first = get_store_for_key(hass, "test")
+    hass.data.pop(STORE_CACHE_KEY, None)
+    assert get_store_for_key(hass, "test") is not first

@@ -45,7 +45,7 @@ async def validate_category_data(category: str, file_path: str) -> None:
                 sys.exit(1)
 
             print_error_and_exit(f"Invalid data: {errors}", category, file_path)
-            
+
         if category == "integration" and HACS_REPOSITORY_ID not in contents:
             did_raise = True
             print_error_and_exit(

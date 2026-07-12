@@ -228,6 +228,7 @@ class HacsManifest:
     name: str = None
     persistent_directory: str = None
     render_readme: bool = False
+    content_languages: list[str] = []
     zip_release: bool = False
 
     def to_dict(self):
@@ -250,6 +251,13 @@ class HacsManifest:
         for key, value in manifest_data.manifest.items():
             if key == "country" and isinstance(value, str):
                 setattr(manifest_data, key, [value])
+            elif key == "content_languages":
+                if isinstance(value, str):
+                    setattr(manifest_data, key, [value.lower()])
+                elif isinstance(value, list):
+                    setattr(manifest_data, key, [lang.lower() if isinstance(lang, str) else lang for lang in value])
+                else:
+                    setattr(manifest_data, key, value)
             elif key in manifest_data.__dict__:
                 setattr(manifest_data, key, value)
         return manifest_data
@@ -263,6 +271,13 @@ class HacsManifest:
             if key == "country":
                 if isinstance(value, str):
                     setattr(self, key, [value])
+                else:
+                    setattr(self, key, value)
+            elif key == "content_languages":
+                if isinstance(value, str):
+                    setattr(self, key, [value.lower()])
+                elif isinstance(value, list):
+                    setattr(self, key, [lang.lower() if isinstance(lang, str) else lang for lang in value])
                 else:
                     setattr(self, key, value)
             else:
@@ -747,6 +762,82 @@ class HacsRepository:
             return ""
 
         return await self.get_documentation(filename=info_files[0], version=version) or ""
+
+    async def async_get_info_file_contents_with_language(
+        self, *, language: str | None = None, version: str | None = None, **kwargs
+    ) -> str:
+        """Get the content of the info.md file with language support.
+        
+        Args:
+            language: Optional language code (e.g., "de", "en", "fr")
+            version: Optional version/ref to get the file from
+            
+        Returns:
+            README content as string
+        """
+        if language:
+            language = language.split("-")[0].lower() if "-" in language else language.lower()
+
+        if language:
+            if not language.isalpha() or len(language) != 2:
+                self.logger.warning(
+                    "%s Invalid language code: %s, using README.md",
+                    self.string,
+                    language,
+                )
+                language = None
+            else:
+                if (
+                    self.repository_manifest.content_languages
+                    and language not in self.repository_manifest.content_languages
+                ):
+                    self.logger.debug(
+                        "%s Language '%s' not in content_languages %s, using README.md",
+                        self.string,
+                        language,
+                        self.repository_manifest.content_languages,
+                    )
+                    language = None
+
+        if not language or language == "en":
+            return await self.async_get_info_file_contents(version=version)
+
+        readme_path = f"README.{language}.md"
+
+        possible_paths = [
+            f"README.{language}.md",
+            f"README.{language.upper()}.md",
+            f"readme.{language}.md",
+            f"readme.{language.upper()}.md",
+            f"README.{language}.MD",
+            f"README.{language.upper()}.MD",
+        ]
+
+        found_path = None
+        for path in possible_paths:
+            if path in self.treefiles:
+                found_path = path
+                break
+        
+        if found_path:
+            try:
+                content = await self.get_documentation(filename=found_path, version=version)
+                if content:
+                    return content
+            except Exception as e:
+                self.logger.warning(
+                    "%s Error loading %s: %s, falling back to README.md",
+                    self.string,
+                    found_path,
+                    e,
+                )
+
+        self.logger.debug(
+            "%s Language-specific README %s not found, using README.md",
+            self.string,
+            readme_path,
+        )
+        return await self.async_get_info_file_contents(version=version)
 
     def remove(self) -> None:
         """Run remove tasks."""

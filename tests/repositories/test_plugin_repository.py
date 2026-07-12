@@ -281,6 +281,44 @@ async def test_update_dashboard_resource(
     assert current_urls[0] == after_url
 
 
+async def test_update_dashboard_resource_ignores_prefix_matching_plugins(
+    hass: HomeAssistant,
+    downloaded_plugin_repository: HacsPluginRepository,
+) -> None:
+    """Ensure a plugin with a prefix matching name is not updated."""
+    resource_handler = downloaded_plugin_repository._get_resource_handler()
+    resource_handler.data.clear()
+
+    other_url = "/hacsfiles/plugin-basic-extra/plugin-basic-extra.js?hacstag=42100"
+    await resource_handler.async_create_item({"res_type": "module", "url": other_url})
+
+    await downloaded_plugin_repository.update_dashboard_resources()
+
+    current_urls = [resource["url"]
+                    for resource in resource_handler.async_items()]
+    assert len(current_urls) == 2
+    assert other_url in current_urls
+    assert downloaded_plugin_repository.generate_dashboard_resource_url() in current_urls
+
+
+async def test_remove_dashboard_resource_ignores_prefix_matching_plugins(
+    hass: HomeAssistant,
+    downloaded_plugin_repository: HacsPluginRepository,
+) -> None:
+    """Ensure a plugin with a prefix matching name is not removed."""
+    resource_handler = downloaded_plugin_repository._get_resource_handler()
+    resource_handler.data.clear()
+
+    other_url = "/hacsfiles/plugin-basic-extra/plugin-basic-extra.js?hacstag=42100"
+    await resource_handler.async_create_item({"res_type": "module", "url": other_url})
+
+    await downloaded_plugin_repository.remove_dashboard_resources()
+
+    current_urls = [resource["url"]
+                    for resource in resource_handler.async_items()]
+    assert current_urls == [other_url]
+
+
 async def test_add_dashboard_resource_with_invalid_file_name(
     hass: HomeAssistant,
     downloaded_plugin_repository: HacsPluginRepository,

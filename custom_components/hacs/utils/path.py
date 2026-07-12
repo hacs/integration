@@ -39,3 +39,15 @@ def is_safe(hacs: HacsBase, path: str | Path) -> bool:
         configuration.python_script_path,
         configuration.theme_path,
     )
+
+
+def is_safe_relative_path(value: str) -> bool:
+    """Check that a repository provided path is relative, without traversal."""
+    if not isinstance(value, str):
+        return False
+
+    normalized = value.replace("\\", "/")
+    if normalized.startswith("/"):
+        return False
+
+    return ".." not in normalized.split("/")

@@ -42,3 +42,19 @@ def test_manifest_structure():
 def test_edge_pass_none():
     with pytest.raises(HacsException):
         assert HacsManifest.from_dict(None)
+
+
+@pytest.mark.parametrize("key", ["filename", "persistent_directory"])
+def test_unsafe_paths_are_ignored(key: str, caplog: pytest.LogCaptureFixture):
+    manifest = HacsManifest.from_dict({"name": "TEST", key: "../../../evil"})
+
+    assert getattr(manifest, key) is None
+    assert key not in manifest.manifest
+    assert f"Ignoring unsafe {key} value '../../../evil' in the HACS manifest" in caplog.text
+
+
+@pytest.mark.parametrize("key", ["filename", "persistent_directory"])
+def test_safe_paths_are_kept(key: str):
+    manifest = HacsManifest.from_dict({"name": "TEST", key: "sub/dir"})
+
+    assert getattr(manifest, key) == "sub/dir"

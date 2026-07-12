@@ -36,7 +36,7 @@ from ..utils.filters import filter_content_return_one_of_type
 from ..utils.github_graphql_query import GET_REPOSITORY_RELEASES
 from ..utils.json import json_loads
 from ..utils.logger import LOGGER
-from ..utils.path import is_safe
+from ..utils.path import is_safe, is_safe_relative_path
 from ..utils.queue_manager import QueueManager
 from ..utils.store import async_remove_store
 from ..utils.url import github_archive, github_release_asset
@@ -255,6 +255,15 @@ class HacsManifest:
                 setattr(manifest_data, key, [value])
             elif key in manifest_data.__dict__:
                 setattr(manifest_data, key, value)
+
+        # These end up in filesystem paths, a hostile manifest must not
+        # be able to point them outside the repository content directory.
+        for key in ("filename", "persistent_directory"):
+            if (value := getattr(manifest_data, key)) and not is_safe_relative_path(value):
+                LOGGER.warning("Ignoring unsafe %s value '%s' in the HACS manifest", key, value)
+                setattr(manifest_data, key, None)
+                manifest_data.manifest.pop(key, None)
+
         return manifest_data
 
     def update_data(self, data: dict) -> None:

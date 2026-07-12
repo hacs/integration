@@ -26,11 +26,11 @@ class HacsExecutionStillInProgress(HacsException):
 
 
 class AddonRepositoryException(HacsException):
-    """Exception to raise when user tries to add add-on repository."""
+    """Exception to raise when user tries to add an app repository."""
 
     exception_message = (
-        "The repository does not seem to be a integration, "
-        "but an add-on repository. HACS does not manage add-ons."
+        "The repository does not seem to be an integration, "
+        "but an app repository. HACS does not manage apps."
     )
 
     def __init__(self) -> None:

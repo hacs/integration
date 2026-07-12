@@ -30,17 +30,6 @@ STORENAME = "hacs"
 
 HACS_SYSTEM_ID = "0717a0cd-745c-48fd-9b16-c8534c9704f9-bc944b0f-fd42-4a58-a072-ade38d1444cd"
 
-STARTUP = """
--------------------------------------------------------------------
-HACS (Home Assistant Community Store)
-
-Version: %s
-This is a custom integration
-If you have any issues with this you need to open an issue here:
-https://github.com/hacs/integration/issues
--------------------------------------------------------------------
-"""
-
 LOCALE = [
     "ALL",
     "AF",

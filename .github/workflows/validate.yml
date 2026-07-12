@@ -44,14 +44,16 @@ jobs:
     name: With hassfest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
 
       # Test files conflict with running hassfest
       - name: Remove tests
         run: rm -rf tests
 
       - name: Hassfest validation
-        uses: home-assistant/actions/hassfest@8ca6e134c077479b26138bd33520707e8d94ef59 # master
+        uses: home-assistant/actions/hassfest@f4ca6f671bd429efb108c0f2fa0ae8af0215986c # master
 
   validate-hacs:
     needs:
@@ -60,7 +62,7 @@ jobs:
     name: With HACS Action
     steps:
       - name: HACS validation
-        uses: hacs/action@885037da508419fd08c13515967aec868dfdee2d # main
+        uses: hacs/action@1ebf01c408f29afcb6406bd431bc98fd8cbb15aa # main
         with:
           category: integration
 
@@ -79,7 +81,9 @@ jobs:
             category: "plugin"
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
 
       - name: Build Container
         run: |
@@ -108,12 +112,14 @@ jobs:
             category: "plugin"
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
-          python-version: "3.13"
+          python-version: "3.14"
           cache: 'pip'
           cache-dependency-path: |
             requirements_base.txt
@@ -138,7 +144,7 @@ jobs:
           cat outputdata/diff/${{ matrix.entry.category }}.diff
 
       - name: Upload diff
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           CATEGORY: ${{ matrix.entry.category }}
         with:
@@ -159,7 +165,7 @@ jobs:
           python3 -m scripts.data.validate_category_data ${{  matrix.entry.category }} outputdata/${{ matrix.entry.category }}/data.json
 
       - name: Upload artifact
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: "${{ matrix.entry.category }}_${{ strategy.job-index }}"
           path: |

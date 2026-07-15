@@ -155,6 +155,30 @@ async def test_icon_view_downloaded_icon(
     assert response.headers["Location"] == f"/api/hacs/repository/{REPOSITORY_ID}/icon.png"
 
 
+async def test_icon_view_downloaded_icon_invalid_content(
+    hass: HomeAssistant,
+    setup_integration: Generator,
+) -> None:
+    """Test that a local file that is not a PNG image is not served."""
+    hacs = get_hacs(hass)
+    repository = hacs.repositories.get_by_full_name(REPOSITORY_FULL_NAME)
+    repository.data.installed = True
+
+    brand_dir = hass.config.path("custom_components/example/brand")
+
+    def _write_icon() -> None:
+        os.makedirs(brand_dir, exist_ok=True)
+        with open(os.path.join(brand_dir, "icon.png"), mode="wb") as icon_file:
+            icon_file.write(b"not a png")
+
+    await hass.async_add_executor_job(_write_icon)
+
+    response = await _get_icon(hass, REPOSITORY_ID, "icon.png")
+
+    assert response.status == 302
+    assert response.headers["Location"] == "https://brands.home-assistant.io/_/example/icon.png"
+
+
 async def test_icon_view_downloaded_icon_missing(
     hass: HomeAssistant,
     setup_integration: Generator,

@@ -20,6 +20,7 @@ from pathlib import Path
 import re
 import time
 from typing import TYPE_CHECKING
+from urllib.parse import quote
 
 from aiohttp import web
 
@@ -27,7 +28,6 @@ from homeassistant.components.http import HomeAssistantView
 from homeassistant.core import HomeAssistant, callback
 
 from .enums import HacsCategory
-from .exceptions import HacsException
 
 if TYPE_CHECKING:
     from .base import HacsBase
@@ -55,9 +55,16 @@ def _read_file(path: Path) -> bytes | None:
         return None
 
 
+def _validate_icon(content: bytes | None) -> bytes | None:
+    """Return the content if it is a PNG image within the size limit."""
+    if content is None or len(content) > MAX_ICON_SIZE or not content.startswith(PNG_MAGIC):
+        return None
+    return content
+
+
 def _cache_lookup(cache_file: Path, marker_file: Path) -> tuple[bytes | None, bool]:
     """Return cached icon content and whether a fresh negative marker exists."""
-    if (content := _read_file(cache_file)) is not None:
+    if (content := _validate_icon(_read_file(cache_file))) is not None:
         return content, False
     try:
         fresh = (time.time() - marker_file.stat().st_mtime) < NEGATIVE_CACHE_TTL
@@ -130,7 +137,9 @@ class HacsRepositoryIconView(HomeAssistantView):
                 "custom_components", repository.data.domain, "brand", filename
             )
         )
-        content = await self.hacs.hass.async_add_executor_job(_read_file, brand_path)
+        content = _validate_icon(
+            await self.hacs.hass.async_add_executor_job(_read_file, brand_path)
+        )
         if content is not None:
             return self._icon_response(content)
         return self._fallback_response(repository, filename)
@@ -143,8 +152,7 @@ class HacsRepositoryIconView(HomeAssistantView):
             return self._fallback_response(repository, filename)
 
         prefix = f"{repository.data.id}-"
-        safe_ref = re.sub(r"[^A-Za-z0-9._-]", "_", ref)
-        cache_file = self._cache_dir / f"{prefix}{safe_ref}-{filename}"
+        cache_file = self._cache_dir / f"{prefix}{quote(ref, safe='')}-{filename}"
         marker_file = cache_file.parent / f"{cache_file.name}.missing"
 
         lock = self._locks.setdefault(str(repository.data.id), asyncio.Lock())
@@ -175,13 +183,7 @@ class HacsRepositoryIconView(HomeAssistantView):
             f"https://raw.githubusercontent.com/{repository.data.full_name}/{ref}"
             f"/custom_components/{repository.data.domain}/brand/{filename}"
         )
-        try:
-            content = await self.hacs.async_download_file(url, keep_url=True, nolog=True)
-        except HacsException:
-            return None
-        if content is None or len(content) > MAX_ICON_SIZE or not content.startswith(PNG_MAGIC):
-            return None
-        return content
+        return _validate_icon(await self.hacs.async_download_file(url, keep_url=True, nolog=True))
 
     def _icon_response(self, content: bytes) -> web.Response:
         """Return the icon content."""

@@ -144,7 +144,7 @@ async def _async_initialize_integration(
 
         async_register_websocket_commands(hass)
         await async_register_frontend(hass, hacs)
-        async_register_icon_view(hass, hacs)
+        async_register_icon_view(hass)
 
         await hass.config_entries.async_forward_entry_setups(config_entry, PLATFORMS)
 

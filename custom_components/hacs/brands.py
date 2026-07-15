@@ -16,17 +16,19 @@ This view serves those icons to the HACS frontend:
 from __future__ import annotations
 
 import asyncio
+from http import HTTPStatus
 from pathlib import Path
 import re
 import time
 from typing import TYPE_CHECKING
 from urllib.parse import quote
 
-from aiohttp import web
+from aiohttp import ClientError, ClientTimeout, hdrs, web
 
-from homeassistant.components.http import HomeAssistantView
+from homeassistant.components.http import KEY_AUTHENTICATED, HomeAssistantView
 from homeassistant.core import HomeAssistant, callback
 
+from .const import DOMAIN
 from .enums import HacsCategory
 
 if TYPE_CHECKING:
@@ -37,14 +39,17 @@ URL_BASE = "/api/hacs/repository"
 BRANDS_CDN_URL = "https://brands.home-assistant.io/_"
 CACHE_DIR = ".storage/hacs.icons"
 CACHE_CONTROL = f"public, max-age={60 * 60 * 24}"
+NO_CACHE = "no-store"
 NEGATIVE_CACHE_TTL = 60 * 60 * 24 * 7
 MAX_ICON_SIZE = 1024 * 1024
+DOWNLOAD_CHUNK_SIZE = 64 * 1024
 PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 VALID_FILENAMES = ("icon.png", "dark_icon.png")
+BRANDS_DOMAIN = "brands"
 
 _DOMAIN_RE = re.compile(r"[a-z0-9_]+")
 
-_VIEW_REGISTERED = "hacs_repository_icon_view_registered"
+_VIEW_REGISTERED = "hacs_repository_icon_view"
 
 
 def _read_file(path: Path) -> bytes | None:
@@ -101,11 +106,23 @@ class HacsRepositoryIconView(HomeAssistantView):
     name = "api:hacs:repository:icon"
     requires_auth = False
 
-    def __init__(self, hacs: HacsBase) -> None:
+    def __init__(self, hass: HomeAssistant) -> None:
         """Initialize the view."""
-        self.hacs = hacs
-        self._cache_dir = Path(hacs.hass.config.path(CACHE_DIR))
+        self._hass = hass
+        self._cache_dir = Path(hass.config.path(CACHE_DIR))
         self._locks: dict[str, asyncio.Lock] = {}
+
+    def _authenticate(self, request: web.Request) -> None:
+        """Authenticate with Home Assistant or a brands access token."""
+        access_tokens = self._hass.data.get(BRANDS_DOMAIN, ())
+        authenticated = request.get(KEY_AUTHENTICATED, False) or (
+            request.query.get("token") in access_tokens
+        )
+        if authenticated:
+            return
+        if hdrs.AUTHORIZATION in request.headers:
+            raise web.HTTPUnauthorized
+        raise web.HTTPForbidden
 
     async def get(
         self,
@@ -114,7 +131,11 @@ class HacsRepositoryIconView(HomeAssistantView):
         filename: str,
     ) -> web.StreamResponse:
         """Serve the brand icon for a repository."""
-        repository = self.hacs.repositories.get_by_id(repository_id)
+        self._authenticate(request)
+        if (hacs := self._hass.data.get(DOMAIN)) is None:
+            raise web.HTTPServiceUnavailable
+
+        repository = hacs.repositories.get_by_id(repository_id)
         if (
             filename not in VALID_FILENAMES
             or repository is None
@@ -124,66 +145,101 @@ class HacsRepositoryIconView(HomeAssistantView):
         ):
             raise web.HTTPNotFound
 
+        token = request.query.get("token")
         if repository.data.installed:
-            return await self._async_serve_local(repository, filename)
-        return await self._async_serve_remote(repository, filename)
+            return await self._async_serve_local(repository, filename, token)
+        return await self._async_serve_remote(hacs, repository, filename, token)
 
     async def _async_serve_local(
-        self, repository: HacsRepository, filename: str
+        self, repository: HacsRepository, filename: str, token: str | None
     ) -> web.StreamResponse:
         """Serve the icon from the downloaded integration."""
         brand_path = Path(
-            self.hacs.hass.config.path(
-                "custom_components", repository.data.domain, "brand", filename
-            )
+            self._hass.config.path("custom_components", repository.data.domain, "brand", filename)
         )
-        content = _validate_icon(
-            await self.hacs.hass.async_add_executor_job(_read_file, brand_path)
-        )
+        content = _validate_icon(await self._hass.async_add_executor_job(_read_file, brand_path))
         if content is not None:
             return self._icon_response(content)
-        return self._fallback_response(repository, filename)
+        return self._fallback_response(repository, filename, token=token)
 
     async def _async_serve_remote(
-        self, repository: HacsRepository, filename: str
+        self,
+        hacs: HacsBase,
+        repository: HacsRepository,
+        filename: str,
+        token: str | None,
     ) -> web.StreamResponse:
         """Serve the icon from the GitHub repository content, with caching."""
-        if (ref := repository.data.last_version or repository.data.default_branch) is None:
-            return self._fallback_response(repository, filename)
+        ref = repository.data.last_version or repository.data.default_branch
+        cache_ref = repository.data.last_version or repository.data.last_commit or ref
+        if ref is None or cache_ref is None:
+            return self._fallback_response(repository, filename, token=token)
 
         prefix = f"{repository.data.id}-"
-        cache_file = self._cache_dir / f"{prefix}{quote(ref, safe='')}-{filename}"
+        cache_file = self._cache_dir / f"{prefix}{quote(cache_ref, safe='')}-{filename}"
         marker_file = cache_file.parent / f"{cache_file.name}.missing"
+        retry = False
 
         lock = self._locks.setdefault(str(repository.data.id), asyncio.Lock())
         async with lock:
-            content, missing = await self.hacs.hass.async_add_executor_job(
+            content, missing = await self._hass.async_add_executor_job(
                 _cache_lookup, cache_file, marker_file
             )
             if content is None and not missing:
-                content = await self._async_download_icon(repository, ref, filename)
-                await self.hacs.hass.async_add_executor_job(
-                    _cache_write,
-                    self._cache_dir,
-                    prefix,
-                    filename,
-                    cache_file if content is not None else marker_file,
-                    content,
+                content, cache_missing = await self._async_download_icon(
+                    hacs, repository, ref, filename
                 )
+                if content is not None or cache_missing:
+                    await self._hass.async_add_executor_job(
+                        _cache_write,
+                        self._cache_dir,
+                        prefix,
+                        filename,
+                        cache_file if content is not None else marker_file,
+                        content,
+                    )
+                else:
+                    retry = True
 
         if content is not None:
             return self._icon_response(content)
-        return self._fallback_response(repository, filename)
+        return self._fallback_response(repository, filename, cache=not retry, token=token)
 
     async def _async_download_icon(
-        self, repository: HacsRepository, ref: str, filename: str
-    ) -> bytes | None:
-        """Download the icon from the repository content."""
-        url = (
-            f"https://raw.githubusercontent.com/{repository.data.full_name}/{ref}"
-            f"/custom_components/{repository.data.domain}/brand/{filename}"
+        self, hacs: HacsBase, repository: HacsRepository, ref: str, filename: str
+    ) -> tuple[bytes | None, bool]:
+        """Download the icon and report whether a missing result can be cached."""
+        brand_path = (
+            "brand"
+            if repository.repository_manifest.content_in_root
+            else f"custom_components/{repository.data.domain}/brand"
         )
-        return _validate_icon(await self.hacs.async_download_file(url, keep_url=True, nolog=True))
+        url = (
+            f"https://raw.githubusercontent.com/{repository.data.full_name}/"
+            f"{quote(ref, safe='/')}/{brand_path}/{filename}"
+        )
+        try:
+            response = await hacs.session.get(url, timeout=ClientTimeout(total=60))
+        except (ClientError, TimeoutError):
+            return None, False
+
+        try:
+            if response.status == HTTPStatus.NOT_FOUND:
+                return None, True
+            if response.status != HTTPStatus.OK:
+                return None, False
+
+            content = bytearray()
+            async for chunk in response.content.iter_chunked(DOWNLOAD_CHUNK_SIZE):
+                content.extend(chunk)
+                if len(content) > MAX_ICON_SIZE:
+                    return None, True
+            validated = _validate_icon(bytes(content))
+            return validated, validated is None
+        except (ClientError, TimeoutError):
+            return None, False
+        finally:
+            response.release()
 
     def _icon_response(self, content: bytes) -> web.Response:
         """Return the icon content."""
@@ -193,19 +249,32 @@ class HacsRepositoryIconView(HomeAssistantView):
             headers={"Cache-Control": CACHE_CONTROL},
         )
 
-    def _fallback_response(self, repository: HacsRepository, filename: str) -> web.StreamResponse:
+    def _fallback_response(
+        self,
+        repository: HacsRepository,
+        filename: str,
+        *,
+        cache: bool = True,
+        token: str | None = None,
+    ) -> web.StreamResponse:
         """Redirect to the icon variant, or to the brands CDN."""
         if filename != "icon.png":
             location = f"{URL_BASE}/{repository.data.id}/icon.png"
+            if token is not None:
+                location = f"{location}?token={quote(token, safe='')}"
         else:
             location = f"{BRANDS_CDN_URL}/{repository.data.domain}/{filename}"
-        return web.HTTPFound(location, headers={"Cache-Control": CACHE_CONTROL})
+        return web.HTTPFound(
+            location,
+            headers={"Cache-Control": CACHE_CONTROL if cache else NO_CACHE},
+        )
 
 
 @callback
-def async_register_icon_view(hass: HomeAssistant, hacs: HacsBase) -> None:
+def async_register_icon_view(hass: HomeAssistant) -> None:
     """Register the repository icon view."""
     if hass.data.get(_VIEW_REGISTERED):
         return
-    hass.data[_VIEW_REGISTERED] = True
-    hass.http.register_view(HacsRepositoryIconView(hacs))
+    view = HacsRepositoryIconView(hass)
+    hass.data[_VIEW_REGISTERED] = view
+    hass.http.register_view(view)

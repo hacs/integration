@@ -210,7 +210,9 @@ class HacsPluginRepository(HacsRepository):
         if not resources.loaded:
             await resources.async_load()
 
-        namespace = self.generate_dashboard_resource_namespace()
+        # The trailing slash matters, without it the namespace of
+        # for example 'button' would also match 'button-card'.
+        namespace = f"{self.generate_dashboard_resource_namespace()}/"
         url = self.generate_dashboard_resource_url()
 
         for entry in resources.async_items():
@@ -237,7 +239,9 @@ class HacsPluginRepository(HacsRepository):
         if not resources.loaded:
             await resources.async_load()
 
-        namespace = self.generate_dashboard_resource_namespace()
+        # The trailing slash matters, without it the namespace of
+        # for example 'button' would also match 'button-card'.
+        namespace = f"{self.generate_dashboard_resource_namespace()}/"
 
         for entry in resources.async_items():
             if entry["url"].startswith(namespace):

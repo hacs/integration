@@ -282,10 +282,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Trigger Discord notification when jobs fail
     needs: ["generate-matrix", "category-data", "summarize", "publish"]
-    if: ${{ always() && github.repository == 'hacs/integration' }}
+    if: ${{ always() && github.repository == 'hacs/integration' && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}
     steps:
       - name: Send notification
-        if: ${{ contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}
         run: |
           curl \
             -H "Content-Type: application/json" \

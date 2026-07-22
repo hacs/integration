@@ -8,6 +8,7 @@ from homeassistant.helpers.entity_registry import async_get as async_get_entity_
 import pytest
 
 from custom_components.hacs.const import DOMAIN
+from custom_components.hacs.utils.store import async_load_from_store
 
 from tests.common import (
     CategoryTestData,
@@ -91,6 +92,47 @@ async def test_update_repository_websocket(
         f"{category_test_data['repository']
            }/test_update_repository_websocket.json",
     )
+
+
+async def test_update_repository_entity_persists_installed_version(
+    hass: HomeAssistant,
+    setup_integration: Generator,
+):
+    """Ensure an install through the update entity is written to storage."""
+    hacs = get_hacs(hass)
+    repo = hacs.repositories.get_by_full_name(
+        "hacs-test-org/integration-basic")
+
+    assert repo is not None
+
+    repo.data.installed = True
+    repo.data.installed_version = "1.0.0"
+
+    await hass.config_entries.async_reload(hacs.configuration.config_entry.entry_id)
+    await hass.async_block_till_done()
+
+    # Get a new HACS instance after reload
+    hacs = get_hacs(hass)
+    repo = hacs.repositories.get_by_full_name(
+        "hacs-test-org/integration-basic")
+
+    er = async_get_entity_registry(hacs.hass)
+    entity_id = er.async_get_entity_id("update", DOMAIN, repo.data.id)
+
+    await hass.services.async_call(
+        "update",
+        "install",
+        service_data={"entity_id": entity_id, "version": "2.0.0"},
+        blocking=True,
+    )
+
+    stored = await async_load_from_store(hass, "data")
+    stored_repo = next(
+        entry
+        for entry in stored["repositories"]["integration"]
+        if entry["full_name"] == "hacs-test-org/integration-basic"
+    )
+    assert stored_repo["version_installed"] == "2.0.0"
 
 
 async def test_update_repository_entity_no_manifest(

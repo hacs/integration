@@ -198,7 +198,7 @@ class AdjustedHacs(HacsBase):
             repository_full_name=repository_full_name, category=category, default=True
         )
 
-    @concurrent(concurrenttasks=5, backoff_time=1.5)
+    @concurrent(concurrenttasks=2, backoff_time=1)
     async def concurrent_update_repository(self, repository: HacsRepository) -> None:
         """Update a repository."""
         if repository_has_missing_keys(repository, "update"):

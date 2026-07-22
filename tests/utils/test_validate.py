@@ -88,6 +88,20 @@ def test_hacs_manifest_json_schema():
     with pytest.raises(Invalid, match=re.escape("Value 'False' is not a string or list.")):
         hacs_json_schema({"name": "My awesome thing", "country": False})
 
+    for key in ("filename", "persistent_directory"):
+        with pytest.raises(
+            Invalid, match=re.escape("Value '../secrets' is not a safe relative path."),
+        ):
+            hacs_json_schema({"name": "My awesome thing", key: "../secrets"})
+
+        with pytest.raises(
+            Invalid, match=re.escape("Value '/etc/passwd' is not a safe relative path."),
+        ):
+            hacs_json_schema({"name": "My awesome thing", key: "/etc/passwd"})
+
+        with pytest.raises(Invalid, match=re.escape("Value 'False' is not a string.")):
+            hacs_json_schema({"name": "My awesome thing", key: False})
+
 
 def test_integration_json_schema():
     """Test integration manifest."""

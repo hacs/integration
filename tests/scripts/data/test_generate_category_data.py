@@ -1,14 +1,24 @@
 """Test generate category data."""
 
+import argparse
 import asyncio
 import json
 import os
+import shutil
 from typing import Any
 
 from homeassistant.core import HomeAssistant
 import pytest
 
-from scripts.data.generate_category_data import OUTPUT_DIR, generate_category_data
+from scripts.data.generate_category_data import (
+    OUTPUT_DIR,
+    SHARDS_DIR,
+    _parse_shard,
+    _slice_by_shard,
+    generate_category_data,
+    shard_for,
+)
+from scripts.data.merge_category_data import merge_category_data
 
 from tests.common import (
     FIXTURES_PATH,
@@ -311,3 +321,109 @@ async def test_generate_category_data_with_30plus_prereleases(
         f"scripts/data/test_generate_category_data_with_30plus_prereleases/{
             category_test_data['category']}.json",
     )
+
+
+@pytest.mark.parametrize(
+    ("full_name", "shards", "expected"),
+    [
+        ("hacs/integration", 3, 2),
+        ("hacs/integration", 2, 1),
+        ("hacs-test-org/integration-basic", 3, 1),
+        ("octocat/Hello-World", 3, 1),
+        ("octocat/Hello-World", 2, 0),
+        ("anything", 1, 0),
+        ("anything", 0, 0),
+    ],
+)
+def test_shard_for(full_name: str, shards: int, expected: int):
+    """Shard assignment is stable and matches precomputed values."""
+    assert shard_for(full_name, shards) == expected
+
+
+def test_shard_for_is_case_insensitive():
+    """Repository casing must not change the shard assignment."""
+    assert shard_for("HACS/Integration", 3) == shard_for("hacs/integration", 3)
+
+
+def test_shard_for_partitions_all_buckets():
+    """Every shard is used and assignments stay within range."""
+    names = [f"user{i}/repo{i}" for i in range(500)]
+    for shards in (2, 3):
+        assignments = [shard_for(name, shards) for name in names]
+        assert set(assignments) == set(range(shards))
+
+
+@pytest.mark.parametrize(
+    ("value", "expected"),
+    [("1/3", (1, 3)), ("3/3", (3, 3)), ("1/1", (1, 1))],
+)
+def test_parse_shard_valid(value: str, expected: tuple[int, int]):
+    assert _parse_shard(value) == expected
+
+
+@pytest.mark.parametrize("value", ("0/3", "4/3", "3/0", "abc", "1/2/3", "1", "-1/3"))
+def test_parse_shard_invalid(value: str):
+    with pytest.raises(argparse.ArgumentTypeError):
+        _parse_shard(value)
+
+
+def test_slice_by_shard_is_disjoint_and_complete():
+    """Slices are disjoint, cover everything, and match the shard function."""
+    data = {str(i): {"full_name": f"user{i}/repo{i}"} for i in range(200)}
+    shards = 3
+    slices = [_slice_by_shard(data, index, shards) for index in range(shards)]
+
+    keys = [set(entry) for entry in slices]
+    assert set.union(*keys) == set(data)
+    assert sum(len(entry) for entry in slices) == len(data)
+    for first in range(shards):
+        for second in range(first + 1, shards):
+            assert keys[first].isdisjoint(keys[second])
+
+    for index, entries in enumerate(slices):
+        for value in entries.values():
+            assert shard_for(value["full_name"], shards) == index
+
+
+def test_slice_by_shard_single_shard_returns_all():
+    data = {"1": {"full_name": "a/b"}}
+    assert _slice_by_shard(data, 0, 1) == data
+
+
+@pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
+@pytest.mark.parametrize("shards", (2, 3))
+async def test_sharded_generate_matches_unsharded(
+    hass: HomeAssistant,
+    response_mocker: ResponseMocker,
+    category_test_data: CategoryTestData,
+    shards: int,
+):
+    """Generating a category in shards and merging equals the unsharded run."""
+    category = category_test_data["category"]
+    response_mocker.add(
+        f"https://data-v2.hacs.xyz/{category}/data.json",
+        MockedResponse(content={}, keep=True),
+    )
+
+    # Reference: the original, unsharded output.
+    await generate_category_data(category)
+    with open(f"{OUTPUT_DIR}/{category}/data.json", encoding="utf-8") as file:
+        reference_data = recursive_remove_key(
+            json.loads(file.read()), ("last_fetched",))
+    with open(f"{OUTPUT_DIR}/{category}/repositories.json", encoding="utf-8") as file:
+        reference_repositories = json.loads(file.read())
+
+    # Sharded: generate each shard, then merge.
+    shutil.rmtree(os.path.join(SHARDS_DIR, category), ignore_errors=True)
+    for shard in range(1, shards + 1):
+        await generate_category_data(category, shard=(shard, shards))
+    await merge_category_data(category)
+
+    with open(f"{OUTPUT_DIR}/{category}/data.json", encoding="utf-8") as file:
+        merged_data = recursive_remove_key(
+            json.loads(file.read()), ("last_fetched",))
+    with open(f"{OUTPUT_DIR}/{category}/repositories.json", encoding="utf-8") as file:
+        merged_repositories = json.loads(file.read())
+
+    assert merged_data == reference_data
+    assert sorted(merged_repositories) == sorted(reference_repositories)

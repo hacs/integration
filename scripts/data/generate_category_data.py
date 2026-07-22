@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import argparse
 import asyncio
 from datetime import datetime
+import hashlib
 import json
 import logging
 import os
@@ -56,7 +58,35 @@ stream_handler.setFormatter(logging.Formatter("%(levelname)s%(message)s"))
 log_handler.addHandler(stream_handler)
 
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
+SHARDS_DIR = os.path.join(OUTPUT_DIR, "_shards")
 COMPARE_IGNORE = {"etag_releases", "etag_repository", "last_fetched"}
+
+
+def shard_for(full_name: str, shards: int) -> int:
+    """Return the (0-based) shard a repository belongs to.
+
+    Uses a stable, salt-free hash so the assignment is identical across
+    processes and runs (unlike the built-in ``hash``).
+    """
+    if shards <= 1:
+        return 0
+    digest = hashlib.md5(full_name.lower().encode()).digest()
+    return int.from_bytes(digest[:8], "big") % shards
+
+
+def _slice_by_shard(
+    current_data: dict[str, dict[str, Any]],
+    index: int,
+    shards: int,
+) -> dict[str, dict[str, Any]]:
+    """Return the subset of ``current_data`` that belongs to the given shard."""
+    if shards <= 1:
+        return current_data
+    return {
+        key: value
+        for key, value in current_data.items()
+        if shard_for(value["full_name"], shards) == index
+    }
 
 
 def jsonprint(data: any):
@@ -304,8 +334,15 @@ class AdjustedHacs(HacsBase):
         repository_name: str | None,
         current_data: dict[str, dict[str, Any]],
         force: bool,
+        index: int = 0,
+        shards: int = 1,
     ) -> dict[str, dict[str, Any]]:
-        """Generate data for category."""
+        """Generate data for category.
+
+        When ``shards`` > 1 only the repositories belonging to shard ``index``
+        (0-based) are processed and stored, so the result is a disjoint slice of
+        the full category data.
+        """
         removed = (
             []
             if repository_name is not None
@@ -313,11 +350,11 @@ class AdjustedHacs(HacsBase):
         )
         await self.data.register_base_data(
             category,
-            {} if force else current_data,
+            {} if force else _slice_by_shard(current_data, index, shards),
             removed,
         )
         self.queue.clear()
-        await self.get_category_repositories(category, repository_name, removed)
+        await self.get_category_repositories(category, repository_name, removed, index, shards)
 
         async def _handle_queue():
             if not self.queue.pending_tasks:
@@ -357,6 +394,8 @@ class AdjustedHacs(HacsBase):
         category: str,
         repository_name: str | None,
         removed: list[str],
+        index: int = 0,
+        shards: int = 1,
     ) -> None:
         """Get repositories from category."""
         repositories = (
@@ -370,6 +409,11 @@ class AdjustedHacs(HacsBase):
         elif category == "integration":
             # hacs/integration i not in the default file, but it's still needed
             repositories.append("hacs/integration")
+
+        if shards > 1:
+            repositories = [
+                repo for repo in repositories if shard_for(repo, shards) == index
+            ]
 
         for repo in repositories:
             if repo in removed:
@@ -453,13 +497,174 @@ class AdjustedHacs(HacsBase):
         return json_loads(decode_content(response.data.content))
 
 
-async def generate_category_data(category: str, repository_name: str = None):
-    """Generate data."""
+def _dump_diff(updated: dict[str, dict[str, Any]], data_file) -> None:
+    """Write a diff-friendly (COMPARE_IGNORE stripped) JSON dump."""
+    json.dump(
+        {
+            i: {k: v for k, v in d.items() if k not in COMPARE_IGNORE}
+            for i, d in updated.items()
+        },
+        data_file,
+        cls=JSONEncoder,
+        sort_keys=True,
+        indent=2,
+    )
+
+
+async def finalize_category_output(
+    hacs: AdjustedHacs,
+    category: str,
+    stored_data: dict[str, dict[str, Any]],
+    current_data: dict[str, dict[str, Any]],
+    updated_data: dict[str, dict[str, Any]],
+) -> None:
+    """Summarize, validate and write the final per-category output files.
+
+    Runs once on the full (merged) dataset, so the summary, diff and validation
+    are computed against the complete category data.
+    """
+    os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
+    os.makedirs(os.path.join(OUTPUT_DIR, "diff"), exist_ok=True)
+
+    summary = await hacs.summarize_data(current_data, updated_data)
+    with open(
+        os.path.join(OUTPUT_DIR, "summary.json"),
+        mode="w",
+        encoding="utf-8",
+    ) as data_file:
+        json.dump(
+            summary,
+            data_file,
+            cls=JSONEncoder,
+            sort_keys=True,
+            indent=2,
+        )
+
+    did_raise = False
+    if (
+        not updated_data
+        or len(updated_data) == 0
+        or not isinstance(updated_data, dict)
+    ):
+        print_error_and_exit("Updated data is empty", category)
+        did_raise = True
+
+    try:
+        VALIDATE_GENERATED_V2_REPO_DATA[category](updated_data)
+    except vol.Invalid as error:
+        did_raise = True
+        errors = expand_and_humanize_error(updated_data, error)
+        if isinstance(errors, list):
+            for err in errors:
+                print(f"::error::{err}")
+            sys.exit(1)
+
+        print_error_and_exit(f"Invalid data: {errors}", category)
+
+    if did_raise:
+        print_error_and_exit(
+            "Validation did raise but did not exit!", category)
+        sys.exit(1)  # Fallback, should not be reached
+
+    with open(
+        os.path.join(OUTPUT_DIR, category, "stored.json"),
+        mode="w",
+        encoding="utf-8",
+    ) as data_file:
+        json.dump(
+            stored_data,
+            data_file,
+            cls=JSONEncoder,
+            separators=(",", ":"),
+        )
+    with open(
+        os.path.join(OUTPUT_DIR, category, "data.json"),
+        mode="w",
+        encoding="utf-8",
+    ) as data_file:
+        json.dump(
+            updated_data,
+            data_file,
+            cls=JSONEncoder,
+            separators=(",", ":"),
+        )
+    with open(
+        os.path.join(OUTPUT_DIR, category, "repositories.json"),
+        mode="w",
+        encoding="utf-8",
+    ) as repositories_file:
+        json.dump(
+            [v["full_name"] for v in updated_data.values()],
+            repositories_file,
+            separators=(",", ":"),
+            sort_keys=True,
+        )
+
+    with open(
+        os.path.join(OUTPUT_DIR, "diff", f"{category}_before.json"),
+        mode="w",
+        encoding="utf-8",
+    ) as data_file:
+        _dump_diff(current_data, data_file)
+
+    with open(
+        os.path.join(OUTPUT_DIR, "diff", f"{category}_after.json"),
+        mode="w",
+        encoding="utf-8",
+    ) as data_file:
+        _dump_diff(updated_data, data_file)
+
+
+def write_shard_output(
+    category: str,
+    shard_number: int,
+    updated_data: dict[str, dict[str, Any]],
+    stored_slice: dict[str, dict[str, Any]],
+) -> None:
+    """Write a shard's partial data to a shard-scoped path for later merging."""
+    shard_dir = os.path.join(SHARDS_DIR, category, str(shard_number))
+    os.makedirs(shard_dir, exist_ok=True)
+    with open(
+        os.path.join(shard_dir, "data.json"),
+        mode="w",
+        encoding="utf-8",
+    ) as data_file:
+        json.dump(
+            updated_data,
+            data_file,
+            cls=JSONEncoder,
+            separators=(",", ":"),
+        )
+    with open(
+        os.path.join(shard_dir, "stored.json"),
+        mode="w",
+        encoding="utf-8",
+    ) as data_file:
+        json.dump(
+            stored_slice,
+            data_file,
+            cls=JSONEncoder,
+            separators=(",", ":"),
+        )
+
+
+async def generate_category_data(
+    category: str,
+    repository_name: str | None = None,
+    shard: tuple[int, int] = (1, 1),
+) -> None:
+    """Generate data.
+
+    ``shard`` is a 1-based ``(number, total)`` pair. With a total of 1 the full
+    category output (summary, diff and validation) is produced, matching the
+    original behaviour. With a total > 1 only that shard's disjoint slice is
+    generated and written as a partial artifact for a later merge step.
+    """
+    shard_number, shards = shard
+    index = shard_number - 1
     async with ClientSession() as session:
         hacs = AdjustedHacs(
             session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
-        os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
-        os.makedirs(os.path.join(OUTPUT_DIR, "diff"), exist_ok=True)
         force = os.environ.get("FORCE_REPOSITORY_UPDATE") == "True"
         stored_data = await hacs.data_client.get_data(category, validate=False)
         current_data = (
@@ -480,125 +685,63 @@ async def generate_category_data(category: str, repository_name: str = None):
             repository_name,
             current_data,
             force=force,
+            index=index,
+            shards=shards,
         )
 
-        summary = await hacs.summarize_data(current_data, updated_data)
-        with open(
-            os.path.join(OUTPUT_DIR, "summary.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as data_file:
-            json.dump(
-                summary,
-                data_file,
-                cls=JSONEncoder,
-                sort_keys=True,
-                indent=2,
-            )
-
-        did_raise = False
-        if (
-            not updated_data
-            or len(updated_data) == 0
-            or not isinstance(updated_data, dict)
-        ):
-            print_error_and_exit("Updated data is empty", category)
-            did_raise = True
-
-        try:
-            VALIDATE_GENERATED_V2_REPO_DATA[category](updated_data)
-        except vol.Invalid as error:
-            did_raise = True
-            errors = expand_and_humanize_error(updated_data, error)
-            if isinstance(errors, list):
-                for err in errors:
-                    print(f"::error::{err}")
-                sys.exit(1)
-
-            print_error_and_exit(f"Invalid data: {errors}", category)
-
-        if did_raise:
-            print_error_and_exit(
-                "Validation did raise but did not exit!", category)
-            sys.exit(1)  # Fallback, should not be reached
-
-        with open(
-            os.path.join(OUTPUT_DIR, category, "stored.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as data_file:
-            json.dump(
-                stored_data,
-                data_file,
-                cls=JSONEncoder,
-                separators=(",", ":"),
-            )
-        with open(
-            os.path.join(OUTPUT_DIR, category, "data.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as data_file:
-            json.dump(
+        if shards > 1:
+            write_shard_output(
+                category,
+                shard_number,
                 updated_data,
-                data_file,
-                cls=JSONEncoder,
-                separators=(",", ":"),
+                _slice_by_shard(stored_data, index, shards),
             )
-        with open(
-            os.path.join(OUTPUT_DIR, category, "repositories.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as repositories_file:
-            json.dump(
-                [v["full_name"] for v in updated_data.values()],
-                repositories_file,
-                separators=(",", ":"),
-                sort_keys=True,
-            )
+            return
 
-        with open(
-            os.path.join(OUTPUT_DIR, "diff", f"{category}_before.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as data_file:
-            json.dump(
-                {
-                    i: {
-                        k: v
-                        for k, v in d.items() if k not in COMPARE_IGNORE
-                    }
-                    for i, d in current_data.items()
-                },
-                data_file,
-                cls=JSONEncoder,
-                sort_keys=True,
-                indent=2,
-            )
+        await finalize_category_output(
+            hacs,
+            category,
+            stored_data,
+            current_data,
+            updated_data,
+        )
 
-        with open(
-            os.path.join(OUTPUT_DIR, "diff", f"{category}_after.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as data_file:
-            json.dump(
-                {
-                    i: {
-                        k: v
-                        for k, v in d.items() if k not in COMPARE_IGNORE
-                    }
-                    for i, d in updated_data.items()
-                },
-                data_file,
-                cls=JSONEncoder,
-                sort_keys=True,
-                indent=2,
-            )
+
+def _parse_shard(value: str) -> tuple[int, int]:
+    """Parse a ``x/y`` (1-based) shard argument into an ``(x, y)`` tuple."""
+    parts = value.split("/")
+    if len(parts) != 2:
+        raise argparse.ArgumentTypeError(
+            f"Invalid shard '{value}', expected format 'x/y' (e.g. 1/3)"
+        )
+    try:
+        number, total = int(parts[0]), int(parts[1])
+    except ValueError:
+        raise argparse.ArgumentTypeError(
+            f"Invalid shard '{value}', expected format 'x/y' (e.g. 1/3)"
+        ) from None
+    if total < 1 or number < 1 or number > total:
+        raise argparse.ArgumentTypeError(
+            f"Invalid shard '{value}', require 1 <= x <= y"
+        )
+    return (number, total)
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Generate HACS compliant data.")
+    parser.add_argument("category")
+    parser.add_argument("repository_name", nargs="?", default=None)
+    parser.add_argument(
+        "--shard",
+        type=_parse_shard,
+        default=(1, 1),
+        help="Shard to generate as 'x/y' (1-based), e.g. --shard 1/3.",
+    )
+    args = parser.parse_args()
     asyncio.run(
         generate_category_data(
-            sys.argv[1],  # category
-            sys.argv[2] if len(sys.argv) > 2 else None,  # repository_name
+            args.category,
+            args.repository_name,
+            shard=args.shard,
         )
     )

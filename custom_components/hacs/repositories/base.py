@@ -183,6 +183,15 @@ class RepositoryData:
             return self.domain
         return self.full_name.split("/")[-1]
 
+    @property
+    def full_name_lower(self) -> str:
+        """Return the lowercase full name.
+
+        Derived from full_name so it can never go stale when
+        a repository is renamed.
+        """
+        return self.full_name.lower()
+
     def to_json(self):
         """Export to json."""
         return attr.asdict(self, filter=lambda attr, value: attr.name != "last_fetched")
@@ -517,7 +526,9 @@ class HacsRepository:
                 skip_releases=skip_releases,
             )
         except HacsRepositoryExistException:
-            self.data.full_name = self.hacs.common.renamed_repositories[self.data.full_name]
+            self.hacs.repositories.rename(
+                self, self.hacs.common.renamed_repositories[self.data.full_name]
+            )
             await self.common_update_data(ignore_issues=ignore_issues, force=force)
 
         except HacsException:

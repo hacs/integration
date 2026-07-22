@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 def concurrent(
     concurrenttasks: int = DEFAULT_CONCURRENT_TASKS,
-    backoff_time: int = DEFAULT_CONCURRENT_BACKOFF_TIME,
+    backoff_time: float = DEFAULT_CONCURRENT_BACKOFF_TIME,
 ) -> Coroutine[Any, Any, None]:
     """Return a modified function."""
 

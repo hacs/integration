@@ -54,6 +54,7 @@ jobs:
     name: Generate ${{ matrix.category }} data
     strategy:
       fail-fast: true
+      max-parallel: 1
       matrix:
         category: ${{ fromJSON( needs.generate-matrix.outputs.categories )}}
     steps:

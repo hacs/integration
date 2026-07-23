@@ -23,6 +23,11 @@ on:
           - python_script
           - template
           - theme
+      dryRun:
+        description: 'Dry run (generate and summarize only, do not publish)'
+        required: false
+        default: false
+        type: boolean
   schedule:
     - cron: "0 */4 * * *"
 
@@ -218,7 +223,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     needs: summarize
-    if: github.repository == 'hacs/integration'
+    if: ${{ github.repository == 'hacs/integration' && !(inputs.dryRun == true || inputs.dryRun == 'true') }}
     name: Publish ${{ matrix.category }} data
     environment: ${{ fromJSON(needs.summarize.outputs.environments)[matrix.category] }}
     strategy:

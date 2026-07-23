@@ -2,13 +2,19 @@
 
 import asyncio
 import json
+import logging
 import os
 from typing import Any
 
 from homeassistant.core import HomeAssistant
 import pytest
 
-from scripts.data.generate_category_data import OUTPUT_DIR, generate_category_data
+from scripts.data.generate_category_data import (
+    OUTPUT_DIR,
+    generate_category_data,
+    get_removed_repositories,
+    get_stored_data,
+)
 
 from tests.common import (
     FIXTURES_PATH,
@@ -311,3 +317,98 @@ async def test_generate_category_data_with_30plus_prereleases(
         f"scripts/data/test_generate_category_data_with_30plus_prereleases/{
             category_test_data['category']}.json",
     )
+
+
+# Shapes mirror the real data client: get_data -> {repo-id: {...}}, removed -> [full_name].
+_FETCHED_STORED = {"1296269": {"full_name": "octocat/Hello-World", "category": "plugin"}}
+_FETCHED_REMOVED = ["octocat/removed-repo"]
+
+
+class _StubDataClient:
+    """Minimal data client recording that a fetch happened."""
+
+    def __init__(self) -> None:
+        self.calls: list[tuple[str, str]] = []
+
+    async def get_data(self, section: str, *, validate: bool) -> dict[str, dict[str, Any]]:
+        self.calls.append(("get_data", section))
+        return _FETCHED_STORED
+
+    async def get_repositories(self, section: str) -> list[str]:
+        self.calls.append(("get_repositories", section))
+        return _FETCHED_REMOVED
+
+
+class _StubHacs:
+    """Minimal HACS stand-in exposing only a data client and a logger."""
+
+    def __init__(self) -> None:
+        self.data_client = _StubDataClient()
+        self.log = logging.getLogger("test.generate_category_data")
+
+
+_MODULE = "scripts.data.generate_category_data"
+
+
+async def test_get_stored_data_reads_from_existing_dir(tmp_path, monkeypatch):
+    """When the snapshot dir is set, stored data is read from it, not fetched."""
+    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", str(tmp_path))
+    payload = {"1": {"full_name": "octocat/Hello-World"}}
+    (tmp_path / "integration.json").write_text(json.dumps(payload))
+
+    hacs = _StubHacs()
+    assert await get_stored_data(hacs, "integration") == payload
+    assert hacs.data_client.calls == []
+
+
+async def test_get_removed_repositories_reads_from_existing_dir(tmp_path, monkeypatch):
+    """When the snapshot dir is set, the removed list is read from it, not fetched."""
+    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", str(tmp_path))
+    removed = ["octocat/Hello-World", "hacs/integration"]
+    (tmp_path / "removed.json").write_text(json.dumps(removed))
+
+    hacs = _StubHacs()
+    assert await get_removed_repositories(hacs) == removed
+    assert hacs.data_client.calls == []
+
+
+async def test_get_stored_data_falls_back_to_fetch(monkeypatch):
+    """Without the snapshot dir, stored data is fetched from the data client."""
+    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", None)
+    hacs = _StubHacs()
+    assert await get_stored_data(hacs, "plugin") == _FETCHED_STORED
+    assert hacs.data_client.calls == [("get_data", "plugin")]
+
+
+async def test_get_removed_repositories_falls_back_to_fetch(monkeypatch):
+    """Without the snapshot dir, the removed list is fetched from the data client."""
+    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", None)
+    hacs = _StubHacs()
+    assert await get_removed_repositories(hacs) == _FETCHED_REMOVED
+    assert hacs.data_client.calls == [("get_repositories", "removed")]
+
+
+async def test_get_stored_data_falls_back_when_snapshot_missing(tmp_path, monkeypatch):
+    """A missing snapshot file falls back to fetching instead of raising."""
+    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", str(tmp_path))
+    hacs = _StubHacs()
+    assert await get_stored_data(hacs, "plugin") == _FETCHED_STORED
+    assert hacs.data_client.calls == [("get_data", "plugin")]
+
+
+async def test_get_stored_data_falls_back_when_snapshot_invalid(tmp_path, monkeypatch):
+    """An invalid-JSON snapshot file falls back to fetching instead of raising."""
+    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", str(tmp_path))
+    (tmp_path / "plugin.json").write_text("{ not valid json")
+
+    hacs = _StubHacs()
+    assert await get_stored_data(hacs, "plugin") == _FETCHED_STORED
+    assert hacs.data_client.calls == [("get_data", "plugin")]
+
+
+async def test_get_removed_repositories_falls_back_when_snapshot_missing(tmp_path, monkeypatch):
+    """A missing removed snapshot falls back to fetching instead of raising."""
+    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", str(tmp_path))
+    hacs = _StubHacs()
+    assert await get_removed_repositories(hacs) == _FETCHED_REMOVED
+    assert hacs.data_client.calls == [("get_repositories", "removed")]

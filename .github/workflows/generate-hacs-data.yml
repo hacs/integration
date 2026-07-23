@@ -45,12 +45,18 @@ jobs:
       categories: ${{ steps.set-matrix.outputs.categories }}
     steps:
       - id: set-matrix
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_CATEGORY: ${{ inputs.category }}
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch"  ]] && [[ "${{ inputs.category }}" != "None"  ]] && [[ "${{ inputs.category }}" != ""  ]]; then
-            echo "categories=['${{ inputs.category }}']" >> $GITHUB_OUTPUT
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]] && [[ "$INPUT_CATEGORY" != "None" ]] && [[ -n "$INPUT_CATEGORY" ]]; then
+            categories=("$INPUT_CATEGORY")
           else
-            echo "categories=['appdaemon','integration','plugin','python_script','template','theme']" >> $GITHUB_OUTPUT
+            categories=(appdaemon integration plugin python_script template theme)
           fi
+          categories_json=$(printf '%s\n' "${categories[@]}" | jq -R . | jq -cs .)
+          echo "categories=$categories_json" >> $GITHUB_OUTPUT
+          echo "categories: $categories_json"
 
   preflight:
     name: Fetch existing data
@@ -64,9 +70,6 @@ jobs:
         run: |
           mkdir -p outputdata/existing
 
-          # categories is single-quoted (['a',...]); strip to bare names for the loop.
-          categories=$(printf '%s' "$CATEGORIES" | tr -d "[]\"' " | tr ',' '\n')
-
           fetch() {
             curl \
               --silent --show-error --fail --retry 5 --retry-all-errors \
@@ -75,7 +78,7 @@ jobs:
               --output "$2"
           }
 
-          for category in $categories; do
+          for category in $(echo "$CATEGORIES" | jq -r '.[]'); do
             echo "Fetching existing data for $category"
             fetch "${category}/data.json" "outputdata/existing/${category}.json"
           done

@@ -515,8 +515,7 @@ async def finalize_category_output(
         print_error_and_exit(f"Invalid data: {errors}", category)
 
     if did_raise:
-        print_error_and_exit(
-            "Validation did raise but did not exit!", category)
+        print_error_and_exit("Validation did raise but did not exit!", category)
         sys.exit(1)  # Fallback, should not be reached
 
     with open(

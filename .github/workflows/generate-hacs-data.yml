@@ -73,6 +73,7 @@ jobs:
           fetch() {
             curl \
               --silent --show-error --fail --retry 5 --retry-all-errors \
+              --connect-timeout 10 --max-time 60 \
               --header "User-Agent: HACS/Generator" \
               "https://data-v2.hacs.xyz/$1" \
               --output "$2"

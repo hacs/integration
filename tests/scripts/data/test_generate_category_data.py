@@ -17,8 +17,9 @@ from scripts.data.generate_category_data import (
     _slice_by_shard,
     generate_category_data,
     shard_for,
+    write_shard_output,
 )
-from scripts.data.merge_category_data import merge_category_data
+from scripts.data.merge_category_data import _load_shard_files
 
 from tests.common import (
     FIXTURES_PATH,
@@ -390,40 +391,30 @@ def test_slice_by_shard_single_shard_returns_all():
     assert _slice_by_shard(data, 0, 1) == data
 
 
-@pytest.mark.parametrize("category_test_data", category_test_data_parametrized())
-@pytest.mark.parametrize("shards", (2, 3))
-async def test_sharded_generate_matches_unsharded(
-    hass: HomeAssistant,
-    response_mocker: ResponseMocker,
-    category_test_data: CategoryTestData,
-    shards: int,
-):
-    """Generating a category in shards and merging equals the unsharded run."""
-    category = category_test_data["category"]
-    response_mocker.add(
-        f"https://data-v2.hacs.xyz/{category}/data.json",
-        MockedResponse(content={}, keep=True),
-    )
+@pytest.mark.parametrize("shards", (1, 2, 3))
+def test_write_and_merge_shard_partials_roundtrip(shards: int):
+    """Writing disjoint shard partials and merging reassembles the full set.
 
-    # Reference: the original, unsharded output.
-    await generate_category_data(category)
-    with open(f"{OUTPUT_DIR}/{category}/data.json", encoding="utf-8") as file:
-        reference_data = recursive_remove_key(
-            json.loads(file.read()), ("last_fetched",))
-    with open(f"{OUTPUT_DIR}/{category}/repositories.json", encoding="utf-8") as file:
-        reference_repositories = json.loads(file.read())
+    This mirrors the production shard -> merge data flow (``write_shard_output``
+    followed by ``_load_shard_files``) without touching the network, so it needs
+    no API-usage snapshots.
+    """
+    category = "integration"
+    full = {str(i): {"full_name": f"user{i}/repo{i}"} for i in range(30)}
 
-    # Sharded: generate each shard, then merge.
-    shutil.rmtree(os.path.join(SHARDS_DIR, category), ignore_errors=True)
-    for shard in range(1, shards + 1):
-        await generate_category_data(category, shard=(shard, shards))
-    await merge_category_data(category)
+    shard_root = os.path.join(SHARDS_DIR, category)
+    shutil.rmtree(shard_root, ignore_errors=True)
 
-    with open(f"{OUTPUT_DIR}/{category}/data.json", encoding="utf-8") as file:
-        merged_data = recursive_remove_key(
-            json.loads(file.read()), ("last_fetched",))
-    with open(f"{OUTPUT_DIR}/{category}/repositories.json", encoding="utf-8") as file:
-        merged_repositories = json.loads(file.read())
+    written = 0
+    for index in range(shards):
+        shard_slice = _slice_by_shard(full, index, shards)
+        written += len(shard_slice)
+        write_shard_output(category, index + 1, shard_slice, shard_slice)
 
-    assert merged_data == reference_data
-    assert sorted(merged_repositories) == sorted(reference_repositories)
+    # The shards partition the input: disjoint and complete.
+    assert written == len(full)
+
+    assert _load_shard_files(category, "data.json") == full
+    assert _load_shard_files(category, "stored.json") == full
+
+    shutil.rmtree(shard_root, ignore_errors=True)

@@ -357,8 +357,6 @@ async def proxy_session(hass: HomeAssistant) -> Generator:
     with patch(
         "homeassistant.helpers.aiohttp_client.async_get_clientsession", return_value=mock_session,
     ), patch("scripts.data.generate_category_data.ClientSession", ProxyClientSession), patch(
-        "scripts.data.merge_category_data.ClientSession", ProxyClientSession,
-    ), patch(
         "aiohttp.ClientSession", ProxyClientSession,
     ):
         yield

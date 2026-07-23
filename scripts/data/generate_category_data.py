@@ -566,6 +566,11 @@ async def finalize_category_output(
             "Validation did raise but did not exit!", category)
         sys.exit(1)  # Fallback, should not be reached
 
+    # All three files are published to R2, and under sharding the merged
+    # insertion order depends on shard-assembly order. Sort so the output is
+    # deterministic regardless of how the data was produced. (sort_keys sorts
+    # the repo-id keys of the dicts; repositories.json is an explicit list that
+    # sort_keys would not touch, so it is sorted directly.)
     with open(
         os.path.join(OUTPUT_DIR, category, "stored.json"),
         mode="w",
@@ -576,6 +581,7 @@ async def finalize_category_output(
             data_file,
             cls=JSONEncoder,
             separators=(",", ":"),
+            sort_keys=True,
         )
     with open(
         os.path.join(OUTPUT_DIR, category, "data.json"),
@@ -587,6 +593,7 @@ async def finalize_category_output(
             data_file,
             cls=JSONEncoder,
             separators=(",", ":"),
+            sort_keys=True,
         )
     with open(
         os.path.join(OUTPUT_DIR, category, "repositories.json"),
@@ -594,10 +601,9 @@ async def finalize_category_output(
         encoding="utf-8",
     ) as repositories_file:
         json.dump(
-            [v["full_name"] for v in updated_data.values()],
+            sorted(v["full_name"] for v in updated_data.values()),
             repositories_file,
             separators=(",", ":"),
-            sort_keys=True,
         )
 
     with open(
@@ -651,16 +657,19 @@ def write_shard_output(
 async def generate_category_data(
     category: str,
     repository_name: str | None = None,
-    shard: tuple[int, int] = (1, 1),
+    shard: tuple[int, int] | None = None,
 ) -> None:
     """Generate data.
 
-    ``shard`` is a 1-based ``(number, total)`` pair. With a total of 1 the full
-    category output (summary, diff and validation) is produced, matching the
-    original behaviour. With a total > 1 only that shard's disjoint slice is
-    generated and written as a partial artifact for a later merge step.
+    ``shard`` is a 1-based ``(number, total)`` pair, or ``None`` for an
+    unsharded run. When ``shard`` is ``None`` the full category output (summary,
+    diff and validation) is produced, matching the original behaviour. When a
+    shard is given only that shard's disjoint slice is generated and written as
+    a partial artifact for a later merge step -- this holds even for ``1/1``, so
+    every sharded invocation goes through the merge step uniformly.
     """
-    shard_number, shards = shard
+    sharded = shard is not None
+    shard_number, shards = shard if sharded else (1, 1)
     index = shard_number - 1
     async with ClientSession() as session:
         hacs = AdjustedHacs(
@@ -689,7 +698,7 @@ async def generate_category_data(
             shards=shards,
         )
 
-        if shards > 1:
+        if sharded:
             write_shard_output(
                 category,
                 shard_number,
@@ -734,8 +743,11 @@ if __name__ == "__main__":
     parser.add_argument(
         "--shard",
         type=_parse_shard,
-        default=(1, 1),
-        help="Shard to generate as 'x/y' (1-based), e.g. --shard 1/3.",
+        default=None,
+        help=(
+            "Shard to generate as 'x/y' (1-based), e.g. --shard 1/3. "
+            "Omit for a full, unsharded run."
+        ),
     )
     args = parser.parse_args()
     asyncio.run(

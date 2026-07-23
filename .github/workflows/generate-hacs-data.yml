@@ -223,7 +223,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     needs: summarize
-    if: ${{ github.repository == 'hacs/integration' && !inputs.dryRun }}
+    if: ${{ github.repository == 'hacs/integration' && !(inputs.dryRun == true || inputs.dryRun == 'true') }}
     name: Publish ${{ matrix.category }} data
     environment: ${{ fromJSON(needs.summarize.outputs.environments)[matrix.category] }}
     strategy:

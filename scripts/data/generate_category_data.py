@@ -61,23 +61,34 @@ COMPARE_IGNORE = {"etag_releases", "etag_repository", "last_fetched"}
 EXISTING_DATA_DIR = os.getenv("HACS_EXISTING_DATA_DIR")
 
 
-async def get_stored_data(hacs: AdjustedHacs, category: str) -> dict[str, dict[str, Any]]:
-    """Return existing category data from the snapshot dir when set, else fetch."""
-    if EXISTING_DATA_DIR:
-        with open(
-            os.path.join(EXISTING_DATA_DIR, f"{category}.json"), encoding="utf-8"
-        ) as file:
+def _read_snapshot(hacs: AdjustedHacs, filename: str) -> Any | None:
+    """Read a snapshot file from ``EXISTING_DATA_DIR``.
+
+    Returns the parsed JSON when available, or ``None`` (so the caller fetches
+    instead) when the dir is unset or the file is missing or unreadable.
+    """
+    if not EXISTING_DATA_DIR:
+        return None
+    try:
+        with open(os.path.join(EXISTING_DATA_DIR, filename), encoding="utf-8") as file:
             return json.load(file)
+    except (OSError, json.JSONDecodeError) as err:
+        hacs.log.warning(
+            "Could not read snapshot %s (%s), fetching instead", filename, err)
+        return None
+
+
+async def get_stored_data(hacs: AdjustedHacs, category: str) -> dict[str, dict[str, Any]]:
+    """Return existing category data from the snapshot dir when available, else fetch."""
+    if (data := _read_snapshot(hacs, f"{category}.json")) is not None:
+        return data
     return await hacs.data_client.get_data(category, validate=False)
 
 
 async def get_removed_repositories(hacs: AdjustedHacs) -> list[str]:
-    """Return the removed-repositories list from the snapshot dir when set, else fetch."""
-    if EXISTING_DATA_DIR:
-        with open(
-            os.path.join(EXISTING_DATA_DIR, "removed.json"), encoding="utf-8"
-        ) as file:
-            return json.load(file)
+    """Return the removed-repositories list from the snapshot dir when available, else fetch."""
+    if (removed := _read_snapshot(hacs, "removed.json")) is not None:
+        return removed
     return await hacs.data_client.get_repositories("removed")
 
 

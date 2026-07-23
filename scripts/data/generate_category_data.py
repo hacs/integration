@@ -58,14 +58,14 @@ log_handler.addHandler(stream_handler)
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
 COMPARE_IGNORE = {"etag_releases", "etag_repository", "last_fetched"}
 
-EXISTING_DATA_DIR_ENV = "HACS_EXISTING_DATA_DIR"
+EXISTING_DATA_DIR = os.getenv("HACS_EXISTING_DATA_DIR")
 
 
 async def get_stored_data(hacs: AdjustedHacs, category: str) -> dict[str, dict[str, Any]]:
     """Return existing category data from the snapshot dir when set, else fetch."""
-    if existing_dir := os.getenv(EXISTING_DATA_DIR_ENV):
+    if EXISTING_DATA_DIR:
         with open(
-            os.path.join(existing_dir, f"{category}.json"), encoding="utf-8"
+            os.path.join(EXISTING_DATA_DIR, f"{category}.json"), encoding="utf-8"
         ) as file:
             return json.load(file)
     return await hacs.data_client.get_data(category, validate=False)
@@ -73,9 +73,9 @@ async def get_stored_data(hacs: AdjustedHacs, category: str) -> dict[str, dict[s
 
 async def get_removed_repositories(hacs: AdjustedHacs) -> list[str]:
     """Return the removed-repositories list from the snapshot dir when set, else fetch."""
-    if existing_dir := os.getenv(EXISTING_DATA_DIR_ENV):
+    if EXISTING_DATA_DIR:
         with open(
-            os.path.join(existing_dir, "removed.json"), encoding="utf-8"
+            os.path.join(EXISTING_DATA_DIR, "removed.json"), encoding="utf-8"
         ) as file:
             return json.load(file)
     return await hacs.data_client.get_repositories("removed")

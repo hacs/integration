@@ -58,18 +58,13 @@ jobs:
     needs: generate-matrix
     if: github.repository == 'hacs/integration'
     steps:
-      # Fetch the existing published data once, so every category leg works off
-      # the same consistent baseline (no skew if R2 is republished mid-run) and
-      # the removed list is fetched a single time instead of once per category.
-      # URLs mirror custom_components/hacs/data_client.py::_do_request.
       - name: Fetch existing published data
         env:
           CATEGORIES: ${{ needs.generate-matrix.outputs.categories }}
         run: |
           mkdir -p outputdata/existing
 
-          # generate-matrix emits categories single-quoted (['a','b',...]),
-          # which fromJSON accepts but jq does not; normalise to bare names.
+          # categories is single-quoted (['a',...]); strip to bare names for the loop.
           categories=$(printf '%s' "$CATEGORIES" | tr -d "[]\"' " | tr ',' '\n')
 
           fetch() {

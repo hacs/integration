@@ -58,20 +58,11 @@ log_handler.addHandler(stream_handler)
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
 COMPARE_IGNORE = {"etag_releases", "etag_repository", "last_fetched"}
 
-# When set, the existing published data (each category's data.json and the
-# removed list) is read from this directory instead of being fetched from R2.
-# A preflight job fetches that snapshot once and shares it with every category
-# leg, so the whole run works off one consistent baseline. When unset (tests,
-# local dev, single-repo validate.yml) the data is fetched as before.
 EXISTING_DATA_DIR_ENV = "HACS_EXISTING_DATA_DIR"
 
 
 async def get_stored_data(hacs: AdjustedHacs, category: str) -> dict[str, dict[str, Any]]:
-    """Return the existing published data for a category.
-
-    Read from the ``$HACS_EXISTING_DATA_DIR`` snapshot when set, otherwise
-    fetched from the data client.
-    """
+    """Return existing category data from the snapshot dir when set, else fetch."""
     if existing_dir := os.getenv(EXISTING_DATA_DIR_ENV):
         with open(
             os.path.join(existing_dir, f"{category}.json"), encoding="utf-8"
@@ -81,11 +72,7 @@ async def get_stored_data(hacs: AdjustedHacs, category: str) -> dict[str, dict[s
 
 
 async def get_removed_repositories(hacs: AdjustedHacs) -> list[str]:
-    """Return the list of repositories removed from HACS.
-
-    Read from the ``$HACS_EXISTING_DATA_DIR`` snapshot when set, otherwise
-    fetched from the data client.
-    """
+    """Return the removed-repositories list from the snapshot dir when set, else fetch."""
     if existing_dir := os.getenv(EXISTING_DATA_DIR_ENV):
         with open(
             os.path.join(existing_dir, "removed.json"), encoding="utf-8"

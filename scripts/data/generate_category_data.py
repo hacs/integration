@@ -573,6 +573,10 @@ async def generate_category_data(category: str, repository_name: str = None):
     async with ClientSession() as session:
         hacs = AdjustedHacs(
             session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
+        # Create the output directories up front (idempotent) so the side
+        # effects are present even if data generation fails before finalization.
+        os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
+        os.makedirs(os.path.join(OUTPUT_DIR, "diff"), exist_ok=True)
         force = os.environ.get("FORCE_REPOSITORY_UPDATE") == "True"
         stored_data = await hacs.data_client.get_data(category, validate=False)
         current_data = (

@@ -70,7 +70,7 @@ jobs:
         run: |
           mkdir -p outputdata/existing
 
-          fetch() {
+          fetch_stored_hacs_content() {
             curl \
               --silent --show-error --fail --retry 5 --retry-all-errors \
               --connect-timeout 10 --max-time 60 \
@@ -81,11 +81,11 @@ jobs:
 
           for category in $(echo "$CATEGORIES" | jq -r '.[]'); do
             echo "Fetching existing data for $category"
-            fetch "${category}/data.json" "outputdata/existing/${category}.json"
+            fetch_stored_hacs_content "${category}/data.json" "outputdata/existing/${category}.json"
           done
 
           echo "Fetching removed repositories"
-          fetch "removed/repositories.json" "outputdata/existing/removed.json"
+          fetch_stored_hacs_content "removed/repositories.json" "outputdata/existing/removed.json"
 
       - name: Upload existing data
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

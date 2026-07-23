@@ -8,7 +8,13 @@ from typing import Any
 from homeassistant.core import HomeAssistant
 import pytest
 
-from scripts.data.generate_category_data import OUTPUT_DIR, generate_category_data
+from scripts.data.generate_category_data import (
+    EXISTING_DATA_DIR_ENV,
+    OUTPUT_DIR,
+    generate_category_data,
+    get_removed_repositories,
+    get_stored_data,
+)
 
 from tests.common import (
     FIXTURES_PATH,
@@ -311,3 +317,63 @@ async def test_generate_category_data_with_30plus_prereleases(
         f"scripts/data/test_generate_category_data_with_30plus_prereleases/{
             category_test_data['category']}.json",
     )
+
+
+class _StubDataClient:
+    """Minimal data client recording that a fetch happened."""
+
+    def __init__(self) -> None:
+        self.calls: list[tuple[str, str]] = []
+
+    async def get_data(self, section: str, *, validate: bool) -> dict[str, Any]:
+        self.calls.append(("get_data", section))
+        return {"fetched": section}
+
+    async def get_repositories(self, section: str) -> list[str]:
+        self.calls.append(("get_repositories", section))
+        return [f"fetched/{section}"]
+
+
+class _StubHacs:
+    """Minimal HACS stand-in exposing only a data client."""
+
+    def __init__(self) -> None:
+        self.data_client = _StubDataClient()
+
+
+async def test_get_stored_data_reads_from_existing_dir(tmp_path, monkeypatch):
+    """When the snapshot dir is set, stored data is read from it, not fetched."""
+    monkeypatch.setenv(EXISTING_DATA_DIR_ENV, str(tmp_path))
+    payload = {"1": {"full_name": "octocat/Hello-World"}}
+    (tmp_path / "integration.json").write_text(json.dumps(payload))
+
+    hacs = _StubHacs()
+    assert await get_stored_data(hacs, "integration") == payload
+    assert hacs.data_client.calls == []
+
+
+async def test_get_removed_repositories_reads_from_existing_dir(tmp_path, monkeypatch):
+    """When the snapshot dir is set, the removed list is read from it, not fetched."""
+    monkeypatch.setenv(EXISTING_DATA_DIR_ENV, str(tmp_path))
+    removed = ["octocat/Hello-World", "hacs/integration"]
+    (tmp_path / "removed.json").write_text(json.dumps(removed))
+
+    hacs = _StubHacs()
+    assert await get_removed_repositories(hacs) == removed
+    assert hacs.data_client.calls == []
+
+
+async def test_get_stored_data_falls_back_to_fetch(monkeypatch):
+    """Without the snapshot dir, stored data is fetched from the data client."""
+    monkeypatch.delenv(EXISTING_DATA_DIR_ENV, raising=False)
+    hacs = _StubHacs()
+    assert await get_stored_data(hacs, "plugin") == {"fetched": "plugin"}
+    assert hacs.data_client.calls == [("get_data", "plugin")]
+
+
+async def test_get_removed_repositories_falls_back_to_fetch(monkeypatch):
+    """Without the snapshot dir, the removed list is fetched from the data client."""
+    monkeypatch.delenv(EXISTING_DATA_DIR_ENV, raising=False)
+    hacs = _StubHacs()
+    assert await get_removed_repositories(hacs) == ["fetched/removed"]
+    assert hacs.data_client.calls == [("get_repositories", "removed")]

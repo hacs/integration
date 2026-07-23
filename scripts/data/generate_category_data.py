@@ -58,6 +58,41 @@ log_handler.addHandler(stream_handler)
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
 COMPARE_IGNORE = {"etag_releases", "etag_repository", "last_fetched"}
 
+# When set, the existing published data (each category's data.json and the
+# removed list) is read from this directory instead of being fetched from R2.
+# A preflight job fetches that snapshot once and shares it with every category
+# leg, so the whole run works off one consistent baseline. When unset (tests,
+# local dev, single-repo validate.yml) the data is fetched as before.
+EXISTING_DATA_DIR_ENV = "HACS_EXISTING_DATA_DIR"
+
+
+async def get_stored_data(hacs: AdjustedHacs, category: str) -> dict[str, dict[str, Any]]:
+    """Return the existing published data for a category.
+
+    Read from the ``$HACS_EXISTING_DATA_DIR`` snapshot when set, otherwise
+    fetched from the data client.
+    """
+    if existing_dir := os.getenv(EXISTING_DATA_DIR_ENV):
+        with open(
+            os.path.join(existing_dir, f"{category}.json"), encoding="utf-8"
+        ) as file:
+            return json.load(file)
+    return await hacs.data_client.get_data(category, validate=False)
+
+
+async def get_removed_repositories(hacs: AdjustedHacs) -> list[str]:
+    """Return the list of repositories removed from HACS.
+
+    Read from the ``$HACS_EXISTING_DATA_DIR`` snapshot when set, otherwise
+    fetched from the data client.
+    """
+    if existing_dir := os.getenv(EXISTING_DATA_DIR_ENV):
+        with open(
+            os.path.join(existing_dir, "removed.json"), encoding="utf-8"
+        ) as file:
+            return json.load(file)
+    return await hacs.data_client.get_repositories("removed")
+
 
 def jsonprint(data: any):
     print(
@@ -309,7 +344,7 @@ class AdjustedHacs(HacsBase):
         removed = (
             []
             if repository_name is not None
-            else await self.data_client.get_repositories("removed")
+            else await get_removed_repositories(self)
         )
         await self.data.register_base_data(
             category,
@@ -461,7 +496,7 @@ async def generate_category_data(category: str, repository_name: str = None):
         os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
         os.makedirs(os.path.join(OUTPUT_DIR, "diff"), exist_ok=True)
         force = os.environ.get("FORCE_REPOSITORY_UPDATE") == "True"
-        stored_data = await hacs.data_client.get_data(category, validate=False)
+        stored_data = await get_stored_data(hacs, category)
         current_data = (
             next(
                 (

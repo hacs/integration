@@ -58,8 +58,8 @@ jobs:
           echo "categories=$categories_json" >> $GITHUB_OUTPUT
           echo "categories: $categories_json"
 
-  preflight:
-    name: Fetch existing data
+  fetch-stored-data:
+    name: Fetch stored data
     runs-on: ubuntu-latest
     needs: generate-matrix
     if: github.repository == 'hacs/integration'
@@ -97,7 +97,7 @@ jobs:
 
   category-data:
     runs-on: ubuntu-latest
-    needs: [generate-matrix, preflight]
+    needs: [generate-matrix, fetch-stored-data]
     if: github.repository == 'hacs/integration'
     name: Generate ${{ matrix.category }} data
     strategy:
@@ -337,7 +337,7 @@ jobs:
   notify_on_failure:
     runs-on: ubuntu-latest
     name: Trigger Discord notification when jobs fail
-    needs: ["generate-matrix", "preflight", "category-data", "summarize", "publish"]
+    needs: ["generate-matrix", "fetch-stored-data", "category-data", "summarize", "publish"]
     if: ${{ always() && github.repository == 'hacs/integration' && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}
     steps:
       - name: Send notification

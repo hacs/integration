@@ -35,7 +35,14 @@ def _load_shard_files(category: str, name: str) -> dict[str, dict[str, Any]]:
         print_error_and_exit(f"No shard '{name}' files found", category)
     for path in paths:
         with open(path, encoding="utf-8") as shard_file:
-            merged.update(json.loads(shard_file.read()))
+            shard_data = json.load(shard_file)
+        overlap = merged.keys() & shard_data.keys()
+        if overlap:
+            print_error_and_exit(
+                f"Duplicate keys across shards in '{name}': {sorted(overlap)[:5]}",
+                category,
+            )
+        merged.update(shard_data)
     return merged
 
 

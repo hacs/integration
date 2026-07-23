@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import asyncio
 from datetime import datetime
 import json
@@ -453,13 +454,125 @@ class AdjustedHacs(HacsBase):
         return json_loads(decode_content(response.data.content))
 
 
+def _dump_diff(entries: dict[str, dict[str, Any]], data_file) -> None:
+    """Write a diff-friendly (COMPARE_IGNORE stripped) JSON dump."""
+    json.dump(
+        {
+            i: {k: v for k, v in d.items() if k not in COMPARE_IGNORE}
+            for i, d in entries.items()
+        },
+        data_file,
+        cls=JSONEncoder,
+        sort_keys=True,
+        indent=2,
+    )
+
+
+async def finalize_category_output(
+    hacs: AdjustedHacs,
+    category: str,
+    stored_data: dict[str, dict[str, Any]],
+    current_data: dict[str, dict[str, Any]],
+    updated_data: dict[str, dict[str, Any]],
+) -> None:
+    """Summarize, validate and write the final per-category output files."""
+    os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
+    os.makedirs(os.path.join(OUTPUT_DIR, "diff"), exist_ok=True)
+
+    summary = await hacs.summarize_data(current_data, updated_data)
+    with open(
+        os.path.join(OUTPUT_DIR, "summary.json"),
+        mode="w",
+        encoding="utf-8",
+    ) as data_file:
+        json.dump(
+            summary,
+            data_file,
+            cls=JSONEncoder,
+            sort_keys=True,
+            indent=2,
+        )
+
+    did_raise = False
+    if (
+        not updated_data
+        or len(updated_data) == 0
+        or not isinstance(updated_data, dict)
+    ):
+        print_error_and_exit("Updated data is empty", category)
+        did_raise = True
+
+    try:
+        VALIDATE_GENERATED_V2_REPO_DATA[category](updated_data)
+    except vol.Invalid as error:
+        did_raise = True
+        errors = expand_and_humanize_error(updated_data, error)
+        if isinstance(errors, list):
+            for err in errors:
+                print(f"::error::{err}")
+            sys.exit(1)
+
+        print_error_and_exit(f"Invalid data: {errors}", category)
+
+    if did_raise:
+        print_error_and_exit(
+            "Validation did raise but did not exit!", category)
+        sys.exit(1)  # Fallback, should not be reached
+
+    with open(
+        os.path.join(OUTPUT_DIR, category, "stored.json"),
+        mode="w",
+        encoding="utf-8",
+    ) as data_file:
+        json.dump(
+            stored_data,
+            data_file,
+            cls=JSONEncoder,
+            separators=(",", ":"),
+        )
+    with open(
+        os.path.join(OUTPUT_DIR, category, "data.json"),
+        mode="w",
+        encoding="utf-8",
+    ) as data_file:
+        json.dump(
+            updated_data,
+            data_file,
+            cls=JSONEncoder,
+            separators=(",", ":"),
+        )
+    with open(
+        os.path.join(OUTPUT_DIR, category, "repositories.json"),
+        mode="w",
+        encoding="utf-8",
+    ) as repositories_file:
+        json.dump(
+            [v["full_name"] for v in updated_data.values()],
+            repositories_file,
+            separators=(",", ":"),
+            sort_keys=True,
+        )
+
+    with open(
+        os.path.join(OUTPUT_DIR, "diff", f"{category}_before.json"),
+        mode="w",
+        encoding="utf-8",
+    ) as data_file:
+        _dump_diff(current_data, data_file)
+
+    with open(
+        os.path.join(OUTPUT_DIR, "diff", f"{category}_after.json"),
+        mode="w",
+        encoding="utf-8",
+    ) as data_file:
+        _dump_diff(updated_data, data_file)
+
+
 async def generate_category_data(category: str, repository_name: str = None):
     """Generate data."""
     async with ClientSession() as session:
         hacs = AdjustedHacs(
             session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
-        os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
-        os.makedirs(os.path.join(OUTPUT_DIR, "diff"), exist_ok=True)
         force = os.environ.get("FORCE_REPOSITORY_UPDATE") == "True"
         stored_data = await hacs.data_client.get_data(category, validate=False)
         current_data = (
@@ -482,123 +595,23 @@ async def generate_category_data(category: str, repository_name: str = None):
             force=force,
         )
 
-        summary = await hacs.summarize_data(current_data, updated_data)
-        with open(
-            os.path.join(OUTPUT_DIR, "summary.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as data_file:
-            json.dump(
-                summary,
-                data_file,
-                cls=JSONEncoder,
-                sort_keys=True,
-                indent=2,
-            )
-
-        did_raise = False
-        if (
-            not updated_data
-            or len(updated_data) == 0
-            or not isinstance(updated_data, dict)
-        ):
-            print_error_and_exit("Updated data is empty", category)
-            did_raise = True
-
-        try:
-            VALIDATE_GENERATED_V2_REPO_DATA[category](updated_data)
-        except vol.Invalid as error:
-            did_raise = True
-            errors = expand_and_humanize_error(updated_data, error)
-            if isinstance(errors, list):
-                for err in errors:
-                    print(f"::error::{err}")
-                sys.exit(1)
-
-            print_error_and_exit(f"Invalid data: {errors}", category)
-
-        if did_raise:
-            print_error_and_exit(
-                "Validation did raise but did not exit!", category)
-            sys.exit(1)  # Fallback, should not be reached
-
-        with open(
-            os.path.join(OUTPUT_DIR, category, "stored.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as data_file:
-            json.dump(
-                stored_data,
-                data_file,
-                cls=JSONEncoder,
-                separators=(",", ":"),
-            )
-        with open(
-            os.path.join(OUTPUT_DIR, category, "data.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as data_file:
-            json.dump(
-                updated_data,
-                data_file,
-                cls=JSONEncoder,
-                separators=(",", ":"),
-            )
-        with open(
-            os.path.join(OUTPUT_DIR, category, "repositories.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as repositories_file:
-            json.dump(
-                [v["full_name"] for v in updated_data.values()],
-                repositories_file,
-                separators=(",", ":"),
-                sort_keys=True,
-            )
-
-        with open(
-            os.path.join(OUTPUT_DIR, "diff", f"{category}_before.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as data_file:
-            json.dump(
-                {
-                    i: {
-                        k: v
-                        for k, v in d.items() if k not in COMPARE_IGNORE
-                    }
-                    for i, d in current_data.items()
-                },
-                data_file,
-                cls=JSONEncoder,
-                sort_keys=True,
-                indent=2,
-            )
-
-        with open(
-            os.path.join(OUTPUT_DIR, "diff", f"{category}_after.json"),
-            mode="w",
-            encoding="utf-8",
-        ) as data_file:
-            json.dump(
-                {
-                    i: {
-                        k: v
-                        for k, v in d.items() if k not in COMPARE_IGNORE
-                    }
-                    for i, d in updated_data.items()
-                },
-                data_file,
-                cls=JSONEncoder,
-                sort_keys=True,
-                indent=2,
-            )
+        await finalize_category_output(
+            hacs,
+            category,
+            stored_data,
+            current_data,
+            updated_data,
+        )
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Generate HACS compliant data.")
+    parser.add_argument("category")
+    parser.add_argument("repository_name", nargs="?", default=None)
+    args = parser.parse_args()
     asyncio.run(
         generate_category_data(
-            sys.argv[1],  # category
-            sys.argv[2] if len(sys.argv) > 2 else None,  # repository_name
+            args.category,
+            args.repository_name,
         )
     )

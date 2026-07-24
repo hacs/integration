@@ -61,7 +61,7 @@ COMPARE_IGNORE = {"etag_releases", "etag_repository", "last_fetched"}
 EXISTING_DATA_DIR = os.getenv("HACS_EXISTING_DATA_DIR")
 
 
-def _read_snapshot(hacs: AdjustedHacs, filename: str) -> Any | None:
+def _read_snapshot(hacs: AdjustedHacs, filename: str) -> object | None:
     """Read a snapshot file from ``EXISTING_DATA_DIR``.
 
     Returns the parsed JSON when available, or ``None`` (so the caller fetches

@@ -58,28 +58,29 @@ log_handler.addHandler(stream_handler)
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
 COMPARE_IGNORE = {"etag_releases", "etag_repository", "last_fetched"}
 
-EXISTING_DATA_DIR = os.getenv("HACS_EXISTING_DATA_DIR")
+# Directory holding the preflight snapshot of the existing published data. When
+# set, snapshots are read from here instead of fetched; unset outside the workflow.
+STORED_DATA_DIR = os.getenv("HACS_STORED_DATA_DIR")
 
 
-def _read_snapshot(
+def _read_snapshot[T](
     hacs: AdjustedHacs,
     filename: str,
-    expected_type: type,
-) -> object | None:
-    """Read a snapshot file from ``EXISTING_DATA_DIR``.
+    expected_type: type[T],
+) -> T | None:
+    """Read a snapshot file from ``STORED_DATA_DIR``.
 
     Returns the parsed JSON when available, or ``None`` (so the caller fetches
     instead) when the dir is unset, the file is missing or unreadable, or the
     content is not of ``expected_type``.
     """
-    if not EXISTING_DATA_DIR:
+    if not STORED_DATA_DIR:
         return None
     try:
-        with open(os.path.join(EXISTING_DATA_DIR, filename), encoding="utf-8") as file:
+        with open(os.path.join(STORED_DATA_DIR, filename), encoding="utf-8") as file:
             data = json.load(file)
     except (OSError, json.JSONDecodeError) as err:
-        hacs.log.warning(
-            "Could not read snapshot %s (%s), fetching instead", filename, err)
+        hacs.log.warning("Could not read snapshot %s (%s), fetching instead", filename, err)
         return None
     if not isinstance(data, expected_type):
         hacs.log.warning(

@@ -352,7 +352,7 @@ _MODULE = "scripts.data.generate_category_data"
 
 async def test_get_stored_data_reads_from_existing_dir(tmp_path, monkeypatch):
     """When the snapshot dir is set, stored data is read from it, not fetched."""
-    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", str(tmp_path))
+    monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", str(tmp_path))
     payload = {"1": {"full_name": "octocat/Hello-World"}}
     (tmp_path / "integration.json").write_text(json.dumps(payload))
 
@@ -363,7 +363,7 @@ async def test_get_stored_data_reads_from_existing_dir(tmp_path, monkeypatch):
 
 async def test_get_removed_repositories_reads_from_existing_dir(tmp_path, monkeypatch):
     """When the snapshot dir is set, the removed list is read from it, not fetched."""
-    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", str(tmp_path))
+    monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", str(tmp_path))
     removed = ["octocat/Hello-World", "hacs/integration"]
     (tmp_path / "removed.json").write_text(json.dumps(removed))
 
@@ -374,7 +374,7 @@ async def test_get_removed_repositories_reads_from_existing_dir(tmp_path, monkey
 
 async def test_get_stored_data_falls_back_to_fetch(monkeypatch):
     """Without the snapshot dir, stored data is fetched from the data client."""
-    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", None)
+    monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", None)
     hacs = _StubHacs()
     assert await get_stored_data(hacs, "plugin") == _FETCHED_STORED
     assert hacs.data_client.calls == [("get_data", "plugin")]
@@ -382,7 +382,7 @@ async def test_get_stored_data_falls_back_to_fetch(monkeypatch):
 
 async def test_get_removed_repositories_falls_back_to_fetch(monkeypatch):
     """Without the snapshot dir, the removed list is fetched from the data client."""
-    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", None)
+    monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", None)
     hacs = _StubHacs()
     assert await get_removed_repositories(hacs) == _FETCHED_REMOVED
     assert hacs.data_client.calls == [("get_repositories", "removed")]
@@ -390,7 +390,7 @@ async def test_get_removed_repositories_falls_back_to_fetch(monkeypatch):
 
 async def test_get_stored_data_falls_back_when_snapshot_missing(tmp_path, monkeypatch):
     """A missing snapshot file falls back to fetching instead of raising."""
-    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", str(tmp_path))
+    monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", str(tmp_path))
     hacs = _StubHacs()
     assert await get_stored_data(hacs, "plugin") == _FETCHED_STORED
     assert hacs.data_client.calls == [("get_data", "plugin")]
@@ -398,7 +398,7 @@ async def test_get_stored_data_falls_back_when_snapshot_missing(tmp_path, monkey
 
 async def test_get_stored_data_falls_back_when_snapshot_invalid(tmp_path, monkeypatch):
     """An invalid-JSON snapshot file falls back to fetching instead of raising."""
-    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", str(tmp_path))
+    monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", str(tmp_path))
     (tmp_path / "plugin.json").write_text("{ not valid json")
 
     hacs = _StubHacs()
@@ -408,7 +408,7 @@ async def test_get_stored_data_falls_back_when_snapshot_invalid(tmp_path, monkey
 
 async def test_get_removed_repositories_falls_back_when_snapshot_missing(tmp_path, monkeypatch):
     """A missing removed snapshot falls back to fetching instead of raising."""
-    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", str(tmp_path))
+    monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", str(tmp_path))
     hacs = _StubHacs()
     assert await get_removed_repositories(hacs) == _FETCHED_REMOVED
     assert hacs.data_client.calls == [("get_repositories", "removed")]
@@ -416,7 +416,7 @@ async def test_get_removed_repositories_falls_back_when_snapshot_missing(tmp_pat
 
 async def test_get_stored_data_falls_back_on_wrong_shape(tmp_path, monkeypatch):
     """Valid JSON of the wrong type (list, not dict) falls back to fetching."""
-    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", str(tmp_path))
+    monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", str(tmp_path))
     (tmp_path / "plugin.json").write_text(json.dumps(["not", "a", "dict"]))
 
     hacs = _StubHacs()
@@ -426,9 +426,51 @@ async def test_get_stored_data_falls_back_on_wrong_shape(tmp_path, monkeypatch):
 
 async def test_get_removed_repositories_falls_back_on_wrong_shape(tmp_path, monkeypatch):
     """Valid JSON of the wrong type (dict, not list) falls back to fetching."""
-    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", str(tmp_path))
+    monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", str(tmp_path))
     (tmp_path / "removed.json").write_text(json.dumps({"not": "a list"}))
 
     hacs = _StubHacs()
     assert await get_removed_repositories(hacs) == _FETCHED_REMOVED
     assert hacs.data_client.calls == [("get_repositories", "removed")]
+
+
+@pytest.mark.parametrize(
+    "category_test_data", category_test_data_parametrized(categories=["integration"])
+)
+async def test_generate_category_data_from_stored_snapshot(
+    hass: HomeAssistant,
+    response_mocker: ResponseMocker,
+    snapshots: SnapshotFixture,
+    category_test_data: CategoryTestData,
+    tmp_path,
+    monkeypatch,
+):
+    """Generating from the stored snapshot reproduces the fetch-path output.
+
+    Feeds the same inputs the fetch path uses (empty category data + the removed
+    fixture) through STORED_DATA_DIR, and asserts the generated data.json matches
+    the fetch-path snapshot -- i.e. sourcing the baseline from disk is equivalent
+    to fetching it.
+    """
+    category = category_test_data["category"]
+
+    stored_dir = tmp_path / "stored"
+    stored_dir.mkdir()
+    (stored_dir / f"{category}.json").write_text("{}")
+    with open(
+        os.path.join(
+            FIXTURES_PATH, "proxy", "data-v2.hacs.xyz", "removed", "repositories.json"
+        ),
+        encoding="utf-8",
+    ) as file:
+        (stored_dir / "removed.json").write_text(file.read())
+    monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", str(stored_dir))
+
+    await generate_category_data(category)
+
+    with open(f"{OUTPUT_DIR}/{category}/data.json", encoding="utf-8") as file:
+        snapshots.assert_match(
+            safe_json_dumps(recursive_remove_key(
+                json.loads(file.read()), ("last_fetched",))),
+            f"scripts/data/generate_category_data/{category}//data.json",
+        )

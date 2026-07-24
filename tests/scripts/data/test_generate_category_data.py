@@ -412,3 +412,23 @@ async def test_get_removed_repositories_falls_back_when_snapshot_missing(tmp_pat
     hacs = _StubHacs()
     assert await get_removed_repositories(hacs) == _FETCHED_REMOVED
     assert hacs.data_client.calls == [("get_repositories", "removed")]
+
+
+async def test_get_stored_data_falls_back_on_wrong_shape(tmp_path, monkeypatch):
+    """Valid JSON of the wrong type (list, not dict) falls back to fetching."""
+    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", str(tmp_path))
+    (tmp_path / "plugin.json").write_text(json.dumps(["not", "a", "dict"]))
+
+    hacs = _StubHacs()
+    assert await get_stored_data(hacs, "plugin") == _FETCHED_STORED
+    assert hacs.data_client.calls == [("get_data", "plugin")]
+
+
+async def test_get_removed_repositories_falls_back_on_wrong_shape(tmp_path, monkeypatch):
+    """Valid JSON of the wrong type (dict, not list) falls back to fetching."""
+    monkeypatch.setattr(f"{_MODULE}.EXISTING_DATA_DIR", str(tmp_path))
+    (tmp_path / "removed.json").write_text(json.dumps({"not": "a list"}))
+
+    hacs = _StubHacs()
+    assert await get_removed_repositories(hacs) == _FETCHED_REMOVED
+    assert hacs.data_client.calls == [("get_repositories", "removed")]

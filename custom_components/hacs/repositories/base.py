@@ -961,35 +961,54 @@ class HacsRepository:
             {"repository": self.data.full_name, "progress": 50},
         )
 
-        if self.repository_manifest.zip_release and self.repository_manifest.filename:
-            await self.download_zip_files(self.validate)
-        else:
-            await self.download_content(version_to_install)
+        download_exception: Exception | None = None
+        try:
+            try:
+                if self.repository_manifest.zip_release and self.repository_manifest.filename:
+                    await self.download_zip_files(self.validate)
+                else:
+                    await self.download_content(version_to_install)
+            except Exception as exception:  # pylint: disable=broad-except
+                download_exception = exception
 
-        self.hacs.async_dispatch(
-            HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
-            {"repository": self.data.full_name, "progress": 70},
-        )
+            self.hacs.async_dispatch(
+                HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+                {"repository": self.data.full_name, "progress": 70},
+            )
 
-        if self.validate.errors:
-            for error in self.validate.errors:
-                self.logger.error("%s %s", self.string, error)
+            if download_exception is not None or self.validate.errors:
+                for error in self.validate.errors:
+                    self.logger.error("%s %s", self.string, error)
+
+                if self.data.installed and not self.content.single:
+                    await self.hacs.hass.async_add_executor_job(backup.restore)
+                    await self.hacs.hass.async_add_executor_job(backup.cleanup)
+
+                if download_exception is not None:
+                    raise download_exception
+
+                raise HacsException("Could not download, see log for details")
+
+            self.hacs.async_dispatch(
+                HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
+                {"repository": self.data.full_name, "progress": 80},
+            )
+
             if self.data.installed and not self.content.single:
-                await self.hacs.hass.async_add_executor_job(backup.restore)
                 await self.hacs.hass.async_add_executor_job(backup.cleanup)
-            raise HacsException("Could not download, see log for details")
-
-        self.hacs.async_dispatch(
-            HacsDispatchEvent.REPOSITORY_DOWNLOAD_PROGRESS,
-            {"repository": self.data.full_name, "progress": 80},
-        )
-
-        if self.data.installed and not self.content.single:
-            await self.hacs.hass.async_add_executor_job(backup.cleanup)
-
-        if persistent_directory is not None:
-            await self.hacs.hass.async_add_executor_job(persistent_directory.restore)
-            await self.hacs.hass.async_add_executor_job(persistent_directory.cleanup)
+        finally:
+            # The persistent directory is moved out of the way before the download
+            # and is not part of the backup of the old install, so it needs to be
+            # moved back in, also when the download failed. Restore errors are
+            # only logged, to not mask the failure that got us here.
+            if persistent_directory is not None:
+                try:
+                    await self.hacs.hass.async_add_executor_job(persistent_directory.restore)
+                    await self.hacs.hass.async_add_executor_job(persistent_directory.cleanup)
+                except Exception as exception:  # pylint: disable=broad-except
+                    self.logger.error(
+                        "%s Could not restore persistent directory: %s", self.string, exception
+                    )
 
         if self.validate.success:
             self.data.installed = True

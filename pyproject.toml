@@ -139,6 +139,12 @@ fixable = ["ALL"]
 unfixable = []
 
 
+[tool.ruff.lint.per-file-ignores]
+# CLI/dev utility scripts: printing to stdout, os.path/os.getcwd usage, blocking
+# file I/O in async context, and datetime.utcnow are acceptable here.
+"scripts/**" = ["T201", "PTH118", "PTH109", "ASYNC230", "DTZ003"]
+
+
 [tool.ruff.lint.isort]
 combine-as-imports = true
 force-sort-within-sections = true

@@ -28,8 +28,14 @@ class HacsWakeWordRepository(HacsRepository):
 
     @property
     def localpath(self):
-        """Return localpath."""
-        return f"{self.hacs.core.config_path}/custom_wake_words/{self.data.name}"
+        """Return localpath.
+
+        The full name (owner/repo) is used, rather than just the repo name, so
+        that two repositories with the same repo name but different owners do not
+        collide on disk. Home Assistant derives the wake word id from the path
+        relative to custom_wake_words/, so this also keeps those ids unique.
+        """
+        return f"{self.hacs.core.config_path}/custom_wake_words/{self.data.full_name}"
 
     async def validate_repository(self):
         """Validate."""

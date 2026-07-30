@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from homeassistant.exceptions import HomeAssistantError
+
 from ..enums import HacsCategory, HacsDispatchEvent
 from ..exceptions import HacsException
 from ..utils.decorator import concurrent
@@ -63,6 +65,30 @@ class HacsWakeWordRepository(HacsRepository):
                 if not self.hacs.status.startup:
                     self.logger.error("%s %s", self.string, error)
         return self.validate.success
+
+    async def async_post_installation(self):
+        """Run post installation steps."""
+        await self._reload_custom_wake_words()
+
+    async def async_post_uninstall(self):
+        """Run post uninstall steps."""
+        await self._reload_custom_wake_words()
+
+    async def _reload_custom_wake_words(self) -> None:
+        """Ask esphome to rescan the custom wake word directory.
+
+        The wake word inventory is cached for the lifetime of the Home Assistant
+        process, so installing, updating or removing a model has no effect until
+        the cache is invalidated. The esphome integration exposes a service that
+        does this and refreshes the satellites.
+        """
+        if not self.hacs.hass.services.has_service("esphome", "reload_custom_wake_words"):
+            return
+        self.logger.debug("%s Reloading custom wake words", self.string)
+        try:
+            await self.hacs.hass.services.async_call("esphome", "reload_custom_wake_words", {})
+        except HomeAssistantError as exception:
+            self.logger.exception("%s %s", self.string, exception)
 
     @concurrent(concurrenttasks=10, backoff_time=5)
     async def update_repository(self, ignore_issues=False, force=False):

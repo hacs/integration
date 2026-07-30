@@ -25,7 +25,6 @@ class HacsPluginRepository(HacsRepository):
         """Initialize."""
         super().__init__(hacs=hacs)
         self.data.full_name = full_name
-        self.data.full_name_lower = full_name.lower()
         self.data.file_name = None
         self.data.category = HacsCategory.PLUGIN
         self.content.path.local = self.localpath

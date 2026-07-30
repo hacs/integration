@@ -792,6 +792,11 @@ class HacsBase:
         if self.configuration.appdaemon:
             self.enable_hacs_category(HacsCategory.APPDAEMON)
 
+        if "esphome" in self.hass.config.components or self.repositories.category_downloaded(
+            HacsCategory.WAKE_WORD
+        ):
+            self.enable_hacs_category(HacsCategory.WAKE_WORD)
+
     async def async_load_hacs_from_github(self, _=None) -> None:
         """Load HACS from GitHub."""
         if self.status.inital_fetch_done:

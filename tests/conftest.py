@@ -41,6 +41,7 @@ from custom_components.hacs.repositories import (
     HacsPythonScriptRepository,
     HacsTemplateRepository,
     HacsThemeRepository,
+    HacsWakeWordRepository,
 )
 from custom_components.hacs.utils.store import async_load_from_store
 
@@ -234,6 +235,13 @@ def repository_python_script(hacs):
 def repository_template(hacs):
     """Fixtrue for HACS template repository object"""
     repository_obj = HacsTemplateRepository(hacs, "test/test")
+    return dummy_repository_base(hacs, repository_obj)
+
+
+@pytest.fixture
+def repository_wake_word(hacs):
+    """Fixtrue for HACS wake word repository object"""
+    repository_obj = HacsWakeWordRepository(hacs, "test/test")
     return dummy_repository_base(hacs, repository_obj)
 
 

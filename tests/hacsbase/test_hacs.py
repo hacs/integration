@@ -33,6 +33,17 @@ async def test_hacs(hacs, repository, tmpdir):
     await hacs.async_process_queue()
 
 
+async def test_wake_word_category_requires_esphome(hacs):
+    """The wake_word category is only active when esphome is loaded."""
+    assert "esphome" not in hacs.hass.config.components
+    hacs.set_active_categories()
+    assert HacsCategory.WAKE_WORD not in hacs.common.categories
+
+    hacs.hass.config.components.add("esphome")
+    hacs.set_active_categories()
+    assert HacsCategory.WAKE_WORD in hacs.common.categories
+
+
 async def test_add_remove_repository(hacs, repository, tmpdir):
     hacs.hass.config.config_dir = tmpdir
 

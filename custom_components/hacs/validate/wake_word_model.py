@@ -46,6 +46,27 @@ class Validator(ActionValidationBase):
             if not treefile.is_directory and treefile.path == content_path
         ]
 
+        # A repository must ship a single flat manifest+model pair. Reject wake
+        # word files nested in a subdirectory so a second model cannot slip in
+        # unnoticed (and so the manifest and model never end up in different
+        # directories). Skipped for content_in_root, where there is no subtree.
+        if content_path:
+            nested = sorted(
+                treefile.full_path
+                for treefile in self.repository.tree
+                if not treefile.is_directory
+                and treefile.path.startswith(f"{content_path}/")
+                and (
+                    treefile.filename.endswith(".tflite")
+                    or treefile.filename.endswith(".json")
+                )
+            )
+            if nested:
+                raise ValidationException(
+                    f"Wake word files must be directly in '{content_path}/', "
+                    f"not in a subdirectory: {', '.join(nested)}"
+                )
+
         # Locate the config (manifest) file. hacs.json is repository metadata, not
         # a wake word config, so it is ignored even when content_in_root is set.
         config_files = [

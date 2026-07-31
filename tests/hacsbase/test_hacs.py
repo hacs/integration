@@ -33,13 +33,30 @@ async def test_hacs(hacs, repository, tmpdir):
     await hacs.async_process_queue()
 
 
-async def test_wake_word_category_requires_esphome(hacs):
-    """The wake_word category is only active when esphome is loaded."""
+async def test_wake_word_category_enabled_by_esphome(hacs):
+    """The wake_word category is active when esphome is loaded."""
     assert "esphome" not in hacs.hass.config.components
     hacs.set_active_categories()
     assert HacsCategory.WAKE_WORD not in hacs.common.categories
 
     hacs.hass.config.components.add("esphome")
+    hacs.set_active_categories()
+    assert HacsCategory.WAKE_WORD in hacs.common.categories
+
+
+async def test_wake_word_category_enabled_when_downloaded(hacs, repository_wake_word):
+    """The wake_word category is active when a model is already downloaded."""
+    assert "esphome" not in hacs.hass.config.components
+
+    hacs.set_active_categories()
+    assert HacsCategory.WAKE_WORD not in hacs.common.categories
+
+    # A downloaded wake_word repository keeps the category active even without
+    # esphome loaded (e.g. after a restart, before esphome has set up).
+    repository_wake_word.data.installed = True
+    hacs.repositories.register(repository_wake_word)
+    assert hacs.repositories.category_downloaded(HacsCategory.WAKE_WORD)
+
     hacs.set_active_categories()
     assert HacsCategory.WAKE_WORD in hacs.common.categories
 

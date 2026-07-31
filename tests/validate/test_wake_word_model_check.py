@@ -42,6 +42,21 @@ async def test_valid_wake_word_repository(repository_wake_word):
     assert not check.failed
 
 
+async def test_nested_wake_word_files_rejected(repository_wake_word):
+    """Wake word files in a subdirectory of the content dir are rejected."""
+    repository_wake_word.tree = _tree(
+        "custom_wake_words/my_wake_word.json",
+        "custom_wake_words/my_wake_word.tflite",
+        "custom_wake_words/extra/second.json",
+        "custom_wake_words/extra/second.tflite",
+    )
+    _set_documentation(repository_wake_word, json.dumps(_valid_config()))
+
+    check = Validator(repository_wake_word)
+    await check.execute_validation()
+    assert check.failed
+
+
 async def test_valid_wake_word_repository_content_in_root(repository_wake_word):
     """hacs.json in the root must not be mistaken for the wake word config."""
     repository_wake_word.repository_manifest.content_in_root = True

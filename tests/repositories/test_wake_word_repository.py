@@ -4,6 +4,17 @@ import pytest
 
 from homeassistant.core import ServiceCall
 
+from custom_components.hacs.exceptions import HacsException
+
+
+async def _stub_common_validate(repository):
+    """Replace common_validate so validate_repository can run in isolation."""
+
+    async def _noop(*_, **__):
+        return None
+
+    repository.common_validate = _noop
+
 
 def test_localpath_uses_full_name(repository_wake_word):
     """The install path is namespaced by the full name (owner/repo)."""
@@ -24,6 +35,35 @@ def test_localpath_deconflicts_same_repo_name_different_owner(repository_wake_wo
     bob_path = repository_wake_word.localpath
 
     assert alice_path != bob_path
+
+
+async def test_validate_repository_requires_manifest_and_model(repository_wake_word):
+    """A compliant repository provides both a manifest and a model."""
+    await _stub_common_validate(repository_wake_word)
+    repository_wake_word.treefiles = [
+        "custom_wake_words/my_wake_word.json",
+        "custom_wake_words/my_wake_word.tflite",
+    ]
+
+    assert await repository_wake_word.validate_repository()
+
+
+async def test_validate_repository_missing_manifest(repository_wake_word):
+    """A model with no config manifest is not compliant (HA loads manifests)."""
+    await _stub_common_validate(repository_wake_word)
+    repository_wake_word.treefiles = ["custom_wake_words/my_wake_word.tflite"]
+
+    with pytest.raises(HacsException):
+        await repository_wake_word.validate_repository()
+
+
+async def test_validate_repository_missing_model(repository_wake_word):
+    """A manifest with no model is not compliant."""
+    await _stub_common_validate(repository_wake_word)
+    repository_wake_word.treefiles = ["custom_wake_words/my_wake_word.json"]
+
+    with pytest.raises(HacsException):
+        await repository_wake_word.validate_repository()
 
 
 @pytest.mark.parametrize("hook", ["async_post_installation", "async_post_uninstall"])

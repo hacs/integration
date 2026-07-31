@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from homeassistant.exceptions import HomeAssistantError
 
-from ..enums import HacsCategory, HacsDispatchEvent
+from ..enums import HacsCategory, HacsDispatchEvent, RepositoryFile
 from ..exceptions import HacsException
 from ..utils.decorator import concurrent
 from .base import HacsRepository
@@ -48,12 +48,20 @@ class HacsWakeWordRepository(HacsRepository):
         if self.repository_manifest.content_in_root:
             self.content.path.remote = ""
 
-        compliant = False
+        # Home Assistant discovers wake words by scanning for config (.json)
+        # manifests and then loading the model each one names, so a compliant
+        # repository must provide both a manifest and a model. hacs.json is
+        # repository metadata, not a wake word config, so it is ignored.
+        has_manifest = False
+        has_model = False
         for treefile in self.treefiles:
-            if treefile.startswith(self.content.path.remote) and treefile.endswith(".tflite"):
-                compliant = True
-                break
-        if not compliant:
+            if not treefile.startswith(self.content.path.remote):
+                continue
+            if treefile.endswith(".tflite"):
+                has_model = True
+            elif treefile.endswith(".json") and not treefile.endswith(RepositoryFile.HACS_JSON):
+                has_manifest = True
+        if not (has_manifest and has_model):
             raise HacsException(
                 f"{self.string} Repository structure for {self.ref.replace('tags/', '')} "
                 "is not compliant"

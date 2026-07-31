@@ -42,6 +42,9 @@ class Validator(ActionValidationBase):
         except Exception as err:
             raise ValidationException("Could not parse the core integrations list") from err
 
+        if not isinstance(core_domains, dict):
+            raise ValidationException("Core integrations list has an unexpected format")
+
         if domain in core_domains:
             raise ValidationException(
                 f"The integration overrides the core integration domain '{domain}'"

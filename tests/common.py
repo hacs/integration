@@ -402,6 +402,10 @@ class MockedResponse:
     def headers(self):
         return self.kwargs.get("headers", {})
 
+    @property
+    def content(self):
+        return MockedResponseContent(self)
+
     async def read(self, **kwargs):
         if (content := self.kwargs.get("content")) is not None:
             return content
@@ -420,6 +424,19 @@ class MockedResponse:
     def raise_for_status(self) -> None:
         if self.status >= 300:
             raise ClientError(self.status)
+
+    def release(self) -> None:
+        """Release the mocked response."""
+
+
+class MockedResponseContent:
+    def __init__(self, response: MockedResponse) -> None:
+        self.response = response
+
+    async def iter_chunked(self, size: int):
+        content = await self.response.read()
+        for offset in range(0, len(content), size):
+            yield content[offset : offset + size]
 
 
 class ResponseMocker:

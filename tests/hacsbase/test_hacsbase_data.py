@@ -7,6 +7,10 @@ from custom_components.hacs.base import HacsRepositories
 from custom_components.hacs.enums import HacsCategory, HacsGitHubRepo
 from custom_components.hacs.utils.data import HacsData
 
+REPOSITORY_FULL_NAME_CONFLICT = "other/repository"
+REPOSITORY_ID_CURRENT = "200"
+REPOSITORY_ID_STALE = "100"
+
 
 async def test_hacs_data_async_write1(hacs, repository):
     data = HacsData(hacs)
@@ -71,20 +75,21 @@ async def test_hacs_data_restore_write_not_new(hacs, caplog):
     assert "Loading base repository information" not in caplog.text
 
 
-async def test_reconcile_stale_repository_id(hacs, caplog):
+async def test_reconcile_recreated_repository_id(hacs, repository_integration, caplog):
     data = HacsData(hacs)
     hacs.repositories = HacsRepositories()
+    repository_full_name = repository_integration.data.full_name
 
     async def _mocked_loads(hass, key):
         if key == "repositories":
             return {
-                "1325795051": {
+                REPOSITORY_ID_CURRENT: {
                     "category": "integration",
-                    "full_name": "hugo-brito/ha-minvandforsyning",
+                    "full_name": repository_full_name,
                 },
-                "1208161604": {
+                REPOSITORY_ID_STALE: {
                     "category": "integration",
-                    "full_name": "hugo-brito/ha-minvandforsyning",
+                    "full_name": repository_full_name,
                     "installed": True,
                 }
             }
@@ -96,47 +101,47 @@ async def test_reconcile_stale_repository_id(hacs, caplog):
     ):
         assert await data.restore()
 
-    stored_repository = hacs.repositories.get_by_id("1208161604")
+    stored_repository = hacs.repositories.get_by_id(REPOSITORY_ID_STALE)
     assert stored_repository is not None
-    assert hacs.repositories.get_by_id("1325795051") is not None
+    assert hacs.repositories.get_by_id(REPOSITORY_ID_CURRENT) is not None
     assert "duplicate IDs" not in caplog.text
 
     category_data = {
-        "1325795051": {
-            "full_name": "hugo-brito/ha-minvandforsyning",
+        REPOSITORY_ID_CURRENT: {
+            "full_name": repository_full_name,
             "last_fetched": 0,
         }
     }
     with patch.object(hacs.data_client, "get_data", return_value=category_data):
         await hacs.async_get_category_repositories_experimental(HacsCategory.INTEGRATION)
 
-    assert hacs.repositories.get_by_id("1208161604") is None
-    assert hacs.repositories.get_by_id("1325795051") is stored_repository
+    assert hacs.repositories.get_by_id(REPOSITORY_ID_STALE) is None
+    assert hacs.repositories.get_by_id(REPOSITORY_ID_CURRENT) is stored_repository
     assert hacs.repositories.list_all == [stored_repository]
-    assert hacs.repositories.is_default("1325795051")
+    assert hacs.repositories.is_default(REPOSITORY_ID_CURRENT)
     assert stored_repository.data.installed is True
 
 
 async def test_reconcile_repository_id_rejects_different_slug(
     hacs, repository_integration
 ):
-    data = HacsData(hacs)
     hacs.repositories = HacsRepositories()
-    repository_integration.data.id = "1208161604"
+    repository_integration.data.id = REPOSITORY_ID_STALE
     hacs.repositories.register(repository_integration)
     await hacs.async_register_repository(
-        repository_full_name="other/repository",
+        repository_full_name=REPOSITORY_FULL_NAME_CONFLICT,
         category=HacsCategory.INTEGRATION,
         check=False,
-        repository_id="1325795051",
+        repository_id=REPOSITORY_ID_CURRENT,
     )
 
-    with pytest.raises(ValueError, match="already set to other/repository"):
-        await data.register_unknown_repositories(
-            {
-                "1325795051": {
-                    "full_name": repository_integration.data.full_name,
-                }
-            },
-            HacsCategory.INTEGRATION,
-        )
+    category_data = {
+        REPOSITORY_ID_CURRENT: {
+            "full_name": repository_integration.data.full_name,
+        }
+    }
+    with (
+        patch.object(hacs.data_client, "get_data", return_value=category_data),
+        pytest.raises(ValueError, match=f"already set to {REPOSITORY_FULL_NAME_CONFLICT}"),
+    ):
+        await hacs.async_get_category_repositories_experimental(HacsCategory.INTEGRATION)

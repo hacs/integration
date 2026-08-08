@@ -237,17 +237,26 @@ class HacsData:
     ):
         """Registry any unknown repositories."""
         for repo_idx, (entry, repo_data) in enumerate(repositories.items()):
+            repository_category = repo_data.get("category", category)
+            if entry == "0" or repository_category is None:
+                continue
+
+            repository_full_name = repo_data["full_name"]
+            if renamed := self.hacs.common.renamed_repositories.get(repository_full_name):
+                repository_full_name = renamed
+            if category is not None and (
+                repository := self.hacs.repositories.get_by_full_name(repository_full_name)
+            ):
+                self.hacs.repositories.reconcile_repository_id(repository, entry)
+                continue
+
             # async_register_repository is awaited in a loop
             # since its unlikely to ever suspend at startup
-            if (
-                entry == "0"
-                or repo_data.get("category", category) is None
-                or self.hacs.repositories.is_registered(repository_id=entry)
-            ):
+            if self.hacs.repositories.is_registered(repository_id=entry):
                 continue
             await self.hacs.async_register_repository(
                 repository_full_name=repo_data["full_name"],
-                category=repo_data.get("category", category),
+                category=repository_category,
                 check=False,
                 repository_id=entry,
             )
@@ -258,11 +267,9 @@ class HacsData:
     @callback
     def async_restore_repository(self, entry: str, repository_data: dict[str, Any]):
         """Restore repository."""
-        repository: HacsRepository | None = None
-        if full_name := repository_data.get("full_name"):
+        repository: HacsRepository | None = self.hacs.repositories.get_by_id(entry)
+        if not repository and (full_name := repository_data.get("full_name")):
             repository = self.hacs.repositories.get_by_full_name(full_name)
-        if not repository:
-            repository = self.hacs.repositories.get_by_id(entry)
         if not repository:
             return
 

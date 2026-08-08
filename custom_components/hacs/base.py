@@ -294,6 +294,47 @@ class HacsRepositories:
         repository.data.id = repo_id
         self.register(repository)
 
+    def reconcile_repository_id(self, repository: HacsRepository, repo_id: str) -> HacsRepository:
+        """Reconcile a repository with its current ID."""
+        registered_repository = self._repositories_by_id.get(repo_id)
+        if (
+            registered_repository
+            and registered_repository.data.full_name_lower != repository.data.full_name_lower
+        ):
+            raise ValueError(
+                f"The repo id {repo_id} is already set to "
+                f"{registered_repository.data.full_name_lower}"
+            )
+
+        matching_repositories = [
+            candidate
+            for candidate in self._repositories
+            if candidate.data.full_name_lower == repository.data.full_name_lower
+        ]
+        was_default = any(
+            self.is_default(str(candidate.data.id)) for candidate in matching_repositories
+        )
+
+        installed_repository = next(
+            (candidate for candidate in matching_repositories if candidate.data.installed),
+            None,
+        )
+        repository = installed_repository or registered_repository or repository
+
+        for candidate in matching_repositories:
+            if candidate is not repository:
+                self.unregister(candidate)
+
+        if str(repository.data.id) != repo_id:
+            self.unregister(repository)
+            repository.data.id = repo_id
+            self.register(repository)
+
+        self._repositories_by_full_name[repository.data.full_name_lower] = repository
+        if was_default:
+            self.mark_default(repository)
+        return repository
+
     def is_default(self, repository_id: str | None = None) -> bool:
         """Check if a repository is default."""
         if not repository_id:

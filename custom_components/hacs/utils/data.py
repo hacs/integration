@@ -237,32 +237,30 @@ class HacsData:
     ):
         """Registry any unknown repositories."""
         for repo_idx, (entry, repo_data) in enumerate(repositories.items()):
+            if repo_idx % 100 == 0:
+                # yield to avoid blocking the event loop
+                await asyncio.sleep(0)
+
             repository_category = repo_data.get("category", category)
-            if entry == "0" or repository_category is None:
-                continue
-
-            repository_full_name = repo_data["full_name"]
-            if renamed := self.hacs.common.renamed_repositories.get(repository_full_name):
-                repository_full_name = renamed
-            if category is not None and (
-                repository := self.hacs.repositories.get_by_full_name(repository_full_name)
+            if (
+                entry == "0"
+                or repository_category is None
+                or self.hacs.repositories.is_registered(repository_id=entry)
             ):
-                self.hacs.repositories.reconcile_repository_id(repository, entry)
                 continue
 
-            # async_register_repository is awaited in a loop
-            # since its unlikely to ever suspend at startup
-            if self.hacs.repositories.is_registered(repository_id=entry):
-                continue
+            if category is not None and (repository_full_name := repo_data.get("full_name")):
+                if renamed := self.hacs.common.renamed_repositories.get(repository_full_name):
+                    repository_full_name = renamed
+                if self.hacs.repositories.get_by_full_name(repository_full_name):
+                    continue
+
             await self.hacs.async_register_repository(
                 repository_full_name=repo_data["full_name"],
                 category=repository_category,
                 check=False,
                 repository_id=entry,
             )
-            if repo_idx % 100 == 0:
-                # yield to avoid blocking the event loop
-                await asyncio.sleep(0)
 
     @callback
     def async_restore_repository(self, entry: str, repository_data: dict[str, Any]):

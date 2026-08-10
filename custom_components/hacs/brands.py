@@ -43,6 +43,7 @@ NO_CACHE = "no-store"
 NEGATIVE_CACHE_TTL = 60 * 60 * 24 * 7
 MAX_ICON_SIZE = 1024 * 1024
 DOWNLOAD_CHUNK_SIZE = 64 * 1024
+DEFAULT_REF = "main"
 PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 VALID_FILENAMES = ("icon.png", "dark_icon.png")
 BRANDS_DOMAIN = "brands"
@@ -170,10 +171,8 @@ class HacsRepositoryIconView(HomeAssistantView):
         token: str | None,
     ) -> web.StreamResponse:
         """Serve the icon from the GitHub repository content, with caching."""
-        ref = repository.data.last_version or repository.data.default_branch
+        ref = repository.data.last_version or repository.data.default_branch or DEFAULT_REF
         cache_ref = repository.data.last_version or repository.data.last_commit or ref
-        if ref is None or cache_ref is None:
-            return self._fallback_response(repository, filename, token=token)
 
         prefix = f"{repository.data.id}-"
         cache_file = self._cache_dir / f"{prefix}{quote(cache_ref, safe='')}-{filename}"

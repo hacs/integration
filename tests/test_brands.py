@@ -237,6 +237,29 @@ async def test_icon_view_remote_branch_cache_uses_commit(
     assert response.body == DARK_ICON_CONTENT
 
 
+async def test_icon_view_remote_without_any_stored_ref(
+    hass: HomeAssistant,
+    setup_integration: Generator,
+    response_mocker: ResponseMocker,
+) -> None:
+    """Test loading an icon before repository refs have been hydrated."""
+    repository = get_hacs(hass).repositories.get_by_full_name(REPOSITORY_FULL_NAME)
+    repository.data.last_version = None
+    repository.data.default_branch = None
+    repository.data.last_commit = None
+    response_mocker.add(
+        "https://raw.githubusercontent.com/hacs-test-org/integration-basic"
+        "/main/custom_components/example/brand/icon.png",
+        MockedResponse(content=ICON_CONTENT),
+    )
+
+    response = await _get_icon(hass, REPOSITORY_ID, "icon.png")
+
+    assert response.status == 200
+    assert response.body == ICON_CONTENT
+    assert os.path.exists(hass.config.path(".storage/hacs.icons/1296269-main-icon.png"))
+
+
 async def test_icon_view_uses_current_hacs_instance(
     hass: HomeAssistant,
 ) -> None:

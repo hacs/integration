@@ -58,6 +58,7 @@ ignore = [
  "BLE001",
  "C901",
  "COM812",
+ "CPY001",
  "D100",
  "D101",
  "D102",
@@ -93,6 +94,7 @@ ignore = [
  "PIE804",
  "PLR0912",
  "PLR0913",
+ "PLR0917",
  "PLR0915",
  "PLR1714",
  "PLR1722",
@@ -137,6 +139,12 @@ ignore = [
 
 fixable = ["ALL"]
 unfixable = []
+
+
+[tool.ruff.lint.per-file-ignores]
+# CLI/dev utility scripts: printing to stdout, os.path/os.getcwd usage, blocking
+# file I/O in async context, and datetime.utcnow are acceptable here.
+"scripts/**" = ["T201", "PTH118", "PTH109", "ASYNC230", "DTZ003"]
 
 
 [tool.ruff.lint.isort]

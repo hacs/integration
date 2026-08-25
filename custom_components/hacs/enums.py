@@ -14,12 +14,10 @@ class HacsGitHubRepo(StrEnum):
 class HacsCategory(StrEnum):
     APPDAEMON = "appdaemon"
     INTEGRATION = "integration"
-    LOVELACE = "lovelace"
     PLUGIN = "plugin"  # Kept for legacy purposes
     PYTHON_SCRIPT = "python_script"
     TEMPLATE = "template"
     THEME = "theme"
-    REMOVED = "removed"
 
     def __str__(self):
         return str(self.value)
@@ -59,7 +57,6 @@ class HacsStage(StrEnum):
     STARTUP = "startup"
     WAITING = "waiting"
     RUNNING = "running"
-    BACKGROUND = "background"
 
 
 class HacsDisabledReason(StrEnum):

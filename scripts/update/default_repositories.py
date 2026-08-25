@@ -1,4 +1,5 @@
 """Update the shipped default repositories data file."""
+
 import json
 import os
 import sys

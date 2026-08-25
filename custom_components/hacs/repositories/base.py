@@ -256,14 +256,13 @@ class HacsManifest:
             elif key in manifest_data.__dict__:
                 setattr(manifest_data, key, value)
 
-        # These end up in filesystem paths, a hostile manifest must not
-        # be able to point them outside the repository content directory.
+        # These end up in filesystem paths, a hostile manifest must not be able
+        # to point them outside the repository content directory. The whole
+        # manifest is rejected, a manifest that tries this is not to be trusted.
         for key in ("filename", "persistent_directory"):
             value = getattr(manifest_data, key)
             if value is not None and not is_safe_relative_path(value):
-                LOGGER.warning("Ignoring unsafe %s value '%s' in the HACS manifest", key, value)
-                setattr(manifest_data, key, None)
-                manifest_data.manifest.pop(key, None)
+                raise HacsException(f"Unsafe {key} value '{value}' in the HACS manifest")
 
         return manifest_data
 

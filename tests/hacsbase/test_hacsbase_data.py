@@ -67,3 +67,46 @@ async def test_hacs_data_restore_write_not_new(hacs, caplog):
         await data.async_write()
     assert mock_async_save_to_store.called
     assert "Loading base repository information" not in caplog.text
+
+
+async def test_hacs_data_restore_with_unsafe_manifest(hacs, caplog):
+    """An unsafe stored manifest is dropped, without failing the whole restore."""
+    data = HacsData(hacs)
+
+    async def _mocked_loads(hass, key):
+        if key == "repositories":
+            return {
+                "202226247": {
+                    "category": "integration",
+                    "full_name": "shbatm/hacs-isy994",
+                    "installed": True,
+                    "manifest": {
+                        "name": "ISY994",
+                        "persistent_directory": "../../../evil",
+                    },
+                },
+                "999888777": {
+                    "category": "integration",
+                    "full_name": "test-org/second-integration",
+                    "installed": False,
+                },
+            }
+        if key in ("hacs", "data", "renamed_repositories"):
+            return {}
+        raise ValueError(f"No mock for {key}")
+
+    with patch("os.path.exists", return_value=True), patch(
+        "custom_components.hacs.utils.data.async_load_from_store",
+        side_effect=_mocked_loads,
+    ):
+        assert await data.restore()
+
+    repository = hacs.repositories.get_by_id("202226247")
+    assert repository.repository_manifest.persistent_directory is None
+    assert (
+        "Unsafe persistent_directory value '../../../evil' in the HACS manifest for shbatm/hacs-isy994"
+        in caplog.text
+    )
+
+    # The other repositories are still restored
+    assert hacs.repositories.get_by_full_name("test-org/second-integration")

@@ -12,6 +12,7 @@ from homeassistant.exceptions import HomeAssistantError
 from ..base import HacsBase
 from ..const import HACS_REPOSITORY_ID
 from ..enums import HacsDisabledReason, HacsDispatchEvent
+from ..exceptions import HacsException
 from ..repositories.base import TOPIC_FILTER, HacsManifest, HacsRepository
 from .logger import LOGGER
 from .path import is_safe
@@ -304,9 +305,19 @@ class HacsData:
         if last_fetched := repository_data.get("last_fetched"):
             repository.data.last_fetched = datetime.fromtimestamp(last_fetched, UTC)
 
-        repository.repository_manifest = HacsManifest.from_dict(
-            repository_data.get("manifest") or repository_data.get("repository_manifest") or {}
-        )
+        try:
+            repository.repository_manifest = HacsManifest.from_dict(
+                repository_data.get("manifest") or repository_data.get("repository_manifest") or {}
+            )
+        except HacsException as exception:
+            # Stored data can predate the path validation of the manifest, one bad
+            # entry must not take down the restore of every other repository.
+            self.logger.warning(
+                "<HacsData async_restore_repository> %s for %s",
+                exception,
+                repository.data.full_name,
+            )
+            repository.repository_manifest = HacsManifest.from_dict({})
 
         if repository.data.prerelease == repository.data.last_version:
             repository.data.prerelease = None

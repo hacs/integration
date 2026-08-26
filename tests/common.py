@@ -7,6 +7,7 @@ from contextvars import ContextVar
 from inspect import currentframe
 import json as json_func
 import os
+import re
 from types import NoneType
 from typing import Any, TypedDict
 from unittest.mock import AsyncMock, patch
@@ -136,6 +137,25 @@ def category_test_data_parametrized(
 def current_function_name():
     """Return the name of the current function."""
     return currentframe().f_back.f_code.co_name
+
+
+# voluptuous 0.16 reports the offending path as "at 'a.b'" where older releases used
+# " for dictionary value @ data['a']['b']". HACS is tested against both, so the legacy
+# form is rewritten to keep snapshots version independent. Drop this once the minimum
+# supported Home Assistant version ships voluptuous 0.16 or newer.
+_LEGACY_VOLUPTUOUS_PATH = re.compile(
+    r"(?: for dictionary value)? @ data((?:\['[^']+'\])+)",
+)
+
+
+def normalize_voluptuous_paths(text: str) -> str:
+    """Rewrite legacy voluptuous error paths into the current format."""
+
+    def _rewrite(match: re.Match[str]) -> str:
+        keys = re.findall(r"\['([^']+)'\]", match.group(1))
+        return f" at '{'.'.join(keys)}'"
+
+    return _LEGACY_VOLUPTUOUS_PATH.sub(_rewrite, text)
 
 
 def safe_json_dumps(data: dict | list) -> str:

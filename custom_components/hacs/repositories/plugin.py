@@ -2,14 +2,12 @@
 
 from __future__ import annotations
 
-from contextlib import suppress
 import re
 from typing import TYPE_CHECKING
 
 from ..enums import HacsCategory, HacsDispatchEvent
 from ..exceptions import HacsException
 from ..utils.decorator import concurrent
-from ..utils.json import json_loads
 from .base import HacsRepository
 
 HACSTAG_REPLACER = re.compile(r"\D+")
@@ -97,16 +95,6 @@ class HacsPluginRepository(HacsRepository):
                     "repository_id": self.data.id,
                 },
             )
-
-    async def get_package_content(self):
-        """Get package content."""
-        with suppress(Exception):
-            result = await self.hacs.async_download_file(
-                f"https://raw.githubusercontent.com/{self.data.full_name}/{self.ref}/package.json",
-                nolog=True,
-            )
-            if result is not None and (package := json_loads(result)):
-                self.data.authors = package.get("author")
 
     def update_filenames(self) -> None:
         """Get the filename to target."""
@@ -210,7 +198,9 @@ class HacsPluginRepository(HacsRepository):
         if not resources.loaded:
             await resources.async_load()
 
-        namespace = self.generate_dashboard_resource_namespace()
+        # The trailing slash matters, without it the namespace of
+        # for example 'button' would also match 'button-card'.
+        namespace = f"{self.generate_dashboard_resource_namespace()}/"
         url = self.generate_dashboard_resource_url()
 
         for entry in resources.async_items():
@@ -237,7 +227,9 @@ class HacsPluginRepository(HacsRepository):
         if not resources.loaded:
             await resources.async_load()
 
-        namespace = self.generate_dashboard_resource_namespace()
+        # The trailing slash matters, without it the namespace of
+        # for example 'button' would also match 'button-card'.
+        namespace = f"{self.generate_dashboard_resource_namespace()}/"
 
         for entry in resources.async_items():
             if entry["url"].startswith(namespace):

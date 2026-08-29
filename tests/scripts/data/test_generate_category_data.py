@@ -123,6 +123,10 @@ async def test_generate_category_data(
                 category_test_data['category']}/repositories.json",
         )
 
+    if category_test_data["category"] == "integration":
+        with open(f"{OUTPUT_DIR}/integration/domains.json", encoding="utf-8") as file:
+            assert json.load(file) == ["example"]
+
     with open(
         f"{OUTPUT_DIR}/summary.json",
         encoding="utf-8",

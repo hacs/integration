@@ -93,6 +93,9 @@ jobs:
         run: |
           jq -c . outputdata/${{ matrix.category }}/data.json
           jq -c . outputdata/${{ matrix.category }}/repositories.json
+          if [[ "${{ matrix.category }}" == "integration" ]]; then
+            jq -e 'type == "array" and all(.[]; type == "string" and length > 0) and . == (sort | unique)' outputdata/integration/domains.json
+          fi
 
       - name: Validate output with schema
         run: |
@@ -261,6 +264,9 @@ jobs:
         run: |
           jq -c . outputdata/${{ matrix.category }}/data.json
           jq -c . outputdata/${{ matrix.category }}/repositories.json
+          if [[ "${{ matrix.category }}" == "integration" ]]; then
+            jq -e 'type == "array" and all(.[]; type == "string" and length > 0) and . == (sort | unique)' outputdata/integration/domains.json
+          fi
 
       - name: Validate output with schema
         run: |
@@ -283,6 +289,15 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.CF_BUST_CACHE_TOKEN }}" \
             -H "Content-Type: application/json" \
             --data '{"files": ["https:\/\/data-v2.hacs.xyz\/${{ matrix.category }}\/data.json", "https:\/\/data-v2.hacs.xyz\/${{ matrix.category }}\/repositories.json"]}'
+
+      - name: Bust Cloudflare integration domain registry cache
+        if: matrix.category == 'integration'
+        run: |
+          curl --silent --show-error --fail -X POST \
+            "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.CF_BUST_CACHE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data '{"files": ["https:\/\/data-v2.hacs.xyz\/integration\/domains.json"]}'
 
   notify_on_failure:
     runs-on: ubuntu-latest

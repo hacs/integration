@@ -23,6 +23,7 @@ from homeassistant.helpers.start import async_at_start
 from homeassistant.loader import async_get_integration
 
 from .base import HacsBase
+from .brands import async_register_icon_view
 from .const import DOMAIN, HACS_SYSTEM_ID, MINIMUM_HA_VERSION
 from .data_client import HacsDataClient
 from .enums import HacsDisabledReason, HacsStage, LovelaceMode
@@ -143,6 +144,7 @@ async def _async_initialize_integration(
 
         async_register_websocket_commands(hass)
         await async_register_frontend(hass, hacs)
+        async_register_icon_view(hass)
 
         await hass.config_entries.async_forward_entry_setups(config_entry, PLATFORMS)
 

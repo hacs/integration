@@ -547,6 +547,18 @@ async def generate_category_data(category: str, repository_name: str = None):
                 sort_keys=True,
             )
 
+        if category == "integration":
+            with open(
+                os.path.join(OUTPUT_DIR, category, "domains.json"),
+                mode="w",
+                encoding="utf-8",
+            ) as domains_file:
+                json.dump(
+                    sorted({repository["domain"] for repository in updated_data.values()}),
+                    domains_file,
+                    separators=(",", ":"),
+                )
+
         with open(
             os.path.join(OUTPUT_DIR, "diff", f"{category}_before.json"),
             mode="w",

@@ -45,16 +45,67 @@ jobs:
       categories: ${{ steps.set-matrix.outputs.categories }}
     steps:
       - id: set-matrix
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_CATEGORY: ${{ inputs.category }}
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch"  ]] && [[ "${{ inputs.category }}" != "None"  ]] && [[ "${{ inputs.category }}" != ""  ]]; then
-            echo "categories=['${{ inputs.category }}']" >> $GITHUB_OUTPUT
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]] && [[ "$INPUT_CATEGORY" != "None" ]] && [[ -n "$INPUT_CATEGORY" ]]; then
+            categories=("$INPUT_CATEGORY")
           else
-            echo "categories=['appdaemon','integration','plugin','python_script','template','theme']" >> $GITHUB_OUTPUT
+            categories=(appdaemon integration plugin python_script template theme)
           fi
+          categories_json=$(printf '%s\n' "${categories[@]}" | jq -R . | jq -cs .)
+          echo "categories=$categories_json" >> $GITHUB_OUTPUT
+          echo "categories: $categories_json"
+
+  # Fetches the currently published data once and shares it with every
+  # category leg, so the whole run works off one consistent baseline.
+  # Footgun / trade-off: any single fetch failing (after the retries) fails
+  # this job and therefore the whole run -- so one category's data being
+  # unavailable blocks publishing for all of them. This is intentional (one
+  # consistent snapshot), unlike the previous behaviour where a fetch failure
+  # was isolated to that category's own leg.
+  fetch-stored-data:
+    name: Fetch stored data
+    runs-on: ubuntu-latest
+    needs: generate-matrix
+    if: github.repository == 'hacs/integration'
+    timeout-minutes: 10
+    steps:
+      - name: Fetch stored data
+        env:
+          CATEGORIES: ${{ needs.generate-matrix.outputs.categories }}
+        run: |
+          mkdir -p outputdata/stored
+
+          fetch_stored_hacs_content() {
+            curl \
+              --silent --show-error --fail --retry 5 --retry-all-errors \
+              --connect-timeout 10 --max-time 60 \
+              --header "User-Agent: HACS/Generator" \
+              "https://data-v2.hacs.xyz/$1" \
+              --output "$2"
+          }
+
+          for category in $(echo "$CATEGORIES" | jq -r '.[]'); do
+            echo "Fetching stored data for $category"
+            fetch_stored_hacs_content "${category}/data.json" "outputdata/stored/${category}.json"
+          done
+
+          echo "Fetching removed repositories"
+          fetch_stored_hacs_content "removed/repositories.json" "outputdata/stored/removed.json"
+
+      - name: Upload stored data
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: stored-data
+          path: outputdata/stored
+          if-no-files-found: error
+          retention-days: 1
 
   category-data:
     runs-on: ubuntu-latest
-    needs: generate-matrix
+    needs: [generate-matrix, fetch-stored-data]
     if: github.repository == 'hacs/integration'
     name: Generate ${{ matrix.category }} data
     strategy:
@@ -83,11 +134,18 @@ jobs:
           scripts/install/frontend
           scripts/install/pip_packages --requirement requirements_generate_data.txt
 
+      - name: Download stored data
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: stored-data
+          path: outputdata/stored
+
       - name: Generate ${{ matrix.category }} data
         run: python3 -m scripts.data.generate_category_data ${{ matrix.category }}
         env:
           DATA_GENERATOR_TOKEN: ${{ secrets.DATA_GENERATOR_TOKEN }}
           FORCE_REPOSITORY_UPDATE: ${{ inputs.forceRepositoryUpdate }}
+          HACS_STORED_DATA_DIR: outputdata/stored
 
       - name: Validate output with JQ
         run: |
@@ -129,7 +187,7 @@ jobs:
   summarize:
     name: Summarize
     runs-on: ubuntu-latest
-    needs: category-data
+    needs: [generate-matrix, category-data]
     if: ${{ always() && github.repository == 'hacs/integration' }}
     outputs:
       changedCategories: ${{ steps.combined.outputs.changedCategories }}
@@ -146,6 +204,7 @@ jobs:
         env:
           HACS_CHANGED_PCT_TARGET: ${{ vars.HACS_CHANGED_PCT_TARGET }}
           HACS_DIFF_TARGET: ${{ vars.HACS_DIFF_TARGET }}
+          CATEGORIES: ${{ needs.generate-matrix.outputs.categories }}
         with:
           script: |
             const fs = require('fs');
@@ -156,9 +215,13 @@ jobs:
 
             core.info(`[global] diffTarget: ${diffTarget}`);
 
-            const subDirectories = fs.readdirSync("outputdata", { withFileTypes: true })
-                .filter(entry => entry.isDirectory())
-                .map(entry => entry.name)
+            // Only consider the expected category directories that produced a
+            // summary -- ignores the stored-data artifact and any category
+            // whose leg failed to write one.
+            const categories = JSON.parse(process.env.CATEGORIES);
+            const subDirectories = categories.filter(
+                category => fs.existsSync(`outputdata/${category}/summary.json`)
+            )
 
             for (const directory of subDirectories) {
               let changedPctTarget = Number(process.env.HACS_CHANGED_PCT_TARGET)
@@ -287,7 +350,7 @@ jobs:
   notify_on_failure:
     runs-on: ubuntu-latest
     name: Trigger Discord notification when jobs fail
-    needs: ["generate-matrix", "category-data", "summarize", "publish"]
+    needs: ["generate-matrix", "fetch-stored-data", "category-data", "summarize", "publish"]
     if: ${{ always() && github.repository == 'hacs/integration' && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}
     steps:
       - name: Send notification

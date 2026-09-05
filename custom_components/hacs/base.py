@@ -294,6 +294,59 @@ class HacsRepositories:
         repository.data.id = repo_id
         self.register(repository)
 
+    def reconcile_repository_id(
+        self,
+        repository: HacsRepository,
+        repo_id: str,
+        matching_repositories: list[HacsRepository],
+    ) -> HacsRepository:
+        """Reconcile a repository with its current ID."""
+        registered_repository = self._repositories_by_id.get(repo_id)
+        if (
+            registered_repository
+            and registered_repository.data.full_name_lower != repository.data.full_name_lower
+        ):
+            raise ValueError(
+                f"The repo id {repo_id} is already set to "
+                f"{registered_repository.data.full_name_lower}"
+            )
+
+        was_default = any(
+            self.is_default(str(candidate.data.id)) for candidate in matching_repositories
+        )
+
+        installed_repositories = [
+            candidate for candidate in matching_repositories if candidate.data.installed
+        ]
+        if registered_repository and registered_repository.data.installed:
+            repository = registered_repository
+        elif installed_repositories:
+            repository = min(
+                installed_repositories,
+                key=lambda candidate: int(candidate.data.id),
+            )
+        elif registered_repository:
+            repository = registered_repository
+        else:
+            repository = min(
+                matching_repositories,
+                key=lambda candidate: int(candidate.data.id),
+            )
+
+        for candidate in matching_repositories:
+            if candidate is not repository:
+                self.unregister(candidate)
+
+        if str(repository.data.id) != repo_id:
+            self.unregister(repository)
+            repository.data.id = repo_id
+            self.register(repository)
+
+        self._repositories_by_full_name[repository.data.full_name_lower] = repository
+        if was_default:
+            self.mark_default(repository)
+        return repository
+
     def is_default(self, repository_id: str | None = None) -> bool:
         """Check if a repository is default."""
         if not repository_id:
@@ -857,6 +910,12 @@ class HacsBase:
             self.log.error("Could not update %s - %s", category, exception)
             return
 
+        repositories_by_full_name: dict[str, list[HacsRepository]] = {}
+        for repository in self.repositories.list_all:
+            repositories_by_full_name.setdefault(repository.data.full_name_lower, []).append(
+                repository
+            )
+
         await self.data.register_unknown_repositories(category_data, category)
 
         for repo_id, repo_data in category_data.items():
@@ -868,7 +927,16 @@ class HacsBase:
             if repo_name in self.common.archived_repositories:
                 continue
             if repository := self.repositories.get_by_full_name(repo_name):
-                self.repositories.set_repository_id(repository, repo_id)
+                matching_repositories = repositories_by_full_name.get(
+                    repository.data.full_name_lower,
+                    [repository],
+                )
+                if str(repository.data.id) != repo_id or len(matching_repositories) > 1:
+                    repository = self.repositories.reconcile_repository_id(
+                        repository,
+                        repo_id,
+                        matching_repositories,
+                    )
                 self.repositories.mark_default(repository)
                 if repository.data.last_fetched is None or (
                     repository.data.last_fetched.timestamp() < repo_data["last_fetched"]

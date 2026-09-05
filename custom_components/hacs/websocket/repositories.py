@@ -13,6 +13,7 @@ from custom_components.hacs.utils import regex
 
 from ..const import DOMAIN
 from ..enums import HacsDispatchEvent
+from .helpers import resolve_repository
 
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
@@ -94,7 +95,8 @@ async def hacs_repositories_clear_new(
     hacs: HacsBase = hass.data.get(DOMAIN)
 
     if repo := msg.get("repository"):
-        repository = hacs.repositories.get_by_id(repo)
+        if (repository := resolve_repository(hacs, connection, msg, repo)) is None:
+            return
         repository.data.new = False
 
     else:
@@ -208,7 +210,8 @@ async def hacs_repositories_remove(
 ) -> None:
     """Remove custom repositoriy."""
     hacs: HacsBase = hass.data.get(DOMAIN)
-    repository = hacs.repositories.get_by_id(msg["repository"])
+    if (repository := resolve_repository(hacs, connection, msg, msg["repository"])) is None:
+        return
 
     repository.remove()
     await hacs.data.async_write()

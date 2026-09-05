@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from functools import lru_cache
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -39,3 +39,15 @@ def is_safe(hacs: HacsBase, path: str | Path) -> bool:
         configuration.python_script_path,
         configuration.theme_path,
     )
+
+
+def is_safe_relative_path(value: str) -> bool:
+    """Check that a repository provided path is relative, without traversal."""
+    if not isinstance(value, str):
+        return False
+
+    normalized = value.replace("\\", "/")
+    if normalized.startswith("/") or PureWindowsPath(value).drive:
+        return False
+
+    return ".." not in normalized.split("/")

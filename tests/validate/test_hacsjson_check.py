@@ -66,6 +66,21 @@ async def test_hacs_manifest_with_missing_filename(repository, caplog):
     )
 
 
+async def test_hacs_manifest_with_unsafe_path(repository, caplog):
+    repository.tree = test_tree
+    repository.data.category = "integration"
+
+    async def _async_get_hacs_json_raw(**_):
+        return {"name": "test", "filename": "../../../evil.zip"}
+
+    repository.get_hacs_json_raw = _async_get_hacs_json_raw
+
+    check = Validator(repository)
+    await check.execute_validation()
+    assert check.failed
+    assert "'../../../evil.zip' is not a safe relative path" in caplog.text
+
+
 async def test_hacs_manifest_integration_zip_release_with_filename(repository):
     repository.tree = test_tree
     repository.data.category = "integration"

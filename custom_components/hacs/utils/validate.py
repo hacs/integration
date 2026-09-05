@@ -11,6 +11,7 @@ from homeassistant.helpers.config_validation import url as url_validator
 import voluptuous as vol
 
 from ..const import LOCALE
+from .path import is_safe_relative_path
 
 
 @dataclass
@@ -43,15 +44,25 @@ def _country_validator(values) -> list[str]:
     return countries
 
 
+def _relative_path_validator(value) -> str:
+    """Custom validator for repository provided paths."""
+    if not isinstance(value, str):
+        raise vol.Invalid(f"Value '{value}' is not a string.")
+    if not is_safe_relative_path(value):
+        raise vol.Invalid(f"Value '{value}' is not a safe relative path.")
+
+    return value
+
+
 HACS_MANIFEST_JSON_SCHEMA = vol.Schema(
     {
         vol.Optional("content_in_root"): bool,
         vol.Optional("country"): _country_validator,
-        vol.Optional("filename"): str,
+        vol.Optional("filename"): _relative_path_validator,
         vol.Optional("hacs"): str,
         vol.Optional("hide_default_branch"): bool,
         vol.Optional("homeassistant"): str,
-        vol.Optional("persistent_directory"): str,
+        vol.Optional("persistent_directory"): _relative_path_validator,
         vol.Optional("render_readme"): bool,
         vol.Optional("zip_release"): bool,
         vol.Required("name"): str,

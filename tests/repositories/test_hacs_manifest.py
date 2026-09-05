@@ -1,5 +1,7 @@
 """HACS Manifest Test Suite."""
 # pylint: disable=missing-docstring
+import re
+
 import pytest
 
 from custom_components.hacs.exceptions import HacsException
@@ -42,3 +44,29 @@ def test_manifest_structure():
 def test_edge_pass_none():
     with pytest.raises(HacsException):
         assert HacsManifest.from_dict(None)
+
+
+@pytest.mark.parametrize("key", ["filename", "persistent_directory"])
+def test_unsafe_paths_reject_the_manifest(key: str):
+    with pytest.raises(
+        HacsException,
+        match=re.escape(f"Unsafe {key} value '../../../evil' in the HACS manifest"),
+    ):
+        HacsManifest.from_dict({"name": "TEST", key: "../../../evil"})
+
+
+@pytest.mark.parametrize("key", ["filename", "persistent_directory"])
+def test_safe_paths_are_kept(key: str):
+    manifest = HacsManifest.from_dict({"name": "TEST", key: "sub/dir"})
+
+    assert getattr(manifest, key) == "sub/dir"
+
+
+@pytest.mark.parametrize("value", [False, 0, 123, ["list"]])
+@pytest.mark.parametrize("key", ["filename", "persistent_directory"])
+def test_non_string_paths_reject_the_manifest(key: str, value):
+    with pytest.raises(
+        HacsException,
+        match=re.escape(f"Unsafe {key} value '{value}' in the HACS manifest"),
+    ):
+        HacsManifest.from_dict({"name": "TEST", key: value})

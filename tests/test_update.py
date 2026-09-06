@@ -10,6 +10,7 @@ from homeassistant.helpers.entity_registry import async_get as async_get_entity_
 import pytest
 
 from custom_components.hacs.const import DOMAIN
+from custom_components.hacs.enums import HacsCategory
 
 from tests.common import (
     CategoryTestData,
@@ -95,4 +96,41 @@ async def test_update_entity_state(
         safe_json_dumps({"initial_state": initial_state,
                         "updated_state": updated_state}),
         f"{category_test_data['repository']}/test_update_entity_state.json",
+    )
+
+
+@pytest.mark.parametrize(
+    "category_test_data",
+    category_test_data_parametrized(categories=[HacsCategory.INTEGRATION]),
+)
+@pytest.mark.parametrize("brands_loaded", [False, True], ids=["cdn", "brands_proxy"])
+async def test_update_entity_picture(
+    hass: HomeAssistant,
+    setup_integration: Generator,
+    category_test_data: CategoryTestData,
+    brands_loaded: bool,
+):
+    """Test the entity picture follows the availability of the brands proxy."""
+    hacs = get_hacs(hass)
+    repo = hacs.repositories.get_by_full_name(category_test_data["repository"])
+
+    assert repo is not None
+
+    repo.data.installed = True
+    repo.data.installed_version = category_test_data["version_base"]
+
+    if brands_loaded:
+        hass.config.components.add("brands")
+
+    await hass.config_entries.async_reload(hacs.configuration.config_entry.entry_id)
+    await hass.async_block_till_done()
+
+    er = async_get_entity_registry(hass)
+    entity_id = er.async_get_entity_id("update", DOMAIN, repo.data.id)
+    state = hass.states.get(entity_id)
+
+    assert state.attributes["entity_picture"] == (
+        f"/api/brands/integration/{repo.data.domain}/icon.png"
+        if brands_loaded
+        else f"https://brands.home-assistant.io/_/{repo.data.domain}/icon.png"
     )

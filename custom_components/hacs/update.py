@@ -76,6 +76,12 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
         ):
             return None
 
+        if "brands" in self.hass.config.components:
+            # Home Assistant 2026.3+ proxies brand images locally, which also serves
+            # the assets custom integrations ship in their own brand/ directory.
+            # The frontend adds the required access token to /api/brands/ paths.
+            return f"/api/brands/integration/{self.repository.data.domain}/icon.png"
+
         return f"https://brands.home-assistant.io/_/{self.repository.data.domain}/icon.png"
 
     async def async_install(self, version: str | None, backup: bool, **kwargs: Any) -> None:

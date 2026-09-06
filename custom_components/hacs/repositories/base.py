@@ -912,6 +912,7 @@ class HacsRepository:
                 "repository_id": self.data.id,
             },
         )
+        self.hacs.data.async_schedule_write()
         self.logger.info("%s Post installation steps completed", self.string)
 
     async def async_install_repository(self, *, version: str | None = None, **_) -> None:

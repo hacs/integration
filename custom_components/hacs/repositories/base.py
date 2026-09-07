@@ -1297,13 +1297,18 @@ class HacsRepository:
 
     async def async_remove_entity_device(self) -> None:
         """Remove the entity device."""
-        device_registry: dr.DeviceRegistry = dr.async_get(hass=self.hacs.hass)
-        device = device_registry.async_get_device(identifiers={(DOMAIN, str(self.data.id))})
-
-        if device is None:
+        if (config_entry := self.hacs.configuration.config_entry) is None:
             return
 
-        device_registry.async_remove_device(device_id=device.id)
+        device_registry: dr.DeviceRegistry = dr.async_get(hass=self.hacs.hass)
+        identifier = (DOMAIN, str(self.data.id))
+
+        # Looked up through our own config entry, since identifiers are only
+        # guaranteed to be unique within a single config entry.
+        for device in dr.async_entries_for_config_entry(device_registry, config_entry.entry_id):
+            if identifier in device.identifiers:
+                device_registry.async_remove_device(device_id=device.id)
+                return
 
     def version_to_download(self) -> str:
         """Determine which version to download."""

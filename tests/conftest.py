@@ -15,7 +15,7 @@ from unittest.mock import MagicMock, _patch, patch
 from aiohttp import AsyncResolver
 from awesomeversion import AwesomeVersion
 import freezegun
-from homeassistant import loader
+from homeassistant import loader, runner
 from homeassistant.auth.models import Credentials
 from homeassistant.auth.providers.homeassistant import HassAuthProvider
 from homeassistant.components.lovelace.const import DOMAIN as LOVELACE_DOMAIN
@@ -24,7 +24,6 @@ from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import __version__ as HA_VERSION
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
-from homeassistant.runner import HassEventLoopPolicy
 from homeassistant.setup import async_setup_component
 from homeassistant.util.async_ import create_eager_task
 import pytest
@@ -76,12 +75,24 @@ if "GITHUB_ACTION" in os.environ:
         level=logging.DEBUG,
     )
 
-asyncio.set_event_loop_policy(HassEventLoopPolicy(False))
-asyncio.set_event_loop_policy = lambda policy: None
+# Home Assistant used to ship an event loop policy, but dropped it in favor of
+# configuring the running loop directly (see the configure_event_loop fixture).
+LOOP_POLICY_REMOVED = hasattr(runner, "configure_event_loop")
+
+if not LOOP_POLICY_REMOVED:
+    asyncio.set_event_loop_policy(runner.HassEventLoopPolicy(False))
+    asyncio.set_event_loop_policy = lambda policy: None
 
 # Disable sleep in tests
 _sleep = asyncio.sleep
 asyncio.sleep = lambda _: _sleep(0)
+
+
+@pytest_asyncio.fixture(autouse=True)
+async def configure_event_loop() -> None:
+    """Configure the loop the way Home Assistant configures its own."""
+    if LOOP_POLICY_REMOVED:
+        runner.configure_event_loop(asyncio.get_running_loop())
 
 
 @pytest.fixture(autouse=True)

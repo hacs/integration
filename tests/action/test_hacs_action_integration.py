@@ -5,7 +5,13 @@ from unittest import mock
 
 import pytest
 
-from tests.common import TOKEN, MockedResponse, ResponseMocker, current_function_name
+from tests.common import (
+    TOKEN,
+    MockedResponse,
+    ResponseMocker,
+    current_function_name,
+    normalize_voluptuous_paths,
+)
 from tests.conftest import SnapshotFixture
 
 
@@ -116,10 +122,12 @@ async def test_hacs_action_integration(
         "\n") if " <" in line]
 
     snapshots.assert_match(
-        "\n".join(
-            splitlines[0:2] +
-            sorted(splitlines[2:-2]) + splitlines[-2:]
-            + [capsys.readouterr().out]
+        normalize_voluptuous_paths(
+            "\n".join(
+                splitlines[0:2] +
+                sorted(splitlines[2:-2]) + splitlines[-2:]
+                + [capsys.readouterr().out]
+            )
         ),
         f"action/{current_function_name()}/{request.node.callspec.id}.log",
     )

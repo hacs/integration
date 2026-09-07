@@ -235,9 +235,7 @@ class HacsRepositories:
             if registered_repo.data.full_name == repository.data.full_name:
                 return
 
-            self.unregister(registered_repo)
-
-            registered_repo.data.full_name = repository.data.full_name
+            self.rename(registered_repo, repository.data.full_name)
             registered_repo.data.new = False
             repository = registered_repo
 
@@ -268,6 +266,14 @@ class HacsRepositories:
 
         self._repositories_by_id.pop(repo_id, None)
         self._repositories_by_full_name.pop(repository.data.full_name_lower, None)
+
+    def rename(self, repository: HacsRepository, new_full_name: str) -> None:
+        """Rename a repository, keeping the name index in sync."""
+        self._repositories_by_full_name.pop(repository.data.full_name_lower, None)
+        repository.data.full_name = new_full_name
+
+        if repository in self._repositories:
+            self._repositories_by_full_name[repository.data.full_name_lower] = repository
 
     def mark_default(self, repository: HacsRepository) -> None:
         """Mark a repository as default."""

@@ -22,7 +22,6 @@ class HacsPythonScriptRepository(HacsRepository):
         """Initialize."""
         super().__init__(hacs=hacs)
         self.data.full_name = full_name
-        self.data.full_name_lower = full_name.lower()
         self.data.category = HacsCategory.PYTHON_SCRIPT
         self.content.path.remote = "python_scripts"
         self.content.path.local = self.localpath

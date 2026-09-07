@@ -22,7 +22,6 @@ class HacsTemplateRepository(HacsRepository):
         """Initialize."""
         super().__init__(hacs=hacs)
         self.data.full_name = full_name
-        self.data.full_name_lower = full_name.lower()
         self.data.category = HacsCategory.TEMPLATE
         self.content.path.remote = ""
         self.content.path.local = self.localpath

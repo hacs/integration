@@ -21,7 +21,6 @@ class HacsAppdaemonRepository(HacsRepository):
         """Initialize."""
         super().__init__(hacs=hacs)
         self.data.full_name = full_name
-        self.data.full_name_lower = full_name.lower()
         self.data.category = HacsCategory.APPDAEMON
         self.content.path.local = self.localpath
         self.content.path.remote = "apps"

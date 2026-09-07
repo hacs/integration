@@ -10,6 +10,7 @@ from .plugin import HacsPluginRepository
 from .python_script import HacsPythonScriptRepository
 from .template import HacsTemplateRepository
 from .theme import HacsThemeRepository
+from .wake_word import HacsWakeWordRepository
 
 REPOSITORY_CLASSES: dict[HacsCategory, HacsRepository] = {
     HacsCategory.THEME: HacsThemeRepository,
@@ -18,4 +19,5 @@ REPOSITORY_CLASSES: dict[HacsCategory, HacsRepository] = {
     HacsCategory.APPDAEMON: HacsAppdaemonRepository,
     HacsCategory.PLUGIN: HacsPluginRepository,
     HacsCategory.TEMPLATE: HacsTemplateRepository,
+    HacsCategory.WAKE_WORD: HacsWakeWordRepository,
 }

@@ -18,6 +18,7 @@ class HacsCategory(StrEnum):
     PYTHON_SCRIPT = "python_script"
     TEMPLATE = "template"
     THEME = "theme"
+    WAKE_WORD = "wake_word"
 
     def __str__(self):
         return str(self.value)

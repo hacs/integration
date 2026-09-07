@@ -141,6 +141,7 @@ _V2_REPO_SCHEMAS = {
     "python_script": V2_COMMON_DATA_JSON_SCHEMA,
     "template": V2_COMMON_DATA_JSON_SCHEMA,
     "theme": V2_COMMON_DATA_JSON_SCHEMA,
+    "wake_word": V2_COMMON_DATA_JSON_SCHEMA,
 }
 
 # Used when validating repos in the hacs integration, discards extra keys

@@ -33,7 +33,12 @@ from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE, Platform
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.event import async_track_time_interval
-from homeassistant.helpers.issue_registry import IssueSeverity, async_create_issue
+from homeassistant.helpers.issue_registry import (
+    IssueSeverity,
+    async_create_issue,
+    async_delete_issue,
+    async_get as async_get_issue_registry,
+)
 from homeassistant.loader import Integration
 from homeassistant.util import dt
 
@@ -596,9 +601,24 @@ class HacsBase:
 
         self.repositories.register(repository, default)
 
+    @callback
+    def async_delete_stale_restart_issues(self) -> None:
+        """Delete restart_required issues left over from a previous run.
+
+        The issues are created when a download requires a restart to take
+        effect. Reaching this point means Home Assistant has restarted, so any
+        such issue from a previous run is resolved and its entry would
+        otherwise be kept in the issue registry forever.
+        """
+        issue_registry = async_get_issue_registry(self.hass)
+        for issue in list(issue_registry.issues.values()):
+            if issue.domain == DOMAIN and issue.issue_id.startswith("restart_required_"):
+                async_delete_issue(self.hass, DOMAIN, issue.issue_id)
+
     async def startup_tasks(self, _=None) -> None:
         """Tasks that are started after setup."""
         self.set_stage(HacsStage.STARTUP)
+        self.async_delete_stale_restart_issues()
         await self.async_load_hacs_from_github()
 
         if critical := await async_load_from_store(self.hass, "critical"):

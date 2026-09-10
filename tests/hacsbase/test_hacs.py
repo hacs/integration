@@ -1,7 +1,9 @@
 # pylint: disable=missing-module-docstring, missing-function-docstring
+from homeassistant.helpers import issue_registry as ir
 import pytest
 
 from custom_components.hacs.base import HacsRepositories
+from custom_components.hacs.const import DOMAIN
 from custom_components.hacs.enums import HacsCategory
 
 
@@ -57,3 +59,44 @@ async def test_add_remove_repository(hacs, repository, tmpdir):
 
     # Verify second removal does not raise
     hacs.repositories.unregister(repository)
+
+
+async def test_delete_stale_restart_issues(hacs):
+    issue_registry = ir.async_get(hacs.hass)
+
+    ir.async_create_issue(
+        hass=hacs.hass,
+        domain=DOMAIN,
+        issue_id="restart_required_1337_tags/1.0.0",
+        is_fixable=True,
+        severity=ir.IssueSeverity.WARNING,
+        translation_key="restart_required",
+    )
+    ir.async_create_issue(
+        hass=hacs.hass,
+        domain=DOMAIN,
+        issue_id="removed_1337",
+        is_fixable=False,
+        severity=ir.IssueSeverity.WARNING,
+        translation_key="removed",
+    )
+    ir.async_create_issue(
+        hass=hacs.hass,
+        domain="other",
+        issue_id="restart_required_1337_tags/1.0.0",
+        is_fixable=False,
+        severity=ir.IssueSeverity.WARNING,
+        translation_key="restart_required",
+    )
+
+    hacs.async_delete_stale_restart_issues()
+
+    # The restart has already happened, so the issue is no longer relevant
+    assert issue_registry.async_get_issue(DOMAIN, "restart_required_1337_tags/1.0.0") is None
+
+    # Issues of other types, and issues from other domains, are left alone
+    assert issue_registry.async_get_issue(DOMAIN, "removed_1337") is not None
+    assert issue_registry.async_get_issue("other", "restart_required_1337_tags/1.0.0") is not None
+
+    # Safe to run when there is nothing to delete
+    hacs.async_delete_stale_restart_issues()

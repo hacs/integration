@@ -11,6 +11,13 @@ import voluptuous as vol
 
 from ..const import DOMAIN
 from .critical import hacs_critical_acknowledge, hacs_critical_list
+from .lists import (
+    hacs_lists_create,
+    hacs_lists_delete,
+    hacs_lists_list,
+    hacs_lists_rename,
+    hacs_lists_set_repository,
+)
 from .repositories import (
     hacs_repositories_add,
     hacs_repositories_clear_new,
@@ -40,7 +47,6 @@ def async_register_websocket_commands(hass: HomeAssistant) -> None:
     """Register_commands."""
     websocket_api.async_register_command(hass, hacs_info)
     websocket_api.async_register_command(hass, hacs_subscribe)
-
     websocket_api.async_register_command(hass, hacs_repository_info)
     websocket_api.async_register_command(hass, hacs_repository_download)
     websocket_api.async_register_command(hass, hacs_repository_ignore)
@@ -50,10 +56,13 @@ def async_register_websocket_commands(hass: HomeAssistant) -> None:
     websocket_api.async_register_command(hass, hacs_repository_refresh)
     websocket_api.async_register_command(hass, hacs_repository_release_notes)
     websocket_api.async_register_command(hass, hacs_repository_remove)
-
     websocket_api.async_register_command(hass, hacs_critical_acknowledge)
     websocket_api.async_register_command(hass, hacs_critical_list)
-
+    websocket_api.async_register_command(hass, hacs_lists_list)
+    websocket_api.async_register_command(hass, hacs_lists_create)
+    websocket_api.async_register_command(hass, hacs_lists_rename)
+    websocket_api.async_register_command(hass, hacs_lists_delete)
+    websocket_api.async_register_command(hass, hacs_lists_set_repository)
     websocket_api.async_register_command(hass, hacs_repositories_list)
     websocket_api.async_register_command(hass, hacs_repositories_add)
     websocket_api.async_register_command(hass, hacs_repositories_clear_new)

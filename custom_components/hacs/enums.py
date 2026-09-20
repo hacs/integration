@@ -1,5 +1,4 @@
 """Helper constants."""
-
 # pylint: disable=missing-class-docstring
 from enum import StrEnum
 
@@ -28,6 +27,7 @@ class HacsDispatchEvent(StrEnum):
 
     CONFIG = "hacs_dispatch_config"
     ERROR = "hacs_dispatch_error"
+    LISTS = "hacs_dispatch_lists"
     RELOAD = "hacs_dispatch_reload"
     REPOSITORY = "hacs_dispatch_repository"
     REPOSITORY_DOWNLOAD_PROGRESS = "hacs_dispatch_repository_download_progress"

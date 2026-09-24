@@ -2,6 +2,7 @@
 
 from collections.abc import Generator
 
+from homeassistant.components.frontend import add_extra_js_url
 from homeassistant.core import HomeAssistant
 import pytest
 
@@ -317,6 +318,44 @@ async def test_remove_dashboard_resource_ignores_prefix_matching_plugins(
     current_urls = [resource["url"]
                     for resource in resource_handler.async_items()]
     assert current_urls == [other_url]
+
+
+@pytest.mark.parametrize(
+    "extra_module_url",
+    [
+        "/hacsfiles/plugin-basic/plugin-basic.js?hacstag=1296267100",
+        "/local/community/plugin-basic/plugin-basic.js",
+    ],
+)
+async def test_add_dashboard_resource_skipped_when_loaded_as_extra_module(
+    hass: HomeAssistant,
+    downloaded_plugin_repository: HacsPluginRepository,
+    caplog: pytest.LogCaptureFixture,
+    extra_module_url: str,
+) -> None:
+    resource_handler = downloaded_plugin_repository._get_resource_handler()
+    resource_handler.data.clear()
+    add_extra_js_url(hass, extra_module_url)
+
+    await downloaded_plugin_repository.update_dashboard_resources()
+
+    assert "Loaded through frontend extra_module_url" in caplog.text
+    assert list(resource_handler.async_items()) == []
+
+
+async def test_add_dashboard_resource_when_another_plugin_is_loaded_as_extra_module(
+    hass: HomeAssistant,
+    downloaded_plugin_repository: HacsPluginRepository,
+) -> None:
+    resource_handler = downloaded_plugin_repository._get_resource_handler()
+    resource_handler.data.clear()
+    add_extra_js_url(hass, "/hacsfiles/plugin-basic-extra/plugin-basic-extra.js")
+
+    await downloaded_plugin_repository.update_dashboard_resources()
+
+    current_urls = [resource["url"]
+                    for resource in resource_handler.async_items()]
+    assert current_urls == [downloaded_plugin_repository.generate_dashboard_resource_url()]
 
 
 async def test_add_dashboard_resource_with_invalid_file_name(

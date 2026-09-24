@@ -4,6 +4,9 @@ from __future__ import annotations
 
 import re
 from typing import TYPE_CHECKING
+from urllib.parse import urlparse
+
+from homeassistant.components.frontend import DATA_EXTRA_MODULE_URL
 
 from ..enums import HacsCategory, HacsDispatchEvent
 from ..exceptions import HacsException
@@ -158,6 +161,13 @@ class HacsPluginRepository(HacsRepository):
             f"?hacstag={self.generate_dashboard_resource_hacstag()}"
         )
 
+    def _is_loaded_as_extra_module(self) -> bool:
+        if (extra_modules := self.hacs.hass.data.get(DATA_EXTRA_MODULE_URL)) is None:
+            return False
+        name = self.data.full_name.split("/")[-1]
+        prefixes = (f"{self.generate_dashboard_resource_namespace()}/", f"/local/community/{name}/")
+        return any(urlparse(url).path.startswith(prefixes) for url in extra_modules.urls)
+
     def _get_resource_handler(self) -> ResourceStorageCollection | None:
         """Get the resource handler."""
         resources: ResourceStorageCollection | None
@@ -214,6 +224,13 @@ class HacsPluginRepository(HacsRepository):
                     )
                     await resources.async_update_item(entry["id"], {"url": url})
                 return
+
+        if self._is_loaded_as_extra_module():
+            self.logger.info(
+                "%s Loaded through frontend extra_module_url, not adding a dashboard resource",
+                self.string,
+            )
+            return
 
         # Nothing was updated, add the resource
         self.logger.info("%s Adding dashboard resource %s", self.string, url)

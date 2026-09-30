@@ -413,7 +413,10 @@ class HacsRepository:
                     if self.data.installed_commit != self.data.last_commit:
                         return True
                     return False
-            if self.display_version_or_commit == "version":
+            if (
+                self.display_version_or_commit == "version"
+                and self.data.installed_version is not None
+            ):
                 if (
                     result := version_left_higher_then_right(
                         self.display_available_version,

@@ -680,9 +680,6 @@ class HacsBase:
         if url is None:
             return None
 
-        if not keep_url and "tags/" in url:
-            url = url.replace("tags/", "")
-
         self.log.debug("Trying to download %s", url)
         attempt_count = 0
 

@@ -561,7 +561,7 @@ class HacsRepository:
                     name=self.repository_manifest.filename,
                     url=github_release_asset(
                         repository=self.data.full_name,
-                        version=self.ref,
+                        version=self._download_ref,
                         filename=self.repository_manifest.filename,
                     ),
                 ),
@@ -650,9 +650,17 @@ class HacsRepository:
 
         await download_queue.execute()
 
+    @property
+    def _download_ref(self) -> str:
+        """Remove the internal tag prefix without changing branch or tag names."""
+        ref = str(self.ref)
+        if self.force_branch or ref == self.data.default_branch:
+            return ref
+        return ref.removeprefix("tags/")
+
     async def download_repository_zip(self):
         """Download the zip archive of the repository."""
-        ref = f"{self.ref}".replace("tags/", "")
+        ref = self._download_ref
 
         if not ref:
             raise HacsException("Missing required elements.")
@@ -1177,7 +1185,7 @@ class HacsRepository:
         """Return a list of file objects to be downloaded."""
         files = []
         tree = self.tree
-        ref = f"{self.ref}".replace("tags/", "")
+        ref = self._download_ref
         releaseobjects = self.releases.objects
         category = self.data.category
         remotelocation = self.content.path.remote

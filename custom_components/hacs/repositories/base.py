@@ -806,6 +806,23 @@ class HacsRepository:
                 if not is_safe(self.hacs, local_path):
                     self.logger.error("%s Path %s is blocked from removal", self.string, local_path)
                     return False
+
+                if self.data.category == "integration":
+                    for repository in self.hacs.repositories.list_downloaded:
+                        if (
+                            str(repository.data.id) != str(self.data.id)
+                            and repository.localpath is not None
+                            and os.path.normpath(repository.localpath)
+                            == os.path.normpath(local_path)
+                        ):
+                            self.logger.info(
+                                "%s Keeping %s because %s is also installed",
+                                self.string,
+                                local_path,
+                                repository.string,
+                            )
+                            return True
+
                 self.logger.debug("%s Removing %s", self.string, local_path)
 
                 if self.data.category in ["python_script", "template"]:

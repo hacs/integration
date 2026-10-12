@@ -245,8 +245,13 @@ class HacsData:
                 or self.hacs.repositories.is_registered(repository_id=entry)
             ):
                 continue
+            if not (full_name := repo_data.get("full_name")):
+                self.logger.warning(
+                    "Skipping registration of repository ID %s: missing full_name", entry
+                )
+                continue
             await self.hacs.async_register_repository(
-                repository_full_name=repo_data["full_name"],
+                repository_full_name=full_name,
                 category=repo_data.get("category", category),
                 check=False,
                 repository_id=entry,

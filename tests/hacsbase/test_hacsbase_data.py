@@ -1,5 +1,8 @@
 """Data Test Suite."""
-from unittest.mock import patch
+
+from unittest.mock import AsyncMock, MagicMock, patch
+
+import pytest
 
 from custom_components.hacs.base import HacsRepositories
 from custom_components.hacs.enums import HacsGitHubRepo
@@ -27,6 +30,7 @@ async def test_hacs_data_restore_write_not_new(hacs, caplog):
     async def _mocked_loads(hass, key):
         if key == "repositories":
             return {
+                "123": {"category": "integration"},
                 "1727333146": {
                     "category": "integration",
                     "full_name": "hacs/integration2",
@@ -48,11 +52,16 @@ async def test_hacs_data_restore_write_not_new(hacs, caplog):
         else:
             raise ValueError(f"No mock for {key}")
 
-    with patch("os.path.exists", return_value=True), patch(
-        "custom_components.hacs.utils.data.async_load_from_store",
-        side_effect=_mocked_loads,
+    with (
+        patch("os.path.exists", return_value=True),
+        patch(
+            "custom_components.hacs.utils.data.async_load_from_store",
+            side_effect=_mocked_loads,
+        ),
     ):
-        await data.restore()
+        assert await data.restore() is True
+
+    assert "Skipping registration of repository ID 123: missing full_name" in caplog.text
 
     assert hacs.repositories.get_by_id("202226247")
     assert hacs.repositories.get_by_full_name("shbatm/hacs-isy994")
@@ -67,3 +76,48 @@ async def test_hacs_data_restore_write_not_new(hacs, caplog):
         await data.async_write()
     assert mock_async_save_to_store.called
     assert "Loading base repository information" not in caplog.text
+
+
+@pytest.mark.parametrize("full_name", [None, ""])
+async def test_register_unknown_repositories_without_name(full_name, caplog):
+    """An incomplete unknown entry must not prevent valid registrations."""
+    hacs = MagicMock()
+    hacs.repositories.is_registered.return_value = False
+    hacs.async_register_repository = AsyncMock()
+    incomplete = {"category": "integration"}
+    if full_name is not None:
+        incomplete["full_name"] = full_name
+    repositories = {
+        "123": incomplete,
+        "456": {"category": "integration", "full_name": "test/valid"},
+    }
+
+    await HacsData(hacs).register_unknown_repositories(repositories)
+
+    hacs.async_register_repository.assert_awaited_once_with(
+        repository_full_name="test/valid",
+        category="integration",
+        check=False,
+        repository_id="456",
+    )
+    assert "123" in caplog.text
+    assert "full_name" in caplog.text
+    assert repositories["123"] == incomplete
+
+
+async def test_restore_known_repository_without_name(hacs, repository):
+    """A known ID can restore metadata even when its saved name is absent."""
+    hacs.repositories.register(repository)
+    repository_id = str(repository.data.id)
+    stored = {repository_id: {"category": "integration", "installed": True, "show_beta": True}}
+
+    async def load_store(hass, key):
+        return stored if key == "repositories" else {}
+
+    with patch("custom_components.hacs.utils.data.async_load_from_store", side_effect=load_store):
+        assert await HacsData(hacs).restore() is True
+
+    restored = hacs.repositories.get_by_id(repository_id)
+    assert restored is repository
+    assert restored.data.installed is True
+    assert restored.data.show_beta is True

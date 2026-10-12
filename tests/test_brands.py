@@ -2,14 +2,20 @@
 
 from collections.abc import Generator
 import os
-from unittest.mock import MagicMock
+from pathlib import Path
+from unittest.mock import MagicMock, mock_open, patch
 
 from aiohttp import web
 from aiohttp.test_utils import make_mocked_request
 from homeassistant.core import HomeAssistant
 import pytest
 
-from custom_components.hacs.brands import MAX_ICON_SIZE, PNG_MAGIC, HacsRepositoryIconView
+from custom_components.hacs.brands import (
+    MAX_ICON_SIZE,
+    PNG_MAGIC,
+    HacsRepositoryIconView,
+    _read_file,
+)
 from custom_components.hacs.const import DOMAIN
 
 from tests.common import MockedResponse, ResponseMocker, get_hacs
@@ -27,6 +33,58 @@ RAW_DARK_ICON_URL = (
     "https://raw.githubusercontent.com/hacs-test-org/integration-basic"
     "/1.0.0/custom_components/example/brand/dark_icon.png"
 )
+
+
+@pytest.mark.parametrize("size", [MAX_ICON_SIZE, MAX_ICON_SIZE + 1, MAX_ICON_SIZE * 8])
+def test_icon_file_read_is_bounded(size: int) -> None:
+    """Read enough to reject oversized disk icons without allocating the whole file."""
+    content = PNG_MAGIC + bytes(size - len(PNG_MAGIC))
+    with patch.object(Path, "open", mock_open(read_data=content)) as icon_file:
+        result = _read_file(Path("icon.png"))
+
+    assert result == content[: MAX_ICON_SIZE + 1]
+    icon_file().read.assert_called_once_with(MAX_ICON_SIZE + 1)
+
+
+@pytest.mark.parametrize("content", [ICON_CONTENT, None], ids=["icon", "missing"])
+@pytest.mark.parametrize("filename", ["icon.png", "dark_icon.png"])
+async def test_icon_view_cache_write_failure(
+    hass: HomeAssistant,
+    content: bytes | None,
+    filename: str,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """Serve icons or uncached fallbacks when persistence fails, then recover."""
+    repository = MagicMock()
+    repository.data.id = REPOSITORY_ID
+    repository.data.full_name = REPOSITORY_FULL_NAME
+    repository.data.domain = "example"
+    repository.data.last_version = "1.0.0"
+    view = HacsRepositoryIconView(hass)
+
+    with patch.object(view, "_async_download_icon", return_value=(content, True)) as download:
+        with patch("custom_components.hacs.brands._cache_write", side_effect=OSError("disk full")):
+            response = await view._async_serve_remote(
+                MagicMock(), repository, filename, ACCESS_TOKEN
+            )
+
+        if content is not None:
+            assert response.status == 200
+            assert response.body == content
+        else:
+            assert response.status == 302
+            assert response.headers["Cache-Control"] == "no-store"
+            assert response.headers["Location"] == (
+                f"/api/hacs/repository/{REPOSITORY_ID}/icon.png?token={ACCESS_TOKEN}"
+                if filename == "dark_icon.png"
+                else "https://brands.home-assistant.io/_/example/icon.png"
+            )
+        assert "disk full" in caplog.text
+
+        # After storage recovers, download once more and persist the result.
+        await view._async_serve_remote(MagicMock(), repository, filename, ACCESS_TOKEN)
+        await view._async_serve_remote(MagicMock(), repository, filename, ACCESS_TOKEN)
+        assert download.await_count == 2
 
 
 async def _get_icon(

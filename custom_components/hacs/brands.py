@@ -30,6 +30,7 @@ from homeassistant.core import HomeAssistant, callback
 
 from .const import DOMAIN
 from .enums import HacsCategory
+from .utils.logger import LOGGER
 
 if TYPE_CHECKING:
     from .base import HacsBase
@@ -56,7 +57,8 @@ _VIEW_REGISTERED = "hacs_repository_icon_view"
 def _read_file(path: Path) -> bytes | None:
     """Read a file, returning None if it can not be read."""
     try:
-        return path.read_bytes()
+        with path.open("rb") as icon_file:
+            return icon_file.read(MAX_ICON_SIZE + 1)
     except OSError:
         return None
 
@@ -189,14 +191,20 @@ class HacsRepositoryIconView(HomeAssistantView):
                     hacs, repository, ref, filename
                 )
                 if content is not None or cache_missing:
-                    await self._hass.async_add_executor_job(
-                        _cache_write,
-                        self._cache_dir,
-                        prefix,
-                        filename,
-                        cache_file if content is not None else marker_file,
-                        content,
-                    )
+                    try:
+                        await self._hass.async_add_executor_job(
+                            _cache_write,
+                            self._cache_dir,
+                            prefix,
+                            filename,
+                            cache_file if content is not None else marker_file,
+                            content,
+                        )
+                    except OSError as err:
+                        LOGGER.warning(
+                            "Unable to cache icon for %s: %s", repository.data.full_name, err
+                        )
+                        retry = True
                 else:
                     retry = True
 

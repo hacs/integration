@@ -8,6 +8,7 @@ from homeassistant.helpers.entity_registry import async_get as async_get_entity_
 import pytest
 
 from custom_components.hacs.const import DOMAIN
+from custom_components.hacs.enums import HacsDisabledReason
 
 from tests.common import (
     CategoryTestData,
@@ -128,6 +129,64 @@ async def test_update_repository_entity_no_manifest(
         match=re.escape(
             "The version 3.0.0 for this integration can not be used with HACS."),
     ):
+        await hass.services.async_call(
+            "update",
+            "install",
+            service_data={"entity_id": entity_id, "version": "3.0.0"},
+            blocking=True,
+        )
+
+
+@pytest.mark.parametrize(
+    ("disabled_reason", "message"),
+    [
+        (
+            HacsDisabledReason.INVALID_TOKEN,
+            (
+                "HACS is disabled because its GitHub token is invalid. "
+                "Re-authenticate HACS, then try again."
+            ),
+        ),
+        (
+            HacsDisabledReason.RATE_LIMIT,
+            "HACS is disabled (rate_limit), so this integration can not be downloaded.",
+        ),
+    ],
+    ids=["invalid_token", "rate_limit"],
+)
+async def test_update_repository_entity_no_manifest_hacs_disabled(
+    hass: HomeAssistant,
+    setup_integration: Generator,
+    response_mocker: ResponseMocker,
+    disabled_reason: HacsDisabledReason,
+    message: str,
+):
+    hacs = get_hacs(hass)
+    repo = hacs.repositories.get_by_full_name(
+        "hacs-test-org/integration-basic")
+
+    assert repo is not None
+
+    repo.data.installed = True
+    repo.data.installed_version = "1.0.0"
+
+    await hass.config_entries.async_reload(hacs.configuration.config_entry.entry_id)
+    await hass.async_block_till_done()
+
+    response_mocker.add(
+        "https://raw.githubusercontent.com/hacs-test-org/integration-basic/3.0.0/hacs.json",
+        MockedResponse(status=404),
+    )
+
+    # Get a new HACS instance after reload
+    hacs = get_hacs(hass)
+    hacs.system.disabled_reason = disabled_reason
+
+    er = async_get_entity_registry(hacs.hass)
+
+    entity_id = er.async_get_entity_id("update", DOMAIN, repo.data.id)
+
+    with pytest.raises(HomeAssistantError, match=re.escape(message)):
         await hass.services.async_call(
             "update",
             "install",

@@ -20,7 +20,7 @@ import attr
 from homeassistant.helpers import device_registry as dr, issue_registry as ir
 
 from ..const import DOMAIN
-from ..enums import HacsDispatchEvent, RepositoryFile
+from ..enums import HacsDisabledReason, HacsDispatchEvent, RepositoryFile
 from ..exceptions import (
     HacsException,
     HacsNotModifiedException,
@@ -1440,6 +1440,18 @@ class HacsRepository:
             target_manifest = await self.get_hacs_json(version=ref)
 
         if target_manifest is None:
+            # While HACS is disabled, repository information may never have been
+            # fetched: the version is then not the problem, so don't blame it.
+            if self.hacs.system.disabled_reason == HacsDisabledReason.INVALID_TOKEN:
+                raise HacsException(
+                    "HACS is disabled because its GitHub token is invalid. "
+                    "Re-authenticate HACS, then try again."
+                )
+            if self.hacs.system.disabled:
+                raise HacsException(
+                    f"HACS is disabled ({self.hacs.system.disabled_reason}), "
+                    f"so this {self.data.category.value} can not be downloaded."
+                )
             raise HacsException(
                 f"The version {ref} for this {self.data.category.value} can not be used with HACS."
             )

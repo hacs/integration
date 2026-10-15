@@ -1426,6 +1426,11 @@ class HacsRepository:
 
     async def _ensure_download_capabilities(self, ref: str | None, **kwargs: Any) -> None:
         """Ensure that the download can be handled."""
+        if self.hacs.system.disabled:
+            raise HacsException(
+                f"HACS is disabled ({self.hacs.system.disabled_reason}), not downloading"
+            )
+
         target_manifest: HacsManifest | None = None
         if ref is None:
             if not self.can_download:

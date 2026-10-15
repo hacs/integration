@@ -1,7 +1,11 @@
 """Configuration Test Suite: can install."""
+
 # pylint: disable=missing-docstring
 from awesomeversion import AwesomeVersion
+import pytest
 
+from custom_components.hacs.enums import HacsDisabledReason
+from custom_components.hacs.exceptions import HacsException
 from custom_components.hacs.repositories.base import HacsManifest, HacsRepository
 
 
@@ -25,3 +29,18 @@ def test_hacs_can_install(hacs):
     hacs.core.ha_version = AwesomeVersion("1.0.0")
     repository.repository_manifest.homeassistant = "1.0.0"
     assert repository.can_download
+
+
+async def test_ensure_download_capabilities_disabled(hacs):
+    repository = HacsRepository(hacs)
+    hacs.system.disabled_reason = HacsDisabledReason.INVALID_TOKEN
+
+    with pytest.raises(
+        HacsException, match="HACS is disabled \\(invalid_token\\), not downloading"
+    ):
+        await repository._ensure_download_capabilities(ref="1.0.0")
+
+    with pytest.raises(
+        HacsException, match="HACS is disabled \\(invalid_token\\), not downloading"
+    ):
+        await repository._ensure_download_capabilities(ref=None)

@@ -85,6 +85,7 @@ async def hacs_repository_info(
                 "name": repository.display_name,
                 "new": False,
                 "pending_upgrade": repository.pending_update,
+                "pinned": repository.pinned,
                 "releases": repository.data.published_tags,
                 "ref": repository.ref,
                 "selected_tag": repository.data.selected_tag,

@@ -17,7 +17,11 @@ from aiogithubapi import (
     GitHubException,
 )
 import attr
-from homeassistant.helpers import device_registry as dr, issue_registry as ir
+from homeassistant.helpers import (
+    device_registry as dr,
+    entity_registry as er,
+    issue_registry as ir,
+)
 
 from ..const import DOMAIN
 from ..enums import HacsDispatchEvent, RepositoryFile
@@ -424,6 +428,16 @@ class HacsRepository:
             if self.display_installed_version != self.display_available_version:
                 return True
 
+        return False
+
+    @property
+    def pinned(self) -> bool:
+        """Return True if the update entity of this repository is disabled."""
+        if not self.data.installed:
+            return False
+        registry = er.async_get(self.hacs.hass)
+        if entity_id := registry.async_get_entity_id("update", DOMAIN, str(self.data.id)):
+            return registry.async_get(entity_id).disabled
         return False
 
     @property
@@ -1299,6 +1313,14 @@ class HacsRepository:
         """Remove the entity device."""
         if (config_entry := self.hacs.configuration.config_entry) is None:
             return
+
+        # Home Assistant restores disabled_by when a removed entity is created
+        # again, so clear a pin first or a new download would start pinned.
+        registry = er.async_get(self.hacs.hass)
+        if (
+            entity_id := registry.async_get_entity_id("update", DOMAIN, str(self.data.id))
+        ) and registry.async_get(entity_id).disabled_by is er.RegistryEntryDisabler.USER:
+            registry.async_update_entity(entity_id, disabled_by=None)
 
         device_registry: dr.DeviceRegistry = dr.async_get(hass=self.hacs.hass)
         identifier = (DOMAIN, str(self.data.id))

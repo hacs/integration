@@ -6,12 +6,14 @@ import json
 import logging
 import os
 from typing import Any
+from unittest.mock import AsyncMock, MagicMock
 
 from homeassistant.core import HomeAssistant
 import pytest
 
 from scripts.data.generate_category_data import (
     OUTPUT_DIR,
+    AdjustedHacs,
     _parse_shard,
     _slice_by_shard,
     generate_category_data,
@@ -489,6 +491,21 @@ async def test_generate_category_data_from_stored_snapshot(
                 json.loads(file.read()), ("last_fetched",))),
             f"scripts/data/generate_category_data/{category}//data.json",
         )
+
+
+async def test_summarize_data_without_updated_data():
+    """Test that summarizing empty updated data doesn't divide by zero."""
+    rate_limit = MagicMock()
+    # The summary is printed as JSON, so the rate limit values must be serializable.
+    for resource in (rate_limit.data.resources.core, rate_limit.data.resources.graphql):
+        resource.used, resource.limit, resource.reset = 0, 5000, 0
+    hacs = MagicMock(async_github_api_method=AsyncMock(return_value=rate_limit))
+
+    summary = await AdjustedHacs.summarize_data(hacs, {"1": {"full_name": "a/b"}}, {})
+
+    assert summary["changed_pct"] == 0
+    assert summary["new_count"] == 0
+    assert summary["diff"] == 1
 
 
 @pytest.mark.parametrize(

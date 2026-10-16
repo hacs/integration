@@ -493,7 +493,7 @@ class AdjustedHacs(HacsBase):
             }
 
         summary = {
-            "changed_pct": round((changed / new_count) * 100),
+            "changed_pct": round((changed / new_count) * 100) if new_count else 0,
             "changed": changed,
             "current_count": current_count,
             "diff": abs(new_count - current_count),

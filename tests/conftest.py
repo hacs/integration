@@ -42,11 +42,16 @@ from custom_components.hacs.repositories import (
     HacsThemeRepository,
 )
 from custom_components.hacs.utils.store import async_load_from_store
+from custom_components.hacs.validate.license import (
+    SPDX_LICENSE_LIST_COMMIT,
+    SPDX_LICENSE_LIST_URL,
+)
 
 from tests import _async_suggest_report_issue_mock_call_tracker
 from tests.common import (
     IGNORED_BASE_FILES,
     REQUEST_CONTEXT,
+    MockedResponse,
     MockOwner,
     ProxyClientSession,
     ResponseMocker,
@@ -54,6 +59,7 @@ from tests.common import (
     client_session_proxy,
     create_config_entry,
     dummy_repository_base,
+    fixture,
     get_hacs,
     mock_storage as mock_storage,
     recursive_remove_key,
@@ -407,6 +413,15 @@ def response_mocker() -> ResponseMocker:
     mocker.responses.clear()
 
 
+@pytest.fixture(autouse=True)
+def mock_spdx_license_list(response_mocker: ResponseMocker) -> None:
+    """Mock the SPDX license list independent of the pinned commit."""
+    response_mocker.add(
+        SPDX_LICENSE_LIST_URL,
+        MockedResponse(content=fixture("spdx_license_list.json", asjson=False), keep=True),
+    )
+
+
 @pytest_asyncio.fixture()
 async def setup_integration(hass: HomeAssistant, check_report_issue: None) -> None:
     # Assert the string to ensure the format did not change
@@ -470,7 +485,8 @@ def track_api_usage(snapshots: SnapshotFixture):
                 )
             else:
                 calls[_test_caller] = {}
-        if (url := call.get("url")) not in calls[_test_caller]:
+        url = call.get("url").replace(SPDX_LICENSE_LIST_COMMIT, "SPDX_LICENSE_LIST_COMMIT")
+        if url not in calls[_test_caller]:
             calls[_test_caller][url] = 0
         calls[_test_caller][url] += 1
 

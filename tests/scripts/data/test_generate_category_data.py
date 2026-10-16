@@ -1,11 +1,12 @@
 """Test generate category data."""
 
+import argparse
 import asyncio
 import json
 import logging
 import os
 from typing import Any
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock, MagicMock, patch
 
 from homeassistant.core import HomeAssistant
 import pytest
@@ -13,9 +14,13 @@ import pytest
 from scripts.data.generate_category_data import (
     OUTPUT_DIR,
     AdjustedHacs,
+    _parse_shard,
+    _slice_by_shard,
     generate_category_data,
     get_removed_repositories,
     get_stored_data,
+    shard_for,
+    write_shard_output,
 )
 
 from tests.common import (
@@ -501,3 +506,145 @@ async def test_summarize_data_without_updated_data():
     assert summary["changed_pct"] == 0
     assert summary["new_count"] == 0
     assert summary["diff"] == 1
+
+
+@pytest.mark.parametrize(
+    ("full_name", "shards", "expected"),
+    [
+        ("hacs/integration", 3, 0),
+        ("hacs-test-org/appdaemon-basic", 3, 1),
+        ("hacs-test-org/theme-basic", 3, 2),
+        ("hacs-test-org/plugin-basic", 2, 0),
+        ("hacs-test-org/integration-basic-custom", 2, 1),
+        ("anything", 1, 0),
+        ("anything", 0, 0),
+    ],
+)
+def test_shard_for(full_name: str, shards: int, expected: int):
+    """Test that shard assignment is stable."""
+    assert shard_for(full_name, shards) == expected
+
+
+def test_shard_for_is_case_insensitive():
+    """Test that repository casing doesn't change the shard."""
+    assert shard_for("HACS/Integration", 3) == shard_for("hacs/integration", 3)
+
+
+@pytest.mark.parametrize("shards", [2, 3])
+def test_shard_for_uses_every_shard(shards: int):
+    """Test that every shard gets repositories."""
+    names = [f"user{i}/repo{i}" for i in range(500)]
+    assert {shard_for(name, shards) for name in names} == set(range(shards))
+
+
+@pytest.mark.parametrize(
+    ("value", "expected"),
+    [("1/3", (1, 3)), ("3/3", (3, 3)), ("1/1", (1, 1))],
+)
+def test_parse_shard(value: str, expected: tuple[int, int]):
+    """Test parsing valid shard arguments."""
+    assert _parse_shard(value) == expected
+
+
+@pytest.mark.parametrize("value", ["0/3", "4/3", "3/0", "abc", "1/2/3", "1", "-1/3"])
+def test_parse_shard_invalid(value: str):
+    """Test that invalid shard arguments are rejected."""
+    with pytest.raises(argparse.ArgumentTypeError):
+        _parse_shard(value)
+
+
+def test_slice_by_shard():
+    """Test that shard slices are disjoint and cover all entries."""
+    data = {str(i): {"full_name": f"user{i}/repo{i}"} for i in range(200)}
+    slices = [_slice_by_shard(data, index, 3) for index in range(3)]
+
+    assert sum(len(entries) for entries in slices) == len(data)
+    assert set().union(*slices) == set(data)
+    for index, entries in enumerate(slices):
+        assert all(shard_for(value["full_name"], 3) == index for value in entries.values())
+
+
+def test_slice_by_shard_single_shard():
+    """Test that a single shard keeps all entries."""
+    data = {"1": {"full_name": "a/b"}}
+    assert _slice_by_shard(data, 0, 1) is data
+
+
+def test_write_shard_output(tmp_path, monkeypatch: pytest.MonkeyPatch):
+    """Test that shard output is written for a later merge step."""
+    monkeypatch.setattr("scripts.data.generate_category_data.SHARDS_DIR", str(tmp_path))
+    updated = {"1": {"full_name": "a/b"}}
+
+    write_shard_output("integration", 2, updated)
+
+    shard_dir = tmp_path / "integration" / "2"
+    assert json.loads((shard_dir / "data.json").read_text(encoding="utf-8")) == updated
+    assert [path.name for path in shard_dir.iterdir()] == ["data.json"]
+
+
+@pytest.mark.parametrize("shards", [2, 3])
+async def test_get_category_repositories_filters_by_shard(shards: int):
+    """Test that each shard queues only its part of the default repository list."""
+    default = [
+        "hacs-test-org/integration-basic",
+        "hacs-test-org/integration-basic-custom",
+        "octocat/Hello-World",
+    ]
+    queued = []
+    for index in range(shards):
+        hacs = MagicMock()
+        hacs.async_github_get_hacs_default_file = AsyncMock(return_value=list(default))
+        hacs.repositories.get_by_full_name.return_value = None
+
+        await AdjustedHacs.get_category_repositories(hacs, "integration", None, [], index, shards)
+
+        names = [
+            call.kwargs["repository_full_name"]
+            for call in hacs.concurrent_register_repository.call_args_list
+        ]
+        assert all(shard_for(name, shards) == index for name in names)
+        queued += names
+
+    assert sorted(queued) == sorted([*default, "hacs/integration"])
+
+
+@pytest.mark.parametrize(("shard", "index"), [((1, 1), 0), ((2, 3), 1)])
+async def test_generate_category_data_shard_skips_finalization(shard: tuple[int, int], index: int):
+    """Test that a shard writes its partial data instead of finalizing."""
+    updated = {"1": {"full_name": "a/b"}}
+    with (
+        patch(f"{_MODULE}.AdjustedHacs") as adjusted_hacs,
+        patch(f"{_MODULE}.get_stored_data", AsyncMock(return_value={})),
+        patch(f"{_MODULE}.finalize_category_output", AsyncMock()) as finalize,
+        patch(f"{_MODULE}.write_shard_output") as write_shard,
+    ):
+        hacs = adjusted_hacs.return_value
+        hacs.generate_data_for_category = AsyncMock(return_value=updated)
+
+        await generate_category_data("integration", shard=shard)
+
+    kwargs = hacs.generate_data_for_category.await_args.kwargs
+    assert (kwargs["index"], kwargs["shards"]) == (index, shard[1])
+    write_shard.assert_called_once_with("integration", shard[0], updated)
+    finalize.assert_not_awaited()
+
+
+async def test_generate_category_data_without_shard_finalizes():
+    """Test that an unsharded run finalizes and writes no shard output."""
+    updated = {"1": {"full_name": "a/b"}}
+    stored = {"2": {"full_name": "c/d"}}
+    with (
+        patch(f"{_MODULE}.AdjustedHacs") as adjusted_hacs,
+        patch(f"{_MODULE}.get_stored_data", AsyncMock(return_value=stored)),
+        patch(f"{_MODULE}.finalize_category_output", AsyncMock()) as finalize,
+        patch(f"{_MODULE}.write_shard_output") as write_shard,
+    ):
+        hacs = adjusted_hacs.return_value
+        hacs.generate_data_for_category = AsyncMock(return_value=updated)
+
+        await generate_category_data("integration")
+
+    kwargs = hacs.generate_data_for_category.await_args.kwargs
+    assert (kwargs["index"], kwargs["shards"]) == (0, 1)
+    finalize.assert_awaited_once_with(hacs, "integration", stored, stored, updated)
+    write_shard.assert_not_called()

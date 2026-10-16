@@ -10,6 +10,7 @@ import logging
 import os
 import sys
 from typing import Any, Literal
+import zlib
 
 from aiogithubapi import (
     GitHub,
@@ -57,6 +58,7 @@ stream_handler.setFormatter(logging.Formatter("%(levelname)s%(message)s"))
 log_handler.addHandler(stream_handler)
 
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
+SHARDS_DIR = os.path.join(OUTPUT_DIR, "_shards")
 COMPARE_IGNORE = {"etag_releases", "etag_repository", "last_fetched"}
 
 # Directory with the published data fetched by the fetch-stored-data job.
@@ -105,6 +107,24 @@ async def get_removed_repositories(hacs: AdjustedHacs) -> list[str]:
     if (removed := _read_snapshot(hacs, "removed.json", list)) is not None:
         return removed
     return await hacs.data_client.get_repositories("removed")
+
+
+def shard_for(full_name: str, shards: int) -> int:
+    """Return the 0-based shard of a repository, stable across processes."""
+    if shards <= 1:
+        return 0
+    return zlib.crc32(full_name.lower().encode()) % shards
+
+
+def _slice_by_shard(
+    data: dict[str, dict[str, Any]], index: int, shards: int
+) -> dict[str, dict[str, Any]]:
+    """Return the entries of data that belong to the given shard."""
+    if shards <= 1:
+        return data
+    return {
+        key: value for key, value in data.items() if shard_for(value["full_name"], shards) == index
+    }
 
 
 def jsonprint(data: any):
@@ -350,16 +370,18 @@ class AdjustedHacs(HacsBase):
         repository_name: str | None,
         current_data: dict[str, dict[str, Any]],
         force: bool,
+        index: int = 0,
+        shards: int = 1,
     ) -> dict[str, dict[str, Any]]:
-        """Generate data for category."""
+        """Generate data for category, limited to one shard when shards > 1."""
         removed = [] if repository_name is not None else await get_removed_repositories(self)
         await self.data.register_base_data(
             category,
-            {} if force else current_data,
+            {} if force else _slice_by_shard(current_data, index, shards),
             removed,
         )
         self.queue.clear()
-        await self.get_category_repositories(category, repository_name, removed)
+        await self.get_category_repositories(category, repository_name, removed, index, shards)
 
         async def _handle_queue():
             if not self.queue.pending_tasks:
@@ -399,6 +421,8 @@ class AdjustedHacs(HacsBase):
         category: str,
         repository_name: str | None,
         removed: list[str],
+        index: int = 0,
+        shards: int = 1,
     ) -> None:
         """Get repositories from category."""
         repositories = (
@@ -412,6 +436,9 @@ class AdjustedHacs(HacsBase):
         elif category == "integration":
             # hacs/integration i not in the default file, but it's still needed
             repositories.append("hacs/integration")
+
+        if shards > 1:
+            repositories = [repo for repo in repositories if shard_for(repo, shards) == index]
 
         for repo in repositories:
             if repo in removed:
@@ -601,8 +628,25 @@ async def finalize_category_output(
         _dump_diff(updated_data, data_file)
 
 
-async def generate_category_data(category: str, repository_name: str = None):
-    """Generate data."""
+def write_shard_output(
+    category: str,
+    shard_number: int,
+    updated_data: dict[str, dict[str, Any]],
+) -> None:
+    """Write the partial data of one shard for a later merge step."""
+    shard_dir = os.path.join(SHARDS_DIR, category, str(shard_number))
+    os.makedirs(shard_dir, exist_ok=True)
+    with open(os.path.join(shard_dir, "data.json"), mode="w", encoding="utf-8") as data_file:
+        json.dump(updated_data, data_file, cls=JSONEncoder, separators=(",", ":"))
+
+
+async def generate_category_data(
+    category: str,
+    repository_name: str = None,
+    shard: tuple[int, int] | None = None,
+):
+    """Generate data, or only the 1-based shard (x, y) when shard is given."""
+    shard_number, shards = shard or (1, 1)
     async with ClientSession() as session:
         hacs = AdjustedHacs(session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
         # Create the output directories up front (idempotent) so the side
@@ -629,7 +673,13 @@ async def generate_category_data(category: str, repository_name: str = None):
             repository_name,
             current_data,
             force=force,
+            index=shard_number - 1,
+            shards=shards,
         )
+
+        if shard is not None:
+            write_shard_output(category, shard_number, updated_data)
+            return
 
         await finalize_category_output(
             hacs,
@@ -640,14 +690,31 @@ async def generate_category_data(category: str, repository_name: str = None):
         )
 
 
+def _parse_shard(value: str) -> tuple[int, int]:
+    """Parse a 1-based "x/y" shard argument."""
+    try:
+        number, total = (int(part) for part in value.split("/"))
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"invalid shard {value!r}, expected x/y") from None
+    if not 1 <= number <= total:
+        raise argparse.ArgumentTypeError(f"invalid shard {value!r}, expected 1 <= x <= y")
+    return number, total
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate HACS compliant data.")
     parser.add_argument("category")
     parser.add_argument("repository_name", nargs="?", default=None)
+    parser.add_argument(
+        "--shard",
+        type=_parse_shard,
+        help="generate only shard x of y (1-based), for example 1/3",
+    )
     args = parser.parse_args()
     asyncio.run(
         generate_category_data(
             args.category,
             args.repository_name,
+            shard=args.shard,
         )
     )

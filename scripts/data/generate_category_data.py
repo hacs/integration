@@ -632,14 +632,12 @@ def write_shard_output(
     category: str,
     shard_number: int,
     updated_data: dict[str, dict[str, Any]],
-    stored_slice: dict[str, dict[str, Any]],
 ) -> None:
     """Write the partial data of one shard for a later merge step."""
     shard_dir = os.path.join(SHARDS_DIR, category, str(shard_number))
     os.makedirs(shard_dir, exist_ok=True)
-    for name, content in (("data.json", updated_data), ("stored.json", stored_slice)):
-        with open(os.path.join(shard_dir, name), mode="w", encoding="utf-8") as data_file:
-            json.dump(content, data_file, cls=JSONEncoder, separators=(",", ":"))
+    with open(os.path.join(shard_dir, "data.json"), mode="w", encoding="utf-8") as data_file:
+        json.dump(updated_data, data_file, cls=JSONEncoder, separators=(",", ":"))
 
 
 async def generate_category_data(
@@ -680,12 +678,7 @@ async def generate_category_data(
         )
 
         if shard is not None:
-            write_shard_output(
-                category,
-                shard_number,
-                updated_data,
-                _slice_by_shard(stored_data, shard_number - 1, shards),
-            )
+            write_shard_output(category, shard_number, updated_data)
             return
 
         await finalize_category_output(

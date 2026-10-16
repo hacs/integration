@@ -12,14 +12,19 @@ from typing import Any
 from aiohttp import ClientSession
 
 from .common import print_error_and_exit
-from .generate_category_data import SHARDS_DIR, AdjustedHacs, finalize_category_output
+from .generate_category_data import (
+    SHARDS_DIR,
+    AdjustedHacs,
+    finalize_category_output,
+    get_stored_data,
+)
 
 
-def _load_shard_files(category: str, name: str, shards: int) -> dict[str, dict[str, Any]]:
-    """Combine one partial file from every shard of a category."""
-    paths = sorted(Path(SHARDS_DIR, category).glob(f"*/{name}"))
+def _load_shard_data(category: str, shards: int) -> dict[str, dict[str, Any]]:
+    """Combine the generated data of every shard of a category."""
+    paths = sorted(Path(SHARDS_DIR, category).glob("*/data.json"))
     if len(paths) != shards:
-        print_error_and_exit(f"Expected {shards} shard {name} files, found {len(paths)}", category)
+        print_error_and_exit(f"Expected {shards} shard data files, found {len(paths)}", category)
     merged = {}
     for path in paths:
         for key, value in json.loads(path.read_text(encoding="utf-8")).items():
@@ -33,10 +38,10 @@ def _load_shard_files(category: str, name: str, shards: int) -> dict[str, dict[s
 
 async def merge_category_data(category: str, shards: int) -> None:
     """Merge the shards of a category and write the final output."""
-    updated_data = _load_shard_files(category, "data.json", shards)
-    stored_data = _load_shard_files(category, "stored.json", shards)
+    updated_data = _load_shard_data(category, shards)
     async with ClientSession() as session:
         hacs = AdjustedHacs(session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
+        stored_data = await get_stored_data(hacs, category)
         await finalize_category_output(
             hacs,
             category,

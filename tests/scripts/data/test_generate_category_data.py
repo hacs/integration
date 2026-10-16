@@ -557,10 +557,9 @@ def test_write_shard_output(tmp_path, monkeypatch: pytest.MonkeyPatch):
     """Test that shard output is written for a later merge step."""
     monkeypatch.setattr("scripts.data.generate_category_data.SHARDS_DIR", str(tmp_path))
     updated = {"1": {"full_name": "a/b"}}
-    stored = {"2": {"full_name": "c/d"}}
 
-    write_shard_output("integration", 2, updated, stored)
+    write_shard_output("integration", 2, updated)
 
     shard_dir = tmp_path / "integration" / "2"
     assert json.loads((shard_dir / "data.json").read_text(encoding="utf-8")) == updated
-    assert json.loads((shard_dir / "stored.json").read_text(encoding="utf-8")) == stored
+    assert [path.name for path in shard_dir.iterdir()] == ["data.json"]

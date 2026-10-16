@@ -132,9 +132,7 @@ class AdjustedHacsData(HacsData):
         """Store the repository data."""
         data = {"manifest": {}}
         for key, default in HACS_MANIFEST_KEYS_TO_EXPORT:
-            if (
-                value := getattr(repository.repository_manifest, key, default)
-            ) != default:
+            if (value := getattr(repository.repository_manifest, key, default)) != default:
                 data["manifest"][key] = value
 
         for key, default in REPOSITORY_KEYS_TO_EXPORT:
@@ -168,8 +166,7 @@ class AdjustedHacs(HacsBase):
         self.core.config_path = None
         self.configuration.token = token
         self.data = AdjustedHacsData(hacs=self)
-        self.data_client = HacsDataClient(
-            session=session, client_name="HACS/Generator")
+        self.data_client = HacsDataClient(session=session, client_name="HACS/Generator")
 
         self.github = GitHub(
             token,
@@ -228,17 +225,20 @@ class AdjustedHacs(HacsBase):
                     for release in releases:
                         if release.draft:
                             repository.logger.warning(
-                                "%s Found draft %s", repository.string, release.tag_name)
+                                "%s Found draft %s", repository.string, release.tag_name
+                            )
 
                         elif release.prerelease:
                             repository.logger.info(
-                                "%s Found prerelease %s", repository.string, release.tag_name)
+                                "%s Found prerelease %s", repository.string, release.tag_name
+                            )
                             if repository.data.prerelease is None:
                                 repository.data.prerelease = release.tag_name
 
                         else:
                             repository.logger.info(
-                                "%s Found release %s", repository.string, release.tag_name)
+                                "%s Found release %s", repository.string, release.tag_name
+                            )
                             repository.data.releases = True
                             repository.releases.objects = releases
                             repository.data.published_tags = [
@@ -259,8 +259,7 @@ class AdjustedHacs(HacsBase):
                         endpoint=f"/repos/{repository.data.full_name}/releases/latest",
                         etag=repository.data.etag_releases,
                     )
-                    response.data = GitHubReleaseModel(
-                        response.data) if response.data else None
+                    response.data = GitHubReleaseModel(response.data) if response.data else None
 
                     if (releases := response.data) is not None:
                         repository.data.releases = True
@@ -288,8 +287,7 @@ class AdjustedHacs(HacsBase):
                 )
             except GitHubNotFoundException:
                 repository.data.releases = False
-                repository.logger.info(
-                    "%s No releases found", repository.string)
+                repository.logger.info("%s No releases found", repository.string)
             except GitHubException as exception:
                 repository.data.releases = False
                 repository.logger.error("%s %s", repository.string, exception)
@@ -378,8 +376,7 @@ class AdjustedHacs(HacsBase):
                 continue
             repository = self.repositories.get_by_full_name(repo)
             if repository is not None:
-                self.queue.add(self.concurrent_update_repository(
-                    repository=repository))
+                self.queue.add(self.concurrent_update_repository(repository=repository))
                 continue
 
             self.queue.add(
@@ -457,10 +454,7 @@ class AdjustedHacs(HacsBase):
 def _dump_diff(entries: dict[str, dict[str, Any]], data_file) -> None:
     """Write a diff-friendly (COMPARE_IGNORE stripped) JSON dump."""
     json.dump(
-        {
-            i: {k: v for k, v in d.items() if k not in COMPARE_IGNORE}
-            for i, d in entries.items()
-        },
+        {i: {k: v for k, v in d.items() if k not in COMPARE_IGNORE} for i, d in entries.items()},
         data_file,
         cls=JSONEncoder,
         sort_keys=True,
@@ -494,11 +488,7 @@ async def finalize_category_output(
         )
 
     did_raise = False
-    if (
-        not updated_data
-        or len(updated_data) == 0
-        or not isinstance(updated_data, dict)
-    ):
+    if not updated_data or len(updated_data) == 0 or not isinstance(updated_data, dict):
         print_error_and_exit("Updated data is empty", category)
         did_raise = True
 
@@ -570,8 +560,7 @@ async def finalize_category_output(
 async def generate_category_data(category: str, repository_name: str = None):
     """Generate data."""
     async with ClientSession() as session:
-        hacs = AdjustedHacs(
-            session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
+        hacs = AdjustedHacs(session=session, token=os.getenv("DATA_GENERATOR_TOKEN"))
         # Create the output directories up front (idempotent) so the side
         # effects are present even if data generation fails before finalization.
         os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)

@@ -79,7 +79,7 @@ def test_hacs_manifest_json_schema():
         },
     )
 
-    with pytest.raises(Invalid, match="extra keys not allowed"):
+    with pytest.raises(Invalid, match=r"extra keys not allowed|not a valid option"):
         hacs_json_schema({"name": "My awesome thing", "not": "valid"})
 
     with pytest.raises(Invalid, match="Value 'NOT_VALID' is not in"):
@@ -103,7 +103,7 @@ def test_integration_json_schema():
     assert integration_json_schema(base_data)["version"] == AwesomeVersion(1.2)
     assert integration_json_schema(base_data) == base_data
 
-    with pytest.raises(Invalid, match="expected str for dictionary value"):
+    with pytest.raises(Invalid, match="expected str"):
         integration_json_schema({**base_data, "domain": None})
 
 

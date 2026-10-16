@@ -131,3 +131,39 @@ async def test_hacs_action_integration(
         ),
         f"action/{current_function_name()}/{request.node.callspec.id}.log",
     )
+
+
+async def test_hacs_action_private_repository(
+    caplog: pytest.LogCaptureFixture,
+    response_mocker: ResponseMocker,
+):
+    """Test the action refuses a private repository before validating it."""
+    with open(
+        "tests/fixtures/proxy/api.github.com/repos/hacs-test-org/integration-basic.json"
+    ) as repository_file:
+        repository = json.load(repository_file)
+
+    response_mocker.add(
+        "https://api.github.com/repos/hacs-test-org/integration-basic",
+        response=MockedResponse(status=200, content={**repository, "private": True}),
+    )
+    envpatch = {
+        "INPUT_GITHUB_TOKEN": TOKEN,
+        "INPUT_REPOSITORY": "hacs-test-org/integration-basic",
+        "INPUT_CATEGORY": "integration",
+    }
+
+    with mock.patch.dict(os.environ, envpatch):
+        from action.action import preflight
+
+        with (
+            mock.patch("builtins.exit", mock.MagicMock(side_effect=SystemExit)),
+            pytest.raises(SystemExit),
+        ):
+            await preflight()
+
+    assert (
+        "hacs-test-org/integration-basic is private, "
+        "the HACS action can only validate public repositories."
+    ) in caplog.text
+    assert "checks passed" not in caplog.text

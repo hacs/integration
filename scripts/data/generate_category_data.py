@@ -518,6 +518,7 @@ async def finalize_category_output(
             data_file,
             cls=JSONEncoder,
             separators=(",", ":"),
+            sort_keys=True,
         )
     with open(
         os.path.join(OUTPUT_DIR, category, "data.json"),
@@ -529,6 +530,7 @@ async def finalize_category_output(
             data_file,
             cls=JSONEncoder,
             separators=(",", ":"),
+            sort_keys=True,
         )
     with open(
         os.path.join(OUTPUT_DIR, category, "repositories.json"),
@@ -536,10 +538,9 @@ async def finalize_category_output(
         encoding="utf-8",
     ) as repositories_file:
         json.dump(
-            [v["full_name"] for v in updated_data.values()],
+            sorted(v["full_name"] for v in updated_data.values()),
             repositories_file,
             separators=(",", ":"),
-            sort_keys=True,
         )
 
     with open(

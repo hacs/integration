@@ -4,9 +4,8 @@ import asyncio
 import json
 import logging
 import os
-from types import SimpleNamespace
 from typing import Any
-from unittest.mock import AsyncMock
+from unittest.mock import AsyncMock, MagicMock
 
 from homeassistant.core import HomeAssistant
 import pytest
@@ -491,14 +490,11 @@ async def test_generate_category_data_from_stored_snapshot(
 
 async def test_summarize_data_without_updated_data():
     """Test that summarizing empty updated data doesn't divide by zero."""
-    resources = SimpleNamespace(used=0, limit=5000, reset=0)
-    rate_limit = SimpleNamespace(
-        data=SimpleNamespace(resources=SimpleNamespace(core=resources, graphql=resources))
-    )
-    hacs = SimpleNamespace(
-        githubapi=SimpleNamespace(rate_limit=None),
-        async_github_api_method=AsyncMock(return_value=rate_limit),
-    )
+    rate_limit = MagicMock()
+    # The summary is printed as JSON, so the rate limit values must be serializable.
+    for resource in (rate_limit.data.resources.core, rate_limit.data.resources.graphql):
+        resource.used, resource.limit, resource.reset = 0, 5000, 0
+    hacs = MagicMock(async_github_api_method=AsyncMock(return_value=rate_limit))
 
     summary = await AdjustedHacs.summarize_data(hacs, {"1": {"full_name": "a/b"}}, {})
 

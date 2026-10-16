@@ -61,6 +61,53 @@ OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
 SHARDS_DIR = os.path.join(OUTPUT_DIR, "_shards")
 COMPARE_IGNORE = {"etag_releases", "etag_repository", "last_fetched"}
 
+# Directory with the published data fetched by the fetch-stored-data job.
+# When set, it is read instead of fetching; unset outside the generate workflow.
+STORED_DATA_DIR = os.getenv("HACS_STORED_DATA_DIR")
+
+
+def _read_snapshot[T](
+    hacs: AdjustedHacs,
+    filename: str,
+    expected_type: type[T],
+) -> T | None:
+    """Read a snapshot file from ``STORED_DATA_DIR``.
+
+    Returns the parsed JSON when available, or ``None`` (so the caller fetches
+    instead) when the dir is unset, the file is missing or unreadable, or the
+    content is not of ``expected_type``.
+    """
+    if not STORED_DATA_DIR:
+        return None
+    try:
+        with open(os.path.join(STORED_DATA_DIR, filename), encoding="utf-8") as file:
+            data = json.load(file)
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as err:
+        hacs.log.warning("Could not read snapshot %s (%s), fetching instead", filename, err)
+        return None
+    if not isinstance(data, expected_type):
+        hacs.log.warning(
+            "Snapshot %s has unexpected type %s, fetching instead",
+            filename,
+            type(data).__name__,
+        )
+        return None
+    return data
+
+
+async def get_stored_data(hacs: AdjustedHacs, category: str) -> dict[str, dict[str, Any]]:
+    """Return existing category data from the snapshot dir when available, else fetch."""
+    if (data := _read_snapshot(hacs, f"{category}.json", dict)) is not None:
+        return data
+    return await hacs.data_client.get_data(category, validate=False)
+
+
+async def get_removed_repositories(hacs: AdjustedHacs) -> list[str]:
+    """Return the removed-repositories list from the snapshot dir when available, else fetch."""
+    if (removed := _read_snapshot(hacs, "removed.json", list)) is not None:
+        return removed
+    return await hacs.data_client.get_repositories("removed")
+
 
 def shard_for(full_name: str, shards: int) -> int:
     """Return the 0-based shard of a repository, stable across processes."""
@@ -327,11 +374,7 @@ class AdjustedHacs(HacsBase):
         shards: int = 1,
     ) -> dict[str, dict[str, Any]]:
         """Generate data for category, limited to one shard when shards > 1."""
-        removed = (
-            []
-            if repository_name is not None
-            else await self.data_client.get_repositories("removed")
-        )
+        removed = [] if repository_name is not None else await get_removed_repositories(self)
         await self.data.register_base_data(
             category,
             {} if force else _slice_by_shard(current_data, index, shards),
@@ -545,6 +588,7 @@ async def finalize_category_output(
             data_file,
             cls=JSONEncoder,
             separators=(",", ":"),
+            sort_keys=True,
         )
     with open(
         os.path.join(OUTPUT_DIR, category, "data.json"),
@@ -556,6 +600,7 @@ async def finalize_category_output(
             data_file,
             cls=JSONEncoder,
             separators=(",", ":"),
+            sort_keys=True,
         )
     with open(
         os.path.join(OUTPUT_DIR, category, "repositories.json"),
@@ -563,10 +608,9 @@ async def finalize_category_output(
         encoding="utf-8",
     ) as repositories_file:
         json.dump(
-            [v["full_name"] for v in updated_data.values()],
+            sorted(v["full_name"] for v in updated_data.values()),
             repositories_file,
             separators=(",", ":"),
-            sort_keys=True,
         )
 
     with open(
@@ -612,7 +656,7 @@ async def generate_category_data(
         os.makedirs(os.path.join(OUTPUT_DIR, category), exist_ok=True)
         os.makedirs(os.path.join(OUTPUT_DIR, "diff"), exist_ok=True)
         force = os.environ.get("FORCE_REPOSITORY_UPDATE") == "True"
-        stored_data = await hacs.data_client.get_data(category, validate=False)
+        stored_data = await get_stored_data(hacs, category)
         current_data = (
             next(
                 (

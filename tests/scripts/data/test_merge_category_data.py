@@ -18,25 +18,54 @@ def shards_dir(tmp_path, monkeypatch: pytest.MonkeyPatch):
     return tmp_path
 
 
+def _write_shards(full: dict, shards: int, skip: int | None = None) -> None:
+    for index in range(shards):
+        if index + 1 == skip:
+            continue
+        shard_slice = _slice_by_shard(full, index, shards)
+        write_shard_output("integration", index + 1, shard_slice, shard_slice)
+
+
+FULL = {str(i): {"full_name": f"user{i}/repo{i}"} for i in range(30)}
+
+
 @pytest.mark.usefixtures("shards_dir")
 @pytest.mark.parametrize("shards", [1, 2, 3])
 def test_load_shard_files_reassembles_shards(shards: int):
     """Test that merging the shards gives back the full category."""
-    full = {str(i): {"full_name": f"user{i}/repo{i}"} for i in range(30)}
+    _write_shards(FULL, shards)
 
-    for index in range(shards):
-        shard_slice = _slice_by_shard(full, index, shards)
-        write_shard_output("integration", index + 1, shard_slice, shard_slice)
-
-    assert _load_shard_files("integration", "data.json") == full
-    assert _load_shard_files("integration", "stored.json") == full
+    assert _load_shard_files("integration", "data.json", shards) == FULL
+    assert _load_shard_files("integration", "stored.json", shards) == FULL
 
 
 @pytest.mark.usefixtures("shards_dir")
 def test_load_shard_files_without_shards():
     """Test that merging fails when there are no shard files."""
     with pytest.raises(SystemExit):
-        _load_shard_files("integration", "data.json")
+        _load_shard_files("integration", "data.json", 3)
+
+
+@pytest.mark.usefixtures("shards_dir")
+@pytest.mark.parametrize("missing", [1, 2, 3])
+def test_load_shard_files_with_missing_shard(missing: int):
+    """Test that merging fails when one expected shard is missing."""
+    _write_shards(FULL, 3, skip=missing)
+
+    with pytest.raises(SystemExit):
+        _load_shard_files("integration", "data.json", 3)
+    with pytest.raises(SystemExit):
+        _load_shard_files("integration", "stored.json", 3)
+
+
+def test_load_shard_files_with_missing_stored_file(shards_dir):
+    """Test that merging fails when a shard is missing its stored data."""
+    _write_shards(FULL, 3)
+    (shards_dir / "integration" / "2" / "stored.json").unlink()
+
+    assert _load_shard_files("integration", "data.json", 3) == FULL
+    with pytest.raises(SystemExit):
+        _load_shard_files("integration", "stored.json", 3)
 
 
 @pytest.mark.usefixtures("shards_dir")
@@ -50,11 +79,15 @@ def test_load_shard_files_without_shards():
 def test_load_shard_files_keeps_refreshed_renamed_repository(old_name: str, new_name: str):
     """Test that a renamed repository found in two shards keeps the refreshed record."""
     shards = 3
-    assert shard_for(old_name, shards) != shard_for(new_name, shards)
+    old_shard = shard_for(old_name, shards) + 1
+    new_shard = shard_for(new_name, shards) + 1
+    assert old_shard != new_shard
     stale = {"1": {"full_name": old_name, "last_fetched": 1.0}}
     fresh = {"1": {"full_name": new_name, "last_fetched": 2.0}}
 
-    write_shard_output("integration", shard_for(old_name, shards) + 1, stale, stale)
-    write_shard_output("integration", shard_for(new_name, shards) + 1, fresh, {})
+    write_shard_output("integration", old_shard, stale, stale)
+    write_shard_output("integration", new_shard, fresh, {})
+    (other_shard,) = {1, 2, 3} - {old_shard, new_shard}
+    write_shard_output("integration", other_shard, {}, {})
 
-    assert _load_shard_files("integration", "data.json") == fresh
+    assert _load_shard_files("integration", "data.json", shards) == fresh

@@ -51,13 +51,13 @@ jobs:
           PYTEST: true
         run: scripts/test
 
-  dev:
+  max:
     name: With pytest with Home Assistant (${{ matrix.homeassistant-version }}) & Python (${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
         homeassistant-version:
-          - "dev"
+          - "max. supported version"
         python-version:
           - "3.14"
     steps:
@@ -72,14 +72,14 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
           cache-dependency-path: |
-            requirements_core_min.txt
+            requirements_core_max.txt
             requirements_base.txt
             requirements_test.txt
 
       - name: 📦 Install dependencies
         run: |
           scripts/install/pip_packages --requirement requirements_test.txt
-          scripts/install/core_dev
+          scripts/install/pip_packages --requirement requirements_core_max.txt
           scripts/install/frontend
 
       - name: ⏲️ Set time zone

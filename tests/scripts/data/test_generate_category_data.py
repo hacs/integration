@@ -350,7 +350,7 @@ class _StubHacs:
 _MODULE = "scripts.data.generate_category_data"
 
 
-async def test_get_stored_data_reads_from_existing_dir(tmp_path, monkeypatch):
+async def test_get_stored_data_reads_from_stored_dir(tmp_path, monkeypatch):
     """When the snapshot dir is set, stored data is read from it, not fetched."""
     monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", str(tmp_path))
     payload = {"1": {"full_name": "octocat/Hello-World"}}
@@ -361,7 +361,7 @@ async def test_get_stored_data_reads_from_existing_dir(tmp_path, monkeypatch):
     assert hacs.data_client.calls == []
 
 
-async def test_get_removed_repositories_reads_from_existing_dir(tmp_path, monkeypatch):
+async def test_get_removed_repositories_reads_from_stored_dir(tmp_path, monkeypatch):
     """When the snapshot dir is set, the removed list is read from it, not fetched."""
     monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", str(tmp_path))
     removed = ["octocat/Hello-World", "hacs/integration"]

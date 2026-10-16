@@ -59,8 +59,8 @@ log_handler.addHandler(stream_handler)
 OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
 COMPARE_IGNORE = {"etag_releases", "etag_repository", "last_fetched"}
 
-# Directory holding the preflight snapshot of the existing published data. When
-# set, snapshots are read from here instead of fetched; unset outside the workflow.
+# Directory with the published data fetched by the fetch-stored-data job.
+# When set, it is read instead of fetching; unset outside the generate workflow.
 STORED_DATA_DIR = os.getenv("HACS_STORED_DATA_DIR")
 
 

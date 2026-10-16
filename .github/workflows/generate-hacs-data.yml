@@ -58,13 +58,9 @@ jobs:
           echo "categories=$categories_json" >> $GITHUB_OUTPUT
           echo "categories: $categories_json"
 
-  # Fetches the currently published data once and shares it with every
-  # category leg, so the whole run works off one consistent baseline.
-  # Footgun / trade-off: any single fetch failing (after the retries) fails
-  # this job and therefore the whole run -- so one category's data being
-  # unavailable blocks publishing for all of them. This is intentional (one
-  # consistent snapshot), unlike the previous behaviour where a fetch failure
-  # was isolated to that category's own leg.
+  # Fetches the published data once so every category leg uses the same
+  # baseline. Trade-off: if any fetch keeps failing, this job fails and blocks
+  # the whole run, not just that category.
   fetch-stored-data:
     name: Fetch stored data
     runs-on: ubuntu-latest

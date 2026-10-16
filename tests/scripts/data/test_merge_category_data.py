@@ -54,6 +54,17 @@ def test_load_shard_data_with_missing_shard(missing: int):
 
 
 @pytest.mark.usefixtures("shards_dir")
+@pytest.mark.parametrize("missing", [None, 3])
+def test_load_shard_data_with_unexpected_shard(missing: int | None):
+    """Test that an unexpected shard can't stand in for a missing one."""
+    _write_shards(FULL, 3, skip=missing)
+    write_shard_output("integration", 4, {})
+
+    with pytest.raises(SystemExit):
+        _load_shard_data("integration", 3)
+
+
+@pytest.mark.usefixtures("shards_dir")
 @pytest.mark.parametrize(
     ("old_name", "new_name"),
     [

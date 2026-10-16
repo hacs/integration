@@ -21,10 +21,13 @@ from .generate_category_data import (
 
 
 def _load_shard_data(category: str, shards: int) -> dict[str, dict[str, Any]]:
-    """Combine the generated data of every shard of a category."""
-    paths = sorted(Path(SHARDS_DIR, category).glob("*/data.json"))
-    if len(paths) != shards:
-        print_error_and_exit(f"Expected {shards} shard data files, found {len(paths)}", category)
+    """Combine the generated data of shards 1 to shards of a category."""
+    shard_root = Path(SHARDS_DIR, category)
+    paths = [shard_root / str(number) / "data.json" for number in range(1, shards + 1)]
+    found = set(shard_root.glob("*/data.json"))
+    if found != set(paths):
+        names = sorted(path.parent.name for path in found)
+        print_error_and_exit(f"Expected shards 1 to {shards}, found {names}", category)
     merged = {}
     for path in paths:
         for key, value in json.loads(path.read_text(encoding="utf-8")).items():

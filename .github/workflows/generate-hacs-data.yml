@@ -167,6 +167,8 @@ jobs:
               if (!changedPctTarget) {
                 if (!parsed.new_count || parsed.new_count <= 0) {
                   changedPctTarget = 0;
+                } else if (directory === "integration") {
+                    changedPctTarget = 10;
                 } else if (parsed.new_count > 750) {
                     changedPctTarget = 7;
                 } else if (parsed.new_count > 500) {

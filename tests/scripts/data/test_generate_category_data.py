@@ -4,13 +4,16 @@ import asyncio
 import json
 import logging
 import os
+from types import SimpleNamespace
 from typing import Any
+from unittest.mock import AsyncMock
 
 from homeassistant.core import HomeAssistant
 import pytest
 
 from scripts.data.generate_category_data import (
     OUTPUT_DIR,
+    AdjustedHacs,
     generate_category_data,
     get_removed_repositories,
     get_stored_data,
@@ -484,3 +487,21 @@ async def test_generate_category_data_from_stored_snapshot(
                 json.loads(file.read()), ("last_fetched",))),
             f"scripts/data/generate_category_data/{category}//data.json",
         )
+
+
+async def test_summarize_data_without_updated_data():
+    """Test that summarizing empty updated data doesn't divide by zero."""
+    resources = SimpleNamespace(used=0, limit=5000, reset=0)
+    rate_limit = SimpleNamespace(
+        data=SimpleNamespace(resources=SimpleNamespace(core=resources, graphql=resources))
+    )
+    hacs = SimpleNamespace(
+        githubapi=SimpleNamespace(rate_limit=None),
+        async_github_api_method=AsyncMock(return_value=rate_limit),
+    )
+
+    summary = await AdjustedHacs.summarize_data(hacs, {"1": {"full_name": "a/b"}}, {})
+
+    assert summary["changed_pct"] == 0
+    assert summary["new_count"] == 0
+    assert summary["diff"] == 1

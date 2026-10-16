@@ -1,4 +1,5 @@
 """Validate HACS V2 data."""
+
 from __future__ import annotations
 
 import asyncio
@@ -48,17 +49,14 @@ async def validate_category_data(category: str, file_path: str) -> None:
 
         if category == "integration" and HACS_REPOSITORY_ID not in contents:
             did_raise = True
-            print_error_and_exit(
-                "HACS is missing...", category, file_path
-            )
+            print_error_and_exit("HACS is missing...", category, file_path)
 
         if did_raise:
             print_error_and_exit("Validation did raise but did not exit!", category, file_path)
             sys.exit(1)  # Fallback, should not be reached
 
         print(
-            f"All {len(contents)} entries for the "
-            f"{category} category in {target_path} are valid."
+            f"All {len(contents)} entries for the {category} category in {target_path} are valid."
         )
 
 

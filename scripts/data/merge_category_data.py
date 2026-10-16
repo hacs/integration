@@ -22,7 +22,12 @@ def _load_shard_files(category: str, name: str) -> dict[str, dict[str, Any]]:
         print_error_and_exit(f"No shard {name} files found", category)
     merged = {}
     for path in paths:
-        merged.update(json.loads(path.read_text(encoding="utf-8")))
+        for key, value in json.loads(path.read_text(encoding="utf-8")).items():
+            # A renamed repository can be restored from cache under its old name in one
+            # shard and refreshed under its new name in another; keep the fresher record.
+            existing = merged.get(key)
+            if existing is None or value.get("last_fetched", 0) > existing.get("last_fetched", 0):
+                merged[key] = value
     return merged
 
 

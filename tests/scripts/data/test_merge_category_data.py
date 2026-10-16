@@ -2,7 +2,11 @@
 
 import pytest
 
-from scripts.data.generate_category_data import _slice_by_shard, write_shard_output
+from scripts.data.generate_category_data import (
+    _slice_by_shard,
+    shard_for,
+    write_shard_output,
+)
 from scripts.data.merge_category_data import _load_shard_files
 
 
@@ -33,3 +37,24 @@ def test_load_shard_files_without_shards():
     """Test that merging fails when there are no shard files."""
     with pytest.raises(SystemExit):
         _load_shard_files("integration", "data.json")
+
+
+@pytest.mark.usefixtures("shards_dir")
+@pytest.mark.parametrize(
+    ("old_name", "new_name"),
+    [
+        ("hacs-test-org/theme-basic", "hacs/integration"),
+        ("hacs/integration", "hacs-test-org/theme-basic"),
+    ],
+)
+def test_load_shard_files_keeps_refreshed_renamed_repository(old_name: str, new_name: str):
+    """Test that a renamed repository found in two shards keeps the refreshed record."""
+    shards = 3
+    assert shard_for(old_name, shards) != shard_for(new_name, shards)
+    stale = {"1": {"full_name": old_name, "last_fetched": 1.0}}
+    fresh = {"1": {"full_name": new_name, "last_fetched": 2.0}}
+
+    write_shard_output("integration", shard_for(old_name, shards) + 1, stale, stale)
+    write_shard_output("integration", shard_for(new_name, shards) + 1, fresh, {})
+
+    assert _load_shard_files("integration", "data.json") == fresh

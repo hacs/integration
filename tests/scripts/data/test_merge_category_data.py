@@ -1,13 +1,26 @@
 """Test merge category data."""
 
+import json
+import os
+import shutil
+from typing import Any
+from unittest.mock import AsyncMock, patch
+
+from homeassistant.core import HomeAssistant
 import pytest
 
 from scripts.data.generate_category_data import (
+    OUTPUT_DIR,
     _slice_by_shard,
+    generate_category_data,
     shard_for,
     write_shard_output,
 )
-from scripts.data.merge_category_data import _load_shard_data
+from scripts.data.merge_category_data import _load_shard_data, merge_category_data
+
+from tests.common import MockedResponse, ResponseMocker, recursive_remove_key
+
+_MODULE = "scripts.data.merge_category_data"
 
 
 @pytest.fixture
@@ -88,3 +101,58 @@ def test_load_shard_data_keeps_refreshed_renamed_repository(old_name: str, new_n
     write_shard_output("integration", other_shard, {})
 
     assert _load_shard_data("integration", shards) == fresh
+
+
+async def test_merge_category_data_finalizes_merged_shards(shards_dir):
+    """Test that the merged shards are finalized against the stored snapshot."""
+    _write_shards(FULL, 2)
+    stored = {"1": {"full_name": "user1/repo1"}}
+    with (
+        patch(f"{_MODULE}.AdjustedHacs") as adjusted_hacs,
+        patch(f"{_MODULE}.get_stored_data", AsyncMock(return_value=stored)) as get_stored,
+        patch(f"{_MODULE}.finalize_category_output", AsyncMock()) as finalize,
+    ):
+        await merge_category_data("integration", 2)
+
+    hacs = adjusted_hacs.return_value
+    get_stored.assert_awaited_once_with(hacs, "integration")
+    finalize.assert_awaited_once_with(
+        hacs, "integration", stored_data=stored, current_data=stored, updated_data=FULL
+    )
+
+
+def _read_category_output(category: str) -> dict[str, Any]:
+    output = {}
+    for name in ("data.json", "repositories.json"):
+        with open(os.path.join(OUTPUT_DIR, category, name), encoding="utf-8") as file:
+            output[name] = recursive_remove_key(json.load(file), ("last_fetched",))
+    with open(os.path.join(OUTPUT_DIR, "summary.json"), encoding="utf-8") as file:
+        output["summary.json"] = json.load(file)
+    return output
+
+
+@pytest.mark.usefixtures("shards_dir")
+@pytest.mark.parametrize("shards", [1, 2])
+async def test_sharded_run_matches_unsharded_run(
+    hass: HomeAssistant,
+    response_mocker: ResponseMocker,
+    shards: int,
+):
+    """Test that generating every shard and merging gives the unsharded output."""
+    response_mocker.add(
+        "https://data-v2.hacs.xyz/integration/data.json",
+        MockedResponse(content={}, keep=True),
+    )
+    await generate_category_data("integration")
+    expected = _read_category_output("integration")
+    shutil.rmtree(os.path.join(OUTPUT_DIR, "integration"))
+    os.remove(os.path.join(OUTPUT_DIR, "summary.json"))
+
+    for shard in range(1, shards + 1):
+        await generate_category_data("integration", shard=(shard, shards))
+    assert not os.path.exists(os.path.join(OUTPUT_DIR, "integration", "data.json"))
+    assert not os.path.exists(os.path.join(OUTPUT_DIR, "summary.json"))
+
+    await merge_category_data("integration", shards)
+
+    assert _read_category_output("integration") == expected

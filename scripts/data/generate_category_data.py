@@ -80,7 +80,7 @@ def _read_snapshot[T](
     try:
         with open(os.path.join(STORED_DATA_DIR, filename), encoding="utf-8") as file:
             data = json.load(file)
-    except (OSError, json.JSONDecodeError) as err:
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as err:
         hacs.log.warning("Could not read snapshot %s (%s), fetching instead", filename, err)
         return None
     if not isinstance(data, expected_type):

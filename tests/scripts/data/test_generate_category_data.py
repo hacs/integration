@@ -406,6 +406,16 @@ async def test_get_stored_data_falls_back_when_snapshot_invalid(tmp_path, monkey
     assert hacs.data_client.calls == [("get_data", "plugin")]
 
 
+async def test_get_stored_data_falls_back_when_snapshot_not_utf8(tmp_path, monkeypatch):
+    """A snapshot file that is not valid UTF-8 falls back to fetching instead of raising."""
+    monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", str(tmp_path))
+    (tmp_path / "plugin.json").write_bytes(b"\xff\xfe")
+
+    hacs = _StubHacs()
+    assert await get_stored_data(hacs, "plugin") == _FETCHED_STORED
+    assert hacs.data_client.calls == [("get_data", "plugin")]
+
+
 async def test_get_removed_repositories_falls_back_when_snapshot_missing(tmp_path, monkeypatch):
     """A missing removed snapshot falls back to fetching instead of raising."""
     monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", str(tmp_path))

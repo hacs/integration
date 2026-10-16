@@ -352,11 +352,7 @@ class AdjustedHacs(HacsBase):
         force: bool,
     ) -> dict[str, dict[str, Any]]:
         """Generate data for category."""
-        removed = (
-            []
-            if repository_name is not None
-            else await get_removed_repositories(self)
-        )
+        removed = [] if repository_name is not None else await get_removed_repositories(self)
         await self.data.register_base_data(
             category,
             {} if force else current_data,

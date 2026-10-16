@@ -42,7 +42,10 @@ from custom_components.hacs.repositories import (
     HacsThemeRepository,
 )
 from custom_components.hacs.utils.store import async_load_from_store
-from custom_components.hacs.validate.license import SPDX_LICENSE_LIST_COMMIT, SPDX_LICENSE_LIST_URL
+from custom_components.hacs.validate.license import (
+    SPDX_LICENSE_LIST_COMMIT,
+    SPDX_LICENSE_LIST_URL,
+)
 
 from tests import _async_suggest_report_issue_mock_call_tracker
 from tests.common import (

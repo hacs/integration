@@ -338,6 +338,8 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
                                             "modified_at",
                                             # This can be re-enabled again when min version is > 2026.2
                                             "original_name",
+                                            # Added in 2026.10, unknown to the min version
+                                            "next_name_part",
                                         ),
                                     ),
                                 }

@@ -150,8 +150,16 @@ async def preflight():
         if (repository_ref := os.getenv("REPOSITORY_REF")) is not None:
             ref = repository_ref
 
+        repo = await hacs.githubapi.repos.get(repository)
+
+        # The files are downloaded without a token, for a private repository every
+        # check of their content fails with an error that points somewhere else
+        if repo.data.private:
+            error(
+                f"{repository} is private, the HACS action can only validate public repositories."
+            )
+
         if ref is None and GITHUB_REPOSITORY != HacsGitHubRepo.DEFAULT:
-            repo = await hacs.githubapi.repos.get(repository)
             ref = repo.data.default_branch
 
         LOGGER.info(f"Category: {category}")

@@ -88,7 +88,7 @@ jobs:
           }
 
           # Repositories are assigned to shards by a hash of their name, so shard
-          # sizes spread around the average; sizing for 450 keeps each at about 500.
+          # sizes spread around the average; sizing for 800 keeps each at about 850.
           shards="[]"
           shard_counts="{}"
           for category in $(echo "$CATEGORIES" | jq -r '.[]'); do
@@ -96,7 +96,7 @@ jobs:
             fetch_stored_hacs_content "${category}/data.json" "outputdata/stored/${category}.json"
 
             count=$(jq 'length' "outputdata/stored/${category}.json")
-            total=$(( count > 0 ? (count + 449) / 450 : 1 ))
+            total=$(( count > 0 ? (count + 799) / 800 : 1 ))
             echo "$category: $count repositories in $total shard(s)"
             shards=$(jq -c --arg category "$category" --argjson total "$total" \
               '. + [range(1; $total + 1) | {category: $category, shard: ., shards: $total}]' <<< "$shards")

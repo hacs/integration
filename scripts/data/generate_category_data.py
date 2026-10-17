@@ -250,9 +250,7 @@ class AdjustedHacs(HacsBase):
         """Helper to calculate the number of repositories we can fetch data for."""
         if not os.getenv("DATA_GENERATOR_TOKEN"):
             return 10
-        # Generator jobs running at the same time share the token's rate limit.
-        parallel_jobs = max(1, int(os.getenv("HACS_PARALLEL_JOBS", "1")))
-        return await super().async_can_update() // parallel_jobs
+        return await super().async_can_update()
 
     @concurrent(concurrenttasks=10)
     async def concurrent_register_repository(

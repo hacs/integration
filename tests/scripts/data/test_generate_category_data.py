@@ -648,21 +648,3 @@ async def test_generate_category_data_without_shard_finalizes():
     assert (kwargs["index"], kwargs["shards"]) == (0, 1)
     finalize.assert_awaited_once_with(hacs, "integration", stored, stored, updated)
     write_shard.assert_not_called()
-
-
-@pytest.mark.parametrize(("parallel_jobs", "expected"), [(None, 300), ("1", 300), ("3", 100)])
-async def test_async_can_update_splits_rate_limit_between_parallel_jobs(
-    monkeypatch: pytest.MonkeyPatch, parallel_jobs: str | None, expected: int
-):
-    """Test that generator jobs running at the same time split the rate limit budget."""
-    monkeypatch.setenv("DATA_GENERATOR_TOKEN", "token")
-    if parallel_jobs is None:
-        monkeypatch.delenv("HACS_PARALLEL_JOBS", raising=False)
-    else:
-        monkeypatch.setenv("HACS_PARALLEL_JOBS", parallel_jobs)
-    hacs = AdjustedHacs.__new__(AdjustedHacs)
-
-    with patch(
-        "custom_components.hacs.base.HacsBase.async_can_update", AsyncMock(return_value=300)
-    ):
-        assert await hacs.async_can_update() == expected

@@ -160,6 +160,7 @@ jobs:
           DATA_GENERATOR_TOKEN: ${{ secrets.DATA_GENERATOR_TOKEN }}
           FORCE_REPOSITORY_UPDATE: ${{ inputs.forceRepositoryUpdate }}
           HACS_STORED_DATA_DIR: outputdata/stored
+          HACS_PARALLEL_JOBS: ${{ strategy.max-parallel }}
 
       - name: Upload shard data
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

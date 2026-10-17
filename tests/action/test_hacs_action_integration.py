@@ -5,7 +5,13 @@ from unittest import mock
 
 import pytest
 
-from tests.common import TOKEN, MockedResponse, ResponseMocker, current_function_name
+from tests.common import (
+    TOKEN,
+    MockedResponse,
+    ResponseMocker,
+    current_function_name,
+    normalize_voluptuous_paths,
+)
 from tests.conftest import SnapshotFixture
 
 
@@ -116,10 +122,48 @@ async def test_hacs_action_integration(
         "\n") if " <" in line]
 
     snapshots.assert_match(
-        "\n".join(
-            splitlines[0:2] +
-            sorted(splitlines[2:-2]) + splitlines[-2:]
-            + [capsys.readouterr().out]
+        normalize_voluptuous_paths(
+            "\n".join(
+                splitlines[0:2] +
+                sorted(splitlines[2:-2]) + splitlines[-2:]
+                + [capsys.readouterr().out]
+            )
         ),
         f"action/{current_function_name()}/{request.node.callspec.id}.log",
     )
+
+
+async def test_hacs_action_private_repository(
+    caplog: pytest.LogCaptureFixture,
+    response_mocker: ResponseMocker,
+):
+    """Test the action refuses a private repository before validating it."""
+    with open(
+        "tests/fixtures/proxy/api.github.com/repos/hacs-test-org/integration-basic.json"
+    ) as repository_file:
+        repository = json.load(repository_file)
+
+    response_mocker.add(
+        "https://api.github.com/repos/hacs-test-org/integration-basic",
+        response=MockedResponse(status=200, content={**repository, "private": True}),
+    )
+    envpatch = {
+        "INPUT_GITHUB_TOKEN": TOKEN,
+        "INPUT_REPOSITORY": "hacs-test-org/integration-basic",
+        "INPUT_CATEGORY": "integration",
+    }
+
+    with mock.patch.dict(os.environ, envpatch):
+        from action.action import preflight
+
+        with (
+            mock.patch("builtins.exit", mock.MagicMock(side_effect=SystemExit)),
+            pytest.raises(SystemExit),
+        ):
+            await preflight()
+
+    assert (
+        "hacs-test-org/integration-basic is private, "
+        "the HACS action can only validate public repositories."
+    ) in caplog.text
+    assert "checks passed" not in caplog.text

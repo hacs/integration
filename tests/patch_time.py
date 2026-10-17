@@ -4,16 +4,16 @@ Copied from Home Assistant Core.
 """
 from __future__ import annotations
 
-import datetime
+import datetime as dt
 import time
 
 from homeassistant import runner, util
 from homeassistant.util import dt as dt_util
 
 
-def _utcnow() -> datetime.datetime:
+def _utcnow() -> dt.datetime:
     """Make utcnow patchable by freezegun."""
-    return datetime.datetime.now(tz=datetime.UTC)
+    return dt.datetime.now(tz=dt.UTC)
 
 
 def _monotonic() -> float:

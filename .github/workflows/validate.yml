@@ -44,7 +44,7 @@ jobs:
     name: With hassfest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -52,8 +52,12 @@ jobs:
       - name: Remove tests
         run: rm -rf tests
 
+      # Since 2026.10, hassfest rejects aiogithubapi in the manifest because Home Assistant
+      # itself depends on it. The min supported version doesn't, so it has to stay listed.
       - name: Hassfest validation
-        uses: home-assistant/actions/hassfest@e3fb68ebda13d88a0d695082f471ba2c83d025fb # master
+        run: |
+          docker run --rm -v "${GITHUB_WORKSPACE}:/github/workspace" \
+            ghcr.io/home-assistant/hassfest:2026.9.4@sha256:cf7088cd0eaf291024165629853a1853f1a9fc2652b74141c5ed133499738760
 
   validate-hacs:
     needs:
@@ -81,7 +85,7 @@ jobs:
             category: "plugin"
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -112,12 +116,12 @@ jobs:
             category: "plugin"
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.14"
           cache: 'pip'
@@ -165,7 +169,7 @@ jobs:
           python3 -m scripts.data.validate_category_data ${{  matrix.entry.category }} outputdata/${{ matrix.entry.category }}/data.json
 
       - name: Upload artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: "${{ matrix.entry.category }}_${{ strategy.job-index }}"
           path: |

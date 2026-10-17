@@ -20,12 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout the repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: 🛠️ Set up Python 3.13
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.13"
           cache: 'pip'
@@ -51,35 +51,35 @@ jobs:
           PYTEST: true
         run: scripts/test
 
-  dev:
+  max:
     name: With pytest with Home Assistant (${{ matrix.homeassistant-version }}) & Python (${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
         homeassistant-version:
-          - "dev"
+          - "max. supported version"
         python-version:
           - "3.14"
     steps:
       - name: 📥 Checkout the repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: 🛠️ Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
           cache-dependency-path: |
-            requirements_core_min.txt
+            requirements_core_max.txt
             requirements_base.txt
             requirements_test.txt
 
       - name: 📦 Install dependencies
         run: |
           scripts/install/pip_packages --requirement requirements_test.txt
-          scripts/install/core_dev
+          scripts/install/pip_packages --requirement requirements_core_max.txt
           scripts/install/frontend
 
       - name: ⏲️ Set time zone
@@ -92,8 +92,13 @@ jobs:
           PYTEST: true
         run: scripts/test
 
+      - name: 🖨️ Print coverage report
+        if: ${{ matrix.python-version == '3.14' }}
+        run: scripts/coverage
+
       - name: 📤 Upload coverage to Codecov
         if: ${{ matrix.python-version == '3.14' }}
-        run: |
-          scripts/coverage
-          curl -sfSL https://codecov.io/bash | bash -
+        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        with:
+          files: coverage.xml
+          fail_ci_if_error: true

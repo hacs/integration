@@ -15,7 +15,7 @@ from unittest.mock import MagicMock, _patch, patch
 from aiohttp import AsyncResolver
 from awesomeversion import AwesomeVersion
 import freezegun
-from homeassistant import loader
+from homeassistant import loader, runner
 from homeassistant.auth.models import Credentials
 from homeassistant.auth.providers.homeassistant import HassAuthProvider
 from homeassistant.components.lovelace.const import DOMAIN as LOVELACE_DOMAIN
@@ -24,7 +24,6 @@ from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import __version__ as HA_VERSION
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
-from homeassistant.runner import HassEventLoopPolicy
 from homeassistant.setup import async_setup_component
 from homeassistant.util.async_ import create_eager_task
 import pytest
@@ -43,11 +42,16 @@ from custom_components.hacs.repositories import (
     HacsThemeRepository,
 )
 from custom_components.hacs.utils.store import async_load_from_store
+from custom_components.hacs.validate.license import (
+    SPDX_LICENSE_LIST_COMMIT,
+    SPDX_LICENSE_LIST_URL,
+)
 
 from tests import _async_suggest_report_issue_mock_call_tracker
 from tests.common import (
     IGNORED_BASE_FILES,
     REQUEST_CONTEXT,
+    MockedResponse,
     MockOwner,
     ProxyClientSession,
     ResponseMocker,
@@ -55,6 +59,7 @@ from tests.common import (
     client_session_proxy,
     create_config_entry,
     dummy_repository_base,
+    fixture,
     get_hacs,
     mock_storage as mock_storage,
     recursive_remove_key,
@@ -76,12 +81,24 @@ if "GITHUB_ACTION" in os.environ:
         level=logging.DEBUG,
     )
 
-asyncio.set_event_loop_policy(HassEventLoopPolicy(False))
-asyncio.set_event_loop_policy = lambda policy: None
+# Home Assistant used to ship an event loop policy, but dropped it in favor of
+# configuring the running loop directly (see the configure_event_loop fixture).
+LOOP_POLICY_REMOVED = hasattr(runner, "configure_event_loop")
+
+if not LOOP_POLICY_REMOVED:
+    asyncio.set_event_loop_policy(runner.HassEventLoopPolicy(False))
+    asyncio.set_event_loop_policy = lambda policy: None
 
 # Disable sleep in tests
 _sleep = asyncio.sleep
 asyncio.sleep = lambda _: _sleep(0)
+
+
+@pytest_asyncio.fixture(autouse=True)
+async def configure_event_loop() -> None:
+    """Configure the loop the way Home Assistant configures its own."""
+    if LOOP_POLICY_REMOVED:
+        runner.configure_event_loop(asyncio.get_running_loop())
 
 
 @pytest.fixture(autouse=True)
@@ -327,6 +344,8 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
                                             "modified_at",
                                             # This can be re-enabled again when min version is > 2026.2
                                             "original_name",
+                                            # Added in 2026.10, unknown to the min version
+                                            "next_name_part",
                                         ),
                                     ),
                                 }
@@ -357,6 +376,8 @@ async def proxy_session(hass: HomeAssistant) -> Generator:
     with patch(
         "homeassistant.helpers.aiohttp_client.async_get_clientsession", return_value=mock_session,
     ), patch("scripts.data.generate_category_data.ClientSession", ProxyClientSession), patch(
+        "scripts.data.merge_category_data.ClientSession", ProxyClientSession,
+    ), patch(
         "aiohttp.ClientSession", ProxyClientSession,
     ):
         yield
@@ -392,6 +413,15 @@ def response_mocker() -> ResponseMocker:
     mocker = ResponseMocker()
     yield mocker
     mocker.responses.clear()
+
+
+@pytest.fixture(autouse=True)
+def mock_spdx_license_list(response_mocker: ResponseMocker) -> None:
+    """Mock the SPDX license list independent of the pinned commit."""
+    response_mocker.add(
+        SPDX_LICENSE_LIST_URL,
+        MockedResponse(content=fixture("spdx_license_list.json", asjson=False), keep=True),
+    )
 
 
 @pytest_asyncio.fixture()
@@ -457,7 +487,8 @@ def track_api_usage(snapshots: SnapshotFixture):
                 )
             else:
                 calls[_test_caller] = {}
-        if (url := call.get("url")) not in calls[_test_caller]:
+        url = call.get("url").replace(SPDX_LICENSE_LIST_COMMIT, "SPDX_LICENSE_LIST_COMMIT")
+        if url not in calls[_test_caller]:
             calls[_test_caller][url] = 0
         calls[_test_caller][url] += 1
 

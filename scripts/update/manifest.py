@@ -1,4 +1,5 @@
 """Update the manifest file."""
+
 import json
 import os
 from pathlib import Path

@@ -73,9 +73,9 @@ jobs:
           SHARD_SIZE: ${{ vars.HACS_DATA_GENERATOR_SHARD_SIZE }}
           MAX_PARALLEL: ${{ vars.HACS_DATA_GENERATOR_MAX_PARALLEL }}
         run: |
-          for value in "$SHARD_SIZE" "$MAX_PARALLEL"; do
-            [[ "$value" =~ ^[1-9][0-9]*$ ]] || { echo "::error::HACS_DATA_GENERATOR_SHARD_SIZE and HACS_DATA_GENERATOR_MAX_PARALLEL must be positive integers"; exit 1; }
-          done
+          # A smaller shard size risks exceeding the 256-job matrix limit.
+          [[ "$SHARD_SIZE" =~ ^[1-9][0-9]*$ ]] && (( SHARD_SIZE >= 100 )) || { echo "::error::HACS_DATA_GENERATOR_SHARD_SIZE must be an integer of at least 100"; exit 1; }
+          [[ "$MAX_PARALLEL" =~ ^[1-9][0-9]*$ ]] || { echo "::error::HACS_DATA_GENERATOR_MAX_PARALLEL must be a positive integer"; exit 1; }
           echo "shard_size=$SHARD_SIZE" >> "$GITHUB_OUTPUT"
           echo "max_parallel=$MAX_PARALLEL" >> "$GITHUB_OUTPUT"
 

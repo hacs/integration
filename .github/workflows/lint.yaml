@@ -16,7 +16,7 @@ permissions: {}
 
 jobs:
   matrix:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     name: Run ${{ matrix.check }}
     strategy:
       matrix:
@@ -56,7 +56,7 @@ jobs:
         run: pre-commit run --show-diff-on-failure --hook-stage manual ${{ matrix.check }} --all-files --config .github/pre-commit-config.yaml
 
   lint-json:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     name: With JQ
     steps:
     - name: Checkout the repository

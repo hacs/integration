@@ -19,7 +19,7 @@ permissions: {}
 jobs:
   preflight:
     if: ${{ github.repository == 'hacs/integration' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     name: Preflight
     steps:
       - name: Validation preflight
@@ -40,7 +40,7 @@ jobs:
   validate-hassfest:
     needs:
       - "preflight"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     name: With hassfest
     steps:
       - name: Checkout the repository
@@ -62,7 +62,7 @@ jobs:
   validate-hacs:
     needs:
       - "preflight"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     name: With HACS Action
     steps:
       - name: HACS validation
@@ -74,7 +74,7 @@ jobs:
     if: ${{ github.event_name != 'schedule' }}
     needs:
       - "preflight"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     name: Check ${{matrix.entry.category}} ${{matrix.entry.repository}} with HACS Action (local)
     strategy:
       matrix:
@@ -105,7 +105,7 @@ jobs:
     if: ${{ github.event_name != 'schedule' }}
     needs:
       - "preflight"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     name: Check ${{matrix.entry.category}} ${{matrix.entry.repository}} with HACS data generation
     strategy:
       matrix:
@@ -181,7 +181,7 @@ jobs:
 
 
   notify_on_failure:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     name: Trigger Discord notification when jobs fail
     needs: ["preflight","validate-hassfest", "validate-hacs"]
     steps:

@@ -66,16 +66,25 @@ jobs:
     runs-on: ubuntu-latest
     needs: generate-matrix
     if: github.repository == 'hacs/integration'
+    environment: data-generator
     timeout-minutes: 10
     outputs:
       shards: ${{ steps.fetch.outputs.shards }}
       shard_counts: ${{ steps.fetch.outputs.shard_counts }}
+      max_parallel: ${{ steps.fetch.outputs.max_parallel }}
     steps:
       - name: Fetch stored data
         id: fetch
         env:
           CATEGORIES: ${{ needs.generate-matrix.outputs.categories }}
+          SHARD_SIZE: ${{ vars.HACS_DATA_GENERATOR_SHARD_SIZE }}
+          MAX_PARALLEL: ${{ vars.HACS_DATA_GENERATOR_MAX_PARALLEL }}
         run: |
+          for value in "$SHARD_SIZE" "$MAX_PARALLEL"; do
+            [[ "$value" =~ ^[1-9][0-9]*$ ]] || { echo "::error::HACS_DATA_GENERATOR_SHARD_SIZE and HACS_DATA_GENERATOR_MAX_PARALLEL must be positive integers"; exit 1; }
+          done
+          echo "max_parallel=$MAX_PARALLEL" >> "$GITHUB_OUTPUT"
+
           mkdir -p outputdata/stored
 
           fetch_stored_hacs_content() {
@@ -88,7 +97,7 @@ jobs:
           }
 
           # Repositories are assigned to shards by a hash of their name, so shard
-          # sizes spread around the average; sizing for 800 keeps each at about 850.
+          # sizes spread around the average and land up to about 6% above SHARD_SIZE.
           shards="[]"
           shard_counts="{}"
           for category in $(echo "$CATEGORIES" | jq -r '.[]'); do
@@ -96,7 +105,7 @@ jobs:
             fetch_stored_hacs_content "${category}/data.json" "outputdata/stored/${category}.json"
 
             count=$(jq 'length' "outputdata/stored/${category}.json")
-            total=$(( count > 0 ? (count + 799) / 800 : 1 ))
+            total=$(( count > 0 ? (count + SHARD_SIZE - 1) / SHARD_SIZE : 1 ))
             echo "$category: $count repositories in $total shard(s)"
             shards=$(jq -c --arg category "$category" --argjson total "$total" \
               '. + [range(1; $total + 1) | {category: $category, shard: ., shards: $total}]' <<< "$shards")
@@ -124,7 +133,7 @@ jobs:
     name: Generate ${{ matrix.category }} data (${{ matrix.shard }}/${{ matrix.shards }})
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: ${{ fromJSON(needs.fetch-stored-data.outputs.max_parallel) }}
       matrix:
         include: ${{ fromJSON( needs.fetch-stored-data.outputs.shards )}}
     steps:

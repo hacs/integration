@@ -65,6 +65,13 @@ COMPARE_IGNORE = {"etag_releases", "etag_repository", "last_fetched"}
 # When set, it is read instead of fetching; unset outside the generate workflow.
 STORED_DATA_DIR = os.getenv("HACS_STORED_DATA_DIR")
 
+UPDATE_REPOSITORY_CONCURRENT_TASKS = int(
+    os.getenv("HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS", "2")
+)
+UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS = float(
+    os.getenv("HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS", "1")
+)
+
 
 def _read_snapshot[T](
     hacs: AdjustedHacs,
@@ -263,7 +270,10 @@ class AdjustedHacs(HacsBase):
             repository_full_name=repository_full_name, category=category, default=True
         )
 
-    @concurrent(concurrenttasks=2, backoff_time=1)
+    @concurrent(
+        concurrenttasks=UPDATE_REPOSITORY_CONCURRENT_TASKS,
+        backoff_time=UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS,
+    )
     async def concurrent_update_repository(self, repository: HacsRepository) -> None:
         """Update a repository."""
         if repository_has_missing_keys(repository, "update"):

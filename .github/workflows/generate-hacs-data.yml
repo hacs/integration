@@ -66,18 +66,26 @@ jobs:
     outputs:
       shard_size: ${{ steps.settings.outputs.shard_size }}
       max_parallel: ${{ steps.settings.outputs.max_parallel }}
+      update_repository_concurrent_tasks: ${{ steps.settings.outputs.update_repository_concurrent_tasks }}
+      update_repository_backoff_time_seconds: ${{ steps.settings.outputs.update_repository_backoff_time_seconds }}
     steps:
       - name: Load settings
         id: settings
         env:
           SHARD_SIZE: ${{ vars.HACS_DATA_GENERATOR_SHARD_SIZE }}
           MAX_PARALLEL: ${{ vars.HACS_DATA_GENERATOR_MAX_PARALLEL }}
+          UPDATE_REPOSITORY_CONCURRENT_TASKS: ${{ vars.HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS }}
+          UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS: ${{ vars.HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS }}
         run: |
           # A smaller shard size risks exceeding the 256-job matrix limit.
           [[ "$SHARD_SIZE" =~ ^[1-9][0-9]*$ ]] && (( SHARD_SIZE >= 100 )) || { echo "::error::HACS_DATA_GENERATOR_SHARD_SIZE must be an integer of at least 100"; exit 1; }
           [[ "$MAX_PARALLEL" =~ ^[1-9][0-9]*$ ]] || { echo "::error::HACS_DATA_GENERATOR_MAX_PARALLEL must be a positive integer"; exit 1; }
+          [[ "$UPDATE_REPOSITORY_CONCURRENT_TASKS" =~ ^[1-9][0-9]*$ ]] || { echo "::error::HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS must be a positive integer"; exit 1; }
+          [[ "$UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS" =~ ^[0-9]+(\.[0-9]+)?$ ]] || { echo "::error::HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS must be a non-negative number"; exit 1; }
           echo "shard_size=$SHARD_SIZE" >> "$GITHUB_OUTPUT"
           echo "max_parallel=$MAX_PARALLEL" >> "$GITHUB_OUTPUT"
+          echo "update_repository_concurrent_tasks=$UPDATE_REPOSITORY_CONCURRENT_TASKS" >> "$GITHUB_OUTPUT"
+          echo "update_repository_backoff_time_seconds=$UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS" >> "$GITHUB_OUTPUT"
 
   # Fetches the published data once so every category leg uses the same
   # baseline. Trade-off: if any fetch keeps failing, this job fails and blocks
@@ -182,6 +190,8 @@ jobs:
           DATA_GENERATOR_TOKEN: ${{ secrets.DATA_GENERATOR_TOKEN }}
           FORCE_REPOSITORY_UPDATE: ${{ inputs.forceRepositoryUpdate }}
           HACS_STORED_DATA_DIR: outputdata/stored
+          HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS: ${{ needs.settings.outputs.update_repository_concurrent_tasks }}
+          HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS: ${{ needs.settings.outputs.update_repository_backoff_time_seconds }}
 
       - name: Upload shard data
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

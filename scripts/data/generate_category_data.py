@@ -7,6 +7,7 @@ import asyncio
 from datetime import datetime
 import json
 import logging
+import math
 import os
 import sys
 from typing import Any, Literal
@@ -75,6 +76,10 @@ if UPDATE_REPOSITORY_CONCURRENT_TASKS < 1:
 UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS = float(
     os.getenv("HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS", "1")
 )
+if not 0 <= UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS < math.inf:
+    raise ValueError(
+        "HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS must be a non-negative number"
+    )
 
 
 def _read_snapshot[T](

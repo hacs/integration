@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-from datetime import datetime
+from datetime import UTC, datetime
 import json
 import logging
+import math
 import os
 import sys
 from typing import Any, Literal
@@ -64,6 +65,21 @@ COMPARE_IGNORE = {"etag_releases", "etag_repository", "last_fetched"}
 # Directory with the published data fetched by the fetch-stored-data job.
 # When set, it is read instead of fetching; unset outside the generate workflow.
 STORED_DATA_DIR = os.getenv("HACS_STORED_DATA_DIR")
+
+UPDATE_REPOSITORY_CONCURRENT_TASKS = int(
+    os.getenv("HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS", "2")
+)
+if UPDATE_REPOSITORY_CONCURRENT_TASKS < 1:
+    raise ValueError(
+        "HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS must be a positive integer"
+    )
+UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS = float(
+    os.getenv("HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS", "1")
+)
+if not 0 <= UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS < math.inf:
+    raise ValueError(
+        "HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS must be a non-negative number"
+    )
 
 
 def _read_snapshot[T](
@@ -209,7 +225,7 @@ class AdjustedHacsData(HacsData):
         data["last_fetched"] = (
             repository.data.last_fetched.timestamp()
             if repository.data.last_fetched
-            else datetime.utcnow().timestamp()
+            else datetime.now(UTC).timestamp()
         )
 
         if not repository_has_missing_keys(repository, "store"):
@@ -263,7 +279,10 @@ class AdjustedHacs(HacsBase):
             repository_full_name=repository_full_name, category=category, default=True
         )
 
-    @concurrent(concurrenttasks=2, backoff_time=1)
+    @concurrent(
+        concurrenttasks=UPDATE_REPOSITORY_CONCURRENT_TASKS,
+        backoff_time=UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS,
+    )
     async def concurrent_update_repository(self, repository: HacsRepository) -> None:
         """Update a repository."""
         if repository_has_missing_keys(repository, "update"):

@@ -86,6 +86,14 @@ jobs:
           echo "max_parallel=$MAX_PARALLEL" >> "$GITHUB_OUTPUT"
           echo "update_repository_concurrent_tasks=$UPDATE_REPOSITORY_CONCURRENT_TASKS" >> "$GITHUB_OUTPUT"
           echo "update_repository_backoff_time_seconds=$UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS" >> "$GITHUB_OUTPUT"
+          {
+            echo "| Setting | Value |"
+            echo "| --- | --- |"
+            echo "| \`HACS_DATA_GENERATOR_SHARD_SIZE\` | $SHARD_SIZE |"
+            echo "| \`HACS_DATA_GENERATOR_MAX_PARALLEL\` | $MAX_PARALLEL |"
+            echo "| \`HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS\` | $UPDATE_REPOSITORY_CONCURRENT_TASKS |"
+            echo "| \`HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS\` | $UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS |"
+          } >> "$GITHUB_STEP_SUMMARY"
 
   # Fetches the published data once so every category leg uses the same
   # baseline. Trade-off: if any fetch keeps failing, this job fails and blocks

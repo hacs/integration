@@ -11,8 +11,13 @@
   "prConcurrentLimit": 10,
   "packageRules": [
     {
-      "matchFileNames": ["requirements_core_min.txt", "requirements_core_max.txt"],
+      "matchFileNames": ["requirements_core_max.txt"],
       "enabled": false
+    },
+    {
+      "description": "Home Assistant 2026.11 and later block HACS from loading",
+      "matchPackageNames": ["homeassistant"],
+      "allowedVersions": "<2026.11"
     }
   ],
   "customManagers": [

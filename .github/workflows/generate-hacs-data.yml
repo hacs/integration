@@ -58,13 +58,50 @@ jobs:
           echo "categories=$categories_json" >> $GITHUB_OUTPUT
           echo "categories: $categories_json"
 
+  settings:
+    name: Load settings
+    runs-on: ubuntu-latest
+    if: github.repository == 'hacs/integration'
+    environment: data-generator
+    outputs:
+      shard_size: ${{ steps.settings.outputs.shard_size }}
+      max_parallel: ${{ steps.settings.outputs.max_parallel }}
+      update_repository_concurrent_tasks: ${{ steps.settings.outputs.update_repository_concurrent_tasks }}
+      update_repository_backoff_time_seconds: ${{ steps.settings.outputs.update_repository_backoff_time_seconds }}
+    steps:
+      - name: Load settings
+        id: settings
+        env:
+          SHARD_SIZE: ${{ vars.HACS_DATA_GENERATOR_SHARD_SIZE }}
+          MAX_PARALLEL: ${{ vars.HACS_DATA_GENERATOR_MAX_PARALLEL }}
+          UPDATE_REPOSITORY_CONCURRENT_TASKS: ${{ vars.HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS }}
+          UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS: ${{ vars.HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS }}
+        run: |
+          # A smaller shard size risks exceeding the 256-job matrix limit.
+          [[ "$SHARD_SIZE" =~ ^[1-9][0-9]*$ ]] && (( SHARD_SIZE >= 100 )) || { echo "::error::HACS_DATA_GENERATOR_SHARD_SIZE must be an integer of at least 100"; exit 1; }
+          [[ "$MAX_PARALLEL" =~ ^[1-9][0-9]*$ ]] || { echo "::error::HACS_DATA_GENERATOR_MAX_PARALLEL must be a positive integer"; exit 1; }
+          [[ "$UPDATE_REPOSITORY_CONCURRENT_TASKS" =~ ^[1-9][0-9]*$ ]] || { echo "::error::HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS must be a positive integer"; exit 1; }
+          [[ "$UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS" =~ ^[0-9]+(\.[0-9]+)?$ ]] || { echo "::error::HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS must be a non-negative number"; exit 1; }
+          echo "shard_size=$SHARD_SIZE" >> "$GITHUB_OUTPUT"
+          echo "max_parallel=$MAX_PARALLEL" >> "$GITHUB_OUTPUT"
+          echo "update_repository_concurrent_tasks=$UPDATE_REPOSITORY_CONCURRENT_TASKS" >> "$GITHUB_OUTPUT"
+          echo "update_repository_backoff_time_seconds=$UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS" >> "$GITHUB_OUTPUT"
+          {
+            echo "| Setting | Value |"
+            echo "| --- | --- |"
+            echo "| \`HACS_DATA_GENERATOR_SHARD_SIZE\` | $SHARD_SIZE |"
+            echo "| \`HACS_DATA_GENERATOR_MAX_PARALLEL\` | $MAX_PARALLEL |"
+            echo "| \`HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS\` | $UPDATE_REPOSITORY_CONCURRENT_TASKS |"
+            echo "| \`HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS\` | $UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
   # Fetches the published data once so every category leg uses the same
   # baseline. Trade-off: if any fetch keeps failing, this job fails and blocks
   # the whole run, not just that category.
   fetch-stored-data:
     name: Fetch stored data
     runs-on: ubuntu-latest
-    needs: generate-matrix
+    needs: [generate-matrix, settings]
     if: github.repository == 'hacs/integration'
     timeout-minutes: 10
     outputs:
@@ -75,6 +112,7 @@ jobs:
         id: fetch
         env:
           CATEGORIES: ${{ needs.generate-matrix.outputs.categories }}
+          SHARD_SIZE: ${{ needs.settings.outputs.shard_size }}
         run: |
           mkdir -p outputdata/stored
 
@@ -88,7 +126,7 @@ jobs:
           }
 
           # Repositories are assigned to shards by a hash of their name, so shard
-          # sizes spread around the average; sizing for 800 keeps each at about 850.
+          # sizes spread around the average and land up to about 6% above SHARD_SIZE.
           shards="[]"
           shard_counts="{}"
           for category in $(echo "$CATEGORIES" | jq -r '.[]'); do
@@ -96,7 +134,7 @@ jobs:
             fetch_stored_hacs_content "${category}/data.json" "outputdata/stored/${category}.json"
 
             count=$(jq 'length' "outputdata/stored/${category}.json")
-            total=$(( count > 0 ? (count + 799) / 800 : 1 ))
+            total=$(( count > 0 ? (count + SHARD_SIZE - 1) / SHARD_SIZE : 1 ))
             echo "$category: $count repositories in $total shard(s)"
             shards=$(jq -c --arg category "$category" --argjson total "$total" \
               '. + [range(1; $total + 1) | {category: $category, shard: ., shards: $total}]' <<< "$shards")
@@ -119,12 +157,12 @@ jobs:
 
   category-data:
     runs-on: ubuntu-latest
-    needs: [generate-matrix, fetch-stored-data]
+    needs: [generate-matrix, settings, fetch-stored-data]
     if: github.repository == 'hacs/integration'
     name: Generate ${{ matrix.category }} data (${{ matrix.shard }}/${{ matrix.shards }})
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: ${{ fromJSON(needs.settings.outputs.max_parallel) }}
       matrix:
         include: ${{ fromJSON( needs.fetch-stored-data.outputs.shards )}}
     steps:
@@ -160,6 +198,8 @@ jobs:
           DATA_GENERATOR_TOKEN: ${{ secrets.DATA_GENERATOR_TOKEN }}
           FORCE_REPOSITORY_UPDATE: ${{ inputs.forceRepositoryUpdate }}
           HACS_STORED_DATA_DIR: outputdata/stored
+          HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS: ${{ needs.settings.outputs.update_repository_concurrent_tasks }}
+          HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS: ${{ needs.settings.outputs.update_repository_backoff_time_seconds }}
 
       - name: Upload shard data
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -423,7 +463,7 @@ jobs:
   notify_on_failure:
     runs-on: ubuntu-latest
     name: Trigger Discord notification when jobs fail
-    needs: ["generate-matrix", "fetch-stored-data", "category-data", "merge", "summarize", "publish"]
+    needs: ["generate-matrix", "settings", "fetch-stored-data", "category-data", "merge", "summarize", "publish"]
     if: ${{ always() && github.repository == 'hacs/integration' && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}
     steps:
       - name: Send notification

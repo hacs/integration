@@ -39,7 +39,7 @@ permissions: {}
 jobs:
   generate-matrix:
     name: Generate matrix
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: github.repository == 'hacs/integration'
     outputs:
       categories: ${{ steps.set-matrix.outputs.categories }}
@@ -60,7 +60,7 @@ jobs:
 
   settings:
     name: Load settings
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: github.repository == 'hacs/integration'
     environment: data-generator
     outputs:
@@ -100,7 +100,7 @@ jobs:
   # the whole run, not just that category.
   fetch-stored-data:
     name: Fetch stored data
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [generate-matrix, settings]
     if: github.repository == 'hacs/integration'
     timeout-minutes: 10
@@ -156,7 +156,7 @@ jobs:
           retention-days: 1
 
   category-data:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [generate-matrix, settings, fetch-stored-data]
     if: github.repository == 'hacs/integration'
     name: Generate ${{ matrix.category }} data (${{ matrix.shard }}/${{ matrix.shards }})
@@ -221,7 +221,7 @@ jobs:
           retention-days: 1
 
   merge:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [generate-matrix, fetch-stored-data, category-data]
     if: ${{ !cancelled() && needs.fetch-stored-data.result == 'success' && github.repository == 'hacs/integration' }}
     name: Merge ${{ matrix.category }} data
@@ -317,7 +317,7 @@ jobs:
 
   summarize:
     name: Summarize
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [generate-matrix, merge]
     if: ${{ always() && github.repository == 'hacs/integration' }}
     outputs:
@@ -417,7 +417,7 @@ jobs:
             ${{ secrets.DISCORD_WEBHOOK_ACTION_FAILURE }}
 
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: summarize
     if: ${{ !cancelled() && needs.summarize.result == 'success' && github.repository == 'hacs/integration' && !(inputs.dryRun == true || inputs.dryRun == 'true') }}
     name: Publish ${{ matrix.category }} data
@@ -481,7 +481,7 @@ jobs:
             --data '{"files": ["https:\/\/data-v2.hacs.xyz\/${{ matrix.category }}\/data.json", "https:\/\/data-v2.hacs.xyz\/${{ matrix.category }}\/repositories.json"]}'
 
   notify_on_failure:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     name: Trigger Discord notification when jobs fail
     needs: ["generate-matrix", "settings", "fetch-stored-data", "category-data", "merge", "summarize", "publish"]
     if: ${{ always() && github.repository == 'hacs/integration' && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}

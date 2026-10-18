@@ -11,8 +11,25 @@
   "prConcurrentLimit": 10,
   "packageRules": [
     {
-      "matchFileNames": ["requirements_core_min.txt", "requirements_core_max.txt"],
+      "matchFileNames": ["requirements_ha.txt"],
       "enabled": false
+    },
+    {
+      "description": "Home Assistant 2026.11 and later block HACS from loading",
+      "matchPackageNames": ["homeassistant"],
+      "allowedVersions": "<2026.11"
+    },
+    {
+      "description": "Devcontainer tags are <image major>-<Python version>, so only the Python version should move",
+      "matchDepNames": ["mcr.microsoft.com/devcontainers/python"],
+      "versioning": "regex:^(?<compatibility>\\d+)-(?<major>\\d+)\\.(?<minor>\\d+)$",
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
+    },
+    {
+      "description": "Bump Python everywhere in one PR",
+      "matchDepNames": ["python", "mcr.microsoft.com/devcontainers/python"],
+      "matchUpdateTypes": ["major", "minor"],
+      "groupName": "python"
     }
   ],
   "customManagers": [

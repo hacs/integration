@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from ..repositories.base import HacsRepository
 
 # renovate: datasource=github-tags depName=spdx/license-list-data
-SPDX_LICENSE_LIST_COMMIT = "c4a7237ec8f4654e867546f9f409749300f1bf4c"  # v3.28.0
+SPDX_LICENSE_LIST_COMMIT = "31ba1a50e5397e00a304dbadc76531740e89ee48"  # v3.29.0
 
 SPDX_LICENSE_LIST_URL = (
     "https://raw.githubusercontent.com/spdx/license-list-data/"

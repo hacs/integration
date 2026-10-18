@@ -13,7 +13,6 @@ from typing import Any
 from unittest.mock import MagicMock, _patch, patch
 
 from aiohttp import AsyncResolver
-from awesomeversion import AwesomeVersion
 import freezegun
 from homeassistant import loader, runner
 from homeassistant.auth.models import Credentials
@@ -21,7 +20,6 @@ from homeassistant.auth.providers.homeassistant import HassAuthProvider
 from homeassistant.components.lovelace.const import DOMAIN as LOVELACE_DOMAIN
 from homeassistant.components.lovelace.resources import ResourceStorageCollection
 from homeassistant.config_entries import ConfigEntryState
-from homeassistant.const import __version__ as HA_VERSION
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 from homeassistant.setup import async_setup_component
@@ -68,9 +66,6 @@ from tests.common import (
 )
 from tests.homeassistantfixtures.dev import (
     async_test_home_assistant as async_test_home_assistant_dev,
-)
-from tests.homeassistantfixtures.min import (
-    async_test_home_assistant as async_test_home_assistant_min_version,
 )
 
 # Set default logger
@@ -129,20 +124,17 @@ def hass_storage():
 @pytest_asyncio.fixture(autouse=True)
 async def mock_zeroconf_resolver() -> Generator[_patch]:
     """Mock out the zeroconf resolver."""
-    if AwesomeVersion(HA_VERSION) < "2025.2.0dev0":
-        yield None
-    else:
-        resolver = AsyncResolver(asyncio.get_running_loop())
-        resolver.real_close = resolver.close
-        patcher = patch(
-            "homeassistant.helpers.aiohttp_client._async_make_resolver",
-            return_value=resolver,
-        )
-        patcher.start()
-        try:
-            yield patcher
-        finally:
-            patcher.stop()
+    resolver = AsyncResolver(asyncio.get_running_loop())
+    resolver.real_close = resolver.close
+    patcher = patch(
+        "homeassistant.helpers.aiohttp_client._async_make_resolver",
+        return_value=resolver,
+    )
+    patcher.start()
+    try:
+        yield patcher
+    finally:
+        patcher.stop()
 
 
 @pytest.fixture
@@ -164,14 +156,7 @@ async def hass(time_freezer, tmpdir, check_report_issue: None):
         orig_exception_handler(loop, context)
 
     exceptions: list[Exception] = []
-    if AwesomeVersion(HA_VERSION) > "2025.3.0":
-        context_manager = async_test_home_assistant_dev(
-            loop, config_dir=tmpdir.strpath)
-    else:
-        context_manager = async_test_home_assistant_min_version(
-            loop, config_dir=tmpdir.strpath,
-        )
-    async with context_manager as hass:
+    async with async_test_home_assistant_dev(loop, config_dir=tmpdir.strpath) as hass:
         await async_setup_component(hass, "homeassistant", {})
         with patch("homeassistant.components.python_script.setup", return_value=True):
             assert await async_setup_component(hass, "python_script", {})

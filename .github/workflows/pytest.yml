@@ -16,24 +16,22 @@ permissions: {}
 
 jobs:
   pytest:
-    name: With pytest with Home Assistant (${{ matrix.homeassistant-version }}) & Python (${{ matrix.python-version }})
+    name: With pytest with Home Assistant (${{ matrix.homeassistant-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
         homeassistant-version:
           - "max. supported version"
-        python-version:
-          - "3.14"
     steps:
       - name: 📥 Checkout the repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
-      - name: 🛠️ Set up Python ${{ matrix.python-version }}
+      - name: 🛠️ Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version-file: .python-version
           cache: 'pip'
           cache-dependency-path: |
             requirements_ha.txt
@@ -57,11 +55,9 @@ jobs:
         run: scripts/test
 
       - name: 🖨️ Print coverage report
-        if: ${{ matrix.python-version == '3.14' }}
         run: scripts/coverage
 
       - name: 📤 Upload coverage to Codecov
-        if: ${{ matrix.python-version == '3.14' }}
         uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
           files: coverage.xml

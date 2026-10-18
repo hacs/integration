@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-from datetime import datetime
+from datetime import UTC, datetime
 import json
 import logging
 import os
@@ -209,7 +209,7 @@ class AdjustedHacsData(HacsData):
         data["last_fetched"] = (
             repository.data.last_fetched.timestamp()
             if repository.data.last_fetched
-            else datetime.utcnow().timestamp()
+            else datetime.now(UTC).timestamp()
         )
 
         if not repository_has_missing_keys(repository, "store"):

@@ -123,6 +123,9 @@ jobs:
     if: github.repository == 'hacs/integration'
     name: Generate ${{ matrix.category }} data (${{ matrix.shard }}/${{ matrix.shards }})
     environment: data-generator
+    # The app token expires after 1 hour and is created after the setup steps,
+    # so the job always stops before the token expires.
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       max-parallel: 1
@@ -183,6 +186,7 @@ jobs:
     if: ${{ !cancelled() && needs.fetch-stored-data.result == 'success' && github.repository == 'hacs/integration' }}
     name: Merge ${{ matrix.category }} data
     environment: data-generator
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:

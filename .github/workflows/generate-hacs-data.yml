@@ -58,33 +58,46 @@ jobs:
           echo "categories=$categories_json" >> $GITHUB_OUTPUT
           echo "categories: $categories_json"
 
-  # Fetches the published data once so every category leg uses the same
-  # baseline. Trade-off: if any fetch keeps failing, this job fails and blocks
-  # the whole run, not just that category.
-  fetch-stored-data:
-    name: Fetch stored data
+  settings:
+    name: Load settings
     runs-on: ubuntu-latest
-    needs: generate-matrix
     if: github.repository == 'hacs/integration'
     environment: data-generator
-    timeout-minutes: 10
     outputs:
-      shards: ${{ steps.fetch.outputs.shards }}
-      shard_counts: ${{ steps.fetch.outputs.shard_counts }}
-      max_parallel: ${{ steps.fetch.outputs.max_parallel }}
+      shard_size: ${{ steps.settings.outputs.shard_size }}
+      max_parallel: ${{ steps.settings.outputs.max_parallel }}
     steps:
-      - name: Fetch stored data
-        id: fetch
+      - name: Load settings
+        id: settings
         env:
-          CATEGORIES: ${{ needs.generate-matrix.outputs.categories }}
           SHARD_SIZE: ${{ vars.HACS_DATA_GENERATOR_SHARD_SIZE }}
           MAX_PARALLEL: ${{ vars.HACS_DATA_GENERATOR_MAX_PARALLEL }}
         run: |
           for value in "$SHARD_SIZE" "$MAX_PARALLEL"; do
             [[ "$value" =~ ^[1-9][0-9]*$ ]] || { echo "::error::HACS_DATA_GENERATOR_SHARD_SIZE and HACS_DATA_GENERATOR_MAX_PARALLEL must be positive integers"; exit 1; }
           done
+          echo "shard_size=$SHARD_SIZE" >> "$GITHUB_OUTPUT"
           echo "max_parallel=$MAX_PARALLEL" >> "$GITHUB_OUTPUT"
 
+  # Fetches the published data once so every category leg uses the same
+  # baseline. Trade-off: if any fetch keeps failing, this job fails and blocks
+  # the whole run, not just that category.
+  fetch-stored-data:
+    name: Fetch stored data
+    runs-on: ubuntu-latest
+    needs: [generate-matrix, settings]
+    if: github.repository == 'hacs/integration'
+    timeout-minutes: 10
+    outputs:
+      shards: ${{ steps.fetch.outputs.shards }}
+      shard_counts: ${{ steps.fetch.outputs.shard_counts }}
+    steps:
+      - name: Fetch stored data
+        id: fetch
+        env:
+          CATEGORIES: ${{ needs.generate-matrix.outputs.categories }}
+          SHARD_SIZE: ${{ needs.settings.outputs.shard_size }}
+        run: |
           mkdir -p outputdata/stored
 
           fetch_stored_hacs_content() {
@@ -128,12 +141,12 @@ jobs:
 
   category-data:
     runs-on: ubuntu-latest
-    needs: [generate-matrix, fetch-stored-data]
+    needs: [generate-matrix, settings, fetch-stored-data]
     if: github.repository == 'hacs/integration'
     name: Generate ${{ matrix.category }} data (${{ matrix.shard }}/${{ matrix.shards }})
     strategy:
       fail-fast: false
-      max-parallel: ${{ fromJSON(needs.fetch-stored-data.outputs.max_parallel) }}
+      max-parallel: ${{ fromJSON(needs.settings.outputs.max_parallel) }}
       matrix:
         include: ${{ fromJSON( needs.fetch-stored-data.outputs.shards )}}
     steps:
@@ -432,7 +445,7 @@ jobs:
   notify_on_failure:
     runs-on: ubuntu-latest
     name: Trigger Discord notification when jobs fail
-    needs: ["generate-matrix", "fetch-stored-data", "category-data", "merge", "summarize", "publish"]
+    needs: ["generate-matrix", "settings", "fetch-stored-data", "category-data", "merge", "summarize", "publish"]
     if: ${{ always() && github.repository == 'hacs/integration' && contains(join(needs.*.result, ','), 'failure') && github.event_name == 'schedule' }}
     steps:
       - name: Send notification

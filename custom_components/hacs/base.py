@@ -468,11 +468,11 @@ class HacsBase:
                 return math.floor((limit - 1000) / 10)
             reset = dt.as_local(dt.utc_from_timestamp(response.data.resources.core.reset))
             self.log.info(
-                "GitHub API ratelimited (%s/%s used) - %s remaining (%s)",
+                "GitHub API ratelimited (%s/%s used; reset %s) - %s remaining",
                 response.data.resources.core.used,
                 response.data.resources.core.limit,
-                response.data.resources.core.remaining,
                 f"{reset.hour}:{reset.minute}:{reset.second}",
+                response.data.resources.core.remaining,
             )
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)
         except (

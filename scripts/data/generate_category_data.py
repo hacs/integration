@@ -69,7 +69,8 @@ OUTPUT_DIR = os.path.join(os.getcwd(), "outputdata")
 SHARDS_DIR = os.path.join(OUTPUT_DIR, "_shards")
 COMPARE_IGNORE = {"etag_releases", "etag_repository", "last_fetched"}
 
-# Directory with the published data fetched by the fetch-stored-data job.
+# Directory with the published data and hacs/default lists fetched by the
+# fetch-stored-data job.
 # When set, it is read instead of fetching; unset outside the generate workflow.
 STORED_DATA_DIR = os.getenv("HACS_STORED_DATA_DIR")
 
@@ -130,6 +131,13 @@ async def get_removed_repositories(hacs: AdjustedHacs) -> list[str]:
     if (removed := _read_snapshot(hacs, "removed.json", list)) is not None:
         return removed
     return await hacs.data_client.get_repositories("removed")
+
+
+async def get_default_repositories(hacs: AdjustedHacs, category: str) -> list[str]:
+    """Return the hacs/default list of a category from the snapshot dir when available, else fetch."""
+    if (repositories := _read_snapshot(hacs, f"default-{category}.json", list)) is not None:
+        return repositories
+    return await hacs.async_github_get_hacs_default_file(category)
 
 
 def shard_for(full_name: str, shards: int) -> int:
@@ -513,9 +521,7 @@ class AdjustedHacs(HacsBase):
     ) -> None:
         """Get repositories from category."""
         repositories = (
-            await self.async_github_get_hacs_default_file(category)
-            if repository_name is None
-            else []
+            await get_default_repositories(self, category) if repository_name is None else []
         )
 
         if repository_name is not None:

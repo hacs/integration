@@ -426,12 +426,21 @@ class AdjustedHacs(HacsBase):
             repository.data.releases
             and repository.data.etag_repository
             and repository.data.last_fetched
-            and datetime.now(UTC) - repository.data.last_fetched < REPOSITORY_REFRESH_INTERVAL
+            and (age := datetime.now(UTC) - repository.data.last_fetched)
+            < REPOSITORY_REFRESH_INTERVAL
         ):
+            remaining = int((REPOSITORY_REFRESH_INTERVAL - age).total_seconds())
+            days, remaining = divmod(remaining, 86400)
+            hours, remaining = divmod(remaining, 3600)
+            minutes, seconds = divmod(remaining, 60)
             repository.logger.info(
-                "%s Current release %s is the latest one",
+                "%s Current release %s is the latest one, next refresh in %02d:%02d:%02d:%02d",
                 repository.string,
                 repository.data.last_version,
+                days,
+                hours,
+                minutes,
+                seconds,
             )
             return
 

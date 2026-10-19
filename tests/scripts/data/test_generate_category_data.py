@@ -1024,7 +1024,9 @@ async def test_update_repository_gated_on_release(
         await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_plugin)
 
     assert repository_plugin.common_update.await_count == int(updated)
-    assert ("Current release 1.0.0 is the latest one" in caplog.text) is not updated
+    assert (
+        "Current release 1.0.0 is the latest one, next refresh in 06:00:00:00" in caplog.text
+    ) is not updated
 
 
 async def test_generate_category_data_exports_categories(

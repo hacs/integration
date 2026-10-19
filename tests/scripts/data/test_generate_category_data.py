@@ -4,6 +4,7 @@ import argparse
 import asyncio
 import base64
 from contextlib import nullcontext as does_not_raise
+from datetime import UTC, datetime, timedelta
 import json
 import logging
 import os
@@ -975,6 +976,55 @@ async def test_update_repository_without_etag(repository_plugin):
         )
 
     assert repository_plugin.data.etag_repository == ""
+
+
+@pytest.mark.parametrize(
+    ("tag_name", "etag", "fetched_ago", "updated"),
+    [
+        # The current release is the latest one
+        ("1.0.0", "old", timedelta(days=1), False),
+        # New release
+        ("2.0.0", "old", timedelta(days=1), True),
+        # The stored data is too old
+        ("1.0.0", "old", timedelta(days=8), True),
+        # Never fetched
+        ("1.0.0", "old", None, True),
+        # The last update failed
+        ("1.0.0", "", timedelta(days=1), True),
+    ],
+)
+async def test_update_repository_gated_on_release(
+    repository_plugin,
+    caplog: pytest.LogCaptureFixture,
+    tag_name: str,
+    etag: str,
+    fetched_ago: timedelta | None,
+    updated: bool,
+):
+    """Test that a repository is only updated on a new release or when its data is too old."""
+    repository_plugin.data.last_version = "1.0.0"
+    repository_plugin.data.etag_repository = etag
+    repository_plugin.data.last_fetched = (
+        datetime.now(UTC) - fetched_ago if fetched_ago is not None else None
+    )
+    repository_plugin.common_update = AsyncMock(
+        side_effect=common_update_with_etag(repository_plugin, "new")
+    )
+    hacs = AdjustedHacs.__new__(AdjustedHacs)
+    hacs.githubapi = MagicMock(
+        generic=AsyncMock(
+            return_value=MagicMock(
+                data=[{"tag_name": tag_name, "draft": False, "prerelease": False}],
+                etag="releases",
+            )
+        )
+    )
+
+    with caplog.at_level(logging.INFO):
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_plugin)
+
+    assert repository_plugin.common_update.await_count == int(updated)
+    assert ("Current release 1.0.0 is the latest one" in caplog.text) is not updated
 
 
 async def test_generate_category_data_exports_categories(

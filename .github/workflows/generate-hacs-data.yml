@@ -68,6 +68,7 @@ jobs:
       max_parallel: ${{ steps.settings.outputs.max_parallel }}
       update_repository_concurrent_tasks: ${{ steps.settings.outputs.update_repository_concurrent_tasks }}
       update_repository_backoff_time_seconds: ${{ steps.settings.outputs.update_repository_backoff_time_seconds }}
+      repository_refresh_interval_days: ${{ steps.settings.outputs.repository_refresh_interval_days }}
     steps:
       - name: Load settings
         id: settings
@@ -76,16 +77,19 @@ jobs:
           MAX_PARALLEL: ${{ vars.HACS_DATA_GENERATOR_MAX_PARALLEL }}
           UPDATE_REPOSITORY_CONCURRENT_TASKS: ${{ vars.HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS }}
           UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS: ${{ vars.HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS }}
+          REPOSITORY_REFRESH_INTERVAL_DAYS: ${{ vars.HACS_DATA_GENERATOR_REPOSITORY_REFRESH_INTERVAL_DAYS }}
         run: |
           # A smaller shard size risks exceeding the 256-job matrix limit.
           [[ "$SHARD_SIZE" =~ ^[1-9][0-9]*$ ]] && (( SHARD_SIZE >= 100 )) || { echo "::error::HACS_DATA_GENERATOR_SHARD_SIZE must be an integer of at least 100"; exit 1; }
           [[ "$MAX_PARALLEL" =~ ^[1-9][0-9]*$ ]] || { echo "::error::HACS_DATA_GENERATOR_MAX_PARALLEL must be a positive integer"; exit 1; }
           [[ "$UPDATE_REPOSITORY_CONCURRENT_TASKS" =~ ^[1-9][0-9]*$ ]] || { echo "::error::HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS must be a positive integer"; exit 1; }
           [[ "$UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS" =~ ^[0-9]+(\.[0-9]+)?$ ]] || { echo "::error::HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS must be a non-negative number"; exit 1; }
+          [[ "$REPOSITORY_REFRESH_INTERVAL_DAYS" =~ ^[0-9]+(\.[0-9]+)?$ ]] || { echo "::error::HACS_DATA_GENERATOR_REPOSITORY_REFRESH_INTERVAL_DAYS must be a non-negative number"; exit 1; }
           echo "shard_size=$SHARD_SIZE" >> "$GITHUB_OUTPUT"
           echo "max_parallel=$MAX_PARALLEL" >> "$GITHUB_OUTPUT"
           echo "update_repository_concurrent_tasks=$UPDATE_REPOSITORY_CONCURRENT_TASKS" >> "$GITHUB_OUTPUT"
           echo "update_repository_backoff_time_seconds=$UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS" >> "$GITHUB_OUTPUT"
+          echo "repository_refresh_interval_days=$REPOSITORY_REFRESH_INTERVAL_DAYS" >> "$GITHUB_OUTPUT"
           {
             echo "| Setting | Value |"
             echo "| --- | --- |"
@@ -93,6 +97,7 @@ jobs:
             echo "| \`HACS_DATA_GENERATOR_MAX_PARALLEL\` | $MAX_PARALLEL |"
             echo "| \`HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS\` | $UPDATE_REPOSITORY_CONCURRENT_TASKS |"
             echo "| \`HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS\` | $UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS |"
+            echo "| \`HACS_DATA_GENERATOR_REPOSITORY_REFRESH_INTERVAL_DAYS\` | $REPOSITORY_REFRESH_INTERVAL_DAYS |"
           } >> "$GITHUB_STEP_SUMMARY"
 
   # Fetches the published data and checks out hacs/default once so every
@@ -211,6 +216,7 @@ jobs:
           HACS_STORED_DATA_DIR: outputdata/stored
           HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS: ${{ needs.settings.outputs.update_repository_concurrent_tasks }}
           HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS: ${{ needs.settings.outputs.update_repository_backoff_time_seconds }}
+          HACS_DATA_GENERATOR_REPOSITORY_REFRESH_INTERVAL_DAYS: ${{ needs.settings.outputs.repository_refresh_interval_days }}
 
       - name: Upload shard data
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

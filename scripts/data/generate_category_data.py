@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 import json
 import logging
 import math
@@ -88,6 +88,14 @@ if not 0 <= UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS < math.inf:
     raise ValueError(
         "HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS must be a non-negative number"
     )
+REPOSITORY_REFRESH_INTERVAL_DAYS = float(
+    os.getenv("HACS_DATA_GENERATOR_REPOSITORY_REFRESH_INTERVAL_DAYS", "7")
+)
+if not 0 <= REPOSITORY_REFRESH_INTERVAL_DAYS < math.inf:
+    raise ValueError(
+        "HACS_DATA_GENERATOR_REPOSITORY_REFRESH_INTERVAL_DAYS must be a non-negative number"
+    )
+REPOSITORY_REFRESH_INTERVAL = timedelta(days=REPOSITORY_REFRESH_INTERVAL_DAYS)
 
 
 def _read_snapshot[T](
@@ -412,6 +420,20 @@ class AdjustedHacs(HacsBase):
             except GitHubException as exception:
                 repository.data.releases = False
                 repository.logger.error("%s %s", repository.string, exception)
+
+        # A new release, missing keys or a failed run clear the ETag
+        if (
+            repository.data.releases
+            and repository.data.etag_repository
+            and repository.data.last_fetched
+            and datetime.now(UTC) - repository.data.last_fetched < REPOSITORY_REFRESH_INTERVAL
+        ):
+            repository.logger.info(
+                "%s Current release %s is the latest one",
+                repository.string,
+                repository.data.last_version,
+            )
+            return
 
         previous_etag = repository.data.etag_repository
         updated = await repository.common_update(

@@ -161,8 +161,6 @@ jobs:
     if: github.repository == 'hacs/integration'
     name: Generate ${{ matrix.category }} data (${{ matrix.shard }}/${{ matrix.shards }})
     environment: data-generator
-    # The app token expires after 1 hour and is created after the setup steps,
-    # so the job always stops before the token expires.
     timeout-minutes: 60
     strategy:
       fail-fast: false
@@ -196,17 +194,10 @@ jobs:
           name: stored-data
           path: outputdata/stored
 
-      - name: Generate app token
-        id: token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        with:
-          client-id: ${{ secrets.DATA_GENERATOR_APP_CLIENT_ID }}
-          private-key: ${{ secrets.DATA_GENERATOR_APP_PEM }}
-
       - name: Generate ${{ matrix.category }} data (${{ matrix.shard }}/${{ matrix.shards }})
         run: python3 -m scripts.data.generate_category_data ${{ matrix.category }} --shard ${{ matrix.shard }}/${{ matrix.shards }}
         env:
-          DATA_GENERATOR_TOKEN: ${{ steps.token.outputs.token }}
+          DATA_GENERATOR_TOKEN: ${{ github.token }}
           FORCE_REPOSITORY_UPDATE: ${{ inputs.forceRepositoryUpdate }}
           HACS_STORED_DATA_DIR: outputdata/stored
           HACS_DATA_GENERATOR_UPDATE_REPOSITORY_CONCURRENT_TASKS: ${{ needs.settings.outputs.update_repository_concurrent_tasks }}
@@ -265,17 +256,10 @@ jobs:
           path: outputdata/_shards/${{ matrix.category }}
           merge-multiple: true
 
-      - name: Generate app token
-        id: token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        with:
-          client-id: ${{ secrets.DATA_GENERATOR_APP_CLIENT_ID }}
-          private-key: ${{ secrets.DATA_GENERATOR_APP_PEM }}
-
       - name: Merge ${{ matrix.category }} data
         run: python3 -m scripts.data.merge_category_data ${{ matrix.category }} --shards ${{ fromJSON(needs.fetch-stored-data.outputs.shard_counts)[matrix.category] }}
         env:
-          DATA_GENERATOR_TOKEN: ${{ steps.token.outputs.token }}
+          DATA_GENERATOR_TOKEN: ${{ github.token }}
           HACS_STORED_DATA_DIR: outputdata/stored
 
       - name: Validate output with JQ

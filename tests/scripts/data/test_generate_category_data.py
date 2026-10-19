@@ -586,7 +586,7 @@ async def test_summarize_data_counts_refreshes():
     )
 
     assert summary["changed"] == 1
-    assert summary["refreshed"] == 3
+    assert summary["refreshed"] == 4
 
 
 @pytest.mark.parametrize(

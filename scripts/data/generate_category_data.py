@@ -607,7 +607,8 @@ class AdjustedHacs(HacsBase):
             if (previous := current_data.get(repo_id)) is not None and (
                 previous.get("last_fetched") is None
                 or previous["last_fetched"] <= expired < repo_data.get("last_fetched", 0)
-                or (previous.get("etag_repository") == "" and repo_data.get("etag_repository"))
+                or (previous.get("etag_repository") == "")
+                != (repo_data.get("etag_repository") == "")
             ):
                 refreshed += 1
 

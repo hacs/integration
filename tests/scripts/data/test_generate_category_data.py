@@ -2,6 +2,7 @@
 
 import argparse
 import asyncio
+import base64
 from contextlib import nullcontext as does_not_raise
 import json
 import logging
@@ -917,3 +918,66 @@ async def test_concurrent_update_repository_clears_etag_on_failure(
 
     assert repository_integration.data.etag_repository == expected_etag
     hacs.async_update_repository.assert_awaited_once_with(repository_integration)
+
+
+async def test_update_repository_without_etag(repository_plugin):
+    """Test that an update that couldn't fetch the repository is retried on the next run."""
+    repository_plugin.data.last_version = None
+    repository_plugin.data.etag_repository = None
+    repository_plugin.common_update = AsyncMock(return_value=True)
+
+    with pytest.raises(HacsException, match="Could not update the repository"):
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(
+            AdjustedHacs.__new__(AdjustedHacs), repository_plugin
+        )
+
+    assert repository_plugin.data.etag_repository == ""
+
+
+async def test_update_repository_invalid_json_manifest(repository_integration):
+    """Test that a manifest.json that isn't valid JSON has no categories."""
+    repository_integration.tree = [INTEGRATION_DIRECTORY_TREE_ITEM, MANIFEST_TREE_ITEM]
+    repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = "old"
+    repository_integration.integration_manifest = {"categories": ["energy"]}
+    repository_integration.common_update = common_update_with_etag(repository_integration, "new")
+    repository_integration.hacs.async_download_file = AsyncMock(return_value=b"{not json")
+
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(
+        AdjustedHacs.__new__(AdjustedHacs), repository_integration
+    )
+
+    assert repository_integration.integration_manifest == {}
+    assert repository_integration.data.etag_repository == "new"
+
+
+async def test_generate_category_data_exports_categories(
+    hass: HomeAssistant,
+    response_mocker: ResponseMocker,
+):
+    """Test that only valid categories from the manifest are exported."""
+    manifest = {
+        "domain": "example",
+        "name": "Example",
+        "categories": ["energy", "unknown", "energy", "energy.ev_charging"],
+    }
+    response_mocker.add(
+        "https://data-v2.hacs.xyz/integration/data.json",
+        MockedResponse(content={}),
+    )
+    response_mocker.add(
+        "https://api.github.com/repos/hacs-test-org/integration-basic/contents/custom_components/example/manifest.json",
+        MockedResponse(
+            content={"content": base64.b64encode(json.dumps(manifest).encode()).decode()},
+            headers=BASE_HEADERS,
+        ),
+    )
+
+    await generate_category_data("integration", "hacs-test-org/integration-basic")
+
+    with open(f"{OUTPUT_DIR}/integration/data.json", encoding="utf-8") as file:
+        data = json.loads(file.read())
+
+    assert [entry.get("categories") for entry in data.values()] == [
+        ["energy", "energy.ev_charging"]
+    ]

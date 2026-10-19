@@ -215,8 +215,12 @@ class HacsIntegrationRepository(HacsRepository):
                 f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/{manifest_path}",
                 nolog=True,
             )
-            if result is None:
-                return None
-            return json_loads(result)
         except Exception:  # pylint: disable=broad-except
             return None
+        if result is None:
+            return None
+        try:
+            return json_loads(result)
+        except ValueError:
+            # An invalid manifest.json has no content
+            return {}

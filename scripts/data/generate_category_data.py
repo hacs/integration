@@ -410,6 +410,9 @@ class AdjustedHacs(HacsBase):
             skip_releases=repository.data.releases,
         )
 
+        if repository.data.etag_repository is None:
+            raise HacsException(f"{repository.string} Could not update the repository")
+
         if repository.data.category != "integration":
             return
 

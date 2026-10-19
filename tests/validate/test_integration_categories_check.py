@@ -1,3 +1,4 @@
+import logging
 from unittest.mock import AsyncMock
 
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
@@ -69,6 +70,6 @@ async def test_integration_categories_missing_is_a_warning(
     await check.execute_validation()
     assert not check.failed
     assert any(
-        record.levelname == "WARNING" and "has no categories" in record.getMessage()
+        record.levelno == logging.WARNING and "has no categories" in record.getMessage()
         for record in caplog.records
     )

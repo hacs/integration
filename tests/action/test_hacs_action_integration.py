@@ -1,4 +1,5 @@
 """Tests for the HACS action."""
+import base64
 import json
 import os
 from unittest import mock
@@ -33,6 +34,14 @@ from tests.conftest import SnapshotFixture
                 "releases": None,
             },
             id="bad_issue_tracker"
+        ),
+        pytest.param(
+            {
+                "manifest": {"categories": ["unknown"]},
+                "succeed": False,
+                "releases": None,
+            },
+            id="bad_categories"
         ),
         pytest.param(
             {
@@ -92,11 +101,13 @@ async def test_hacs_action_integration(
         "https://brands.home-assistant.io/domains.json",
         response=MockedResponse(status=200, content={"custom": ["example"]}),
     )
+    manifest = json.dumps({**basemanifest, **test_case["manifest"]})
     response_mocker.add(
-        "https://raw.githubusercontent.com/hacs-test-org/integration-basic/main/custom_components/example/manifest.json",
+        "https://api.github.com/repos/hacs-test-org/integration-basic/contents/custom_components/example/manifest.json",
         response=MockedResponse(
             status=200,
-            content=json.dumps({**basemanifest, **test_case["manifest"]}),
+            content={"content": base64.b64encode(manifest.encode()).decode()},
+            headers={"Content-Type": "application/json"},
             keep=True,
         ),
     )

@@ -192,6 +192,12 @@ class HacsIntegrationRepository(HacsRepository):
         if response:
             return json_loads(decode_content(response.data.content))
 
+    async def async_get_loaded_integration_manifest(self) -> dict[str, Any]:
+        """Return the loaded manifest.json, fetching it for the current ref if not loaded."""
+        if not self.integration_manifest:
+            self.integration_manifest = await self.get_integration_manifest(version=self.ref) or {}
+        return self.integration_manifest
+
     async def get_integration_manifest(self, *, version: str, **kwargs) -> dict[str, Any] | None:
         """Get the content of the manifest.json file."""
         manifest_path = (

@@ -40,6 +40,18 @@ BASE_HEADERS = {"Content-Type": "application/json"}
 MANIFEST_TREE_ITEM = AIOGitHubAPIRepositoryTreeContent(
     {"path": "custom_components/example/manifest.json", "type": "blob"}, "test/test", "main"
 )
+
+
+def common_update_with_etag(repository, etag: str, updated: bool = True):
+    """Return a common_update that stores etag, like the real one does before fetching the tree."""
+
+    async def _common_update(**_):
+        repository.data.etag_repository = etag
+        return updated
+
+    return _common_update
+
+
 RATE_LIMIT_HEADER = {
     **BASE_HEADERS,
     "X-RateLimit-Limit": "9999",
@@ -714,8 +726,11 @@ async def test_update_repository_reloads_integration_manifest(
     """Test that a modified repository gets the manifest for the current ref."""
     repository_integration.tree = [MANIFEST_TREE_ITEM]
     repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = "old"
     repository_integration.integration_manifest = stored
-    repository_integration.common_update = AsyncMock(return_value=updated)
+    repository_integration.common_update = common_update_with_etag(
+        repository_integration, "new" if updated else "old", updated
+    )
     repository_integration.get_integration_manifest = AsyncMock(return_value=fetched)
 
     await AdjustedHacs.concurrent_update_repository.__wrapped__(
@@ -738,8 +753,9 @@ async def test_update_repository_without_integration_manifest(repository_integra
         AIOGitHubAPIRepositoryTreeContent({"path": "README.md", "type": "blob"}, "test/test", "main")
     ]
     repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = "old"
     repository_integration.integration_manifest = {"categories": ["energy"]}
-    repository_integration.common_update = AsyncMock(return_value=True)
+    repository_integration.common_update = common_update_with_etag(repository_integration, "new")
 
     await AdjustedHacs.concurrent_update_repository.__wrapped__(
         AdjustedHacs.__new__(AdjustedHacs), repository_integration
@@ -753,9 +769,9 @@ async def test_update_repository_keeps_categories_when_tree_fetch_fails(reposito
     """Test that a forced update without a tree keeps the categories and is retried."""
     repository_integration.tree = []
     repository_integration.data.last_version = None
-    repository_integration.data.etag_repository = "new"
+    repository_integration.data.etag_repository = None
     repository_integration.integration_manifest = {"categories": ["energy"]}
-    repository_integration.common_update = AsyncMock(return_value=True)
+    repository_integration.common_update = common_update_with_etag(repository_integration, "new")
     repository_integration.get_integration_manifest = AsyncMock()
 
     await AdjustedHacs.concurrent_update_repository.__wrapped__(
@@ -836,9 +852,9 @@ async def test_update_repository_invalid_integration_manifest(repository_integra
     """Test that a manifest that isn't an object has no categories."""
     repository_integration.tree = [MANIFEST_TREE_ITEM]
     repository_integration.data.last_version = None
-    repository_integration.data.etag_repository = "new"
+    repository_integration.data.etag_repository = "old"
     repository_integration.integration_manifest = {"categories": ["energy"]}
-    repository_integration.common_update = AsyncMock(return_value=True)
+    repository_integration.common_update = common_update_with_etag(repository_integration, "new")
     repository_integration.get_integration_manifest = AsyncMock(return_value=manifest)
 
     await AdjustedHacs.concurrent_update_repository.__wrapped__(

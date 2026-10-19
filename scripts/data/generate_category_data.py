@@ -404,13 +404,14 @@ class AdjustedHacs(HacsBase):
         if repository.data.category != "integration":
             return
 
+        if repository.data.etag_repository == previous_etag:
+            # Not modified
+            return
+
         if updated and repository.tree:
             # common_update does not reload manifest.json
             if await self.async_update_integration_manifest(repository, repository.ref):
                 return
-        elif not updated and repository.data.etag_repository == previous_etag:
-            # Not modified
-            return
 
         # The update failed, an empty ETag makes the next run fetch the repository again
         repository.data.etag_repository = ""

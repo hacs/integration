@@ -26,7 +26,7 @@ runs:
       run: |
         echo "VIRTUAL_ENV=$HOME/.venv" >> "$GITHUB_ENV"
         echo "$HOME/.venv/bin" >> "$GITHUB_PATH"
-        echo "requirements=$(sha256sum <<< "$REQUIREMENTS" | cut -c 1-16)" >> "$GITHUB_OUTPUT"
+        echo "requirements=$({ echo "$REQUIREMENTS"; cat $REQUIREMENTS; } | sha256sum | cut -c 1-16)" >> "$GITHUB_OUTPUT"
 
     # The venv links to the Python install, so the key includes its exact version.
     # All requirements files are hashed because they include each other.

@@ -116,7 +116,7 @@ async def test_hacs_action_integration(
         await preflight()
 
     assert (
-        "All (9) checks passed" if test_case["succeed"] else "1/9 checks failed") in caplog.text
+        "All (10) checks passed" if test_case["succeed"] else "1/10 checks failed") in caplog.text
 
     splitlines = [f"<{line.rsplit(' <')[1]}" for line in caplog.text.split(
         "\n") if " <" in line]

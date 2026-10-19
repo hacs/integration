@@ -14,6 +14,7 @@ from custom_components.hacs.utils.validate import (
     VALIDATE_GENERATED_V2_CRITICAL_REPO_SCHEMA,
     VALIDATE_GENERATED_V2_REMOVED_REPO_SCHEMA,
     VALIDATE_GENERATED_V2_REPO_DATA,
+    filter_integration_categories,
 )
 
 from tests.common import fixture
@@ -586,6 +587,49 @@ def without(d: dict, key: str) -> dict:
             does_not_raise(),
             pytest.raises(Invalid),
         ),
+        # Categories
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"categories": ["energy", "energy.ev_charging"]},
+            does_not_raise(),
+            does_not_raise(),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"categories": ["energy"]},
+            does_not_raise(),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"categories": []},
+            does_not_raise(),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"categories": "energy"},
+            does_not_raise(),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"categories": ["energy", "unknown"]},
+            does_not_raise(),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"categories": ["energy", "energy"]},
+            does_not_raise(),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"categories": ["energy", "climate", "lighting", "weather_alerts"]},
+            does_not_raise(),
+            pytest.raises(Invalid),
+        ),
     ],
 )
 def test_repo_data_json_schema_bad_data(
@@ -600,6 +644,25 @@ def test_repo_data_json_schema_bad_data(
             VALIDATE_FETCHED_V2_REPO_DATA[category](data)
         with expectation_2:
             VALIDATE_GENERATED_V2_REPO_DATA[category]({"test_repo": data})
+
+
+@pytest.mark.parametrize(
+    ("values", "expected"),
+    [
+        (["energy", "energy.ev_charging"], ["energy", "energy.ev_charging"]),
+        (["unknown", "energy"], ["energy"]),
+        (["energy", "energy"], ["energy"]),
+        (["energy", 1, None, {"a": "b"}], ["energy"]),
+        (["energy", "climate", "lighting", "weather_alerts"], ["energy", "climate", "lighting"]),
+        (["energy", "unknown", "climate", "lighting"], ["energy", "climate", "lighting"]),
+        ([], []),
+        (None, []),
+        ("energy", []),
+    ],
+)
+def test_filter_integration_categories(values, expected: list[str]):
+    """Test filtering integration categories."""
+    assert filter_integration_categories(values) == expected
 
 
 @pytest.mark.parametrize(

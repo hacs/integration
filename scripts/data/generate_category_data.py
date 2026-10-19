@@ -41,7 +41,10 @@ from custom_components.hacs.utils.decode import decode_content
 from custom_components.hacs.utils.decorator import concurrent
 from custom_components.hacs.utils.json import json_loads
 from custom_components.hacs.utils.queue_manager import QueueManager
-from custom_components.hacs.utils.validate import VALIDATE_GENERATED_V2_REPO_DATA
+from custom_components.hacs.utils.validate import (
+    VALIDATE_GENERATED_V2_REPO_DATA,
+    filter_integration_categories,
+)
 
 from .common import expand_and_humanize_error, print_error_and_exit
 
@@ -209,6 +212,11 @@ class AdjustedHacsData(HacsData):
                 )
                 continue
             self.async_restore_repository(entry, repo_data)
+            # Manifests are only fetched again when the repository changes
+            if (categories := repo_data.get("categories")) and (
+                repository := self.hacs.repositories.get_by_full_name(repo_data["full_name"])
+            ):
+                repository.integration_manifest = {"categories": categories}
 
     @callback
     def async_store_repository_data(self, repository: HacsRepository) -> dict:
@@ -221,6 +229,11 @@ class AdjustedHacsData(HacsData):
         for key, default in REPOSITORY_KEYS_TO_EXPORT:
             if (value := getattr(repository.data, key, default)) != default:
                 data[key] = value
+
+        if categories := filter_integration_categories(
+            repository.integration_manifest.get("categories")
+        ):
+            data["categories"] = categories
 
         data["last_fetched"] = (
             repository.data.last_fetched.timestamp()

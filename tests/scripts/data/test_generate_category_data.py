@@ -14,6 +14,7 @@ import pytest
 from scripts.data.generate_category_data import (
     OUTPUT_DIR,
     AdjustedHacs,
+    AdjustedHacsData,
     _parse_shard,
     _slice_by_shard,
     generate_category_data,
@@ -648,3 +649,43 @@ async def test_generate_category_data_without_shard_finalizes():
     assert (kwargs["index"], kwargs["shards"]) == (0, 1)
     finalize.assert_awaited_once_with(hacs, "integration", stored, stored, updated)
     write_shard.assert_not_called()
+
+
+@pytest.mark.parametrize(
+    ("categories", "expected"),
+    [
+        (["energy", "unknown", "energy", "energy.ev_charging"], ["energy", "energy.ev_charging"]),
+        (["unknown"], None),
+        ([], None),
+        (None, None),
+    ],
+)
+async def test_store_repository_data_categories(
+    repository_integration, categories: list[str] | None, expected: list[str] | None
+):
+    """Test that only valid categories are exported, and the key is left out otherwise."""
+    repository_integration.integration_manifest = {"categories": categories}
+    data = AdjustedHacsData(hacs=repository_integration.hacs)
+
+    data.async_store_repository_data(repository_integration)
+
+    assert data.content[str(repository_integration.data.id)].get("categories") == expected
+
+
+async def test_register_base_data_restores_categories(hacs, repository_integration):
+    """Test that stored categories survive a run where the manifest is not fetched."""
+    hacs.repositories.register(repository_integration)
+    data = AdjustedHacsData(hacs=hacs)
+
+    await data.register_base_data(
+        "integration",
+        {
+            str(repository_integration.data.id): {
+                "categories": ["energy"],
+                "full_name": repository_integration.data.full_name,
+            }
+        },
+        [],
+    )
+
+    assert repository_integration.integration_manifest == {"categories": ["energy"]}

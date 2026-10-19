@@ -2,18 +2,23 @@
 
 import argparse
 import asyncio
+import base64
+from contextlib import nullcontext as does_not_raise
 import json
 import logging
 import os
 from typing import Any
 from unittest.mock import AsyncMock, MagicMock, patch
 
+from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 from homeassistant.core import HomeAssistant
 import pytest
 
+from custom_components.hacs.exceptions import HacsException
 from scripts.data.generate_category_data import (
     OUTPUT_DIR,
     AdjustedHacs,
+    AdjustedHacsData,
     _parse_shard,
     _slice_by_shard,
     generate_category_data,
@@ -35,6 +40,24 @@ from tests.common import (
 from tests.conftest import SnapshotFixture
 
 BASE_HEADERS = {"Content-Type": "application/json"}
+INTEGRATION_DIRECTORY_TREE_ITEM = AIOGitHubAPIRepositoryTreeContent(
+    {"path": "custom_components/example", "type": "tree"}, "test/test", "main"
+)
+MANIFEST_TREE_ITEM = AIOGitHubAPIRepositoryTreeContent(
+    {"path": "custom_components/example/manifest.json", "type": "blob"}, "test/test", "main"
+)
+
+
+def common_update_with_etag(repository, etag: str, updated: bool = True):
+    """Return a common_update that stores etag, like the real one does before fetching the tree."""
+
+    async def _common_update(**_):
+        repository.data.etag_repository = etag
+        return updated
+
+    return _common_update
+
+
 RATE_LIMIT_HEADER = {
     **BASE_HEADERS,
     "X-RateLimit-Limit": "9999",
@@ -648,3 +671,371 @@ async def test_generate_category_data_without_shard_finalizes():
     assert (kwargs["index"], kwargs["shards"]) == (0, 1)
     finalize.assert_awaited_once_with(hacs, "integration", stored, stored, updated)
     write_shard.assert_not_called()
+
+
+@pytest.mark.parametrize(
+    ("categories", "expected"),
+    [
+        (["energy", "unknown", "energy", "energy.ev_charging"], ["energy", "energy.ev_charging"]),
+        (["unknown"], None),
+        ([], None),
+        (None, None),
+    ],
+)
+async def test_store_repository_data_categories(
+    repository_integration, categories: list[str] | None, expected: list[str] | None
+):
+    """Test that only valid categories are exported, and the key is left out otherwise."""
+    repository_integration.integration_manifest = {"categories": categories}
+    data = AdjustedHacsData(hacs=repository_integration.hacs)
+
+    data.async_store_repository_data(repository_integration)
+
+    assert data.content[str(repository_integration.data.id)].get("categories") == expected
+
+
+async def test_register_base_data_restores_categories(hacs, repository_integration):
+    """Test that stored categories survive a run where the manifest is not fetched."""
+    hacs.repositories.register(repository_integration)
+    data = AdjustedHacsData(hacs=hacs)
+
+    await data.register_base_data(
+        "integration",
+        {
+            str(repository_integration.data.id): {
+                "categories": ["energy"],
+                "full_name": repository_integration.data.full_name,
+            }
+        },
+        [],
+    )
+
+    assert repository_integration.integration_manifest == {"categories": ["energy"]}
+
+
+async def test_register_base_data_restores_categories_for_renamed_repository(
+    hacs, repository_integration
+):
+    """Test that stored categories are restored when the repository was renamed."""
+    hacs.repositories.register(repository_integration)
+    data = AdjustedHacsData(hacs=hacs)
+
+    await data.register_base_data(
+        "integration",
+        {
+            str(repository_integration.data.id): {
+                "categories": ["energy"],
+                "full_name": "old/name",
+            }
+        },
+        [],
+    )
+
+    assert repository_integration.integration_manifest == {"categories": ["energy"]}
+
+
+@pytest.mark.parametrize(
+    ("stored", "fetched", "updated", "expected"),
+    [
+        # Gaining categories
+        ({}, {"categories": ["energy"]}, True, {"categories": ["energy"]}),
+        # Changing categories
+        ({"categories": ["energy"]}, {"categories": ["climate"]}, True, {"categories": ["climate"]}),
+        # Removing categories
+        ({"categories": ["energy"]}, {"domain": "test"}, True, {"domain": "test"}),
+        # Not modified keeps the stored categories
+        ({"categories": ["energy"]}, {"categories": ["climate"]}, False, {"categories": ["energy"]}),
+    ],
+)
+async def test_update_repository_reloads_integration_manifest(
+    repository_integration, stored: dict, fetched: dict, updated: bool, expected: dict
+):
+    """Test that a modified repository gets the manifest for the current ref."""
+    repository_integration.tree = [INTEGRATION_DIRECTORY_TREE_ITEM, MANIFEST_TREE_ITEM]
+    repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = "old"
+    repository_integration.integration_manifest = stored
+    repository_integration.common_update = common_update_with_etag(
+        repository_integration, "new" if updated else "old", updated
+    )
+    repository_integration.get_integration_manifest = AsyncMock(return_value=fetched)
+
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(
+        AdjustedHacs.__new__(AdjustedHacs), repository_integration
+    )
+
+    assert repository_integration.integration_manifest == expected
+    if updated:
+        repository_integration.get_integration_manifest.assert_awaited_once_with(
+            version=repository_integration.ref
+        )
+    else:
+        repository_integration.get_integration_manifest.assert_not_awaited()
+
+
+
+async def test_update_repository_without_integration_manifest(repository_integration):
+    """Test that stored categories are dropped when the repository has no manifest."""
+    repository_integration.tree = [INTEGRATION_DIRECTORY_TREE_ITEM]
+    repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = "old"
+    repository_integration.integration_manifest = {"categories": ["energy"]}
+    repository_integration.common_update = common_update_with_etag(repository_integration, "new")
+
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(
+        AdjustedHacs.__new__(AdjustedHacs), repository_integration
+    )
+
+    assert repository_integration.integration_manifest == {}
+
+
+
+async def test_update_repository_keeps_categories_when_tree_fetch_fails(repository_integration):
+    """Test that a forced update without a tree keeps the categories and is retried."""
+    repository_integration.tree = []
+    repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = None
+    repository_integration.integration_manifest = {"categories": ["energy"]}
+    repository_integration.common_update = common_update_with_etag(repository_integration, "new")
+    repository_integration.get_integration_manifest = AsyncMock()
+
+    with pytest.raises(HacsException, match="Could not update the repository"):
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(
+            AdjustedHacs.__new__(AdjustedHacs), repository_integration
+        )
+
+    assert repository_integration.integration_manifest == {"categories": ["energy"]}
+    assert repository_integration.data.etag_repository == ""
+    repository_integration.get_integration_manifest.assert_not_awaited()
+
+
+async def test_update_repository_unresolved_integration_path(repository_integration):
+    """Test that an unknown layout, like after hacs.json failed to download, is retried."""
+    repository_integration.tree = [
+        AIOGitHubAPIRepositoryTreeContent({"path": "manifest.json", "type": "blob"}, "test/test", "main")
+    ]
+    repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = "old"
+    repository_integration.integration_manifest = {"categories": ["energy"]}
+    repository_integration.common_update = common_update_with_etag(repository_integration, "new")
+    repository_integration.get_integration_manifest = AsyncMock()
+
+    with pytest.raises(HacsException, match="Could not find the integration directory"):
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(
+            AdjustedHacs.__new__(AdjustedHacs), repository_integration
+        )
+
+    assert repository_integration.integration_manifest == {"categories": ["energy"]}
+    assert repository_integration.data.etag_repository == ""
+    repository_integration.get_integration_manifest.assert_not_awaited()
+
+async def test_update_repository_retries_failed_integration_manifest(repository_integration):
+    """Test that a failed manifest fetch keeps the categories and is retried on the next run."""
+    repository_integration.tree = [INTEGRATION_DIRECTORY_TREE_ITEM, MANIFEST_TREE_ITEM]
+    repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = "old"
+    repository_integration.integration_manifest = {"categories": ["energy"]}
+    repository_integration.get_integration_manifest = AsyncMock(return_value=None)
+
+    async def _common_update(**_):
+        # GitHub reports a modified repository unless the stored ETag matches
+        modified = repository_integration.data.etag_repository != "new"
+        repository_integration.data.etag_repository = "new"
+        return modified
+
+    repository_integration.common_update = _common_update
+    hacs = AdjustedHacs.__new__(AdjustedHacs)
+
+    with pytest.raises(HacsException, match=r"Could not download manifest\.json"):
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_integration)
+
+    assert repository_integration.integration_manifest == {"categories": ["energy"]}
+    assert repository_integration.data.etag_repository == ""
+
+    repository_integration.get_integration_manifest = AsyncMock(
+        return_value={"categories": ["climate"]}
+    )
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_integration)
+
+    assert repository_integration.integration_manifest == {"categories": ["climate"]}
+    assert repository_integration.data.etag_repository == "new"
+
+
+@pytest.mark.parametrize(
+    ("new_etag", "expectation", "expected_etag"),
+    [
+        # The update failed after common_update stored the new ETag
+        ("new", pytest.raises(HacsException, match="Could not update the repository"), ""),
+        # Not modified
+        ("old", does_not_raise(), "old"),
+    ],
+)
+async def test_update_repository_not_updated_integration(
+    repository_integration, new_etag: str, expectation, expected_etag: str
+):
+    """Test that a failed update is retried on the next run, and an unmodified one isn't."""
+    repository_integration.tree = [INTEGRATION_DIRECTORY_TREE_ITEM, MANIFEST_TREE_ITEM]
+    repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = "old"
+    repository_integration.integration_manifest = {"categories": ["energy"]}
+    repository_integration.get_integration_manifest = AsyncMock()
+
+    async def _common_update(**_):
+        repository_integration.data.etag_repository = new_etag
+        return False
+
+    repository_integration.common_update = _common_update
+
+    with expectation:
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(
+            AdjustedHacs.__new__(AdjustedHacs), repository_integration
+        )
+
+    assert repository_integration.data.etag_repository == expected_etag
+    assert repository_integration.integration_manifest == {"categories": ["energy"]}
+    repository_integration.get_integration_manifest.assert_not_awaited()
+
+
+@pytest.mark.parametrize("manifest", [[], "manifest", False])
+async def test_update_repository_invalid_integration_manifest(repository_integration, manifest):
+    """Test that a manifest that isn't an object has no categories."""
+    repository_integration.tree = [INTEGRATION_DIRECTORY_TREE_ITEM, MANIFEST_TREE_ITEM]
+    repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = "old"
+    repository_integration.integration_manifest = {"categories": ["energy"]}
+    repository_integration.common_update = common_update_with_etag(repository_integration, "new")
+    repository_integration.get_integration_manifest = AsyncMock(return_value=manifest)
+
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(
+        AdjustedHacs.__new__(AdjustedHacs), repository_integration
+    )
+
+    assert repository_integration.integration_manifest == {}
+    assert repository_integration.data.etag_repository == "new"
+
+
+@pytest.mark.parametrize(
+    ("side_effect", "expected_etag"),
+    [
+        (Exception("Update failed"), ""),
+        (None, "etag"),
+    ],
+)
+async def test_concurrent_update_repository_clears_etag_on_failure(
+    repository_integration, side_effect: Exception | None, expected_etag: str
+):
+    """Test that a failed update is fetched again on the next run."""
+    repository_integration.data.etag_repository = "etag"
+    hacs = AdjustedHacs.__new__(AdjustedHacs)
+    hacs.async_update_repository = AsyncMock(side_effect=side_effect)
+
+    if side_effect is None:
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_integration)
+    else:
+        with pytest.raises(Exception, match="Update failed"):
+            await AdjustedHacs.concurrent_update_repository.__wrapped__(
+                hacs, repository_integration
+            )
+
+    assert repository_integration.data.etag_repository == expected_etag
+    hacs.async_update_repository.assert_awaited_once_with(repository_integration)
+
+
+async def test_update_repository_without_etag(repository_plugin):
+    """Test that an update that couldn't fetch the repository is retried on the next run."""
+    repository_plugin.data.last_version = None
+    repository_plugin.data.etag_repository = None
+    repository_plugin.common_update = AsyncMock(return_value=True)
+
+    with pytest.raises(HacsException, match="Could not update the repository"):
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(
+            AdjustedHacs.__new__(AdjustedHacs), repository_plugin
+        )
+
+    assert repository_plugin.data.etag_repository == ""
+
+
+async def test_generate_category_data_exports_categories(
+    hass: HomeAssistant,
+    response_mocker: ResponseMocker,
+):
+    """Test that only valid categories from the manifest are exported."""
+    manifest = {
+        "domain": "example",
+        "name": "Example",
+        "categories": ["energy", "unknown", "energy", "energy.ev_charging"],
+    }
+    response_mocker.add(
+        "https://data-v2.hacs.xyz/integration/data.json",
+        MockedResponse(content={}),
+    )
+    response_mocker.add(
+        "https://api.github.com/repos/hacs-test-org/integration-basic/contents/custom_components/example/manifest.json",
+        MockedResponse(
+            content={"content": base64.b64encode(json.dumps(manifest).encode()).decode()},
+            headers=BASE_HEADERS,
+        ),
+    )
+
+    await generate_category_data("integration", "hacs-test-org/integration-basic")
+
+    with open(f"{OUTPUT_DIR}/integration/data.json", encoding="utf-8") as file:
+        data = json.loads(file.read())
+
+    assert [entry.get("categories") for entry in data.values()] == [
+        ["energy", "energy.ev_charging"]
+    ]
+
+
+@pytest.mark.parametrize("category_test_data", category_test_data_parametrized(categories=["integration"]))
+@pytest.mark.parametrize(
+    ("manifest_categories", "expected"),
+    [
+        # Changing categories
+        (["climate", "unknown", "energy.ev_charging"], ["climate", "energy.ev_charging"]),
+        # Removing categories
+        (None, None),
+    ],
+)
+async def test_generate_category_data_exports_categories_for_updated_repository(
+    hass: HomeAssistant,
+    response_mocker: ResponseMocker,
+    category_test_data: CategoryTestData,
+    manifest_categories: list[str] | None,
+    expected: list[str] | None,
+):
+    """Test that a modified repository exports the categories of its current manifest."""
+    manifest = {"domain": "example", "name": "Example"}
+    if manifest_categories is not None:
+        manifest["categories"] = manifest_categories
+    response_mocker.add(
+        "https://data-v2.hacs.xyz/integration/data.json",
+        MockedResponse(
+            content={
+                category_test_data["id"]: {
+                    "categories": ["energy"],
+                    "description": "This your first repo!",
+                    "domain": "example",
+                    "etag_repository": "old",
+                    "full_name": category_test_data["repository"],
+                    "last_updated": "2011-01-26T19:06:43Z",
+                    "last_version": category_test_data["version_base"],
+                    "manifest": {"name": "Proxy manifest"},
+                    "manifest_name": "Proxy manifest",
+                }
+            }
+        ),
+    )
+    response_mocker.add(
+        f"https://raw.githubusercontent.com/{category_test_data['repository']}/"
+        f"{category_test_data['version_base']}/custom_components/example/manifest.json",
+        MockedResponse(content=json.dumps(manifest)),
+    )
+
+    await generate_category_data("integration", category_test_data["repository"])
+
+    with open(f"{OUTPUT_DIR}/integration/data.json", encoding="utf-8") as file:
+        data = json.loads(file.read())
+
+    assert data[category_test_data["id"]].get("categories") == expected
+

@@ -7,6 +7,7 @@ from voluptuous.error import Invalid, MultipleInvalid
 
 from custom_components.hacs.utils.validate import (
     HACS_MANIFEST_JSON_SCHEMA as hacs_json_schema,
+    INTEGRATION_MANIFEST_CATEGORIES_SCHEMA,
     INTEGRATION_MANIFEST_JSON_SCHEMA as integration_json_schema,
     VALIDATE_FETCHED_V2_CRITICAL_REPO_SCHEMA,
     VALIDATE_FETCHED_V2_REMOVED_REPO_SCHEMA,
@@ -14,6 +15,7 @@ from custom_components.hacs.utils.validate import (
     VALIDATE_GENERATED_V2_CRITICAL_REPO_SCHEMA,
     VALIDATE_GENERATED_V2_REMOVED_REPO_SCHEMA,
     VALIDATE_GENERATED_V2_REPO_DATA,
+    filter_integration_categories,
 )
 
 from tests.common import fixture
@@ -586,6 +588,49 @@ def without(d: dict, key: str) -> dict:
             does_not_raise(),
             pytest.raises(Invalid),
         ),
+        # Categories
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"categories": ["energy", "energy.ev_charging"]},
+            does_not_raise(),
+            does_not_raise(),
+        ),
+        (
+            ["appdaemon", "plugin", "python_script", "template", "theme"],
+            GOOD_COMMON_DATA | {"categories": ["energy"]},
+            does_not_raise(),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"categories": []},
+            does_not_raise(),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"categories": "energy"},
+            does_not_raise(),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"categories": ["energy", "unknown"]},
+            does_not_raise(),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"categories": ["energy", "energy"]},
+            does_not_raise(),
+            pytest.raises(Invalid),
+        ),
+        (
+            ["integration"],
+            GOOD_INTEGRATION_DATA | {"categories": ["energy", "climate", "lighting", "weather_alerts"]},
+            does_not_raise(),
+            pytest.raises(Invalid),
+        ),
     ],
 )
 def test_repo_data_json_schema_bad_data(
@@ -600,6 +645,38 @@ def test_repo_data_json_schema_bad_data(
             VALIDATE_FETCHED_V2_REPO_DATA[category](data)
         with expectation_2:
             VALIDATE_GENERATED_V2_REPO_DATA[category]({"test_repo": data})
+
+
+@pytest.mark.parametrize(
+    ("categories", "message"),
+    [
+        (["foo", "energy", "bar", "foo"], "Unknown categories: 'foo', 'bar'."),
+        (["energy", "climate", "energy", "climate"], "Duplicate categories: 'energy', 'climate'."),
+    ],
+)
+def test_integration_categories_report_all_invalid_values(categories: list[str], message: str):
+    """Test that every unknown or duplicate category is reported."""
+    with pytest.raises(Invalid, match=re.escape(message)):
+        INTEGRATION_MANIFEST_CATEGORIES_SCHEMA({"categories": categories})
+
+
+@pytest.mark.parametrize(
+    ("values", "expected"),
+    [
+        (["energy", "energy.ev_charging"], ["energy", "energy.ev_charging"]),
+        (["unknown", "energy"], ["energy"]),
+        (["energy", "energy"], ["energy"]),
+        (["energy", 1, None, {"a": "b"}], ["energy"]),
+        (["energy", "climate", "lighting", "weather_alerts"], ["energy", "climate", "lighting"]),
+        (["energy", "unknown", "climate", "lighting"], ["energy", "climate", "lighting"]),
+        ([], []),
+        (None, []),
+        ("energy", []),
+    ],
+)
+def test_filter_integration_categories(values, expected: list[str]):
+    """Test filtering integration categories."""
+    assert filter_integration_categories(values) == expected
 
 
 @pytest.mark.parametrize(

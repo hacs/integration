@@ -30,7 +30,10 @@ from custom_components.hacs.base import HacsBase, HacsRepositories
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.data_client import HacsDataClient
 from custom_components.hacs.enums import HacsGitHubRepo
-from custom_components.hacs.exceptions import HacsExecutionStillInProgress
+from custom_components.hacs.exceptions import (
+    HacsException,
+    HacsExecutionStillInProgress,
+)
 from custom_components.hacs.repositories.base import (
     HACS_MANIFEST_KEYS_TO_EXPORT,
     REPOSITORY_KEYS_TO_EXPORT,
@@ -39,9 +42,13 @@ from custom_components.hacs.repositories.base import (
 from custom_components.hacs.utils.data import HacsData
 from custom_components.hacs.utils.decode import decode_content
 from custom_components.hacs.utils.decorator import concurrent
+from custom_components.hacs.utils.filters import get_first_directory_in_directory
 from custom_components.hacs.utils.json import json_loads
 from custom_components.hacs.utils.queue_manager import QueueManager
-from custom_components.hacs.utils.validate import VALIDATE_GENERATED_V2_REPO_DATA
+from custom_components.hacs.utils.validate import (
+    VALIDATE_GENERATED_V2_REPO_DATA,
+    filter_integration_categories,
+)
 
 from .common import expand_and_humanize_error, print_error_and_exit
 
@@ -209,6 +216,12 @@ class AdjustedHacsData(HacsData):
                 )
                 continue
             self.async_restore_repository(entry, repo_data)
+            # Keeps the categories when the repository is not modified
+            if (categories := repo_data.get("categories")) and (
+                repository := self.hacs.repositories.get_by_full_name(repo_data["full_name"])
+                or self.hacs.repositories.get_by_id(entry)
+            ):
+                repository.integration_manifest = {"categories": categories}
 
     @callback
     def async_store_repository_data(self, repository: HacsRepository) -> dict:
@@ -221,6 +234,11 @@ class AdjustedHacsData(HacsData):
         for key, default in REPOSITORY_KEYS_TO_EXPORT:
             if (value := getattr(repository.data, key, default)) != default:
                 data[key] = value
+
+        if categories := filter_integration_categories(
+            repository.integration_manifest.get("categories")
+        ):
+            data["categories"] = categories
 
         data["last_fetched"] = (
             repository.data.last_fetched.timestamp()
@@ -284,6 +302,15 @@ class AdjustedHacs(HacsBase):
         backoff_time=UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS,
     )
     async def concurrent_update_repository(self, repository: HacsRepository) -> None:
+        """Update a repository, and fetch it again on the next run if the update fails."""
+        try:
+            await self.async_update_repository(repository)
+        except Exception:
+            # The queue only logs the error, an empty ETag makes the next run fetch it again
+            repository.data.etag_repository = ""
+            raise
+
+    async def async_update_repository(self, repository: HacsRepository) -> None:
         """Update a repository."""
         if repository_has_missing_keys(repository, "update"):
             # If we have missing keys, force a full update by setting the etag to None
@@ -378,10 +405,51 @@ class AdjustedHacs(HacsBase):
                 repository.data.releases = False
                 repository.logger.error("%s %s", repository.string, exception)
 
-        await repository.common_update(
+        previous_etag = repository.data.etag_repository
+        updated = await repository.common_update(
             force=repository.data.etag_repository is None,
             skip_releases=repository.data.releases,
         )
+
+        if repository.data.etag_repository is None:
+            raise HacsException(f"{repository.string} Could not update the repository")
+
+        if repository.data.category != "integration":
+            return
+
+        if repository.data.etag_repository == previous_etag:
+            # Not modified
+            return
+
+        if not updated or not repository.tree:
+            raise HacsException(f"{repository.string} Could not update the repository")
+
+        # common_update does not set the integration path or reload manifest.json
+        if repository.repository_manifest.content_in_root:
+            repository.content.path.remote = ""
+        elif repository.content.path.remote == "custom_components":
+            if not (name := get_first_directory_in_directory(repository.tree, "custom_components")):
+                # The layout is unknown, like when hacs.json failed to download
+                raise HacsException(f"{repository.string} Could not find the integration directory")
+            repository.content.path.remote = f"custom_components/{name}"
+
+        await self.async_update_integration_manifest(repository, repository.ref)
+
+    async def async_update_integration_manifest(
+        self, repository: HacsRepository, version: str
+    ) -> None:
+        """Replace the integration manifest with the one for version."""
+        try:
+            manifest = await repository.get_integration_manifest(version=version)
+        except HacsException:
+            # The tree has no manifest.json at the integration path
+            manifest = {}
+
+        if manifest is None:
+            raise HacsException(f"{repository.string} Could not download manifest.json")
+
+        # An invalid manifest has no categories
+        repository.integration_manifest = manifest if isinstance(manifest, dict) else {}
 
     async def generate_data_for_category(
         self,

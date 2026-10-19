@@ -11,6 +11,7 @@ from homeassistant.helpers.config_validation import url as url_validator
 import voluptuous as vol
 
 from ..const import LOCALE
+from .integration_categories import INTEGRATION_CATEGORIES
 
 
 @dataclass
@@ -43,6 +44,37 @@ def _country_validator(values) -> list[str]:
     return countries
 
 
+def _integration_categories_validator(values) -> list[str]:
+    """Custom integration categories validator."""
+    if not isinstance(values, list) or not all(isinstance(value, str) for value in values):
+        raise vol.Invalid(f"Value '{values}' is not a list of strings.")
+    if not values:
+        raise vol.Invalid("Expected at least one category.")
+
+    if unknown := [value for value in dict.fromkeys(values) if value not in INTEGRATION_CATEGORIES]:
+        raise vol.Invalid(f"Unknown categories: {', '.join(f"'{value}'" for value in unknown)}.")
+    if duplicates := [value for value in dict.fromkeys(values) if values.count(value) > 1]:
+        raise vol.Invalid(
+            f"Duplicate categories: {', '.join(f"'{value}'" for value in duplicates)}."
+        )
+
+    if len(values) > 3:
+        raise vol.Invalid(f"Expected at most 3 categories, got {len(values)}.")
+
+    return values
+
+
+def filter_integration_categories(values: Any) -> list[str]:
+    """Return the first 3 unique known categories."""
+    if not isinstance(values, list):
+        return []
+    return list(
+        dict.fromkeys(
+            value for value in values if isinstance(value, str) and value in INTEGRATION_CATEGORIES
+        )
+    )[:3]
+
+
 HACS_MANIFEST_JSON_SCHEMA = vol.Schema(
     {
         vol.Optional("content_in_root"): bool,
@@ -68,6 +100,11 @@ INTEGRATION_MANIFEST_JSON_SCHEMA = vol.Schema(
         vol.Required("name"): str,
         vol.Required("version"): vol.Coerce(AwesomeVersion),
     },
+    extra=vol.ALLOW_EXTRA,
+)
+
+INTEGRATION_MANIFEST_CATEGORIES_SCHEMA = vol.Schema(
+    {vol.Optional("categories"): _integration_categories_validator},
     extra=vol.ALLOW_EXTRA,
 )
 
@@ -152,7 +189,13 @@ VALIDATE_FETCHED_V2_REPO_DATA = {
 # Used when validating repos when generating data, fails on extra keys
 VALIDATE_GENERATED_V2_REPO_DATA = {
     category: vol.Schema({str: validate_repo_data(schema, vol.PREVENT_EXTRA)})
-    for category, schema in _V2_REPO_SCHEMAS.items()
+    for category, schema in {
+        **_V2_REPO_SCHEMAS,
+        "integration": {
+            **V2_INTEGRATION_DATA_JSON_SCHEMA,
+            vol.Optional("categories"): _integration_categories_validator,
+        },
+    }.items()
 }
 
 V2_CRITICAL_REPO_DATA_SCHEMA = {

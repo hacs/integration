@@ -417,25 +417,24 @@ class AdjustedHacs(HacsBase):
             # Not modified
             return
 
-        if updated and repository.tree:
-            # common_update does not set the integration path or reload manifest.json
-            if repository.repository_manifest.content_in_root:
-                repository.content.path.remote = ""
-            elif repository.content.path.remote == "custom_components":
-                name = get_first_directory_in_directory(repository.tree, "custom_components")
-                repository.content.path.remote = f"custom_components/{name}"
+        if not updated or not repository.tree:
+            raise HacsException(f"{repository.string} Could not update the repository")
 
-            if await self.async_update_integration_manifest(repository, repository.ref):
-                return
+        # common_update does not set the integration path or reload manifest.json
+        if repository.repository_manifest.content_in_root:
+            repository.content.path.remote = ""
+        elif repository.content.path.remote == "custom_components":
+            if not (name := get_first_directory_in_directory(repository.tree, "custom_components")):
+                # The layout is unknown, like when hacs.json failed to download
+                raise HacsException(f"{repository.string} Could not find the integration directory")
+            repository.content.path.remote = f"custom_components/{name}"
 
-        # The update failed, an empty ETag makes the next run fetch the repository again
-        repository.data.etag_repository = ""
-        repository.logger.error("%s Could not update the integration manifest", repository.string)
+        await self.async_update_integration_manifest(repository, repository.ref)
 
     async def async_update_integration_manifest(
         self, repository: HacsRepository, version: str
-    ) -> bool:
-        """Replace the integration manifest for version, False if the download failed."""
+    ) -> None:
+        """Replace the integration manifest with the one for version."""
         try:
             manifest = await repository.get_integration_manifest(version=version)
         except HacsException:
@@ -443,11 +442,10 @@ class AdjustedHacs(HacsBase):
             manifest = {}
 
         if manifest is None:
-            return False
+            raise HacsException(f"{repository.string} Could not download manifest.json")
 
         # An invalid manifest has no categories
         repository.integration_manifest = manifest if isinstance(manifest, dict) else {}
-        return True
 
     async def generate_data_for_category(
         self,

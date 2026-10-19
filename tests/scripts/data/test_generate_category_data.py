@@ -2,6 +2,7 @@
 
 import argparse
 import asyncio
+from contextlib import nullcontext as does_not_raise
 import json
 import logging
 import os
@@ -12,6 +13,7 @@ from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeCo
 from homeassistant.core import HomeAssistant
 import pytest
 
+from custom_components.hacs.exceptions import HacsException
 from scripts.data.generate_category_data import (
     OUTPUT_DIR,
     AdjustedHacs,
@@ -37,6 +39,9 @@ from tests.common import (
 from tests.conftest import SnapshotFixture
 
 BASE_HEADERS = {"Content-Type": "application/json"}
+INTEGRATION_DIRECTORY_TREE_ITEM = AIOGitHubAPIRepositoryTreeContent(
+    {"path": "custom_components/example", "type": "tree"}, "test/test", "main"
+)
 MANIFEST_TREE_ITEM = AIOGitHubAPIRepositoryTreeContent(
     {"path": "custom_components/example/manifest.json", "type": "blob"}, "test/test", "main"
 )
@@ -724,7 +729,7 @@ async def test_update_repository_reloads_integration_manifest(
     repository_integration, stored: dict, fetched: dict, updated: bool, expected: dict
 ):
     """Test that a modified repository gets the manifest for the current ref."""
-    repository_integration.tree = [MANIFEST_TREE_ITEM]
+    repository_integration.tree = [INTEGRATION_DIRECTORY_TREE_ITEM, MANIFEST_TREE_ITEM]
     repository_integration.data.last_version = None
     repository_integration.data.etag_repository = "old"
     repository_integration.integration_manifest = stored
@@ -749,9 +754,7 @@ async def test_update_repository_reloads_integration_manifest(
 
 async def test_update_repository_without_integration_manifest(repository_integration):
     """Test that stored categories are dropped when the repository has no manifest."""
-    repository_integration.tree = [
-        AIOGitHubAPIRepositoryTreeContent({"path": "README.md", "type": "blob"}, "test/test", "main")
-    ]
+    repository_integration.tree = [INTEGRATION_DIRECTORY_TREE_ITEM]
     repository_integration.data.last_version = None
     repository_integration.data.etag_repository = "old"
     repository_integration.integration_manifest = {"categories": ["energy"]}
@@ -774,9 +777,31 @@ async def test_update_repository_keeps_categories_when_tree_fetch_fails(reposito
     repository_integration.common_update = common_update_with_etag(repository_integration, "new")
     repository_integration.get_integration_manifest = AsyncMock()
 
-    await AdjustedHacs.concurrent_update_repository.__wrapped__(
-        AdjustedHacs.__new__(AdjustedHacs), repository_integration
-    )
+    with pytest.raises(HacsException, match="Could not update the repository"):
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(
+            AdjustedHacs.__new__(AdjustedHacs), repository_integration
+        )
+
+    assert repository_integration.integration_manifest == {"categories": ["energy"]}
+    assert repository_integration.data.etag_repository == ""
+    repository_integration.get_integration_manifest.assert_not_awaited()
+
+
+async def test_update_repository_unresolved_integration_path(repository_integration):
+    """Test that an unknown layout, like after hacs.json failed to download, is retried."""
+    repository_integration.tree = [
+        AIOGitHubAPIRepositoryTreeContent({"path": "manifest.json", "type": "blob"}, "test/test", "main")
+    ]
+    repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = "old"
+    repository_integration.integration_manifest = {"categories": ["energy"]}
+    repository_integration.common_update = common_update_with_etag(repository_integration, "new")
+    repository_integration.get_integration_manifest = AsyncMock()
+
+    with pytest.raises(HacsException, match="Could not find the integration directory"):
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(
+            AdjustedHacs.__new__(AdjustedHacs), repository_integration
+        )
 
     assert repository_integration.integration_manifest == {"categories": ["energy"]}
     assert repository_integration.data.etag_repository == ""
@@ -784,7 +809,7 @@ async def test_update_repository_keeps_categories_when_tree_fetch_fails(reposito
 
 async def test_update_repository_retries_failed_integration_manifest(repository_integration):
     """Test that a failed manifest fetch keeps the categories and is retried on the next run."""
-    repository_integration.tree = [MANIFEST_TREE_ITEM]
+    repository_integration.tree = [INTEGRATION_DIRECTORY_TREE_ITEM, MANIFEST_TREE_ITEM]
     repository_integration.data.last_version = None
     repository_integration.data.etag_repository = "old"
     repository_integration.integration_manifest = {"categories": ["energy"]}
@@ -799,7 +824,8 @@ async def test_update_repository_retries_failed_integration_manifest(repository_
     repository_integration.common_update = _common_update
     hacs = AdjustedHacs.__new__(AdjustedHacs)
 
-    await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_integration)
+    with pytest.raises(HacsException, match=r"Could not download manifest\.json"):
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_integration)
 
     assert repository_integration.integration_manifest == {"categories": ["energy"]}
     assert repository_integration.data.etag_repository == ""
@@ -814,19 +840,19 @@ async def test_update_repository_retries_failed_integration_manifest(repository_
 
 
 @pytest.mark.parametrize(
-    ("new_etag", "expected_etag"),
+    ("new_etag", "expectation", "expected_etag"),
     [
         # The update failed after common_update stored the new ETag
-        ("new", ""),
+        ("new", pytest.raises(HacsException, match="Could not update the repository"), ""),
         # Not modified
-        ("old", "old"),
+        ("old", does_not_raise(), "old"),
     ],
 )
 async def test_update_repository_not_updated_integration(
-    repository_integration, new_etag: str, expected_etag: str
+    repository_integration, new_etag: str, expectation, expected_etag: str
 ):
     """Test that a failed update is retried on the next run, and an unmodified one isn't."""
-    repository_integration.tree = [MANIFEST_TREE_ITEM]
+    repository_integration.tree = [INTEGRATION_DIRECTORY_TREE_ITEM, MANIFEST_TREE_ITEM]
     repository_integration.data.last_version = None
     repository_integration.data.etag_repository = "old"
     repository_integration.integration_manifest = {"categories": ["energy"]}
@@ -838,9 +864,10 @@ async def test_update_repository_not_updated_integration(
 
     repository_integration.common_update = _common_update
 
-    await AdjustedHacs.concurrent_update_repository.__wrapped__(
-        AdjustedHacs.__new__(AdjustedHacs), repository_integration
-    )
+    with expectation:
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(
+            AdjustedHacs.__new__(AdjustedHacs), repository_integration
+        )
 
     assert repository_integration.data.etag_repository == expected_etag
     assert repository_integration.integration_manifest == {"categories": ["energy"]}
@@ -850,7 +877,7 @@ async def test_update_repository_not_updated_integration(
 @pytest.mark.parametrize("manifest", [[], "manifest", False])
 async def test_update_repository_invalid_integration_manifest(repository_integration, manifest):
     """Test that a manifest that isn't an object has no categories."""
-    repository_integration.tree = [MANIFEST_TREE_ITEM]
+    repository_integration.tree = [INTEGRATION_DIRECTORY_TREE_ITEM, MANIFEST_TREE_ITEM]
     repository_integration.data.last_version = None
     repository_integration.data.etag_repository = "old"
     repository_integration.integration_manifest = {"categories": ["energy"]}

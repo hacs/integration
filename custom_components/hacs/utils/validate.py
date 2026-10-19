@@ -52,10 +52,10 @@ def _integration_categories_validator(values) -> list[str]:
         raise vol.Invalid("Expected at least one category.")
 
     if unknown := [value for value in dict.fromkeys(values) if value not in INTEGRATION_CATEGORIES]:
-        raise vol.Invalid(f"Unknown categories: {', '.join(repr(value) for value in unknown)}.")
+        raise vol.Invalid(f"Unknown categories: {', '.join(f"'{value}'" for value in unknown)}.")
     if duplicates := [value for value in dict.fromkeys(values) if values.count(value) > 1]:
         raise vol.Invalid(
-            f"Duplicate categories: {', '.join(repr(value) for value in duplicates)}."
+            f"Duplicate categories: {', '.join(f"'{value}'" for value in duplicates)}."
         )
 
     if len(values) > 3:

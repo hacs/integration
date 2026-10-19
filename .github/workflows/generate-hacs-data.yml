@@ -95,9 +95,9 @@ jobs:
             echo "| \`HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS\` | $UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-  # Fetches the published data once so every category leg uses the same
-  # baseline. Trade-off: if any fetch keeps failing, this job fails and blocks
-  # the whole run, not just that category.
+  # Fetches the published data and checks out hacs/default once so every
+  # category leg uses the same baseline. Trade-off: if any fetch keeps
+  # failing, this job fails and blocks the whole run, not just that category.
   fetch-stored-data:
     name: Fetch stored data
     runs-on: ubuntu-26.04
@@ -108,6 +108,13 @@ jobs:
       shards: ${{ steps.fetch.outputs.shards }}
       shard_counts: ${{ steps.fetch.outputs.shard_counts }}
     steps:
+      - name: Checkout hacs/default
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: hacs/default
+          path: hacs-default
+          persist-credentials: false
+
       - name: Fetch stored data
         id: fetch
         env:
@@ -132,6 +139,8 @@ jobs:
           for category in $(echo "$CATEGORIES" | jq -r '.[]'); do
             echo "Fetching stored data for $category"
             fetch_stored_hacs_content "${category}/data.json" "outputdata/stored/${category}.json"
+            jq -e 'type == "array"' "hacs-default/${category}" > /dev/null || { echo "::error::hacs/default ${category} is not a JSON array"; exit 1; }
+            cp "hacs-default/${category}" "outputdata/stored/default-${category}.json"
 
             count=$(jq 'length' "outputdata/stored/${category}.json")
             total=$(( count > 0 ? (count + SHARD_SIZE - 1) / SHARD_SIZE : 1 ))

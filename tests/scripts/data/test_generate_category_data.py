@@ -22,6 +22,7 @@ from scripts.data.generate_category_data import (
     _parse_shard,
     _slice_by_shard,
     generate_category_data,
+    get_default_repositories,
     get_removed_repositories,
     get_stored_data,
     shard_for,
@@ -416,6 +417,27 @@ async def test_get_removed_repositories_falls_back_to_fetch(monkeypatch):
     hacs = _StubHacs()
     assert await get_removed_repositories(hacs) == _FETCHED_REMOVED
     assert hacs.data_client.calls == [("get_repositories", "removed")]
+
+
+async def test_get_default_repositories_reads_from_stored_dir(tmp_path, monkeypatch):
+    """When the snapshot dir is set, the hacs/default list is read from it, not fetched."""
+    monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", str(tmp_path))
+    default = ["octocat/Hello-World"]
+    (tmp_path / "default-plugin.json").write_text(json.dumps(default))
+
+    hacs = _StubHacs()
+    hacs.async_github_get_hacs_default_file = AsyncMock()
+    assert await get_default_repositories(hacs, "plugin") == default
+    hacs.async_github_get_hacs_default_file.assert_not_awaited()
+
+
+async def test_get_default_repositories_falls_back_to_fetch(monkeypatch):
+    """Without the snapshot dir, the hacs/default list is fetched from GitHub."""
+    monkeypatch.setattr(f"{_MODULE}.STORED_DATA_DIR", None)
+    hacs = _StubHacs()
+    hacs.async_github_get_hacs_default_file = AsyncMock(return_value=["octocat/Hello-World"])
+    assert await get_default_repositories(hacs, "plugin") == ["octocat/Hello-World"]
+    hacs.async_github_get_hacs_default_file.assert_awaited_once_with("plugin")
 
 
 async def test_get_stored_data_falls_back_when_snapshot_missing(tmp_path, monkeypatch):

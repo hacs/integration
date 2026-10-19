@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 from voluptuous.error import Invalid
 from voluptuous.humanize import humanize_error
 
-from ..enums import HacsCategory, RepositoryFile
+from ..enums import HacsCategory
 from ..utils.validate import INTEGRATION_MANIFEST_CATEGORIES_SCHEMA
 from .base import ActionValidationBase, ValidationException
 
@@ -28,12 +28,8 @@ class Validator(ActionValidationBase):
 
     async def async_validate(self) -> None:
         """Validate the repository."""
-        # The integration_manifest check reports a missing manifest
-        if RepositoryFile.MAINIFEST_JSON not in [x.filename for x in self.repository.tree]:
-            return
-
-        content = await self.repository.get_integration_manifest(version=self.repository.ref)
+        manifest = self.repository.integration_manifest
         try:
-            INTEGRATION_MANIFEST_CATEGORIES_SCHEMA(content)
+            INTEGRATION_MANIFEST_CATEGORIES_SCHEMA(manifest)
         except Invalid as exception:
-            raise ValidationException(humanize_error(content, exception)) from exception
+            raise ValidationException(humanize_error(manifest, exception)) from exception

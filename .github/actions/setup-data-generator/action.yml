@@ -1,0 +1,20 @@
+name: Set up the data generator
+description: Set up Python and install the data generator dependencies.
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      with:
+        python-version-file: .python-version
+        cache: 'pip'
+        cache-dependency-path: |
+          requirements_base.txt
+          requirements_generate_data.txt
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        scripts/install/frontend
+        scripts/install/pip_packages --requirement requirements_generate_data.txt

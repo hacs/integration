@@ -795,3 +795,55 @@ async def test_update_repository_retries_failed_integration_manifest(repository_
 
     assert repository_integration.integration_manifest == {"categories": ["climate"]}
     assert repository_integration.data.etag_repository == "new"
+
+
+@pytest.mark.parametrize(
+    ("new_etag", "expected_etag"),
+    [
+        # The update failed after common_update stored the new ETag
+        ("new", ""),
+        # Not modified
+        ("old", "old"),
+    ],
+)
+async def test_update_repository_not_updated_integration(
+    repository_integration, new_etag: str, expected_etag: str
+):
+    """Test that a failed update is retried on the next run, and an unmodified one isn't."""
+    repository_integration.tree = [MANIFEST_TREE_ITEM]
+    repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = "old"
+    repository_integration.integration_manifest = {"categories": ["energy"]}
+    repository_integration.get_integration_manifest = AsyncMock()
+
+    async def _common_update(**_):
+        repository_integration.data.etag_repository = new_etag
+        return False
+
+    repository_integration.common_update = _common_update
+
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(
+        AdjustedHacs.__new__(AdjustedHacs), repository_integration
+    )
+
+    assert repository_integration.data.etag_repository == expected_etag
+    assert repository_integration.integration_manifest == {"categories": ["energy"]}
+    repository_integration.get_integration_manifest.assert_not_awaited()
+
+
+@pytest.mark.parametrize("manifest", [[], "manifest", False])
+async def test_update_repository_invalid_integration_manifest(repository_integration, manifest):
+    """Test that a manifest that isn't an object has no categories."""
+    repository_integration.tree = [MANIFEST_TREE_ITEM]
+    repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = "new"
+    repository_integration.integration_manifest = {"categories": ["energy"]}
+    repository_integration.common_update = AsyncMock(return_value=True)
+    repository_integration.get_integration_manifest = AsyncMock(return_value=manifest)
+
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(
+        AdjustedHacs.__new__(AdjustedHacs), repository_integration
+    )
+
+    assert repository_integration.integration_manifest == {}
+    assert repository_integration.data.etag_repository == "new"

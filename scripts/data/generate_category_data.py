@@ -395,14 +395,19 @@ class AdjustedHacs(HacsBase):
                 repository.data.releases = False
                 repository.logger.error("%s %s", repository.string, exception)
 
+        previous_etag = repository.data.etag_repository
         updated = await repository.common_update(
             force=repository.data.etag_repository is None,
             skip_releases=repository.data.releases,
         )
 
-        # common_update does not reload manifest.json
-        if updated and repository.data.category == "integration":
-            await self.async_update_integration_manifest(repository, repository.ref)
+        if repository.data.category == "integration":
+            if updated:
+                # common_update does not reload manifest.json
+                await self.async_update_integration_manifest(repository, repository.ref)
+            elif repository.data.etag_repository != previous_etag:
+                # common_update stored the new ETag before the update failed
+                repository.data.etag_repository = ""
 
     async def async_update_integration_manifest(
         self, repository: HacsRepository, version: str
@@ -433,6 +438,11 @@ class AdjustedHacs(HacsBase):
             repository.logger.error(
                 "%s Could not download %s", repository.string, RepositoryFile.MAINIFEST_JSON
             )
+            return
+
+        if not isinstance(manifest, dict):
+            # An invalid manifest has no categories
+            repository.integration_manifest = {}
             return
 
         repository.integration_manifest = manifest

@@ -734,7 +734,9 @@ async def test_update_repository_reloads_integration_manifest(
 
 async def test_update_repository_without_integration_manifest(repository_integration):
     """Test that stored categories are dropped when the repository has no manifest."""
-    repository_integration.tree = []
+    repository_integration.tree = [
+        AIOGitHubAPIRepositoryTreeContent({"path": "README.md", "type": "blob"}, "test/test", "main")
+    ]
     repository_integration.data.last_version = None
     repository_integration.integration_manifest = {"categories": ["energy"]}
     repository_integration.common_update = AsyncMock(return_value=True)
@@ -745,6 +747,24 @@ async def test_update_repository_without_integration_manifest(repository_integra
 
     assert repository_integration.integration_manifest == {}
 
+
+
+async def test_update_repository_keeps_categories_when_tree_fetch_fails(repository_integration):
+    """Test that a forced update without a tree keeps the categories and is retried."""
+    repository_integration.tree = []
+    repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = "new"
+    repository_integration.integration_manifest = {"categories": ["energy"]}
+    repository_integration.common_update = AsyncMock(return_value=True)
+    repository_integration.get_integration_manifest = AsyncMock()
+
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(
+        AdjustedHacs.__new__(AdjustedHacs), repository_integration
+    )
+
+    assert repository_integration.integration_manifest == {"categories": ["energy"]}
+    assert repository_integration.data.etag_repository == ""
+    repository_integration.get_integration_manifest.assert_not_awaited()
 
 async def test_update_repository_retries_failed_integration_manifest(repository_integration):
     """Test that a failed manifest fetch keeps the categories and is retried on the next run."""

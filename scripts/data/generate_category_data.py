@@ -408,6 +408,12 @@ class AdjustedHacs(HacsBase):
         self, repository: HacsRepository, version: str
     ) -> None:
         """Replace the integration manifest with the one for version."""
+        if not repository.tree:
+            # A forced common_update returns True even when fetching the tree failed
+            repository.data.etag_repository = ""
+            repository.logger.error("%s Could not fetch the repository tree", repository.string)
+            return
+
         if repository.repository_manifest.content_in_root:
             repository.content.path.remote = ""
         elif repository.content.path.remote == "custom_components":

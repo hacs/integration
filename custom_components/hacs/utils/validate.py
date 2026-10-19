@@ -51,11 +51,12 @@ def _integration_categories_validator(values) -> list[str]:
     if not values:
         raise vol.Invalid("Expected at least one category.")
 
-    for category in values:
-        if category not in INTEGRATION_CATEGORIES:
-            raise vol.Invalid(f"Unknown category '{category}'.")
-        if values.count(category) > 1:
-            raise vol.Invalid(f"Duplicate category '{category}'.")
+    if unknown := [value for value in dict.fromkeys(values) if value not in INTEGRATION_CATEGORIES]:
+        raise vol.Invalid(f"Unknown categories: {', '.join(repr(value) for value in unknown)}.")
+    if duplicates := [value for value in dict.fromkeys(values) if values.count(value) > 1]:
+        raise vol.Invalid(
+            f"Duplicate categories: {', '.join(repr(value) for value in duplicates)}."
+        )
 
     if len(values) > 3:
         raise vol.Invalid(f"Expected at most 3 categories, got {len(values)}.")

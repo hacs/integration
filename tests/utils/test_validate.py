@@ -7,6 +7,7 @@ from voluptuous.error import Invalid, MultipleInvalid
 
 from custom_components.hacs.utils.validate import (
     HACS_MANIFEST_JSON_SCHEMA as hacs_json_schema,
+    INTEGRATION_MANIFEST_CATEGORIES_SCHEMA,
     INTEGRATION_MANIFEST_JSON_SCHEMA as integration_json_schema,
     VALIDATE_FETCHED_V2_CRITICAL_REPO_SCHEMA,
     VALIDATE_FETCHED_V2_REMOVED_REPO_SCHEMA,
@@ -644,6 +645,19 @@ def test_repo_data_json_schema_bad_data(
             VALIDATE_FETCHED_V2_REPO_DATA[category](data)
         with expectation_2:
             VALIDATE_GENERATED_V2_REPO_DATA[category]({"test_repo": data})
+
+
+@pytest.mark.parametrize(
+    ("categories", "message"),
+    [
+        (["foo", "energy", "bar", "foo"], "Unknown categories: 'foo', 'bar'."),
+        (["energy", "climate", "energy", "climate"], "Duplicate categories: 'energy', 'climate'."),
+    ],
+)
+def test_integration_categories_report_all_invalid_values(categories: list[str], message: str):
+    """Test that every unknown or duplicate category is reported."""
+    with pytest.raises(Invalid, match=re.escape(message)):
+        INTEGRATION_MANIFEST_CATEGORIES_SCHEMA({"categories": categories})
 
 
 @pytest.mark.parametrize(

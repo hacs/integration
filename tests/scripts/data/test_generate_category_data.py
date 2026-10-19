@@ -713,6 +713,27 @@ async def test_register_base_data_restores_categories(hacs, repository_integrati
     assert repository_integration.integration_manifest == {"categories": ["energy"]}
 
 
+async def test_register_base_data_restores_categories_for_renamed_repository(
+    hacs, repository_integration
+):
+    """Test that stored categories are restored when the repository was renamed."""
+    hacs.repositories.register(repository_integration)
+    data = AdjustedHacsData(hacs=hacs)
+
+    await data.register_base_data(
+        "integration",
+        {
+            str(repository_integration.data.id): {
+                "categories": ["energy"],
+                "full_name": "old/name",
+            }
+        },
+        [],
+    )
+
+    assert repository_integration.integration_manifest == {"categories": ["energy"]}
+
+
 @pytest.mark.parametrize(
     ("stored", "fetched", "updated", "expected"),
     [

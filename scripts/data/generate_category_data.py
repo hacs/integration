@@ -219,6 +219,7 @@ class AdjustedHacsData(HacsData):
             # Keeps the categories when the repository is not modified
             if (categories := repo_data.get("categories")) and (
                 repository := self.hacs.repositories.get_by_full_name(repo_data["full_name"])
+                or self.hacs.repositories.get_by_id(entry)
             ):
                 repository.integration_manifest = {"categories": categories}
 

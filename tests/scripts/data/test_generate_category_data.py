@@ -8,6 +8,7 @@ import os
 from typing import Any
 from unittest.mock import AsyncMock, MagicMock, patch
 
+from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 from homeassistant.core import HomeAssistant
 import pytest
 
@@ -37,6 +38,9 @@ from tests.common import (
 from tests.conftest import SnapshotFixture
 
 BASE_HEADERS = {"Content-Type": "application/json"}
+MANIFEST_TREE_ITEM = AIOGitHubAPIRepositoryTreeContent(
+    {"path": "custom_components/example/manifest.json", "type": "blob"}, "test/test", "main"
+)
 RATE_LIMIT_HEADER = {
     **BASE_HEADERS,
     "X-RateLimit-Limit": "9999",
@@ -709,6 +713,7 @@ async def test_update_repository_reloads_integration_manifest(
     repository_integration, stored: dict, fetched: dict, updated: bool, expected: dict
 ):
     """Test that a modified repository gets the manifest for the current ref."""
+    repository_integration.tree = [MANIFEST_TREE_ITEM]
     repository_integration.data.last_version = None
     repository_integration.integration_manifest = stored
     repository_integration.common_update = AsyncMock(return_value=updated)
@@ -722,17 +727,51 @@ async def test_update_repository_reloads_integration_manifest(
     assert repository_integration.async_get_integration_manifest.await_count == int(updated)
 
 
+
 async def test_update_repository_without_integration_manifest(repository_integration):
-    """Test that stored categories are dropped when the manifest can't be loaded."""
+    """Test that stored categories are dropped when the repository has no manifest."""
+    repository_integration.tree = []
     repository_integration.data.last_version = None
     repository_integration.integration_manifest = {"categories": ["energy"]}
     repository_integration.common_update = AsyncMock(return_value=True)
-    repository_integration.async_get_integration_manifest = AsyncMock(
-        side_effect=HacsException("No manifest.json file found")
-    )
+    repository_integration.async_get_integration_manifest = AsyncMock()
 
     await AdjustedHacs.concurrent_update_repository.__wrapped__(
         AdjustedHacs.__new__(AdjustedHacs), repository_integration
     )
 
     assert repository_integration.integration_manifest == {}
+    repository_integration.async_get_integration_manifest.assert_not_awaited()
+
+
+async def test_update_repository_retries_failed_integration_manifest(repository_integration):
+    """Test that a failed manifest fetch keeps the categories and is retried on the next run."""
+    repository_integration.tree = [MANIFEST_TREE_ITEM]
+    repository_integration.data.last_version = None
+    repository_integration.data.etag_repository = "old"
+    repository_integration.integration_manifest = {"categories": ["energy"]}
+    repository_integration.async_get_integration_manifest = AsyncMock(
+        side_effect=HacsException("Timeout")
+    )
+
+    async def _common_update(**_):
+        # GitHub reports a modified repository unless the stored ETag matches
+        modified = repository_integration.data.etag_repository != "new"
+        repository_integration.data.etag_repository = "new"
+        return modified
+
+    repository_integration.common_update = _common_update
+    hacs = AdjustedHacs.__new__(AdjustedHacs)
+
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_integration)
+
+    assert repository_integration.integration_manifest == {"categories": ["energy"]}
+    assert repository_integration.data.etag_repository == ""
+
+    repository_integration.async_get_integration_manifest = AsyncMock(
+        return_value={"categories": ["climate"]}
+    )
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_integration)
+
+    assert repository_integration.integration_manifest == {"categories": ["climate"]}
+    assert repository_integration.data.etag_repository == "new"

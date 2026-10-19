@@ -29,7 +29,7 @@ import voluptuous as vol
 from custom_components.hacs.base import HacsBase, HacsRepositories
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.data_client import HacsDataClient
-from custom_components.hacs.enums import HacsGitHubRepo
+from custom_components.hacs.enums import HacsGitHubRepo, RepositoryFile
 from custom_components.hacs.exceptions import (
     HacsException,
     HacsExecutionStillInProgress,
@@ -412,12 +412,17 @@ class AdjustedHacs(HacsBase):
             name = get_first_directory_in_directory(repository.tree, "custom_components")
             repository.content.path.remote = f"custom_components/{name}"
 
+        if RepositoryFile.MAINIFEST_JSON not in [x.filename for x in repository.tree]:
+            repository.integration_manifest = {}
+            return
+
         try:
             repository.integration_manifest = (
                 await repository.async_get_integration_manifest() or {}
             )
         except HacsException as exception:
-            repository.integration_manifest = {}
+            # Keep the stored categories, an empty ETag makes the next run fetch them again
+            repository.data.etag_repository = ""
             repository.logger.error("%s %s", repository.string, exception)
 
     async def generate_data_for_category(

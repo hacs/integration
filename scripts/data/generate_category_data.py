@@ -402,10 +402,12 @@ class AdjustedHacs(HacsBase):
 
         # common_update does not reload manifest.json
         if updated and repository.data.category == "integration":
-            await self.async_update_integration_manifest(repository)
+            await self.async_update_integration_manifest(repository, repository.ref)
 
-    async def async_update_integration_manifest(self, repository: HacsRepository) -> None:
-        """Replace the integration manifest with the one for the current ref."""
+    async def async_update_integration_manifest(
+        self, repository: HacsRepository, version: str
+    ) -> None:
+        """Replace the integration manifest with the one for version."""
         if repository.repository_manifest.content_in_root:
             repository.content.path.remote = ""
         elif repository.content.path.remote == "custom_components":
@@ -413,9 +415,7 @@ class AdjustedHacs(HacsBase):
             repository.content.path.remote = f"custom_components/{name}"
 
         try:
-            manifest = await repository.get_integration_manifest(
-                version=repository.version_to_download()
-            )
+            manifest = await repository.get_integration_manifest(version=version)
         except HacsException:
             # The tree has no manifest.json at the integration path
             repository.integration_manifest = {}

@@ -723,7 +723,12 @@ async def test_update_repository_reloads_integration_manifest(
     )
 
     assert repository_integration.integration_manifest == expected
-    assert repository_integration.get_integration_manifest.await_count == int(updated)
+    if updated:
+        repository_integration.get_integration_manifest.assert_awaited_once_with(
+            version=repository_integration.ref
+        )
+    else:
+        repository_integration.get_integration_manifest.assert_not_awaited()
 
 
 

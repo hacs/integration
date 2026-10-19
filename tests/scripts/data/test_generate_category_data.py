@@ -648,3 +648,30 @@ async def test_generate_category_data_without_shard_finalizes():
     assert (kwargs["index"], kwargs["shards"]) == (0, 1)
     finalize.assert_awaited_once_with(hacs, "integration", stored, stored, updated)
     write_shard.assert_not_called()
+
+
+@pytest.mark.parametrize(
+    ("side_effect", "expected_etag"),
+    [
+        (Exception("Update failed"), ""),
+        (None, "etag"),
+    ],
+)
+async def test_concurrent_update_repository_clears_etag_on_failure(
+    repository_integration, side_effect: Exception | None, expected_etag: str
+):
+    """Test that a failed update is fetched again on the next run."""
+    repository_integration.data.etag_repository = "etag"
+    hacs = AdjustedHacs.__new__(AdjustedHacs)
+    hacs.async_update_repository = AsyncMock(side_effect=side_effect)
+
+    if side_effect is None:
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_integration)
+    else:
+        with pytest.raises(Exception, match="Update failed"):
+            await AdjustedHacs.concurrent_update_repository.__wrapped__(
+                hacs, repository_integration
+            )
+
+    assert repository_integration.data.etag_repository == expected_etag
+    hacs.async_update_repository.assert_awaited_once_with(repository_integration)

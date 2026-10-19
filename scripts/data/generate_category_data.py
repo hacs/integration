@@ -284,6 +284,15 @@ class AdjustedHacs(HacsBase):
         backoff_time=UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS,
     )
     async def concurrent_update_repository(self, repository: HacsRepository) -> None:
+        """Update a repository, and fetch it again on the next run if the update fails."""
+        try:
+            await self.async_update_repository(repository)
+        except Exception:
+            # The queue only logs the error, an empty ETag makes the next run fetch it again
+            repository.data.etag_repository = ""
+            raise
+
+    async def async_update_repository(self, repository: HacsRepository) -> None:
         """Update a repository."""
         if repository_has_missing_keys(repository, "update"):
             # If we have missing keys, force a full update by setting the etag to None

@@ -11,6 +11,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 from homeassistant.core import HomeAssistant
 import pytest
 
+from custom_components.hacs.exceptions import HacsException
 from scripts.data.generate_category_data import (
     OUTPUT_DIR,
     AdjustedHacs,
@@ -689,3 +690,49 @@ async def test_register_base_data_restores_categories(hacs, repository_integrati
     )
 
     assert repository_integration.integration_manifest == {"categories": ["energy"]}
+
+
+@pytest.mark.parametrize(
+    ("stored", "fetched", "updated", "expected"),
+    [
+        # Gaining categories
+        ({}, {"categories": ["energy"]}, True, {"categories": ["energy"]}),
+        # Changing categories
+        ({"categories": ["energy"]}, {"categories": ["climate"]}, True, {"categories": ["climate"]}),
+        # Removing categories
+        ({"categories": ["energy"]}, {"domain": "test"}, True, {"domain": "test"}),
+        # Not modified keeps the stored categories
+        ({"categories": ["energy"]}, {"categories": ["climate"]}, False, {"categories": ["energy"]}),
+    ],
+)
+async def test_update_repository_reloads_integration_manifest(
+    repository_integration, stored: dict, fetched: dict, updated: bool, expected: dict
+):
+    """Test that a modified repository gets the manifest for the current ref."""
+    repository_integration.data.last_version = None
+    repository_integration.integration_manifest = stored
+    repository_integration.common_update = AsyncMock(return_value=updated)
+    repository_integration.async_get_integration_manifest = AsyncMock(return_value=fetched)
+
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(
+        AdjustedHacs.__new__(AdjustedHacs), repository_integration
+    )
+
+    assert repository_integration.integration_manifest == expected
+    assert repository_integration.async_get_integration_manifest.await_count == int(updated)
+
+
+async def test_update_repository_without_integration_manifest(repository_integration):
+    """Test that stored categories are dropped when the manifest can't be loaded."""
+    repository_integration.data.last_version = None
+    repository_integration.integration_manifest = {"categories": ["energy"]}
+    repository_integration.common_update = AsyncMock(return_value=True)
+    repository_integration.async_get_integration_manifest = AsyncMock(
+        side_effect=HacsException("No manifest.json file found")
+    )
+
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(
+        AdjustedHacs.__new__(AdjustedHacs), repository_integration
+    )
+
+    assert repository_integration.integration_manifest == {}

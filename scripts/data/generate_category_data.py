@@ -30,7 +30,10 @@ from custom_components.hacs.base import HacsBase, HacsRepositories
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.data_client import HacsDataClient
 from custom_components.hacs.enums import HacsGitHubRepo
-from custom_components.hacs.exceptions import HacsExecutionStillInProgress
+from custom_components.hacs.exceptions import (
+    HacsException,
+    HacsExecutionStillInProgress,
+)
 from custom_components.hacs.repositories.base import (
     HACS_MANIFEST_KEYS_TO_EXPORT,
     REPOSITORY_KEYS_TO_EXPORT,
@@ -39,6 +42,7 @@ from custom_components.hacs.repositories.base import (
 from custom_components.hacs.utils.data import HacsData
 from custom_components.hacs.utils.decode import decode_content
 from custom_components.hacs.utils.decorator import concurrent
+from custom_components.hacs.utils.filters import get_first_directory_in_directory
 from custom_components.hacs.utils.json import json_loads
 from custom_components.hacs.utils.queue_manager import QueueManager
 from custom_components.hacs.utils.validate import (
@@ -212,7 +216,7 @@ class AdjustedHacsData(HacsData):
                 )
                 continue
             self.async_restore_repository(entry, repo_data)
-            # Manifests are only fetched again when the repository changes
+            # Keeps the categories when the repository is not modified
             if (categories := repo_data.get("categories")) and (
                 repository := self.hacs.repositories.get_by_full_name(repo_data["full_name"])
             ):
@@ -391,10 +395,30 @@ class AdjustedHacs(HacsBase):
                 repository.data.releases = False
                 repository.logger.error("%s %s", repository.string, exception)
 
-        await repository.common_update(
+        updated = await repository.common_update(
             force=repository.data.etag_repository is None,
             skip_releases=repository.data.releases,
         )
+
+        # common_update does not reload manifest.json
+        if updated and repository.data.category == "integration":
+            await self.async_update_integration_manifest(repository)
+
+    async def async_update_integration_manifest(self, repository: HacsRepository) -> None:
+        """Replace the integration manifest with the one for the current ref."""
+        if repository.repository_manifest.content_in_root:
+            repository.content.path.remote = ""
+        elif repository.content.path.remote == "custom_components":
+            name = get_first_directory_in_directory(repository.tree, "custom_components")
+            repository.content.path.remote = f"custom_components/{name}"
+
+        try:
+            repository.integration_manifest = (
+                await repository.async_get_integration_manifest() or {}
+            )
+        except HacsException as exception:
+            repository.integration_manifest = {}
+            repository.logger.error("%s %s", repository.string, exception)
 
     async def generate_data_for_category(
         self,

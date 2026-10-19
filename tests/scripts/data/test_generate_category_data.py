@@ -554,8 +554,8 @@ async def test_summarize_data_without_updated_data():
     assert summary["diff"] == 1
 
 
-async def test_summarize_data_counts_refreshed_expired_data():
-    """Test that only refreshed repositories with expired data are counted as refreshed."""
+async def test_summarize_data_counts_refreshes():
+    """Test that refreshes that would repeat on every run unless published are counted."""
     rate_limit = MagicMock()
     for resource in (rate_limit.data.resources.core, rate_limit.data.resources.graphql):
         resource.used, resource.limit, resource.reset = 0, 5000, 0
@@ -570,17 +570,23 @@ async def test_summarize_data_counts_refreshed_expired_data():
             "fresh": {"full_name": "a/fresh", "last_fetched": fresh},
             "refreshed": {"full_name": "a/refreshed", "last_fetched": expired},
             "skipped": {"full_name": "a/skipped", "last_fetched": expired},
+            "untimed": {"full_name": "a/untimed"},
+            "recovered": {"full_name": "a/recovered", "etag_repository": "", "last_fetched": fresh},
+            "failed": {"full_name": "a/failed", "etag_repository": "old", "last_fetched": fresh},
         },
         {
             "fresh": {"full_name": "a/fresh", "last_fetched": now},
             "refreshed": {"full_name": "a/refreshed", "last_fetched": now},
             "skipped": {"full_name": "a/skipped", "last_fetched": expired},
+            "untimed": {"full_name": "a/untimed", "last_fetched": now},
+            "recovered": {"full_name": "a/recovered", "etag_repository": "abc", "last_fetched": now},
+            "failed": {"full_name": "a/failed", "etag_repository": "", "last_fetched": now},
             "new": {"full_name": "a/new", "last_fetched": now},
         },
     )
 
     assert summary["changed"] == 1
-    assert summary["refreshed"] == 1
+    assert summary["refreshed"] == 3
 
 
 @pytest.mark.parametrize(

@@ -12,7 +12,6 @@ from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeCo
 from homeassistant.core import HomeAssistant
 import pytest
 
-from custom_components.hacs.exceptions import HacsException
 from scripts.data.generate_category_data import (
     OUTPUT_DIR,
     AdjustedHacs,
@@ -717,14 +716,14 @@ async def test_update_repository_reloads_integration_manifest(
     repository_integration.data.last_version = None
     repository_integration.integration_manifest = stored
     repository_integration.common_update = AsyncMock(return_value=updated)
-    repository_integration.async_get_integration_manifest = AsyncMock(return_value=fetched)
+    repository_integration.get_integration_manifest = AsyncMock(return_value=fetched)
 
     await AdjustedHacs.concurrent_update_repository.__wrapped__(
         AdjustedHacs.__new__(AdjustedHacs), repository_integration
     )
 
     assert repository_integration.integration_manifest == expected
-    assert repository_integration.async_get_integration_manifest.await_count == int(updated)
+    assert repository_integration.get_integration_manifest.await_count == int(updated)
 
 
 
@@ -734,14 +733,12 @@ async def test_update_repository_without_integration_manifest(repository_integra
     repository_integration.data.last_version = None
     repository_integration.integration_manifest = {"categories": ["energy"]}
     repository_integration.common_update = AsyncMock(return_value=True)
-    repository_integration.async_get_integration_manifest = AsyncMock()
 
     await AdjustedHacs.concurrent_update_repository.__wrapped__(
         AdjustedHacs.__new__(AdjustedHacs), repository_integration
     )
 
     assert repository_integration.integration_manifest == {}
-    repository_integration.async_get_integration_manifest.assert_not_awaited()
 
 
 async def test_update_repository_retries_failed_integration_manifest(repository_integration):
@@ -750,9 +747,7 @@ async def test_update_repository_retries_failed_integration_manifest(repository_
     repository_integration.data.last_version = None
     repository_integration.data.etag_repository = "old"
     repository_integration.integration_manifest = {"categories": ["energy"]}
-    repository_integration.async_get_integration_manifest = AsyncMock(
-        side_effect=HacsException("Timeout")
-    )
+    repository_integration.get_integration_manifest = AsyncMock(return_value=None)
 
     async def _common_update(**_):
         # GitHub reports a modified repository unless the stored ETag matches
@@ -768,7 +763,7 @@ async def test_update_repository_retries_failed_integration_manifest(repository_
     assert repository_integration.integration_manifest == {"categories": ["energy"]}
     assert repository_integration.data.etag_repository == ""
 
-    repository_integration.async_get_integration_manifest = AsyncMock(
+    repository_integration.get_integration_manifest = AsyncMock(
         return_value={"categories": ["climate"]}
     )
     await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_integration)

@@ -412,18 +412,24 @@ class AdjustedHacs(HacsBase):
             name = get_first_directory_in_directory(repository.tree, "custom_components")
             repository.content.path.remote = f"custom_components/{name}"
 
-        if RepositoryFile.MAINIFEST_JSON not in [x.filename for x in repository.tree]:
+        try:
+            manifest = await repository.get_integration_manifest(
+                version=repository.version_to_download()
+            )
+        except HacsException:
+            # The tree has no manifest.json at the integration path
             repository.integration_manifest = {}
             return
 
-        try:
-            repository.integration_manifest = (
-                await repository.async_get_integration_manifest() or {}
-            )
-        except HacsException as exception:
+        if manifest is None:
             # Keep the stored categories, an empty ETag makes the next run fetch them again
             repository.data.etag_repository = ""
-            repository.logger.error("%s %s", repository.string, exception)
+            repository.logger.error(
+                "%s Could not download %s", repository.string, RepositoryFile.MAINIFEST_JSON
+            )
+            return
+
+        repository.integration_manifest = manifest
 
     async def generate_data_for_category(
         self,

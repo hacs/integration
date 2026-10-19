@@ -979,30 +979,35 @@ async def test_update_repository_without_etag(repository_plugin):
 
 
 @pytest.mark.parametrize(
-    ("tag_name", "etag", "fetched_ago", "updated"),
+    ("last_version", "tag_name", "etag", "fetched_ago", "force"),
     [
         # The current release is the latest one
-        ("1.0.0", "old", timedelta(days=1), False),
+        ("1.0.0", "1.0.0", "old", timedelta(days=1), None),
         # New release
-        ("2.0.0", "old", timedelta(days=1), True),
+        ("1.0.0", "2.0.0", "old", timedelta(days=1), True),
         # The stored data is too old
-        ("1.0.0", "old", timedelta(days=8), True),
+        ("1.0.0", "1.0.0", "old", timedelta(days=8), True),
         # Never fetched
-        ("1.0.0", "old", None, True),
+        ("1.0.0", "1.0.0", "old", None, False),
         # The last update failed
-        ("1.0.0", "", timedelta(days=1), True),
+        ("1.0.0", "1.0.0", "", timedelta(days=1), False),
+        # No stable release to compare with
+        (None, "1.0.0", "old", timedelta(days=1), False),
     ],
 )
 async def test_update_repository_gated_on_release(
     repository_plugin,
     caplog: pytest.LogCaptureFixture,
+    last_version: str | None,
     tag_name: str,
     etag: str,
     fetched_ago: timedelta | None,
-    updated: bool,
+    force: bool | None,
 ):
     """Test that a repository is only updated on a new release or when its data is too old."""
-    repository_plugin.data.last_version = "1.0.0"
+    repository_plugin.data.releases = True
+    repository_plugin.data.last_commit = "abc1234"
+    repository_plugin.data.last_version = last_version
     repository_plugin.data.etag_repository = etag
     repository_plugin.data.last_fetched = (
         datetime.now(UTC) - fetched_ago if fetched_ago is not None else None
@@ -1023,10 +1028,13 @@ async def test_update_repository_gated_on_release(
     with caplog.at_level(logging.INFO):
         await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_plugin)
 
-    assert repository_plugin.common_update.await_count == int(updated)
+    if force is None:
+        repository_plugin.common_update.assert_not_awaited()
+    else:
+        assert repository_plugin.common_update.await_args.kwargs["force"] is force
     assert (
         "Current release 1.0.0 is the latest one, next refresh in 06:00:00:00" in caplog.text
-    ) is not updated
+    ) is (force is None)
 
 
 async def test_generate_category_data_exports_categories(

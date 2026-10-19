@@ -424,25 +424,28 @@ class AdjustedHacs(HacsBase):
         # A new release, missing keys or a failed run clear the ETag
         if (
             repository.data.releases
+            and repository.data.last_version
             and repository.data.etag_repository
             and repository.data.last_fetched
-            and (age := datetime.now(UTC) - repository.data.last_fetched)
-            < REPOSITORY_REFRESH_INTERVAL
         ):
-            remaining = int((REPOSITORY_REFRESH_INTERVAL - age).total_seconds())
-            days, remaining = divmod(remaining, 86400)
-            hours, remaining = divmod(remaining, 3600)
-            minutes, seconds = divmod(remaining, 60)
-            repository.logger.info(
-                "%s Current release %s is the latest one, next refresh in %02d:%02d:%02d:%02d",
-                repository.string,
-                repository.data.last_version,
-                days,
-                hours,
-                minutes,
-                seconds,
-            )
-            return
+            age = datetime.now(UTC) - repository.data.last_fetched
+            if age < REPOSITORY_REFRESH_INTERVAL:
+                remaining = int((REPOSITORY_REFRESH_INTERVAL - age).total_seconds())
+                days, remaining = divmod(remaining, 86400)
+                hours, remaining = divmod(remaining, 3600)
+                minutes, seconds = divmod(remaining, 60)
+                repository.logger.info(
+                    "%s Current release %s is the latest one, next refresh in %02d:%02d:%02d:%02d",
+                    repository.string,
+                    repository.data.last_version,
+                    days,
+                    hours,
+                    minutes,
+                    seconds,
+                )
+                return
+            # A 304 doesn't update last_fetched, so the refresh has to fetch the repository
+            repository.data.etag_repository = None
 
         previous_etag = repository.data.etag_repository
         updated = await repository.common_update(

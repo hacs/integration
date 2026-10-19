@@ -170,7 +170,7 @@ jobs:
     if: github.repository == 'hacs/integration'
     name: Generate ${{ matrix.category }} data (${{ matrix.shard }}/${{ matrix.shards }})
     environment: data-generator
-    timeout-minutes: 60
+    timeout-minutes: 150
     strategy:
       fail-fast: false
       max-parallel: ${{ fromJSON(needs.settings.outputs.max_parallel) }}

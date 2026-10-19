@@ -29,7 +29,7 @@ import voluptuous as vol
 from custom_components.hacs.base import HacsBase, HacsRepositories
 from custom_components.hacs.const import HACS_ACTION_GITHUB_API_HEADERS
 from custom_components.hacs.data_client import HacsDataClient
-from custom_components.hacs.enums import HacsGitHubRepo, RepositoryFile
+from custom_components.hacs.enums import HacsGitHubRepo
 from custom_components.hacs.exceptions import (
     HacsException,
     HacsExecutionStillInProgress,
@@ -401,24 +401,25 @@ class AdjustedHacs(HacsBase):
             skip_releases=repository.data.releases,
         )
 
-        if repository.data.category == "integration":
-            if updated:
-                # common_update does not reload manifest.json
-                await self.async_update_integration_manifest(repository, repository.ref)
-            elif repository.data.etag_repository != previous_etag:
-                # common_update stored the new ETag before the update failed
-                repository.data.etag_repository = ""
+        if repository.data.category != "integration":
+            return
+
+        if updated and repository.tree:
+            # common_update does not reload manifest.json
+            if await self.async_update_integration_manifest(repository, repository.ref):
+                return
+        elif not updated and repository.data.etag_repository == previous_etag:
+            # Not modified
+            return
+
+        # The update failed, an empty ETag makes the next run fetch the repository again
+        repository.data.etag_repository = ""
+        repository.logger.error("%s Could not update the integration manifest", repository.string)
 
     async def async_update_integration_manifest(
         self, repository: HacsRepository, version: str
-    ) -> None:
-        """Replace the integration manifest with the one for version."""
-        if not repository.tree:
-            # A forced common_update returns True even when fetching the tree failed
-            repository.data.etag_repository = ""
-            repository.logger.error("%s Could not fetch the repository tree", repository.string)
-            return
-
+    ) -> bool:
+        """Replace the integration manifest for version, False if the download failed."""
         if repository.repository_manifest.content_in_root:
             repository.content.path.remote = ""
         elif repository.content.path.remote == "custom_components":
@@ -429,23 +430,14 @@ class AdjustedHacs(HacsBase):
             manifest = await repository.get_integration_manifest(version=version)
         except HacsException:
             # The tree has no manifest.json at the integration path
-            repository.integration_manifest = {}
-            return
+            manifest = {}
 
         if manifest is None:
-            # Keep the stored categories, an empty ETag makes the next run fetch them again
-            repository.data.etag_repository = ""
-            repository.logger.error(
-                "%s Could not download %s", repository.string, RepositoryFile.MAINIFEST_JSON
-            )
-            return
+            return False
 
-        if not isinstance(manifest, dict):
-            # An invalid manifest has no categories
-            repository.integration_manifest = {}
-            return
-
-        repository.integration_manifest = manifest
+        # An invalid manifest has no categories
+        repository.integration_manifest = manifest if isinstance(manifest, dict) else {}
+        return True
 
     async def generate_data_for_category(
         self,

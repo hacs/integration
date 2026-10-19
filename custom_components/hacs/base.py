@@ -471,7 +471,7 @@ class HacsBase:
                 "GitHub API ratelimited (%s/%s used; reset %s) - %s remaining",
                 response.data.resources.core.used,
                 response.data.resources.core.limit,
-                f"{reset.hour}:{reset.minute}:{reset.second}",
+                reset.strftime("%H:%M:%S"),
                 response.data.resources.core.remaining,
             )
             self.disable_hacs(HacsDisabledReason.RATE_LIMIT)

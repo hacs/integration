@@ -228,7 +228,7 @@ jobs:
 
   merge:
     runs-on: ubuntu-26.04
-    needs: [generate-matrix, fetch-stored-data, category-data]
+    needs: [generate-matrix, settings, fetch-stored-data, category-data]
     if: ${{ !cancelled() && needs.fetch-stored-data.result == 'success' && github.repository == 'hacs/integration' }}
     name: Merge ${{ matrix.category }} data
     environment: data-generator
@@ -276,6 +276,7 @@ jobs:
         env:
           DATA_GENERATOR_TOKEN: ${{ github.token }}
           HACS_STORED_DATA_DIR: outputdata/stored
+          HACS_DATA_GENERATOR_REPOSITORY_REFRESH_INTERVAL_DAYS: ${{ needs.settings.outputs.repository_refresh_interval_days }}
 
       - name: Validate output with JQ
         run: |
@@ -385,7 +386,7 @@ jobs:
 
               core.info(`[${directory}] changedPctTarget: ${changedPctTarget}`);
 
-              if (parsed.changed >= 1 || parsed.diff >= 1) {
+              if (parsed.changed >= 1 || parsed.diff >= 1 || parsed.refreshed >= 1) {
                 changedCategories.push(directory)
               }
 

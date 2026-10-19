@@ -554,6 +554,35 @@ async def test_summarize_data_without_updated_data():
     assert summary["diff"] == 1
 
 
+async def test_summarize_data_counts_refreshed_expired_data():
+    """Test that only refreshed repositories with expired data are counted as refreshed."""
+    rate_limit = MagicMock()
+    for resource in (rate_limit.data.resources.core, rate_limit.data.resources.graphql):
+        resource.used, resource.limit, resource.reset = 0, 5000, 0
+    hacs = MagicMock(async_github_api_method=AsyncMock(return_value=rate_limit))
+    now = datetime.now(UTC).timestamp()
+    fresh = now - timedelta(days=1).total_seconds()
+    expired = now - timedelta(days=8).total_seconds()
+
+    summary = await AdjustedHacs.summarize_data(
+        hacs,
+        {
+            "fresh": {"full_name": "a/fresh", "last_fetched": fresh},
+            "refreshed": {"full_name": "a/refreshed", "last_fetched": expired},
+            "skipped": {"full_name": "a/skipped", "last_fetched": expired},
+        },
+        {
+            "fresh": {"full_name": "a/fresh", "last_fetched": now},
+            "refreshed": {"full_name": "a/refreshed", "last_fetched": now},
+            "skipped": {"full_name": "a/skipped", "last_fetched": expired},
+            "new": {"full_name": "a/new", "last_fetched": now},
+        },
+    )
+
+    assert summary["changed"] == 1
+    assert summary["refreshed"] == 1
+
+
 @pytest.mark.parametrize(
     ("full_name", "shards", "expected"),
     [

@@ -590,6 +590,8 @@ class AdjustedHacs(HacsBase):
     ) -> dict[str, Any]:
         """Summarize data."""
         changed = 0
+        refreshed = 0
+        expired = datetime.now(UTC).timestamp() - REPOSITORY_REFRESH_INTERVAL.total_seconds()
 
         current_count = len(current_data.keys())
         new_count = len(updated_data.keys())
@@ -601,6 +603,11 @@ class AdjustedHacs(HacsBase):
                 ignore=COMPARE_IGNORE,
             ):
                 changed += 1
+            # Unless published, an expired timestamp makes every following run refresh again
+            if (
+                previous := current_data.get(repo_id, {}).get("last_fetched")
+            ) is not None and previous <= expired < repo_data.get("last_fetched", 0):
+                refreshed += 1
 
         async def _rate_limit() -> dict[str, Any]:
             res = await self.async_github_api_method(
@@ -626,6 +633,7 @@ class AdjustedHacs(HacsBase):
             "diff": abs(new_count - current_count),
             "new_count": new_count,
             "rate_limit": await _rate_limit(),
+            "refreshed": refreshed,
         }
 
         jsonprint(summary)

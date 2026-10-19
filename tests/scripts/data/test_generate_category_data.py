@@ -985,3 +985,57 @@ async def test_generate_category_data_exports_categories(
     assert [entry.get("categories") for entry in data.values()] == [
         ["energy", "energy.ev_charging"]
     ]
+
+
+@pytest.mark.parametrize("category_test_data", category_test_data_parametrized(categories=["integration"]))
+@pytest.mark.parametrize(
+    ("manifest_categories", "expected"),
+    [
+        # Changing categories
+        (["climate", "unknown", "energy.ev_charging"], ["climate", "energy.ev_charging"]),
+        # Removing categories
+        (None, None),
+    ],
+)
+async def test_generate_category_data_exports_categories_for_updated_repository(
+    hass: HomeAssistant,
+    response_mocker: ResponseMocker,
+    category_test_data: CategoryTestData,
+    manifest_categories: list[str] | None,
+    expected: list[str] | None,
+):
+    """Test that a modified repository exports the categories of its current manifest."""
+    manifest = {"domain": "example", "name": "Example"}
+    if manifest_categories is not None:
+        manifest["categories"] = manifest_categories
+    response_mocker.add(
+        "https://data-v2.hacs.xyz/integration/data.json",
+        MockedResponse(
+            content={
+                category_test_data["id"]: {
+                    "categories": ["energy"],
+                    "description": "This your first repo!",
+                    "domain": "example",
+                    "etag_repository": "old",
+                    "full_name": category_test_data["repository"],
+                    "last_updated": "2011-01-26T19:06:43Z",
+                    "last_version": category_test_data["version_base"],
+                    "manifest": {"name": "Proxy manifest"},
+                    "manifest_name": "Proxy manifest",
+                }
+            }
+        ),
+    )
+    response_mocker.add(
+        f"https://raw.githubusercontent.com/{category_test_data['repository']}/"
+        f"{category_test_data['version_base']}/custom_components/example/manifest.json",
+        MockedResponse(content=json.dumps(manifest)),
+    )
+
+    await generate_category_data("integration", category_test_data["repository"])
+
+    with open(f"{OUTPUT_DIR}/integration/data.json", encoding="utf-8") as file:
+        data = json.loads(file.read())
+
+    assert data[category_test_data["id"]].get("categories") == expected
+

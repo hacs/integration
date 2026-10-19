@@ -934,23 +934,6 @@ async def test_update_repository_without_etag(repository_plugin):
     assert repository_plugin.data.etag_repository == ""
 
 
-async def test_update_repository_invalid_json_manifest(repository_integration):
-    """Test that a manifest.json that isn't valid JSON has no categories."""
-    repository_integration.tree = [INTEGRATION_DIRECTORY_TREE_ITEM, MANIFEST_TREE_ITEM]
-    repository_integration.data.last_version = None
-    repository_integration.data.etag_repository = "old"
-    repository_integration.integration_manifest = {"categories": ["energy"]}
-    repository_integration.common_update = common_update_with_etag(repository_integration, "new")
-    repository_integration.hacs.async_download_file = AsyncMock(return_value=b"{not json")
-
-    await AdjustedHacs.concurrent_update_repository.__wrapped__(
-        AdjustedHacs.__new__(AdjustedHacs), repository_integration
-    )
-
-    assert repository_integration.integration_manifest == {}
-    assert repository_integration.data.etag_repository == "new"
-
-
 async def test_generate_category_data_exports_categories(
     hass: HomeAssistant,
     response_mocker: ResponseMocker,

@@ -182,8 +182,11 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set up the data generator
-        uses: ./.github/actions/setup-data-generator
+      - name: Set up Python
+        uses: ./.github/actions/setup-python
+        with:
+          requirements: requirements_generate_data.txt
+          frontend: true
 
       - name: Download stored data
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
@@ -225,8 +228,11 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set up the data generator
-        uses: ./.github/actions/setup-data-generator
+      - name: Set up Python
+        uses: ./.github/actions/setup-python
+        with:
+          requirements: requirements_generate_data.txt
+          frontend: true
 
       - name: Download stored data
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
@@ -401,8 +407,11 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set up the data generator
-        uses: ./.github/actions/setup-data-generator
+      - name: Set up Python
+        uses: ./.github/actions/setup-python
+        with:
+          requirements: requirements_generate_data.txt
+          frontend: true
 
       - name: Download artifacts
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2

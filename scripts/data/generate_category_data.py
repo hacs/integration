@@ -409,7 +409,13 @@ class AdjustedHacs(HacsBase):
             return
 
         if updated and repository.tree:
-            # common_update does not reload manifest.json
+            # common_update does not set the integration path or reload manifest.json
+            if repository.repository_manifest.content_in_root:
+                repository.content.path.remote = ""
+            elif repository.content.path.remote == "custom_components":
+                name = get_first_directory_in_directory(repository.tree, "custom_components")
+                repository.content.path.remote = f"custom_components/{name}"
+
             if await self.async_update_integration_manifest(repository, repository.ref):
                 return
 
@@ -421,12 +427,6 @@ class AdjustedHacs(HacsBase):
         self, repository: HacsRepository, version: str
     ) -> bool:
         """Replace the integration manifest for version, False if the download failed."""
-        if repository.repository_manifest.content_in_root:
-            repository.content.path.remote = ""
-        elif repository.content.path.remote == "custom_components":
-            name = get_first_directory_in_directory(repository.tree, "custom_components")
-            repository.content.path.remote = f"custom_components/{name}"
-
         try:
             manifest = await repository.get_integration_manifest(version=version)
         except HacsException:

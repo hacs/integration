@@ -1140,6 +1140,36 @@ async def test_update_repository_skipped_when_releases_not_modified(
     assert "Current release 1.0.0 is the latest one, next refresh in 06:00:00:00" in caplog.text
 
 
+async def test_update_repository_skipped_updates_downloads(repository_plugin):
+    """Test that a skipped repository gets the download count from the release list."""
+    repository_plugin.data.last_version = "1.0.0"
+    repository_plugin.data.etag_repository = "old"
+    repository_plugin.data.last_fetched = datetime.now(UTC) - timedelta(days=1)
+    repository_plugin.data.downloads = 1
+    repository_plugin.common_update = AsyncMock()
+    hacs = AdjustedHacs.__new__(AdjustedHacs)
+    hacs.githubapi = MagicMock(
+        generic=AsyncMock(
+            return_value=MagicMock(
+                data=[
+                    {
+                        "tag_name": "1.0.0",
+                        "draft": False,
+                        "prerelease": False,
+                        "assets": [{"name": "test.js", "download_count": 42}],
+                    }
+                ],
+                etag="releases",
+            )
+        )
+    )
+
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_plugin)
+
+    repository_plugin.common_update.assert_not_awaited()
+    assert repository_plugin.data.downloads == 42
+
+
 async def test_generate_category_data_exports_categories(
     hass: HomeAssistant,
     response_mocker: ResponseMocker,

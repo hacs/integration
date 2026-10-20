@@ -413,6 +413,18 @@ class AdjustedHacs(HacsBase):
                 if repository.data.prerelease != previous_prerelease:
                     repository.data.etag_repository = None
 
+                # A skipped update doesn't refresh downloads, but the release list has them
+                if latest := next(
+                    (
+                        release
+                        for release in repository.releases.objects
+                        if release.tag_name == repository.data.last_version
+                    ),
+                    None,
+                ):
+                    if asset := repository._find_target_asset(latest.assets):
+                        repository.data.downloads = asset.download_count
+
             except GitHubNotModifiedException:
                 repository.data.releases = True
                 repository.logger.info(

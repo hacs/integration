@@ -461,15 +461,15 @@ class AdjustedHacs(HacsBase):
         if repository.data.etag_repository is None:
             raise HacsException(f"{repository.string} Could not update the repository")
 
-        if repository.data.category != "integration":
-            return
-
         if repository.data.etag_repository == previous_etag:
             # Not modified
             return
 
         if not updated or not repository.tree:
             raise HacsException(f"{repository.string} Could not update the repository")
+
+        if repository.data.category != "integration":
+            return
 
         # common_update does not set the integration path or reload manifest.json
         if repository.repository_manifest.content_in_root:

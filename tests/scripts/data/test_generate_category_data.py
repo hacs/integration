@@ -1058,6 +1058,7 @@ async def test_update_repository_gated_on_release(
     repository_plugin.data.last_commit = "abc1234"
     repository_plugin.data.last_version = last_version
     repository_plugin.data.prerelease = "1.1.0b0"
+    repository_plugin.tree = [MANIFEST_TREE_ITEM]
     repository_plugin.data.etag_repository = etag
     repository_plugin.data.last_fetched = (
         datetime.now(UTC) - fetched_ago if fetched_ago is not None else None
@@ -1088,6 +1089,30 @@ async def test_update_repository_gated_on_release(
     assert (
         "Current release 1.0.0 is the latest one, next refresh in 06:00:00:00" in caplog.text
     ) is (force is None)
+
+
+async def test_update_repository_without_tree_is_retried(repository_plugin):
+    """Test that a forced update that couldn't fetch the tree is retried on the next run."""
+    repository_plugin.data.releases = True
+    repository_plugin.data.last_version = "1.0.0"
+    repository_plugin.data.etag_repository = "old"
+    repository_plugin.data.last_fetched = datetime.now(UTC) - timedelta(days=8)
+    repository_plugin.tree = []
+    repository_plugin.common_update = common_update_with_etag(repository_plugin, "new")
+    hacs = AdjustedHacs.__new__(AdjustedHacs)
+    hacs.githubapi = MagicMock(
+        generic=AsyncMock(
+            return_value=MagicMock(
+                data=[{"tag_name": "1.0.0", "draft": False, "prerelease": False}],
+                etag="releases",
+            )
+        )
+    )
+
+    with pytest.raises(HacsException, match="Could not update the repository"):
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_plugin)
+
+    assert repository_plugin.data.etag_repository == ""
 
 
 async def test_generate_category_data_exports_categories(

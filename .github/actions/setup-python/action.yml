@@ -5,9 +5,6 @@ inputs:
   requirements:
     description: Requirements files to install, one per line.
     required: true
-  frontend:
-    description: Install the HACS frontend.
-    default: "false"
 
 runs:
   using: composite
@@ -49,16 +46,3 @@ runs:
           args+=(--requirement "$requirement")
         done
         scripts/install/pip_packages "${args[@]}"
-
-    # scripts/install/frontend pins the version and skips the download when it is already present.
-    - name: Cache the frontend
-      if: inputs.frontend == 'true'
-      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-      with:
-        path: custom_components/hacs/hacs_frontend
-        key: hacs-frontend-${{ hashFiles('scripts/install/frontend') }}
-
-    - name: Install the frontend
-      if: inputs.frontend == 'true'
-      shell: bash
-      run: scripts/install/frontend

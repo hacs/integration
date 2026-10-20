@@ -357,7 +357,6 @@ class HacsBase:
 
     data: HacsData | None = None
     data_client: HacsDataClient | None = None
-    frontend_version: str | None = None
     github: GitHub | None = None
     githubapi: GitHubAPI | None = None
     hass: HomeAssistant | None = None

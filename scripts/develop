@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-declare frontend_dir
-
 set -e
 
 cd "$(dirname "$0")/.."
@@ -23,22 +21,8 @@ logger:
 " >> "${PWD}/config/configuration.yaml"
 fi
 
-while getopts u:a:f: flag
-do
-    case "${flag}" in
-        f) frontend_dir=${OPTARG};;
-    esac
-done
-
-
-if [[ -z "${frontend_dir}" ]]; then
-  echo "Installing HACS frontend"
-  bash "scripts/install/frontend"
-fi
-
-
 # Set the python path to include our custom_components directory
 export PYTHONPATH="${PYTHONPATH}:${PWD}/custom_components"
 
 # Start Home Assistant
-HACS_FRONTEND_DIR="$(readlink -f ${frontend_dir})" hass --config "${PWD}/config" --debug
+hass --config "${PWD}/config" --debug

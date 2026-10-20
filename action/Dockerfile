@@ -17,8 +17,6 @@ RUN \
     && bash /hacs/scripts/install/uv_packages \
         -r requirements_action.txt \
     \
-    && bash /hacs/scripts/install/frontend \
-    \
     && apk del --no-cache .build-deps > /dev/null 2>&1 \
     \
     && rm -rf /var/cache/apk/* \

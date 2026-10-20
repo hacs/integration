@@ -59,9 +59,6 @@ jobs:
           sed -i "/MINIMUM_HA_VERSION = /c\MINIMUM_HA_VERSION = \"$(jq .homeassistant -r ${{ github.workspace }}/hacs.json)\"" ${{ github.workspace }}/custom_components/hacs/const.py
           python3 ${{ github.workspace }}/scripts/update/manifest.py --version ${{ steps.version.outputs.version }}
 
-      - name: ⏬ Download HACS frontend
-        run: ${{ github.workspace }}/scripts/install/frontend
-
       - name: 📤 Upload zip to action
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: ${{ github.event_name == 'push' }}

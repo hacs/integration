@@ -1,0 +1,48 @@
+name: Set up Python
+description: Set up Python and install requirements into a cached virtual environment.
+
+inputs:
+  requirements:
+    description: Requirements files to install, one per line.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      id: python
+      with:
+        python-version-file: .python-version
+
+    - name: Activate the virtual environment
+      id: venv-key
+      shell: bash
+      env:
+        REQUIREMENTS: ${{ inputs.requirements }}
+      run: |
+        echo "VIRTUAL_ENV=$HOME/.venv" >> "$GITHUB_ENV"
+        echo "$HOME/.venv/bin" >> "$GITHUB_PATH"
+        echo "requirements=$({ echo "$REQUIREMENTS"; cat $REQUIREMENTS; } | sha256sum | cut -c 1-16)" >> "$GITHUB_OUTPUT"
+
+    # The venv links to the Python install, so the key includes its exact version.
+    # All requirements files are hashed because they include each other.
+    - name: Cache the virtual environment
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      id: venv
+      with:
+        path: ~/.venv
+        key: python-venv-${{ runner.os }}-${{ runner.arch }}-${{ steps.python.outputs.python-version }}-${{ steps.venv-key.outputs.requirements }}-${{ hashFiles('requirements*.txt', 'constraints.txt') }}
+
+    - name: Install requirements
+      if: steps.venv.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        REQUIREMENTS: ${{ inputs.requirements }}
+      run: |
+        python3 -m venv "$VIRTUAL_ENV"
+        args=()
+        for requirement in $REQUIREMENTS; do
+          args+=(--requirement "$requirement")
+        done
+        scripts/install/pip_packages "${args[@]}"

@@ -170,7 +170,7 @@ jobs:
     if: github.repository == 'hacs/integration'
     name: Generate ${{ matrix.category }} data (${{ matrix.shard }}/${{ matrix.shards }})
     environment: data-generator
-    timeout-minutes: 60
+    timeout-minutes: 150
     strategy:
       fail-fast: false
       max-parallel: ${{ fromJSON(needs.settings.outputs.max_parallel) }}
@@ -183,18 +183,9 @@ jobs:
           persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
-        id: python
+        uses: ./.github/actions/setup-python
         with:
-          python-version-file: .python-version
-          cache: 'pip'
-          cache-dependency-path: |
-            requirements_base.txt
-            requirements_generate_data.txt
-
-      - name: Install dependencies
-        run:  |
-          scripts/install/pip_packages --requirement requirements_generate_data.txt
+          requirements: requirements_generate_data.txt
 
       - name: Download stored data
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
@@ -237,18 +228,9 @@ jobs:
           persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
-        id: python
+        uses: ./.github/actions/setup-python
         with:
-          python-version-file: .python-version
-          cache: 'pip'
-          cache-dependency-path: |
-            requirements_base.txt
-            requirements_generate_data.txt
-
-      - name: Install dependencies
-        run:  |
-          scripts/install/pip_packages --requirement requirements_generate_data.txt
+          requirements: requirements_generate_data.txt
 
       - name: Download stored data
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
@@ -424,18 +406,9 @@ jobs:
           persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
-        id: python
+        uses: ./.github/actions/setup-python
         with:
-          python-version-file: .python-version
-          cache: 'pip'
-          cache-dependency-path: |
-            requirements_base.txt
-            requirements_generate_data.txt
-
-      - name: Install dependencies
-        run:  |
-          scripts/install/pip_packages --requirement requirements_generate_data.txt
+          requirements: requirements_generate_data.txt
 
       - name: Download artifacts
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2

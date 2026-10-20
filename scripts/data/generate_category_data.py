@@ -332,6 +332,7 @@ class AdjustedHacs(HacsBase):
             # If we have missing keys, force a full update by setting the etag to None
             repository.data.etag_repository = None
 
+        previous_prerelease = repository.data.prerelease
         if repository.data.last_version not in (None, ""):
             releases: list[GitHubReleaseModel] = []
             try:
@@ -407,6 +408,10 @@ class AdjustedHacs(HacsBase):
                     and repository.data.prerelease == repository.data.last_version
                 ):
                     repository.data.prerelease = None
+
+                # Clients only apply data with a newer last_fetched, which needs an update
+                if repository.data.prerelease != previous_prerelease:
+                    repository.data.etag_repository = None
 
             except GitHubNotModifiedException:
                 repository.data.releases = True

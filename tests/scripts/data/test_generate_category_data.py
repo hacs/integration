@@ -206,6 +206,12 @@ async def test_generate_category_data_with_prior_content(
             }
         ),
     )
+    if category_test_data["category"] == "integration":
+        response_mocker.add(
+            f"https://raw.githubusercontent.com/{category_test_data['repository']}/"
+            f"{category_test_data['version_base']}/custom_components/example/manifest.json",
+            MockedResponse(content=json.dumps({"domain": "example", "name": "Proxy manifest"})),
+        )
 
     await generate_category_data(category_test_data["category"])
 
@@ -339,6 +345,11 @@ async def test_generate_category_data_with_30plus_prereleases(
         f"https://api.github.com/repos/{
             category_test_data['repository']}/releases",
         MockedResponse(content=[release_fixture for _ in range(30)]),
+    )
+    response_mocker.add(
+        f"https://raw.githubusercontent.com/{category_test_data['repository']}/"
+        f"{category_test_data['version_base']}/custom_components/example/manifest.json",
+        MockedResponse(content=json.dumps({"domain": "example", "name": "Proxy manifest"})),
     )
 
     await generate_category_data(category_test_data["category"])
@@ -1014,20 +1025,22 @@ async def test_update_repository_without_etag(repository_plugin):
 
 
 @pytest.mark.parametrize(
-    ("last_version", "tag_name", "etag", "fetched_ago", "force"),
+    ("last_version", "tag_name", "prerelease", "etag", "fetched_ago", "force"),
     [
         # The current release is the latest one
-        ("1.0.0", "1.0.0", "old", timedelta(days=1), None),
+        ("1.0.0", "1.0.0", "1.1.0b0", "old", timedelta(days=1), None),
         # New release
-        ("1.0.0", "2.0.0", "old", timedelta(days=1), True),
+        ("1.0.0", "2.0.0", "1.1.0b0", "old", timedelta(days=1), True),
+        # New prerelease
+        ("1.0.0", "1.0.0", "1.2.0b0", "old", timedelta(days=1), True),
         # The stored data is too old
-        ("1.0.0", "1.0.0", "old", timedelta(days=8), True),
+        ("1.0.0", "1.0.0", "1.1.0b0", "old", timedelta(days=8), True),
         # Never fetched
-        ("1.0.0", "1.0.0", "old", None, False),
+        ("1.0.0", "1.0.0", "1.1.0b0", "old", None, False),
         # The last update failed
-        ("1.0.0", "1.0.0", "", timedelta(days=1), False),
+        ("1.0.0", "1.0.0", "1.1.0b0", "", timedelta(days=1), False),
         # No stable release to compare with
-        (None, "1.0.0", "old", timedelta(days=1), False),
+        (None, "1.0.0", "1.1.0b0", "old", timedelta(days=1), False),
     ],
 )
 async def test_update_repository_gated_on_release(
@@ -1035,6 +1048,7 @@ async def test_update_repository_gated_on_release(
     caplog: pytest.LogCaptureFixture,
     last_version: str | None,
     tag_name: str,
+    prerelease: str,
     etag: str,
     fetched_ago: timedelta | None,
     force: bool | None,
@@ -1043,6 +1057,7 @@ async def test_update_repository_gated_on_release(
     repository_plugin.data.releases = True
     repository_plugin.data.last_commit = "abc1234"
     repository_plugin.data.last_version = last_version
+    repository_plugin.data.prerelease = "1.1.0b0"
     repository_plugin.data.etag_repository = etag
     repository_plugin.data.last_fetched = (
         datetime.now(UTC) - fetched_ago if fetched_ago is not None else None
@@ -1054,7 +1069,10 @@ async def test_update_repository_gated_on_release(
     hacs.githubapi = MagicMock(
         generic=AsyncMock(
             return_value=MagicMock(
-                data=[{"tag_name": tag_name, "draft": False, "prerelease": False}],
+                data=[
+                    {"tag_name": prerelease, "draft": False, "prerelease": True},
+                    {"tag_name": tag_name, "draft": False, "prerelease": False},
+                ],
                 etag="releases",
             )
         )

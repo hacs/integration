@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 import json
 import logging
 import math
@@ -88,6 +88,14 @@ if not 0 <= UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS < math.inf:
     raise ValueError(
         "HACS_DATA_GENERATOR_UPDATE_REPOSITORY_BACKOFF_TIME_SECONDS must be a non-negative number"
     )
+REPOSITORY_REFRESH_INTERVAL_DAYS = float(
+    os.getenv("HACS_DATA_GENERATOR_REPOSITORY_REFRESH_INTERVAL_DAYS", "7")
+)
+if not 0 <= REPOSITORY_REFRESH_INTERVAL_DAYS < math.inf:
+    raise ValueError(
+        "HACS_DATA_GENERATOR_REPOSITORY_REFRESH_INTERVAL_DAYS must be a non-negative number"
+    )
+REPOSITORY_REFRESH_INTERVAL = timedelta(days=REPOSITORY_REFRESH_INTERVAL_DAYS)
 
 
 def _read_snapshot[T](
@@ -324,6 +332,7 @@ class AdjustedHacs(HacsBase):
             # If we have missing keys, force a full update by setting the etag to None
             repository.data.etag_repository = None
 
+        previous_prerelease = repository.data.prerelease
         if repository.data.last_version not in (None, ""):
             releases: list[GitHubReleaseModel] = []
             try:
@@ -400,6 +409,10 @@ class AdjustedHacs(HacsBase):
                 ):
                     repository.data.prerelease = None
 
+                # Clients only apply data with a newer last_fetched, which needs an update
+                if repository.data.prerelease != previous_prerelease:
+                    repository.data.etag_repository = None
+
             except GitHubNotModifiedException:
                 repository.data.releases = True
                 repository.logger.info(
@@ -413,6 +426,32 @@ class AdjustedHacs(HacsBase):
                 repository.data.releases = False
                 repository.logger.error("%s %s", repository.string, exception)
 
+        # A new release or prerelease, missing keys or a failed run clear the ETag
+        if (
+            repository.data.releases
+            and repository.data.last_version
+            and repository.data.etag_repository
+            and repository.data.last_fetched
+        ):
+            age = datetime.now(UTC) - repository.data.last_fetched
+            if age < REPOSITORY_REFRESH_INTERVAL:
+                remaining = int((REPOSITORY_REFRESH_INTERVAL - age).total_seconds())
+                days, remaining = divmod(remaining, 86400)
+                hours, remaining = divmod(remaining, 3600)
+                minutes, seconds = divmod(remaining, 60)
+                repository.logger.info(
+                    "%s Current release %s is the latest one, next refresh in %02d:%02d:%02d:%02d",
+                    repository.string,
+                    repository.data.last_version,
+                    days,
+                    hours,
+                    minutes,
+                    seconds,
+                )
+                return
+            # A 304 doesn't update last_fetched, so the refresh has to fetch the repository
+            repository.data.etag_repository = None
+
         previous_etag = repository.data.etag_repository
         updated = await repository.common_update(
             force=repository.data.etag_repository is None,
@@ -422,15 +461,15 @@ class AdjustedHacs(HacsBase):
         if repository.data.etag_repository is None:
             raise HacsException(f"{repository.string} Could not update the repository")
 
-        if repository.data.category != "integration":
-            return
-
         if repository.data.etag_repository == previous_etag:
             # Not modified
             return
 
         if not updated or not repository.tree:
             raise HacsException(f"{repository.string} Could not update the repository")
+
+        if repository.data.category != "integration":
+            return
 
         # common_update does not set the integration path or reload manifest.json
         if repository.repository_manifest.content_in_root:
@@ -556,6 +595,8 @@ class AdjustedHacs(HacsBase):
     ) -> dict[str, Any]:
         """Summarize data."""
         changed = 0
+        refreshed = 0
+        expired = datetime.now(UTC).timestamp() - REPOSITORY_REFRESH_INTERVAL.total_seconds()
 
         current_count = len(current_data.keys())
         new_count = len(updated_data.keys())
@@ -567,6 +608,14 @@ class AdjustedHacs(HacsBase):
                 ignore=COMPARE_IGNORE,
             ):
                 changed += 1
+            # Unpublished, these make the next run refresh again or skip a failed repository
+            if (previous := current_data.get(repo_id)) is not None and (
+                previous.get("last_fetched") is None
+                or previous["last_fetched"] <= expired < repo_data.get("last_fetched", 0)
+                or (previous.get("etag_repository") == "")
+                != (repo_data.get("etag_repository") == "")
+            ):
+                refreshed += 1
 
         async def _rate_limit() -> dict[str, Any]:
             res = await self.async_github_api_method(
@@ -592,6 +641,7 @@ class AdjustedHacs(HacsBase):
             "diff": abs(new_count - current_count),
             "new_count": new_count,
             "rate_limit": await _rate_limit(),
+            "refreshed": refreshed,
         }
 
         jsonprint(summary)

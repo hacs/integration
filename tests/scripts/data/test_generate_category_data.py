@@ -11,6 +11,7 @@ import os
 from typing import Any
 from unittest.mock import AsyncMock, MagicMock, patch
 
+from aiogithubapi import GitHubNotModifiedException
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 from homeassistant.core import HomeAssistant
 import pytest
@@ -1041,6 +1042,8 @@ async def test_update_repository_without_etag(repository_plugin):
         ("1.0.0", "1.0.0", "1.1.0b0", "", timedelta(days=1), False),
         # No stable release to compare with
         (None, "1.0.0", "1.1.0b0", "old", timedelta(days=1), False),
+        # Removed prerelease
+        ("1.0.0", "1.0.0", None, "old", timedelta(days=1), True),
     ],
 )
 async def test_update_repository_gated_on_release(
@@ -1048,12 +1051,12 @@ async def test_update_repository_gated_on_release(
     caplog: pytest.LogCaptureFixture,
     last_version: str | None,
     tag_name: str,
-    prerelease: str,
+    prerelease: str | None,
     etag: str,
     fetched_ago: timedelta | None,
     force: bool | None,
 ):
-    """Test that a repository is only updated on a new release or when its data is too old."""
+    """Test that a repository with an unchanged release is only updated when its data needs it."""
     repository_plugin.data.releases = True
     repository_plugin.data.last_commit = "abc1234"
     repository_plugin.data.last_version = last_version
@@ -1071,7 +1074,11 @@ async def test_update_repository_gated_on_release(
         generic=AsyncMock(
             return_value=MagicMock(
                 data=[
-                    {"tag_name": prerelease, "draft": False, "prerelease": True},
+                    *(
+                        [{"tag_name": prerelease, "draft": False, "prerelease": True}]
+                        if prerelease
+                        else []
+                    ),
                     {"tag_name": tag_name, "draft": False, "prerelease": False},
                 ],
                 etag="releases",
@@ -1113,6 +1120,24 @@ async def test_update_repository_without_tree_is_retried(repository_plugin):
         await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_plugin)
 
     assert repository_plugin.data.etag_repository == ""
+
+
+async def test_update_repository_skipped_when_releases_not_modified(
+    repository_plugin, caplog: pytest.LogCaptureFixture
+):
+    """Test that a repository is skipped when GitHub reports its releases as not modified."""
+    repository_plugin.data.last_version = "1.0.0"
+    repository_plugin.data.etag_repository = "old"
+    repository_plugin.data.last_fetched = datetime.now(UTC) - timedelta(days=1)
+    repository_plugin.common_update = AsyncMock()
+    hacs = AdjustedHacs.__new__(AdjustedHacs)
+    hacs.githubapi = MagicMock(generic=AsyncMock(side_effect=GitHubNotModifiedException("")))
+
+    with caplog.at_level(logging.INFO):
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_plugin)
+
+    repository_plugin.common_update.assert_not_awaited()
+    assert "Current release 1.0.0 is the latest one, next refresh in 06:00:00:00" in caplog.text
 
 
 async def test_generate_category_data_exports_categories(

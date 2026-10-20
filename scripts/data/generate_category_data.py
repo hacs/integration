@@ -426,7 +426,7 @@ class AdjustedHacs(HacsBase):
                 repository.data.releases = False
                 repository.logger.error("%s %s", repository.string, exception)
 
-        # A new release, missing keys or a failed run clear the ETag
+        # A new release or prerelease, missing keys or a failed run clear the ETag
         if (
             repository.data.releases
             and repository.data.last_version
@@ -608,7 +608,7 @@ class AdjustedHacs(HacsBase):
                 ignore=COMPARE_IGNORE,
             ):
                 changed += 1
-            # Unless published, these make every following run refresh the repository again
+            # Unpublished, these make the next run refresh again or skip a failed repository
             if (previous := current_data.get(repo_id)) is not None and (
                 previous.get("last_fetched") is None
                 or previous["last_fetched"] <= expired < repo_data.get("last_fetched", 0)

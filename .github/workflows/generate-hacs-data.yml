@@ -17,10 +17,8 @@ on:
         type: choice
         options:
           - None
-          - appdaemon
           - integration
           - plugin
-          - python_script
           - template
           - theme
       dryRun:
@@ -52,7 +50,7 @@ jobs:
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]] && [[ "$INPUT_CATEGORY" != "None" ]] && [[ -n "$INPUT_CATEGORY" ]]; then
             categories=("$INPUT_CATEGORY")
           else
-            categories=(appdaemon integration plugin python_script template theme)
+            categories=(integration plugin template theme)
           fi
           categories_json=$(printf '%s\n' "${categories[@]}" | jq -R . | jq -cs .)
           echo "categories=$categories_json" >> $GITHUB_OUTPUT

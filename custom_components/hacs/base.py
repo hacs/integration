@@ -693,6 +693,8 @@ class HacsBase:
                     url=url,
                     timeout=ClientTimeout(total=60),
                     headers=headers,
+                    # GitHub's CSP header can exceed aiohttp's default 8 KiB limit.
+                    max_field_size=64 * 1024,
                 )
 
                 # Make sure that we got a valid result

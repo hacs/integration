@@ -441,6 +441,19 @@ class MockedResponse:
         if self.status >= 300:
             raise ClientError(self.status)
 
+    def release(self) -> None:
+        """Give the connection back, like aiohttp's ClientResponse."""
+
+    async def wait_for_close(self) -> None:
+        """Wait for the connection to close, like aiohttp's ClientResponse."""
+
+    async def __aenter__(self) -> MockedResponse:
+        return self
+
+    async def __aexit__(self, *_) -> None:
+        self.release()
+        await self.wait_for_close()
+
 
 class ResponseMocker:
     calls: list[dict[str, Any]] = []

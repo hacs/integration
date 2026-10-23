@@ -689,37 +689,38 @@ class HacsBase:
 
         while attempt_count < 5:
             try:
-                request = await self.session.get(
+                # Release the connection when done. Without this, a failed or
+                # timed-out download keeps its slot in the shared session's pool.
+                async with self.session.get(
                     url=url,
                     timeout=ClientTimeout(total=60),
                     headers=headers,
-                )
+                ) as request:
+                    # Make sure that we got a valid result
+                    if request.status == 200:
+                        return await request.read()
 
-                # Make sure that we got a valid result
-                if request.status == 200:
-                    return await request.read()
+                    # Handle rate-limits
+                    if handle_rate_limit and request.status == 429:
+                        try:
+                            header = int(request.headers.get("retry-after") or 10)
+                        except (ValueError, TypeError):
+                            header = 10
+                        retry_after = min(header, 60)  # Limit to 60 seconds
 
-                # Handle rate-limits
-                if handle_rate_limit and request.status == 429:
-                    try:
-                        header = int(request.headers.get("retry-after") or 10)
-                    except (ValueError, TypeError):
-                        header = 10
-                    retry_after = min(header, 60)  # Limit to 60 seconds
+                        self.log.warning(
+                            "GitHub has imposed a ratelimit on the request for %s, "
+                            "retrying after %s seconds",
+                            url,
+                            retry_after,
+                        )
+                        attempt_count += 1
+                        await asyncio.sleep(retry_after)
+                        continue
 
-                    self.log.warning(
-                        "GitHub has imposed a ratelimit on the request for %s, "
-                        "retrying after %s seconds",
-                        url,
-                        retry_after,
+                    raise HacsException(
+                        f"Got status code {request.status} when trying to download {url}"
                     )
-                    attempt_count += 1
-                    await asyncio.sleep(retry_after)
-                    continue
-
-                raise HacsException(
-                    f"Got status code {request.status} when trying to download {url}"
-                )
             except TimeoutError:
                 self.log.warning(
                     "A timeout of 60! seconds was encountered while downloading %s, "

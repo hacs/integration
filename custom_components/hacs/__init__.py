@@ -198,6 +198,9 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
         hacs.log.warning("Pending tasks, can not unload, try again later.")
         return False
 
+    if not await hass.config_entries.async_unload_platforms(config_entry, PLATFORMS):
+        return False
+
     # Clear out pending queue
     hacs.queue.clear()
 
@@ -215,15 +218,13 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     except AttributeError:
         pass
 
-    unload_ok = await hass.config_entries.async_unload_platforms(config_entry, PLATFORMS)
-
     hacs.set_stage(None)
     hacs.disable_hacs(HacsDisabledReason.REMOVED)
 
     hass.data.pop(DOMAIN, None)
     hass.data.pop(STORE_CACHE_KEY, None)
 
-    return unload_ok
+    return True
 
 
 async def async_reload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> None:

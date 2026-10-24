@@ -13,6 +13,7 @@ from aiogithubapi import (
     GitHubLoginOauthModel,
 )
 from aiogithubapi.common.const import OAUTH_USER_LOGIN
+from aiohttp import ClientSession
 from awesomeversion import AwesomeVersion
 from homeassistant.config_entries import ConfigFlow, OptionsFlow
 from homeassistant.const import __version__ as HAVERSION
@@ -91,7 +92,7 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
             integration = await async_get_integration(self.hass, DOMAIN)
             self.device = GitHubDeviceAPI(
                 client_id=CLIENT_ID,
-                session=aiohttp_client.async_get_clientsession(self.hass),
+                session=ClientSession(max_field_size=32768),
                 **{"client_name": f"HACS/{integration.version}"},
             )
             try:

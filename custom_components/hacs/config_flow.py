@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import aiohttp
 from contextlib import suppress
 from typing import TYPE_CHECKING
 
@@ -89,9 +90,14 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
 
         if not self.device:
             integration = await async_get_integration(self.hass, DOMAIN)
+            # Workaround: GitHub's CSP response header on /login/device/code
+            # now exceeds aiohttp's default 8190-byte max_field_size, which
+            # breaks the shared HA session. Use a dedicated session with a
+            # raised limit for this one call.
+            device_auth_session = aiohttp.ClientSession(max_field_size=65536)
             self.device = GitHubDeviceAPI(
                 client_id=CLIENT_ID,
-                session=aiohttp_client.async_get_clientsession(self.hass),
+                session=device_auth_session,
                 **{"client_name": f"HACS/{integration.version}"},
             )
             try:

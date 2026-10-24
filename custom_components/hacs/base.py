@@ -689,12 +689,12 @@ class HacsBase:
 
         while attempt_count < 5:
             try:
-                 request = await self.session.get(
-                 url=url,
-                 timeout=ClientTimeout(total=60),
-                 headers=headers,
-                 max_field_size=64 * 1024,
-                 )
+                request = await self.session.get(
+                    url=url,
+                    timeout=ClientTimeout(total=60),
+                    headers=headers,
+                    max_field_size=64 * 1024,
+                )
                 # Make sure that we got a valid result
                 if request.status == 200:
                     return await request.read()

@@ -91,7 +91,11 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
             integration = await async_get_integration(self.hass, DOMAIN)
             self.device = GitHubDeviceAPI(
                 client_id=CLIENT_ID,
-                session=aiohttp_client.async_get_clientsession(self.hass),
+                session=aiohttp_client.async_create_clientsession(
+                    self.hass,
+                    max_field_size=65536,
+                    max_line_size=65536
+                ),
                 **{"client_name": f"HACS/{integration.version}"},
             )
             try:

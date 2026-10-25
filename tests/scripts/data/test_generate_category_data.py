@@ -1098,6 +1098,51 @@ async def test_update_repository_gated_on_release(
     ) is (force is None)
 
 
+async def test_update_repository_picks_latest_published_prerelease(repository_plugin):
+    """Test that the prerelease is the latest published one, not the first one listed."""
+    repository_plugin.data.releases = True
+    repository_plugin.data.last_version = "1.3.1"
+    repository_plugin.tree = [MANIFEST_TREE_ITEM]
+    repository_plugin.common_update = AsyncMock(
+        side_effect=common_update_with_etag(repository_plugin, "new")
+    )
+    hacs = AdjustedHacs.__new__(AdjustedHacs)
+    hacs.githubapi = MagicMock(
+        generic=AsyncMock(
+            return_value=MagicMock(
+                data=[
+                    {
+                        "tag_name": tag_name,
+                        "draft": False,
+                        "prerelease": True,
+                        "published_at": published_at,
+                    }
+                    for tag_name, published_at in (
+                        ("2.0.0-rc.9", "2026-10-24T05:41:51Z"),
+                        ("2.0.0-rc.8", "2026-10-24T03:12:40Z"),
+                        ("2.0.0-rc.10", "2026-10-24T22:38:43Z"),
+                        ("2.0.0-rc.7", "2026-10-23T18:02:11Z"),
+                    )
+                ]
+                + [
+                    {
+                        "tag_name": "1.3.1",
+                        "draft": False,
+                        "prerelease": False,
+                        "published_at": "2026-10-20T10:00:00Z",
+                    }
+                ],
+                etag="releases",
+            )
+        )
+    )
+
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_plugin)
+
+    assert repository_plugin.data.prerelease == "2.0.0-rc.10"
+    assert repository_plugin.data.last_version == "1.3.1"
+
+
 async def test_update_repository_without_tree_is_retried(repository_plugin):
     """Test that a forced update that couldn't fetch the tree is retried on the next run."""
     repository_plugin.data.releases = True

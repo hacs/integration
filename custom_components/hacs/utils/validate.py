@@ -161,6 +161,7 @@ V2_COMMON_DATA_JSON_SCHEMA = {
         vol.Optional("name"): str,
     },
     vol.Optional("open_issues"): int,
+    vol.Optional("open_pull_requests"): int,
     vol.Optional("stargazers_count"): int,
     vol.Optional("topics"): [str],
 }

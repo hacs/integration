@@ -97,6 +97,16 @@ if not 0 <= REPOSITORY_REFRESH_INTERVAL_DAYS < math.inf:
     )
 REPOSITORY_REFRESH_INTERVAL = timedelta(days=REPOSITORY_REFRESH_INTERVAL_DAYS)
 
+# The REST open_issues count includes pull requests
+OPEN_ISSUES_AND_PULL_REQUESTS_QUERY = """
+query ($owner: String!, $name: String!) {
+  repository(owner: $owner, name: $name) {
+    issues(states: OPEN) { totalCount }
+    pullRequests(states: OPEN) { totalCount }
+  }
+}
+"""
+
 
 def _read_snapshot[T](
     hacs: AdjustedHacs,
@@ -468,6 +478,8 @@ class AdjustedHacs(HacsBase):
         if not updated or not repository.tree:
             raise HacsException(f"{repository.string} Could not update the repository")
 
+        await self.async_update_open_issues_and_pull_requests(repository)
+
         if repository.data.category != "integration":
             return
 
@@ -481,6 +493,23 @@ class AdjustedHacs(HacsBase):
             repository.content.path.remote = f"custom_components/{name}"
 
         await self.async_update_integration_manifest(repository, repository.ref)
+
+    async def async_update_open_issues_and_pull_requests(self, repository: HacsRepository) -> None:
+        """Replace the open issue count with separate issue and pull request counts."""
+        owner, name = repository.data.full_name.split("/")
+        try:
+            response = await self.githubapi.graphql(
+                OPEN_ISSUES_AND_PULL_REQUESTS_QUERY,
+                variables={"owner": owner, "name": name},
+            )
+        except GitHubException as exception:
+            raise HacsException(
+                f"{repository.string} Could not fetch the open issues and pull requests"
+            ) from exception
+
+        counts = response.data["data"]["repository"]
+        repository.data.open_issues = counts["issues"]["totalCount"]
+        repository.data.open_pull_requests = counts["pullRequests"]["totalCount"]
 
     async def async_update_integration_manifest(
         self, repository: HacsRepository, version: str

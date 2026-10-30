@@ -11,7 +11,7 @@ import os
 from typing import Any
 from unittest.mock import AsyncMock, MagicMock, patch
 
-from aiogithubapi import GitHubNotModifiedException
+from aiogithubapi import GitHubException, GitHubNotModifiedException
 from aiogithubapi.objects.repository.content import AIOGitHubAPIRepositoryTreeContent
 from homeassistant.core import HomeAssistant
 import pytest
@@ -59,6 +59,17 @@ def common_update_with_etag(repository, etag: str, updated: bool = True):
         return updated
 
     return _common_update
+
+
+def adjusted_hacs() -> AdjustedHacs:
+    """Return an AdjustedHacs without setup, whose GitHub API answers the open issues query."""
+    hacs = AdjustedHacs.__new__(AdjustedHacs)
+    hacs.githubapi = MagicMock(
+        graphql=AsyncMock(
+            return_value=MagicMock(data={"data": {"repository": {"issues": {"totalCount": 3}}}})
+        )
+    )
+    return hacs
 
 
 RATE_LIMIT_HEADER = {
@@ -831,7 +842,7 @@ async def test_update_repository_reloads_integration_manifest(
     repository_integration.get_integration_manifest = AsyncMock(return_value=fetched)
 
     await AdjustedHacs.concurrent_update_repository.__wrapped__(
-        AdjustedHacs.__new__(AdjustedHacs), repository_integration
+        adjusted_hacs(), repository_integration
     )
 
     assert repository_integration.integration_manifest == expected
@@ -853,7 +864,7 @@ async def test_update_repository_without_integration_manifest(repository_integra
     repository_integration.common_update = common_update_with_etag(repository_integration, "new")
 
     await AdjustedHacs.concurrent_update_repository.__wrapped__(
-        AdjustedHacs.__new__(AdjustedHacs), repository_integration
+        adjusted_hacs(), repository_integration
     )
 
     assert repository_integration.integration_manifest == {}
@@ -871,7 +882,7 @@ async def test_update_repository_keeps_categories_when_tree_fetch_fails(reposito
 
     with pytest.raises(HacsException, match="Could not update the repository"):
         await AdjustedHacs.concurrent_update_repository.__wrapped__(
-            AdjustedHacs.__new__(AdjustedHacs), repository_integration
+            adjusted_hacs(), repository_integration
         )
 
     assert repository_integration.integration_manifest == {"categories": ["energy"]}
@@ -892,7 +903,7 @@ async def test_update_repository_unresolved_integration_path(repository_integrat
 
     with pytest.raises(HacsException, match="Could not find the integration directory"):
         await AdjustedHacs.concurrent_update_repository.__wrapped__(
-            AdjustedHacs.__new__(AdjustedHacs), repository_integration
+            adjusted_hacs(), repository_integration
         )
 
     assert repository_integration.integration_manifest == {"categories": ["energy"]}
@@ -914,7 +925,7 @@ async def test_update_repository_retries_failed_integration_manifest(repository_
         return modified
 
     repository_integration.common_update = _common_update
-    hacs = AdjustedHacs.__new__(AdjustedHacs)
+    hacs = adjusted_hacs()
 
     with pytest.raises(HacsException, match=r"Could not download manifest\.json"):
         await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_integration)
@@ -958,7 +969,7 @@ async def test_update_repository_not_updated_integration(
 
     with expectation:
         await AdjustedHacs.concurrent_update_repository.__wrapped__(
-            AdjustedHacs.__new__(AdjustedHacs), repository_integration
+            adjusted_hacs(), repository_integration
         )
 
     assert repository_integration.data.etag_repository == expected_etag
@@ -977,7 +988,7 @@ async def test_update_repository_invalid_integration_manifest(repository_integra
     repository_integration.get_integration_manifest = AsyncMock(return_value=manifest)
 
     await AdjustedHacs.concurrent_update_repository.__wrapped__(
-        AdjustedHacs.__new__(AdjustedHacs), repository_integration
+        adjusted_hacs(), repository_integration
     )
 
     assert repository_integration.integration_manifest == {}
@@ -996,7 +1007,7 @@ async def test_concurrent_update_repository_clears_etag_on_failure(
 ):
     """Test that a failed update is fetched again on the next run."""
     repository_integration.data.etag_repository = "etag"
-    hacs = AdjustedHacs.__new__(AdjustedHacs)
+    hacs = adjusted_hacs()
     hacs.async_update_repository = AsyncMock(side_effect=side_effect)
 
     if side_effect is None:
@@ -1011,6 +1022,28 @@ async def test_concurrent_update_repository_clears_etag_on_failure(
     hacs.async_update_repository.assert_awaited_once_with(repository_integration)
 
 
+async def test_update_repository_retries_failed_open_issues(repository_plugin):
+    """Test that failing to fetch the open issues is retried on the next run."""
+    repository_plugin.data.full_name = "hacs-test-org/plugin-basic"
+    repository_plugin.data.last_version = None
+    repository_plugin.data.etag_repository = "old"
+    repository_plugin.data.open_issues = 5
+    repository_plugin.tree = [MANIFEST_TREE_ITEM]
+    repository_plugin.common_update = common_update_with_etag(repository_plugin, "new")
+    hacs = adjusted_hacs()
+    hacs.githubapi.graphql.side_effect = GitHubException("Bad credentials")
+
+    with pytest.raises(HacsException, match="Could not fetch the open issues"):
+        await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_plugin)
+
+    assert repository_plugin.data.etag_repository == ""
+    hacs.githubapi.graphql.assert_awaited_once()
+    assert hacs.githubapi.graphql.await_args.kwargs["variables"] == {
+        "owner": "hacs-test-org",
+        "name": "plugin-basic",
+    }
+
+
 async def test_update_repository_without_etag(repository_plugin):
     """Test that an update that couldn't fetch the repository is retried on the next run."""
     repository_plugin.data.last_version = None
@@ -1019,7 +1052,7 @@ async def test_update_repository_without_etag(repository_plugin):
 
     with pytest.raises(HacsException, match="Could not update the repository"):
         await AdjustedHacs.concurrent_update_repository.__wrapped__(
-            AdjustedHacs.__new__(AdjustedHacs), repository_plugin
+            adjusted_hacs(), repository_plugin
         )
 
     assert repository_plugin.data.etag_repository == ""
@@ -1069,20 +1102,18 @@ async def test_update_repository_gated_on_release(
     repository_plugin.common_update = AsyncMock(
         side_effect=common_update_with_etag(repository_plugin, "new")
     )
-    hacs = AdjustedHacs.__new__(AdjustedHacs)
-    hacs.githubapi = MagicMock(
-        generic=AsyncMock(
-            return_value=MagicMock(
-                data=[
-                    *(
-                        [{"tag_name": prerelease, "draft": False, "prerelease": True}]
-                        if prerelease
-                        else []
-                    ),
-                    {"tag_name": tag_name, "draft": False, "prerelease": False},
-                ],
-                etag="releases",
-            )
+    hacs = adjusted_hacs()
+    hacs.githubapi.generic = AsyncMock(
+        return_value=MagicMock(
+            data=[
+                *(
+                    [{"tag_name": prerelease, "draft": False, "prerelease": True}]
+                    if prerelease
+                    else []
+                ),
+                {"tag_name": tag_name, "draft": False, "prerelease": False},
+            ],
+            etag="releases",
         )
     )
 
@@ -1106,13 +1137,11 @@ async def test_update_repository_without_tree_is_retried(repository_plugin):
     repository_plugin.data.last_fetched = datetime.now(UTC) - timedelta(days=8)
     repository_plugin.tree = []
     repository_plugin.common_update = common_update_with_etag(repository_plugin, "new")
-    hacs = AdjustedHacs.__new__(AdjustedHacs)
-    hacs.githubapi = MagicMock(
-        generic=AsyncMock(
-            return_value=MagicMock(
-                data=[{"tag_name": "1.0.0", "draft": False, "prerelease": False}],
-                etag="releases",
-            )
+    hacs = adjusted_hacs()
+    hacs.githubapi.generic = AsyncMock(
+        return_value=MagicMock(
+            data=[{"tag_name": "1.0.0", "draft": False, "prerelease": False}],
+            etag="releases",
         )
     )
 
@@ -1130,8 +1159,8 @@ async def test_update_repository_skipped_when_releases_not_modified(
     repository_plugin.data.etag_repository = "old"
     repository_plugin.data.last_fetched = datetime.now(UTC) - timedelta(days=1)
     repository_plugin.common_update = AsyncMock()
-    hacs = AdjustedHacs.__new__(AdjustedHacs)
-    hacs.githubapi = MagicMock(generic=AsyncMock(side_effect=GitHubNotModifiedException("")))
+    hacs = adjusted_hacs()
+    hacs.githubapi.generic = AsyncMock(side_effect=GitHubNotModifiedException(""))
 
     with caplog.at_level(logging.INFO):
         await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_plugin)

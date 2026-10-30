@@ -62,20 +62,11 @@ def common_update_with_etag(repository, etag: str, updated: bool = True):
 
 
 def adjusted_hacs() -> AdjustedHacs:
-    """Return an AdjustedHacs without setup, whose GitHub API answers the open counts query."""
+    """Return an AdjustedHacs without setup, whose GitHub API answers the open issues query."""
     hacs = AdjustedHacs.__new__(AdjustedHacs)
     hacs.githubapi = MagicMock(
         graphql=AsyncMock(
-            return_value=MagicMock(
-                data={
-                    "data": {
-                        "repository": {
-                            "issues": {"totalCount": 3},
-                            "pullRequests": {"totalCount": 2},
-                        }
-                    }
-                }
-            )
+            return_value=MagicMock(data={"data": {"repository": {"issues": {"totalCount": 3}}}})
         )
     )
     return hacs
@@ -1031,8 +1022,8 @@ async def test_concurrent_update_repository_clears_etag_on_failure(
     hacs.async_update_repository.assert_awaited_once_with(repository_integration)
 
 
-async def test_update_repository_retries_failed_open_counts(repository_plugin):
-    """Test that failing to fetch the open issues and pull requests is retried on the next run."""
+async def test_update_repository_retries_failed_open_issues(repository_plugin):
+    """Test that failing to fetch the open issues is retried on the next run."""
     repository_plugin.data.full_name = "hacs-test-org/plugin-basic"
     repository_plugin.data.last_version = None
     repository_plugin.data.etag_repository = "old"
@@ -1042,7 +1033,7 @@ async def test_update_repository_retries_failed_open_counts(repository_plugin):
     hacs = adjusted_hacs()
     hacs.githubapi.graphql.side_effect = GitHubException("Bad credentials")
 
-    with pytest.raises(HacsException, match="Could not fetch the open issues and pull requests"):
+    with pytest.raises(HacsException, match="Could not fetch the open issues"):
         await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_plugin)
 
     assert repository_plugin.data.etag_repository == ""

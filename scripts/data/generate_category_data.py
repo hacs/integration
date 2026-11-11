@@ -413,6 +413,19 @@ class AdjustedHacs(HacsBase):
                 if repository.data.prerelease != previous_prerelease:
                     repository.data.etag_repository = None
 
+                if (
+                    current := next(
+                        (
+                            release
+                            for release in repository.releases.objects
+                            if release.tag_name == repository.data.last_version
+                        ),
+                        None,
+                    )
+                ) and (asset := repository._find_target_asset(current.assets)):
+                    if asset.download_count != repository.data.downloads:
+                        repository.data.etag_repository = None
+
             except GitHubNotModifiedException:
                 repository.data.releases = True
                 repository.logger.info(

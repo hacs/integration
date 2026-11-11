@@ -1140,6 +1140,44 @@ async def test_update_repository_skipped_when_releases_not_modified(
     assert "Current release 1.0.0 is the latest one, next refresh in 06:00:00:00" in caplog.text
 
 
+@pytest.mark.parametrize(("downloads", "force"), [(1, True), (42, None)])
+async def test_update_repository_refreshed_when_downloads_change(
+    repository_plugin, downloads: int, force: bool | None
+):
+    """Test that a changed download count updates the repository, so clients apply it."""
+    repository_plugin.data.last_version = "1.0.0"
+    repository_plugin.data.etag_repository = "old"
+    repository_plugin.data.last_fetched = datetime.now(UTC) - timedelta(days=1)
+    repository_plugin.data.downloads = downloads
+    repository_plugin.tree = [MANIFEST_TREE_ITEM]
+    repository_plugin.common_update = AsyncMock(
+        side_effect=common_update_with_etag(repository_plugin, "new")
+    )
+    hacs = AdjustedHacs.__new__(AdjustedHacs)
+    hacs.githubapi = MagicMock(
+        generic=AsyncMock(
+            return_value=MagicMock(
+                data=[
+                    {
+                        "tag_name": "1.0.0",
+                        "draft": False,
+                        "prerelease": False,
+                        "assets": [{"name": "test.js", "download_count": 42}],
+                    }
+                ],
+                etag="releases",
+            )
+        )
+    )
+
+    await AdjustedHacs.concurrent_update_repository.__wrapped__(hacs, repository_plugin)
+
+    if force is None:
+        repository_plugin.common_update.assert_not_awaited()
+    else:
+        assert repository_plugin.common_update.await_args.kwargs["force"] is force
+
+
 async def test_generate_category_data_exports_categories(
     hass: HomeAssistant,
     response_mocker: ResponseMocker,

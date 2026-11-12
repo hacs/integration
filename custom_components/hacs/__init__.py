@@ -22,6 +22,7 @@ from homeassistant.helpers.event import async_call_later
 from homeassistant.helpers.start import async_at_start
 from homeassistant.loader import async_get_integration
 
+from .auth import TOKEN_KEYS, GitHubTokenManager
 from .base import HacsBase
 from .const import DOMAIN, HACS_SYSTEM_ID, MINIMUM_HA_VERSION
 from .data_client import HacsDataClient
@@ -77,6 +78,7 @@ async def _async_initialize_integration(
     )
     hacs.system.running = True
     hacs.session = clientsession
+    hacs.auth = GitHubTokenManager(hass, config_entry, clientsession)
 
     hacs.core.lovelace_mode = LovelaceMode.YAML
     try:
@@ -184,7 +186,18 @@ async def _async_initialize_integration(
 
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Set up this integration using UI."""
-    config_entry.async_on_unload(config_entry.add_update_listener(async_reload_entry))
+    options = dict(config_entry.options)
+    configuration = {
+        key: value for key, value in config_entry.data.items() if key not in TOKEN_KEYS
+    }
+
+    async def async_entry_updated(hass: HomeAssistant, entry: ConfigEntry) -> None:
+        if options != entry.options or configuration != {
+            key: value for key, value in entry.data.items() if key not in TOKEN_KEYS
+        }:
+            await async_reload_entry(hass, entry)
+
+    config_entry.async_on_unload(config_entry.add_update_listener(async_entry_updated))
     setup_result = await _async_initialize_integration(hass=hass, config_entry=config_entry)
     hacs: HacsBase = hass.data[DOMAIN]
     return setup_result and not hacs.system.disabled
@@ -197,6 +210,9 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
     if hacs.queue.has_pending_tasks:
         hacs.log.warning("Pending tasks, can not unload, try again later.")
         return False
+
+    if hacs.auth is not None:
+        await hacs.auth.async_close()
 
     # Clear out pending queue
     hacs.queue.clear()
@@ -228,9 +244,7 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
 
 async def async_reload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> None:
     """Reload the HACS config entry."""
-    if not await async_unload_entry(hass, config_entry):
-        return
-    await async_setup_entry(hass, config_entry)
+    await hass.config_entries.async_reload(config_entry.entry_id)
 
 
 async def async_remove_config_entry_device(

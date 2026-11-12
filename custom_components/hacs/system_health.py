@@ -26,7 +26,7 @@ async def system_health_info(hass: HomeAssistant) -> dict[str, Any]:
         return {"Disabled": "HACS is not loaded, but HA still requests this information..."}
 
     hacs: HacsBase = hass.data[DOMAIN]
-    response = await hacs.githubapi.rate_limit()
+    response = await hacs.async_github_api_method(hacs.githubapi.rate_limit)
 
     data = {
         "GitHub API": system_health.async_check_can_reach_url(hass, BASE_API_URL, GITHUB_STATUS),

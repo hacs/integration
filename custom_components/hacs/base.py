@@ -37,6 +37,7 @@ from homeassistant.helpers.issue_registry import IssueSeverity, async_create_iss
 from homeassistant.loader import Integration
 from homeassistant.util import dt
 
+from .auth import GitHubTokenManager
 from .const import DOMAIN, TV, URL_BASE
 from .coordinator import HacsUpdateCoordinator
 from .data_client import HacsDataClient
@@ -359,6 +360,7 @@ class HacsBase:
     data_client: HacsDataClient | None = None
     github: GitHub | None = None
     githubapi: GitHubAPI | None = None
+    auth: GitHubTokenManager | None = None
     hass: HomeAssistant | None = None
     integration: Integration | None = None
     queue: QueueManager | None = None
@@ -482,6 +484,22 @@ class HacsBase:
 
         return 0
 
+    async def async_get_github_token(self) -> str:
+        """Resolve the current credential for both GitHub clients."""
+        if self.auth is None:
+            return self.configuration.token
+        try:
+            token = await self.auth.async_get_token()
+        except GitHubAuthenticationException:
+            self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)
+            raise
+        self.configuration.token = token
+        self.github.client.token = token
+        self.github.client.headers["Authorization"] = f"token {token}"
+        # aiogithubapi has no token setter; overriding request headers loses endpoint media types.
+        self.githubapi._client._base_request_data.token = token
+        return token
+
     async def async_github_api_method(
         self,
         method: Callable[[], Awaitable[TV]],
@@ -493,6 +511,8 @@ class HacsBase:
         _exception = None
 
         try:
+            if self.auth is not None:
+                await self.async_get_github_token()
             return await method(*args, **kwargs)
         except GitHubAuthenticationException as exception:
             self.disable_hacs(HacsDisabledReason.INVALID_TOKEN)

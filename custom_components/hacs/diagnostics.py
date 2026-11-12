@@ -11,6 +11,7 @@ from homeassistant.core import HomeAssistant
 
 from .base import HacsBase
 from .const import DOMAIN
+from .exceptions import HacsException
 
 
 async def async_get_config_entry_diagnostics(
@@ -72,9 +73,9 @@ async def async_get_config_entry_diagnostics(
         )
 
     try:
-        rate_limit_response = await hacs.githubapi.rate_limit()
+        rate_limit_response = await hacs.async_github_api_method(hacs.githubapi.rate_limit)
         data["rate_limit"] = rate_limit_response.data.as_dict
-    except GitHubException as exception:
+    except (GitHubException, HacsException) as exception:
         data["rate_limit"] = str(exception)
 
-    return async_redact_data(data, ("token",))
+    return async_redact_data(data, ("token", "refresh_token"))

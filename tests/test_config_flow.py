@@ -1,5 +1,6 @@
 import asyncio
 from collections.abc import Generator
+import time
 from unittest.mock import patch
 
 from aiogithubapi import GitHubException
@@ -10,6 +11,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType, UnknownFlow
 import pytest
 
+from custom_components.hacs.config_flow import HacsFlowHandler
 from custom_components.hacs.const import DOMAIN
 
 from tests.common import (
@@ -115,6 +117,99 @@ async def test_full_user_flow_implementation(
             result, ("flow_id", "minor_version", "subentries"))),
         "config_flow/test_full_user_flow_implementation.json",
     )
+
+
+@pytest.mark.parametrize("reauth", [False, True])
+async def test_refreshable_device_flow(
+    hass, _mock_setup_entry, response_mocker, time_freezer, reauth
+):
+    """Keep the complete token pair from device authorization."""
+    entry = create_config_entry(data={"refresh_token": "stale", "expires_at": 1})
+    if reauth:
+        entry.add_to_hass(hass)
+    response_mocker.add(
+        "https://github.com/login/device/code",
+        MockedResponse(
+            content={
+                "device_code": "device",
+                "user_code": "CODE",
+                "verification_uri": "https://github.com/login/device",
+                "expires_in": 900,
+                "interval": 5,
+            },
+            headers={"Content-Type": "application/json"},
+        ),
+    )
+    response_mocker.add(
+        "https://github.com/login/oauth/access_token",
+        MockedResponse(
+            content={
+                "access_token": TOKEN,
+                "refresh_token": "refresh",
+                "expires_in": 28800,
+                "refresh_token_expires_in": 15897600,
+                "token_type": "bearer",
+            },
+            headers={"Content-Type": "application/json"},
+        ),
+    )
+    context = {"source": config_entries.SOURCE_USER}
+    if reauth:
+        context = {"source": config_entries.SOURCE_REAUTH, "entry_id": entry.entry_id}
+    result = await hass.config_entries.flow.async_init(DOMAIN, context=context)
+    requested_at = time.time()
+    with (
+        patch.object(hass.config_entries, "async_reload", return_value=True),
+        patch.object(hass.config_entries, "async_setup", return_value=True),
+    ):
+        result = await hass.config_entries.flow.async_configure(
+            result["flow_id"],
+            user_input={} if reauth else {
+                "acc_logs": True,
+                "acc_addons": True,
+                "acc_untested": True,
+                "acc_disable": True,
+            },
+        )
+        await hass.async_block_till_done()
+        if result["type"] == FlowResultType.SHOW_PROGRESS:
+            result = await hass.config_entries.flow.async_configure(result["flow_id"])
+    data = entry.data if reauth else result["data"]
+    assert data == {
+        "token": TOKEN,
+        "refresh_token": "refresh",
+        "expires_at": requested_at + 28800,
+        "refresh_token_expires_at": requested_at + 15897600,
+    }
+    if reauth:
+        assert result["reason"] == "reauth_successful"
+    registration = next(
+        call for call in response_mocker.calls
+        if call["url"] == "https://github.com/login/device/code"
+    )
+    assert registration["args"][1]["params"]["scope"] == "offline_access"
+
+
+async def test_reauth_non_expiring_token_removes_old_refresh_metadata(hass):
+    entry = create_config_entry(
+        data={
+            "refresh_token": "old-refresh",
+            "expires_at": 1,
+            "refresh_token_expires_at": 2,
+            "other_setting": True,
+        }
+    )
+    entry.add_to_hass(hass)
+    flow = HacsFlowHandler()
+    flow.hass = hass
+    flow.context = {"entry_id": entry.entry_id}
+    flow._reauth = True
+    flow._token_data = {"token": "non-expiring"}
+    with patch.object(hass.config_entries, "async_reload", return_value=True) as reload_entry:
+        result = await flow.async_step_device_done()
+    assert result["reason"] == "reauth_successful"
+    assert entry.data == {"token": "non-expiring", "other_setting": True}
+    reload_entry.assert_awaited_once_with(entry.entry_id)
 
 
 async def test_flow_with_remove_while_activating(
@@ -373,3 +468,9 @@ async def test_options_flow(hass: HomeAssistant, setup_integration: Generator) -
             assert hasattr(hacs.configuration, str(key)) is False
             continue
         assert getattr(hacs.configuration, str(key)) == val
+
+    assert len(config_entry.update_listeners) == 1
+    hass.config_entries.async_update_entry(config_entry, data={"token": "rotated-token"})
+    await hass.async_block_till_done()
+    assert get_hacs(hass) is hacs
+    assert not hacs.auth._closed

@@ -1006,6 +1006,7 @@ class HacsRepository:
     ) -> tuple[AIOGitHubAPIRepository, Any | None]:
         """Return a repository object."""
         try:
+            await self.hacs.async_get_github_token()
             repository = await self.hacs.github.get_repo(self.data.full_name, etag)
             return repository, self.hacs.github.client.last_response.etag
         except AIOGitHubAPINotModifiedException as exception:

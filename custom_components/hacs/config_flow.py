@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 from contextlib import suppress
+import time
 from typing import TYPE_CHECKING
 
 from aiogithubapi import (
@@ -22,6 +23,7 @@ from homeassistant.helpers import aiohttp_client
 from homeassistant.loader import async_get_integration
 import voluptuous as vol
 
+from .auth import TOKEN_KEYS, token_data
 from .base import HacsBase
 from .const import CLIENT_ID, DOMAIN, LOCALE, MINIMUM_HA_VERSION
 from .utils.configuration_schema import (
@@ -48,6 +50,7 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
     _registration: GitHubLoginDeviceModel | None = None
     _activation: GitHubLoginOauthModel | None = None
     _reauth: bool = False
+    _token_data: dict | None = None
 
     def __init__(self) -> None:
         """Initialize."""
@@ -79,8 +82,11 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
 
         async def _wait_for_activation() -> None:
             try:
+                requested_at = time.time()
                 response = await self.device.activation(device_code=self._registration.device_code)
                 self._activation = response.data
+                # aiogithubapi's OAuth model retains expiry fields only in its raw response.
+                self._token_data = token_data(response.data._raw_data, requested_at)
             finally:
 
                 async def _progress():
@@ -95,7 +101,7 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
                 **{"client_name": f"HACS/{integration.version}"},
             )
             try:
-                response = await self.device.register()
+                response = await self.device.register(scope="offline_access")
                 self._registration = response.data
             except GitHubException as exception:
                 LOGGER.exception(exception)
@@ -152,16 +158,22 @@ class HacsFlowHandler(ConfigFlow, domain=DOMAIN):
         if self._reauth:
             existing_entry = self.hass.config_entries.async_get_entry(self.context["entry_id"])
             self.hass.config_entries.async_update_entry(
-                existing_entry, data={**existing_entry.data, "token": self._activation.access_token}
+                existing_entry,
+                data={
+                    **{
+                        key: value
+                        for key, value in existing_entry.data.items()
+                        if key not in TOKEN_KEYS
+                    },
+                    **self._token_data,
+                },
             )
             await self.hass.config_entries.async_reload(existing_entry.entry_id)
             return self.async_abort(reason="reauth_successful")
 
         return self.async_create_entry(
             title="",
-            data={
-                "token": self._activation.access_token,
-            },
+            data=self._token_data,
             options={
                 "experimental": True,
             },

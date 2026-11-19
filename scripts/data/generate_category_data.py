@@ -352,6 +352,7 @@ class AdjustedHacs(HacsBase):
                 repository.data.prerelease = None
 
                 if release_count != 0:
+                    prereleases: list[GitHubReleaseModel] = []
                     for release in releases:
                         if release.draft:
                             repository.logger.warning(
@@ -362,8 +363,7 @@ class AdjustedHacs(HacsBase):
                             repository.logger.info(
                                 "%s Found prerelease %s", repository.string, release.tag_name
                             )
-                            if repository.data.prerelease is None:
-                                repository.data.prerelease = release.tag_name
+                            prereleases.append(release)
 
                         else:
                             repository.logger.info(
@@ -378,6 +378,12 @@ class AdjustedHacs(HacsBase):
                                 repository.data.last_version = release.tag_name
                                 repository.data.etag_repository = None
                             break
+
+                    # The releases list is not sorted by date
+                    if prereleases:
+                        repository.data.prerelease = max(
+                            prereleases, key=lambda release: release.published_at or ""
+                        ).tag_name
 
                 if release_count >= 30 and not repository.data.releases:
                     repository.logger.warning(
